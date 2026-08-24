@@ -190,7 +190,7 @@
       background:rgba(247,244,238,.96);backdrop-filter:blur(16px);
       box-shadow:0 1px 24px rgba(21,18,16,.08);
     }
-    .nav-logo{display:flex;flex-direction:column;line-height:1.1}
+    .nav-logo{display:flex;flex-direction:column;line-height:1.1;transition:opacity .3s ease}
     .nav-logo .logo-en{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;letter-spacing:.05em;color:var(--white);transition:color var(--ease)}
     .nav-logo .logo-jp{font-family:'Noto Serif JP',serif;font-size:.65rem;letter-spacing:.25em;color:rgba(255,255,255,.75);transition:color var(--ease);margin-top:2px}
     #navbar.scrolled .nav-logo .logo-en{color:var(--ink)}
@@ -1555,17 +1555,20 @@
   /* ── MOBILE HAMBURGER ── */
   const hbg = document.getElementById('hamburger');
   const mob = document.getElementById('mobileMenu');
+  const navLogo = document.querySelector('.nav-logo');
   hbg.addEventListener('click', () => {
     const isOpen = hbg.classList.toggle('open');
     hbg.setAttribute('aria-expanded', isOpen);
     mob.classList.toggle('open', isOpen);
     document.body.style.overflow = isOpen ? 'hidden' : '';
+    if (navLogo) navLogo.style.opacity = isOpen ? '0' : '1';
   });
   function closeMobile() {
     hbg.classList.remove('open');
     hbg.setAttribute('aria-expanded', false);
     mob.classList.remove('open');
     document.body.style.overflow = '';
+    if (navLogo) navLogo.style.opacity = '1';
   }
 
   /* ── HERO SLIDER ── */
