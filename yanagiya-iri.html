@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yanagiya Iri (柳屋 伝) — Full Details &amp; Booking | Magome Hillside Lodge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --ink:#151210;--paper:#f7f4ee;--matcha:#3e5a36;--gold:#c29d5b;
+      --gold-lt:#e8ca92;--muted:#66605b;--white:#ffffff;--radius:6px;--ease:.4s cubic-bezier(.25,.46,.45,.94)
+    }
+    body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;line-height:1.6}
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    
+    .detail-nav{
+      position:sticky;top:0;z-index:900;background:rgba(247,244,238,.96);backdrop-filter:blur(14px);
+      box-shadow:0 1px 18px rgba(0,0,0,.08);height:70px;display:flex;align-items:center;
+      justify-content:space-between;padding:0 6%;
+    }
+    .nav-brand{display:flex;flex-direction:column}
+    .nav-brand .en{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink)}
+    .nav-brand .jp{font-family:'Noto Serif JP',serif;font-size:.65rem;color:var(--muted);letter-spacing:.2em}
+    .nav-back{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+    .nav-back:hover{color:var(--matcha)}
+
+    .detail-hero{
+      position:relative;height:65vh;min-height:480px;background:#181412;overflow:hidden;
+      display:flex;align-items:flex-end;padding:4rem 6%;color:var(--white);
+    }
+    .detail-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.65}
+    .detail-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(18,14,12,.9) 0%,rgba(18,14,12,.3) 60%,transparent 100%)}
+    .detail-hero-content{position:relative;z-index:10;max-width:850px}
+    .badge-bar{display:flex;gap:.8rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap}
+    .rating-tag{background:var(--matcha);color:#fff;padding:.35rem .8rem;font-size:.72rem;font-weight:600;border-radius:3px}
+    .hero-jp{font-family:'Noto Serif JP',serif;font-size:1.1rem;letter-spacing:.3em;color:var(--gold-lt)}
+    .detail-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,4.2rem);font-weight:300;line-height:1.1;margin:.3rem 0 .8rem}
+    
+    .detail-wrap{max-width:1240px;margin:3.5rem auto;padding:0 6%;display:grid;grid-template-columns:2fr 1fr;gap:3.5rem}
+    
+    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:2.5rem}
+    .gallery-item{aspect-ratio:4/3;overflow:hidden;border-radius:6px;background:#201b17}
+    .gallery-item.span2{grid-column:1/3;grid-row:1/3;aspect-ratio:auto}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+    .gallery-item:hover img{transform:scale(1.06)}
+
+    .spec-bar{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
+      background:var(--white);padding:1.5rem;border-radius:6px;
+      box-shadow:0 2px 20px rgba(0,0,0,.05);margin-bottom:2.5rem;
+    }
+    .spec-item{text-align:center}
+    .spec-num{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--ink);line-height:1}
+    .spec-label{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:.4rem}
+
+    .prose-section{margin-bottom:3rem}
+    .prose-section h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;margin-bottom:.8rem;color:var(--ink)}
+    .prose-section p{font-size:.92rem;line-height:1.85;color:var(--muted);margin-bottom:1rem}
+
+    .dining-feature-box{
+      background:var(--ink);color:var(--white);padding:2.2rem;border-radius:6px;margin:1.8rem 0;
+    }
+    .dining-feature-box h3{font-family:'Cormorant Garamond',serif;font-size:1.65rem;color:var(--gold-lt);margin-bottom:.6rem}
+    .dining-feature-box p{color:rgba(255,255,255,.85);font-size:.88rem;line-height:1.75}
+
+    .amenities-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1.2rem}
+    .amenity-item{display:flex;align-items:center;gap:.65rem;font-size:.85rem;color:var(--ink)}
+    .amenity-icon{color:var(--matcha);font-size:1.1rem}
+
+    .booking-sidebar{
+      position:sticky;top:90px;height:fit-content;background:var(--white);
+      padding:2.2rem;border-radius:6px;box-shadow:0 4px 30px rgba(0,0,0,.08);
+      border:1px solid rgba(0,0,0,.06);
+    }
+    .sidebar-price{margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(0,0,0,.08)}
+    .sidebar-price .price-title{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+    .sidebar-price .price-num{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;color:var(--ink)}
+    
+    .btn-full{
+      display:flex;align-items:center;justify-content:center;gap:.6rem;
+      width:100%;padding:1rem;font-size:.78rem;font-weight:600;letter-spacing:.16em;
+      text-transform:uppercase;border-radius:4px;transition:all var(--ease);margin-bottom:.8rem;
+    }
+    .btn-bkg{background:#003580;color:#fff}
+    .btn-bkg:hover{background:#00224f;transform:translateY(-2px)}
+    .btn-dir{background:var(--ink);color:#fff}
+    .btn-dir:hover{background:var(--matcha);transform:translateY(-2px)}
+
+    .host-contact-box{margin-top:1.8rem;background:var(--paper);padding:1.2rem;border-radius:4px;font-size:.82rem}
+    .host-contact-box div{margin-bottom:.4rem}
+    .host-contact-box a{color:var(--matcha);font-weight:600}
+
+    @media(max-width:900px){
+      .detail-wrap{grid-template-columns:1fr;gap:2.5rem}
+      .gallery-grid{grid-template-columns:1fr 1fr}
+      .gallery-item.span2{grid-column:auto;grid-row:auto;aspect-ratio:4/3}
+      .spec-bar{grid-template-columns:repeat(2,1fr)}
+    }
+  </style>
+</head>
+<body>
+
+<header class="detail-nav">
+  <div class="nav-brand">
+    <span class="en">Yanagiya Iri (柳屋 伝)</span>
+    <span class="jp">Magome Hillside Sanctuary</span>
+  </div>
+  <a href="index.html" class="nav-back">&#8592; Back to Homepage</a>
+</header>
+
+<section class="detail-hero">
+  <img src="images/imghero.jpg" alt="Yanagiya Iri panoramic hillside view" class="detail-hero-img" />
+  <div class="detail-hero-overlay"></div>
+  <div class="detail-hero-content">
+    <div class="badge-bar">
+      <span class="rating-tag">&#127794; Mountain &amp; Forest Sanctuary</span>
+      <span class="hero-jp">柳屋 伝 · 入</span>
+    </div>
+    <h1>Yanagiya Iri Hillside Lodge</h1>
+    <p>A tranquil hillside hideaway enveloped by cedar woods, terraced rice paddies, and evening sommelier dining.</p>
+  </div>
+</section>
+
+<main class="detail-wrap">
+  <div>
+    <div class="spec-bar">
+      <div class="spec-item"><div class="spec-num">6</div><div class="spec-label">Max Guests</div></div>
+      <div class="spec-item"><div class="spec-num">2</div><div class="spec-label">Bedrooms</div></div>
+      <div class="spec-item"><div class="spec-num">100%</div><div class="spec-label">Private Sanctuary</div></div>
+      <div class="spec-item"><div class="spec-num">360°</div><div class="spec-label">Nature Views</div></div>
+    </div>
+
+    <!-- Verified Gallery Grid -->
+    <div class="gallery-grid">
+      <div class="gallery-item span2"><img src="images/imghero.jpg" alt="Yanagiya Iri exterior with rice fields" /></div>
+      <div class="gallery-item"><img src="images/iri-1.jpg" alt="Hillside path to Yanagiya Iri" /></div>
+      <div class="gallery-item"><img src="images/stay1.jpg" alt="Front view of Yanagiya Iri" /></div>
+      <div class="gallery-item"><img src="images/stay3.jpg" alt="Tatami sleeping quarters" /></div>
+      <div class="gallery-item"><img src="images/iri.jpg" alt="Peaceful mountain surroundings" /></div>
+      <div class="gallery-item"><img src="images/food1.jpg" alt="Seasonal botan nabe hotpot dinner" /></div>
+    </div>
+
+    <section class="prose-section">
+      <h2>About Yanagiya Iri</h2>
+      <p>Yanagiya Iri is nestled deeper into the slopes of Magome, surrounded by century-old Japanese cedar trees and ancient stone rice terraces. Designed for travelers seeking profound peace, silence, and communion with nature.</p>
+      <p>Sit out on the wooden engawa veranda listening to the mountain stream, sip handcrafted Magome Cha, or unwind in the private bath overlooking the forest.</p>
+    </section>
+
+    <!-- Dining Feature Box with Yuji's actual food photos -->
+    <div class="dining-feature-box">
+      <h3>&#129346; Hosted Evening Dining by Yuji (Sommelier &amp; Hunter)</h3>
+      <p>Yanagiya Iri guests can enjoy exclusive seasonal botan nabe hot-pot dinners prepared by resident host Yuji. Featuring fresh mountain river fish, locally sourced wild boar game, and Japanese wine pairings curated by Yuji as a qualified sommelier.</p>
+    </div>
+
+    <section class="prose-section">
+      <h2>Included Amenities</h2>
+      <div class="amenities-grid">
+        <div class="amenity-item"><span class="amenity-icon">&#10003;</span> Entire Private Hillside House</div>
+        <div class="amenity-item"><span class="amenity-icon">&#10003;</span> Tatami &amp; Futon Sleeping for up to 6</div>
+        <div class="amenity-item"><span class="amenity-icon">&#10003;</span> Scenic Garden Engawa Porch</div>
+        <div class="amenity-item"><span class="amenity-icon">&#10003;</span> Deep Japanese Soaking Bath</div>
+        <div class="amenity-item"><span class="amenity-icon">&#10003;</span> High-Speed Free Wi-Fi</div>
+        <div class="amenity-item"><span class="amenity-icon">&#10003;</span> Kitchenette, Kettle &amp; Fridge</div>
+        <div class="amenity-item"><span class="amenity-icon">&#10003;</span> Magome Cha Selection</div>
+        <div class="amenity-item"><span class="amenity-icon">&#10003;</span> Stargazing Deck &amp; Dark Sky View</div>
+      </div>
+    </section>
+
+    <section class="prose-section">
+      <h2>Location &amp; Access</h2>
+      <p><strong>Address:</strong> Magome, Nakatsugawa, Gifu, Japan</p>
+      <p>Located a peaceful 5-minute walk from Yanagiya Main Lodge on the gentle hillside above the post town.</p>
+      <p><strong>Check-in:</strong> 15:00 – 19:00 | <strong>Check-out:</strong> 10:00</p>
+    </section>
+  </div>
+
+  <!-- Sidebar -->
+  <aside>
+    <div class="booking-sidebar">
+      <div class="sidebar-price">
+        <span class="price-title">Entire Hillside Lodge</span>
+        <div class="price-num">Private House</div>
+        <p style="font-size:.78rem;color:var(--muted);margin-top:.3rem;">Reserve via Booking.com or direct inquiry</p>
+      </div>
+
+      <a href="https://www.booking.com/hotel/jp/yanagiya-iri" target="_blank" rel="noopener" class="btn-full btn-bkg">
+        Book on Booking.com &#8594;
+      </a>
+      <a href="index.html#contact" class="btn-full btn-dir">
+        Direct Host Enquiry &#8594;
+      </a>
+
+      <div class="host-contact-box">
+        <p style="font-weight:600;margin-bottom:.5rem;">Direct Contact:</p>
+        <div>&#9993; <a href="mailto:magome.yanagiya@gmail.com">magome.yanagiya@gmail.com</a></div>
+        <div>&#9742; <a href="tel:08061843170">080-6184-3170</a></div>
+        <div>&#128247; <a href="https://www.instagram.com/yanagiya_japanesetea/" target="_blank">@yanagiya_japanesetea</a></div>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<footer style="background:#110e0c;color:rgba(255,255,255,.5);padding:3rem 6%;text-align:center;font-size:.75rem;">
+  <p>&#169; 2026 Yanagiya Iri · Magome-juku, Nakasendo, Japan</p>
+</footer>
+
+</body>
+</html>

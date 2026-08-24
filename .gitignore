@@ -1,0 +1,35 @@
+# ── Build & Dev Tools ──
+optimize_images.py
+image-rename-map.txt
+
+# ── Original unoptimized images (kept locally, not pushed) ──
+# Large raw photos
+iri1 (2).jpg
+iri1 (3).jpg
+iri1 (4).jpg
+iri1 (5).jpg
+iri1 (6).jpg
+iri1 (7).jpg
+iri1 (8).jpg
+
+# Original images in root (optimized versions are in images/)
+*.png
+!images/*.png
+*.jpg
+!images/*.jpg
+*.jpeg
+!images/*.jpeg
+*.JPG
+!images/*.JPG
+
+# Re-include HTML and other necessary root files
+!README.md
+
+# ── OS & Editor ──
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
