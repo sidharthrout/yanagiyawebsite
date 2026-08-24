@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Getting Here | Yanagiya Guest House</title>
+  
+  <meta property="og:title" content="How to reach Yanagiya | Magome-juku" />
+  <meta property="og:description" content="A friendly, hand-crafted guide on how to travel from Tokyo, Nagoya, and Osaka to our secluded mountain lodge." />
+  <meta property="og:image" content="https://sidharthrout.github.io/yanagiyawebsite/magometrail.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --ink:#151210;--paper:#f7f4ee;--matcha:#3e5a36;--gold:#c29d5b;
+      --gold-lt:#e8ca92;--muted:#66605b;--white:#ffffff;--radius:6px;
+    }
+    body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;line-height:1.6}
+    a{text-decoration:none;color:inherit}
+    
+    /* Navbar */
+    .detail-nav{
+      position:sticky;top:0;z-index:900;background:rgba(247,244,238,.96);backdrop-filter:blur(14px);
+      box-shadow:0 1px 18px rgba(0,0,0,.08);height:70px;display:flex;align-items:center;
+      justify-content:space-between;padding:0 6%;
+    }
+    .nav-brand{display:flex;flex-direction:column}
+    .nav-brand .en{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--ink)}
+    .nav-brand .jp{font-family:'Noto Serif JP',serif;font-size:.65rem;color:var(--muted);letter-spacing:.2em}
+    .nav-back{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.4rem;transition:color .3s;}
+    .nav-back:hover{color:var(--matcha)}
+
+    /* Guide Layout */
+    .guide-header{
+      text-align:center;padding:5rem 5% 2rem;
+    }
+    .guide-header h1{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:var(--ink);margin-bottom:1rem;}
+    .guide-header p{color:var(--muted);font-size:1.1rem;letter-spacing:.05em;}
+
+    .guide-container{max-width:750px;margin:0 auto 5rem;padding:0 5%;}
+
+    /* Cute Mascot Chat */
+    .mascot-row{display:flex;align-items:flex-end;gap:1.5rem;margin-bottom:3.5rem;}
+    .mascot-avatar{
+      font-size:3.5rem;background:var(--white);border-radius:50%;
+      min-width:80px;height:80px;display:flex;align-items:center;justify-content:center;
+      box-shadow:0 10px 25px rgba(0,0,0,.06);border:2px solid var(--gold);
+      animation:float 4s ease-in-out infinite;
+    }
+    @keyframes float{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-8px);}
+    }
+    .chat-bubble{
+      background:var(--white);padding:1.8rem 2.2rem;border-radius:24px 24px 24px 0;
+      box-shadow:0 8px 30px rgba(0,0,0,.04);position:relative;
+      border:1px solid rgba(194,157,91,.15);
+    }
+    .chat-bubble::before{
+      content:'';position:absolute;bottom:0;left:-12px;
+      border-width:0 14px 18px 0;border-style:solid;
+      border-color:transparent var(--white) transparent transparent;
+    }
+    .chat-bubble p{font-size:.95rem;color:var(--ink);line-height:1.7;}
+    .chat-bubble strong{color:var(--matcha);}
+
+    /* Route Cards */
+    .route-card{
+      background:var(--white);padding:2.5rem;border-radius:12px;
+      margin-bottom:2.5rem;border-top:4px solid var(--gold);
+      box-shadow:0 8px 30px rgba(21,18,16,.03);
+      position:relative;overflow:hidden;
+    }
+    .route-title{
+      display:flex;align-items:center;gap:1rem;
+      font-family:'Cormorant Garamond',serif;font-size:2rem;
+      margin-bottom:1.5rem;color:var(--ink);
+      border-bottom:1px solid rgba(0,0,0,.05);padding-bottom:1.2rem;
+    }
+    .route-time{
+      position:absolute;top:2.5rem;right:2.5rem;
+      font-size:.7rem;font-weight:600;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--gold);
+      background:rgba(194,157,91,.1);padding:.4rem .8rem;border-radius:20px;
+    }
+    
+    .step{display:flex;gap:1.2rem;margin-bottom:1.5rem;align-items:flex-start;position:relative;}
+    .step:last-child{margin-bottom:0;}
+    .step:not(:last-child)::after{
+      content:'';position:absolute;left:23px;top:45px;bottom:-15px;
+      width:2px;background:rgba(194,157,91,.2);border-radius:2px;
+    }
+    .step-icon{
+      font-size:1.4rem;background:var(--paper);border-radius:50%;
+      min-width:48px;height:48px;display:flex;align-items:center;justify-content:center;
+      border:1px solid rgba(194,157,91,.3);z-index:2;
+    }
+    .step-text{padding-top:.4rem;font-size:.95rem;color:var(--muted);line-height:1.6;}
+    .step-text strong{color:var(--ink);font-weight:600;}
+    
+    /* Pro Tip Box */
+    .pro-tip{
+      background:rgba(62,90,54,.06);border-left:4px solid var(--matcha);
+      padding:1.5rem;border-radius:0 8px 8px 0;margin-top:4rem;
+      display:flex;gap:1rem;align-items:flex-start;
+    }
+    .pro-tip-icon{font-size:1.8rem;}
+    .pro-tip h4{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--matcha);margin-bottom:.3rem;}
+    .pro-tip p{font-size:.85rem;color:var(--muted);}
+
+    @media(max-width:768px){
+      .guide-header h1{font-size:2.8rem;}
+      .mascot-row{flex-direction:column;align-items:center;text-align:center;}
+      .chat-bubble{border-radius:24px;text-align:left;}
+      .chat-bubble::before{display:none;}
+      .route-card{padding:1.8rem;}
+      .route-time{position:relative;top:auto;right:auto;display:inline-block;margin-bottom:1rem;margin-left:1rem;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="detail-nav">
+  <div class="nav-brand">
+    <span class="en">Yanagiya</span>
+    <span class="jp">柳屋 · 馬籠宿</span>
+  </div>
+  <a href="index.html" class="nav-back">&#8592; Back to Home</a>
+</nav>
+
+<header class="guide-header">
+  <h1>Your Journey Here 🚂</h1>
+  <p>A hand-crafted guide to reaching the Nakasendo</p>
+</header>
+
+<main class="guide-container">
+  
+  <!-- Mascot Intro -->
+  <div class="mascot-row">
+    <div class="mascot-avatar">🐱</div>
+    <div class="chat-bubble">
+      <p><strong>Konnichiwa! Welcome to our mountain!</strong> 🐾</p>
+      <p style="margin-top:.8rem;">Traveling into the Japanese Alps might seem a bit tricky at first glance, but it is actually one of the most gorgeous, scenic train rides in the country.</p>
+      <p style="margin-top:.5rem;">I've put together this simple step-by-step guide to help you find your way to our front door from Japan's biggest cities. Grab a bento box for the train, and let's go!</p>
+    </div>
+  </div>
+
+  <!-- Tokyo Route -->
+  <div class="route-card">
+    <div class="route-time">Approx 3.5 Hours</div>
+    <h2 class="route-title">🗼 From Tokyo</h2>
+    
+    <div class="step">
+      <div class="step-icon">🚅</div>
+      <div class="step-text">
+        <strong>Step 1: Shinkansen to Nagoya</strong><br>
+        Board the Tokaido Shinkansen (Bullet Train) from Tokyo Station or Shinagawa Station, heading west to Nagoya Station. (It takes about 1h 40m on the Nozomi).
+      </div>
+    </div>
+    
+    <div class="step">
+      <div class="step-icon">🚂</div>
+      <div class="step-text">
+        <strong>Step 2: JR Shinano to Nakatsugawa</strong><br>
+        At Nagoya Station, transfer to the <em>JR Shinano Limited Express</em>. This train winds through a stunning river valley. Sit on the left side of the train for the best views! Ride it for about 50 minutes until you reach <strong>Nakatsugawa Station</strong>.
+      </div>
+    </div>
+    
+    <div class="step">
+      <div class="step-icon">🚌</div>
+      <div class="step-text">
+        <strong>Step 3: Kita-Ena Bus to Magome</strong><br>
+        Exit Nakatsugawa Station and you will see the bus stops right in front. Look for the "Kita-Ena" bus bound for Magome (Platform 3). Ride it to the very last stop (about 25 mins). From the Magome bus stop, Yanagiya is just a beautiful short walk up the stone path!
+      </div>
+    </div>
+  </div>
+
+  <!-- Kyoto / Osaka Route -->
+  <div class="route-card" style="border-color:#003580;">
+    <div class="route-time" style="color:#003580; background:rgba(0,53,128,0.1);">Approx 2.5 Hours</div>
+    <h2 class="route-title">🐙 From Kyoto or Osaka</h2>
+    
+    <div class="step">
+      <div class="step-icon">🚅</div>
+      <div class="step-text">
+        <strong>Step 1: Shinkansen to Nagoya</strong><br>
+        Board the Tokaido Shinkansen heading east (towards Tokyo). Get off at Nagoya Station. (Only 35 minutes from Kyoto, or 50 minutes from Shin-Osaka).
+      </div>
+    </div>
+    
+    <div class="step">
+      <div class="step-icon">🚂</div>
+      <div class="step-text">
+        <strong>Step 2: JR Shinano to Nakatsugawa</strong><br>
+        Just like the Tokyo route, transfer at Nagoya to the <em>JR Shinano Limited Express</em> and enjoy the 50-minute valley ride to <strong>Nakatsugawa Station</strong>.
+      </div>
+    </div>
+    
+    <div class="step">
+      <div class="step-icon">🚌</div>
+      <div class="step-text">
+        <strong>Step 3: Bus to Magome</strong><br>
+        Hop on the local bus outside Nakatsugawa Station heading straight to Magome!
+      </div>
+    </div>
+  </div>
+
+  <!-- Pro Tips -->
+  <div class="pro-tip">
+    <div class="pro-tip-icon">🧳</div>
+    <div>
+      <h4>Lucky Cat's Pro Tip: Luggage Forwarding</h4>
+      <p>Don't want to drag heavy suitcases on trains and buses? Use a "Ta-Q-Bin" (Yamato Transport) service from your hotel in Tokyo or Osaka! They will deliver your heavy luggage directly to Yanagiya the next day, so you can travel light and fully enjoy the Nakasendo hike!</p>
+    </div>
+  </div>
+
+</main>
+
+<footer style="background:#110e0c;color:rgba(255,255,255,.5);padding:3rem 6%;text-align:center;font-size:.75rem;">
+  <p>&#169; 2026 Yanagiya Guest House · Magome-juku, Nakasendo, Japan</p>
+</footer>
+
+</body>
+</html>
