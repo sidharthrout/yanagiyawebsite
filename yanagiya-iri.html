@@ -57,6 +57,10 @@
     .spec-num{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:600;color:var(--ink);line-height:1}
     .spec-label{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:.4rem}
 
+    .calendar-container{background:var(--white);padding:2rem;border-radius:6px;box-shadow:0 2px 20px rgba(0,0,0,.05);margin-top:1rem;}
+    .calendar-frame{width:100%;height:550px;border:none;border-radius:4px;background:#f9f9f9;}
+    @media(max-width:550px){ .calendar-frame{height:450px;} .calendar-container{padding:1rem;} }
+
     .prose-section{margin-bottom:3rem}
     .prose-section h2{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;margin-bottom:.8rem;color:var(--ink)}
     .prose-section p{font-size:.92rem;line-height:1.85;color:var(--muted);margin-bottom:1rem}
@@ -175,6 +179,14 @@
       <p><strong>Address:</strong> Magome, Nakatsugawa, Gifu, Japan</p>
       <p>Located a peaceful 5-minute walk from Yanagiya Main Lodge on the gentle hillside above the post town.</p>
       <p><strong>Check-in:</strong> 15:00 – 19:00 | <strong>Check-out:</strong> 10:00</p>
+    </section>
+
+    <section class="prose-section">
+      <h2>Check Availability 🐈</h2>
+      <p>Our resident lucky cat hopes to welcome you soon! 🐾 Select your dates below. If the dates are blank, the lodge is available for your private stay.</p>
+      <div class="calendar-container">
+        <iframe class="calendar-frame" src="https://calendar.google.com/calendar/embed?src=22c555497077319efe10976e790840bac6c41243ef02020a4bf314ecbfcca845%40group.calendar.google.com&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff&color=%23c29d5b" scrolling="no"></iframe>
+      </div>
     </section>
   </div>
 
