@@ -3,8 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>柳屋 Yanagiya — Traditional Machiya Lodges, Magome Cha &amp; Nakasendo Tours</title>
-  <meta name="description" content="Private machiya lodges in historic Magome-juku on the Nakasendo trail. Experience estate-grown Magome Cha (馬籠茶), guided trail walks, dark sky stargazing, and sommelier-curated dining." />
+  <title>Yanagiya Guest House | Magome-juku, Nakasendo</title>
+  
+  <!-- Open Graph / Link Share Meta Tags -->
+  <meta property="og:title" content="Yanagiya Guest House | Magome-juku" />
+  <meta property="og:description" content="A century-old luxury machiya lodge exclusively for you. Located on the historic Nakasendo trail in Japan." />
+  <meta property="og:image" content="https://sidharthrout.github.io/yanagiyawebsite/heroyanagiya.jpg" />
+  <meta property="og:url" content="https://sidharthrout.github.io/yanagiyawebsite/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -647,6 +654,25 @@
     .cal-actions{display:flex;justify-content:center;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;}
     .cal-actions .btn{font-size:.8rem; padding:1rem 2rem;}
 
+    /* ── FAQ ACCORDION ── */
+    #faq{padding:5rem 6%;background:var(--white);}
+    .faq-container{max-width:800px;margin:0 auto;}
+    .faq-item{border-bottom:1px solid rgba(0,0,0,.08);padding:1.2rem 0;}
+    .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--ink);transition:color .3s;}
+    .faq-q:hover{color:var(--gold);}
+    .faq-icon{font-size:1.5rem;color:var(--gold);transition:transform .3s;}
+    .faq-item.active .faq-icon{transform:rotate(45deg);}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease, margin-top .4s ease;color:var(--muted);font-size:.9rem;line-height:1.7;}
+    .faq-item.active .faq-a{max-height:500px;margin-top:1rem;}
+
+    /* ── CUSTOM MAP ── */
+    .map-container{width:100%;height:500px;background:#110e0c;position:relative;}
+    .map-iframe{width:100%;height:100%;border:none;filter:grayscale(100%) invert(95%) sepia(20%) hue-rotate(5deg) contrast(1.1);opacity:0.8;}
+    .map-overlay-text{position:absolute;top:2rem;left:2rem;background:rgba(18,14,12,.8);backdrop-filter:blur(10px);padding:1.5rem;border:1px solid rgba(194,157,91,.4);border-radius:6px;pointer-events:none;}
+    .map-overlay-text h3{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:.5rem;}
+    .map-overlay-text p{color:var(--white);font-size:.8rem;letter-spacing:.05em;}
+    @media(max-width:768px){ .map-overlay-text{top:auto;bottom:2rem;left:1rem;right:1rem;text-align:center;} }
+
     /* ── CONTACT & BOOKING ── */
     #contact{display:grid;grid-template-columns:1fr 1.15fr;background:var(--paper)}
     .contact-hero-img{overflow:hidden;min-height:550px;position:relative}
@@ -745,6 +771,21 @@
       .calendar-frame{height:420px;}
       .cal-actions .btn{width:100%;}
       #lodges,#experiences,#stars,#team,#instagram,#availability{padding:4rem 5%}
+    }
+    /* ── STICKY MOBILE BOOK BAR ── */
+    .mobile-sticky-book{display:none;}
+    @media(max-width:850px){
+      .mobile-sticky-book{
+        display:flex;position:fixed;bottom:0;left:0;right:0;
+        background:rgba(21,18,16,.96);backdrop-filter:blur(12px);
+        padding:1rem 5%;z-index:999;justify-content:space-between;align-items:center;
+        border-top:1px solid rgba(194,157,91,.3);
+        box-shadow:0 -5px 20px rgba(0,0,0,.15);
+      }
+      .mobile-sticky-book .msb-title{color:var(--white);font-weight:600;font-size:.9rem;letter-spacing:.05em;}
+      .mobile-sticky-book .msb-sub{color:var(--gold-lt);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;margin-top:.1rem;}
+      .mobile-sticky-book .btn{padding:.7rem 1.4rem;font-size:.75rem;}
+      body{padding-bottom:70px;} /* padding to not hide footer content */
     }
   </style>
 </head>
@@ -1310,6 +1351,45 @@
   </div>
 </section>
 
+<!-- FAQ SECTION -->
+<section id="faq">
+  <div class="reveal">
+    <span class="section-label">Questions &amp; Details</span>
+    <h2 class="section-title">Common Questions</h2>
+    <div class="divider divider-center"></div>
+  </div>
+  
+  <div class="faq-container reveal">
+    <div class="faq-item" onclick="this.classList.toggle('active')">
+      <div class="faq-q">Can we forward our luggage between Tsumago and Magome? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Yes! There is a reliable baggage forwarding service between Tsumago and Magome available daily from March to November. You can drop your bags at the Magome Tourist Information Center in the morning, and they will be delivered to Tsumago by the afternoon so you can hike the Nakasendo trail empty-handed.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('active')">
+      <div class="faq-q">Are meals included? <span class="faq-icon">+</span></div>
+      <div class="faq-a">For Yanagiya Main Lodge, we do not provide meals, but you have full access to a modern kitchen, or you can dine at local eateries. For Yanagiya Iri, you can book an exclusive botanical hot-pot dinner hosted by Yuji, featuring seasonal river fish and game meat with sommelier-paired wines.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('active')">
+      <div class="faq-q">Is the entire house private? <span class="faq-icon">+</span></div>
+      <div class="faq-a">Absolutely. When you book either Yanagiya Main Lodge or Yanagiya Iri, you are renting the entire private house. You will never share the space, bathrooms, or kitchen with strangers.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('active')">
+      <div class="faq-q">Where do we park if we rent a car? <span class="faq-icon">+</span></div>
+      <div class="faq-a">We provide dedicated free parking for our guests. Since driving directly on the historic Nakasendo stone road is restricted during the day, we will send you specific map directions to our private guest parking area upon booking.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOM MAP SECTION -->
+<section id="location-map">
+  <div class="map-container">
+    <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3246.331281488318!2d137.5645511!3d35.5256956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60032e3a127a6cfd%3A0x6b107e335da43118!2sYanagiya!5e0!3m2!1sen!2sjp!4v1700000000000!5m2!1sen!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="map-overlay-text reveal">
+      <h3>Yanagiya (柳屋)</h3>
+      <p>Nakasendo Post Road<br>Magome-juku, Gifu, Japan</p>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT & BOOKING -->
 <section id="contact">
   <div class="contact-hero-img reveal">
@@ -1674,5 +1754,13 @@
     document.getElementById('calBookingBtn').href = bookingLinks[lodge];
   }
 </script>
+<div class="mobile-sticky-book">
+  <div class="msb-text">
+    <div class="msb-title">Check Availability</div>
+    <div class="msb-sub">Best Rates Direct</div>
+  </div>
+  <a href="#availability" class="btn btn-primary" onclick="window.scrollTo(0, document.getElementById('availability').offsetTop);">Book Now</a>
+</div>
+
 </body>
 </html>
