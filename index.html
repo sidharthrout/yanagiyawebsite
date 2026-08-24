@@ -636,6 +636,17 @@
     .insta-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease,opacity .6s ease}
     .insta-thumb:hover img{transform:scale(1.08);opacity:.85}
 
+    /* ── AVAILABILITY CALENDAR ── */
+    #availability{padding:6.5rem 6%;background:var(--paper);text-align:center;}
+    .calendar-wrapper{max-width:1000px;margin:0 auto;background:var(--card);padding:2.5rem;border-radius:8px;box-shadow:0 8px 40px rgba(21,18,16,.08); border:1px solid rgba(21,18,16,.05);}
+    .calendar-tabs{display:flex;justify-content:center;gap:1rem;margin-bottom:2rem;}
+    .cal-tab{padding:.85rem 1.8rem;border:1px solid var(--gold);background:transparent;color:var(--ink);border-radius:4px;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;transition:all var(--ease);}
+    .cal-tab.active{background:var(--gold);color:var(--white);box-shadow:0 4px 15px rgba(194,157,91,.3);}
+    .cal-tab:hover:not(.active){background:rgba(194,157,91,.08);}
+    .calendar-frame{width:100%;height:550px;border:none;border-radius:4px;background:#f9f9f9;}
+    .cal-actions{display:flex;justify-content:center;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;}
+    .cal-actions .btn{font-size:.8rem; padding:1rem 2rem;}
+
     /* ── CONTACT & BOOKING ── */
     #contact{display:grid;grid-template-columns:1fr 1.15fr;background:var(--paper)}
     .contact-hero-img{overflow:hidden;min-height:550px;position:relative}
@@ -729,7 +740,11 @@
       .cool-team-img-wrap{height:280px}
       .trail-img-slider{min-height:280px}
       .trail-content{padding:2rem 1.4rem}
-      #lodges,#experiences,#stars,#team,#instagram{padding:4rem 5%}
+      .calendar-wrapper{padding:1.5rem 1rem;}
+      .calendar-tabs{flex-direction:column;}
+      .calendar-frame{height:420px;}
+      .cal-actions .btn{width:100%;}
+      #lodges,#experiences,#stars,#team,#instagram,#availability{padding:4rem 5%}
     }
   </style>
 </head>
@@ -1271,6 +1286,35 @@
   </a>
 </section>
 
+<!-- AVAILABILITY CALENDAR -->
+<section id="availability">
+  <div class="reveal">
+    <span class="section-label">Plan Your Visit</span>
+    <h2 class="section-title">Check Availability</h2>
+    <div class="divider divider-center"></div>
+    <p class="section-sub" style="margin:0 auto 3rem;">Select a lodge below to view our live availability. We recommend booking early for weekends and peak autumn seasons.</p>
+  </div>
+
+  <div class="calendar-wrapper reveal">
+    <div class="calendar-tabs">
+      <button class="cal-tab active" onclick="switchCalendar('yanagiya', this)">Yanagiya (Main Lodge)</button>
+      <button class="cal-tab" onclick="switchCalendar('iri', this)">Yanagiya Iri (Hillside)</button>
+    </div>
+    
+    <!-- 
+      PLACEHOLDER NOTE: 
+      Right now, this shows the Japanese Holidays calendar. 
+      When you are ready, replace the "src=" links in the JavaScript at the bottom of the file! 
+    -->
+    <iframe id="calIframe" class="calendar-frame" src="https://calendar.google.com/calendar/embed?src=ja.japanese%23holiday%40group.v.calendar.google.com&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0" scrolling="no"></iframe>
+    
+    <div class="cal-actions">
+      <a href="#contact" class="btn btn-primary">Dates Open? Request Direct Booking &darr;</a>
+      <a href="https://www.booking.com/hotel/jp/guesthouse-yanagiya.html" target="_blank" rel="noopener" class="btn btn-booking" id="calBookingBtn">Book on Booking.com</a>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT & BOOKING -->
 <section id="contact">
   <div class="contact-hero-img reveal">
@@ -1617,6 +1661,23 @@
       btn.style.background = '';
       e.target.reset();
     }, 4000);
+  }
+  /* ── CALENDAR TABS ── */
+  // NOTE: Replace these links with your actual Google Calendar Embed links once you generate them!
+  const calLinks = {
+    yanagiya: "https://calendar.google.com/calendar/embed?src=ja.japanese%23holiday%40group.v.calendar.google.com&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0",
+    iri: "https://calendar.google.com/calendar/embed?src=en.japanese%23holiday%40group.v.calendar.google.com&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0"
+  };
+  const bookingLinks = {
+    yanagiya: "https://www.booking.com/hotel/jp/guesthouse-yanagiya.html",
+    iri: "https://www.booking.com/hotel/jp/yanagiya-iri"
+  };
+
+  function switchCalendar(lodge, btn) {
+    document.querySelectorAll('.cal-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('calIframe').src = calLinks[lodge];
+    document.getElementById('calBookingBtn').href = bookingLinks[lodge];
   }
 </script>
 </body>
