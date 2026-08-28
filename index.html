@@ -818,7 +818,50 @@
       .ds-right { min-height: 450px; }
       .ds-collage { gap: 0.5rem; padding: 1.5rem; }
     }
+
+    /* Emphasize the Mobile Sticky Booking Button */
+    .mobile-sticky-book .btn {
+        background: var(--matcha) !important; 
+        border-color: var(--matcha) !important;
+        padding: 0.9rem 1.6rem !important;
+        font-size: 0.85rem !important;
+    }
+
 </style>
+
+  <!-- DESIGN REFINEMENTS -->
+  <style>
+    /* "Ma" (Negative Space) - Increased breathing room */
+    #about, #lodges, #experiences, #stars, #magome, #tea, #team, #instagram, #faq, #contact {
+      padding-top: 9rem !important;
+      padding-bottom: 9rem !important;
+    }
+    #availability {
+      padding-top: 10rem !important;
+      padding-bottom: 10rem !important;
+      background: var(--paper) !important;
+    }
+    /* Mobile Spacing */
+    @media (max-width: 850px) {
+      #about, #lodges, #experiences, #stars, #magome, #tea, #team, #instagram, #faq, #contact {
+        padding-top: 5rem !important;
+        padding-bottom: 5rem !important;
+      }
+      #availability {
+        padding-top: 6rem !important;
+        padding-bottom: 6rem !important;
+      }
+    }
+    /* Restrain color palette to focus on photos and booking */
+    .section-label { color: var(--muted) !important; letter-spacing: 0.35em !important; font-weight: 500 !important; }
+    .divider { background: rgba(0,0,0,0.1) !important; height: 1px !important; }
+    
+    /* Emphasize the Booking Button & Lodges */
+    .btn-booking { font-size: 0.95rem !important; padding: 1.2rem 2.8rem !important; background: var(--ink) !important; border-color: var(--ink) !important; }
+    .btn-booking:hover { background: var(--matcha) !important; border-color: var(--matcha) !important; }
+    .lodge-card { box-shadow: 0 15px 40px rgba(0,0,0,0.1) !important; border: none !important; }
+  </style>
+
 </head>
 <body>
 
@@ -1706,13 +1749,7 @@
       };
       dotsWrap.appendChild(dot);
     });
-    setInterval(() => {
-      slides[cur].classList.remove('active');
-      dotsWrap.children[cur].classList.remove('active');
-      cur = (cur + 1) % slides.length;
-      slides[cur].classList.add('active');
-      dotsWrap.children[cur].classList.add('active');
-    }, 4500);
+    /* Auto-slider disabled for less busy UI */
   })();
 
   /* ── MAGOME-JUKU KEN BURNS SLIDER ── */
@@ -1746,7 +1783,7 @@
     document.getElementById('kbNext').onclick = () => { kbStop(); kbGoTo(cur + 1); kbStart(); };
     slider.addEventListener('mouseenter', kbStop);
     slider.addEventListener('mouseleave', kbStart);
-    kbStart();
+    /* kbStart(); // Disabled on load to reduce motion */
   })();
 
   /* ── LODGE SLIDERS ── */
@@ -1800,13 +1837,7 @@
       };
       dotsWrap.appendChild(d);
     });
-    setInterval(() => {
-      slides[cur].classList.remove('active');
-      dotsWrap.children[cur].classList.remove('active');
-      cur = (cur + 1) % slides.length;
-      slides[cur].classList.add('active');
-      dotsWrap.children[cur].classList.add('active');
-    }, 4500);
+    /* Auto-slider disabled for less busy UI */
   })();
 
   /* ── SCROLL REVEAL ── */
