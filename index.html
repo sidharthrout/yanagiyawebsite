@@ -796,49 +796,37 @@
       body{padding-bottom:100px;} /* padding to not hide footer content */
     }
   
-    /* DYNAMIC SPLIT SECTION */
+    /* MODERN SPLIT SECTION */
     #dynamic-split { display: flex; flex-wrap: wrap; background: var(--paper); overflow: hidden; border-top: 1px solid rgba(0,0,0,0.05); }
-    .ds-left { flex: 1; min-width: 300px; padding: 6rem 6%; display: flex; align-items: center; justify-content: center; position: relative; }
-    .ds-text-content { position: absolute; opacity: 0; transform: translateY(20px); transition: all 1s ease; pointer-events: none; width: 85%; }
-    .ds-text-content.active { opacity: 1; transform: translateY(0); pointer-events: auto; position: relative; }
+    .ds-left { flex: 1; min-width: 300px; padding: 6rem 8%; position: relative; display: flex; flex-direction: column; justify-content: center; }
+    .ds-tabs { display: flex; gap: 2.5rem; margin-bottom: 3rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 1rem; }
+    .ds-tab { background: none; border: none; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--muted); cursor: pointer; padding: 0; position: relative; transition: color 0.4s ease; outline: none; }
+    .ds-tab.active { color: var(--ink); }
+    .ds-tab::after { content: ''; position: absolute; bottom: -1rem; left: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.4s ease; }
+    .ds-tab.active::after { width: 100%; }
     
-    .ds-right { flex: 1; min-width: 300px; position: relative; min-height: 500px; background: var(--card); overflow: hidden; }
+    .ds-text-content { display: none; animation: dsFadeIn 0.8s ease forwards; }
+    .ds-text-content.active { display: block; }
+    @keyframes dsFadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     
-    .ds-single { 
-      position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; pointer-events: none; 
-    }
-    .ds-single.active { opacity: 1; pointer-events: auto; }
-    .ds-single img { width: 100%; height: 100%; object-fit: cover; transition: opacity 1s ease; opacity: 1; }
+    .ds-right { flex: 1; min-width: 300px; position: relative; min-height: 550px; }
+    .ds-gallery-container { position: absolute; inset: 0; overflow: hidden; background: #000; }
+    .ds-gallery-track { display: flex; height: 100%; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+    .ds-gallery-slide { flex: 0 0 100%; height: 100%; position: relative; overflow: hidden; }
+    .ds-gallery-slide img { width: 100%; height: 100%; object-fit: cover; transition: transform 8s ease-out; opacity:0.8; }
+    .ds-gallery-slide.active img { transform: scale(1.08); opacity:1; }
     
+    .ds-gallery-ui { position: absolute; bottom: 2rem; right: 2rem; display: flex; align-items: center; gap: 1.5rem; background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); z-index: 10; }
+    .ds-nav-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--ink); padding: 0.2rem 0.5rem; transition: color 0.3s; outline: none; }
+    .ds-nav-btn:hover { color: var(--gold); }
+    .ds-counter { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; color: var(--ink); min-width: 45px; text-align: center; }
     
     @media (max-width: 850px) {
-      .ds-left { padding: 4rem 6%; }
+      .ds-left { padding: 5rem 6%; }
       .ds-right { min-height: 450px; }
-      .ds-single { 
-      position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; pointer-events: none; 
+      .ds-gallery-ui { bottom: 1.5rem; right: 1.5rem; padding: 0.6rem 1.2rem; }
     }
-    .ds-single.active { opacity: 1; pointer-events: auto; }
-    .ds-single img { width: 100%; height: 100%; object-fit: cover; transition: opacity 1s ease; opacity: 1; }
-    
-    @media (max-width: 850px) {
-      #about, #lodges, #experiences, #stars, #magome, #tea, #team, #instagram, #faq, #contact {
-        padding-top: 5rem !important;
-        padding-bottom: 5rem !important;
-      }
-      #availability {
-        padding-top: 6rem !important;
-        padding-bottom: 6rem !important;
-      }
-    }
-    /* Restrain color palette to focus on photos and booking */
-    .section-label { color: var(--muted) !important; letter-spacing: 0.35em !important; font-weight: 500 !important; }
-    .divider { background: rgba(0,0,0,0.1) !important; height: 1px !important; }
-    
-    /* Emphasize the Booking Button & Lodges */
-    .btn-booking { font-size: 0.95rem !important; padding: 1.2rem 2.8rem !important; background: var(--ink) !important; border-color: var(--ink) !important; }
-    .btn-booking:hover { background: var(--matcha) !important; border-color: var(--matcha) !important; }
-    .lodge-card { box-shadow: 0 15px 40px rgba(0,0,0,0.1) !important; border: none !important; }
-  </style>
+</style>
 
 
     /* CALENDAR MOBILE SCROLL FIX */
@@ -1407,6 +1395,10 @@
 <!-- DYNAMIC 50/50 SECTION: FOOD & CUSTOMERS -->
 <section id="dynamic-split">
   <div class="ds-left">
+     <div class="ds-tabs">
+        <button class="ds-tab active" data-target="food">Cuisine</button>
+        <button class="ds-tab" data-target="customer">Guests</button>
+     </div>
      <div class="ds-text-content active" id="ds-text-food">
         <span class="section-label">Farm to Table</span>
         <h2 class="section-title">Nourishing Local Foods</h2>
@@ -1421,11 +1413,13 @@
      </div>
   </div>
   <div class="ds-right">
-     <div class="ds-single active" id="ds-single-food">
-        <img id="food-main-img" src="new/food for customer.jpg" alt="Food" loading="lazy">
-     </div>
-     <div class="ds-single" id="ds-single-customer">
-        <img id="cust-main-img" src="new/with customer 4.jpg" alt="Customer" loading="lazy">
+     <div class="ds-gallery-container">
+        <div class="ds-gallery-track" id="ds-track"></div>
+        <div class="ds-gallery-ui">
+           <button class="ds-nav-btn" id="ds-prev">&#8592;</button>
+           <div class="ds-counter"><span id="ds-curr">1</span> / <span id="ds-tot">12</span></div>
+           <button class="ds-nav-btn" id="ds-next">&#8594;</button>
+        </div>
      </div>
   </div>
 </section>
@@ -1880,61 +1874,87 @@
 
 
 
-  /* DYNAMIC SPLIT SLIDER */
+  /* MODERN SPLIT GALLERY JS */
   (function() {
-    const foodImages = [
+    const dsFood = [
       "new/food for customer.jpg", "new/food for custoemr 2434.jpg", "new/food for customer 53.jpg", 
       "new/food for customer353.jpg", "new/food for custommerrr.jpg", "new/food fotr customer.jpg",
       "new/food for cusotmer31232.jpg", "new/food for custoemrrr.jpg", "new/food for custome 33.jpg",
       "new/food for customer443.jpg", "new/food for customer444.jpg", "new/food for customerrr.jpg"
     ];
-    const custImages = [
+    const dsCust = [
       "new/with customer 4.jpg", "new/with customer 55.jpg", "new/with customer.jpg", 
       "new/witcusotmer.jpg", "new/with customer (2).jpg"
     ];
     
-    let isFood = true;
-    let foodIdx = 1, custIdx = 1;
-    
-    function randomImg(arr, currentIdx) {
-      return arr[currentIdx % arr.length];
+    let currentCat = 'food';
+    let currentIdx = 0;
+    const track = document.getElementById('ds-track');
+    let autoSlide;
+
+    function buildGallery(cat) {
+      if(!track) return;
+      track.innerHTML = '';
+      const arr = cat === 'food' ? dsFood : dsCust;
+      arr.forEach(src => {
+        const div = document.createElement('div');
+        div.className = 'ds-gallery-slide';
+        div.innerHTML = '<img src="' + src + '" loading="lazy">';
+        track.appendChild(div);
+      });
+      currentIdx = 0;
+      updateGallery();
     }
+
+    function updateGallery() {
+      if(!track) return;
+      const arr = currentCat === 'food' ? dsFood : dsCust;
+      track.style.transform = 'translateX(-' + (currentIdx * 100) + '%)';
+      document.getElementById('ds-curr').innerText = currentIdx + 1;
+      document.getElementById('ds-tot').innerText = arr.length;
+      
+      Array.from(track.children).forEach((child, i) => {
+        child.classList.toggle('active', i === currentIdx);
+      });
+    }
+
+    document.getElementById('ds-prev')?.addEventListener('click', () => {
+      const arr = currentCat === 'food' ? dsFood : dsCust;
+      currentIdx = (currentIdx - 1 + arr.length) % arr.length;
+      updateGallery();
+      resetAuto();
+    });
     
-    // Swap the main sections (Text + Image Container)
-    setInterval(() => {
-      isFood = !isFood;
-      const tf = document.getElementById('ds-text-food');
-      const tc = document.getElementById('ds-text-customer');
-      const sf = document.getElementById('ds-single-food');
-      const sc = document.getElementById('ds-single-customer');
-      if(tf) tf.classList.toggle('active', isFood);
-      if(tc) tc.classList.toggle('active', !isFood);
-      if(sf) sf.classList.toggle('active', isFood);
-      if(sc) sc.classList.toggle('active', !isFood);
-    }, 7000);
-    
-    // Crossfade the single image src slowly
-    setInterval(() => {
-       if (isFood) {
-          const imgEl = document.getElementById('food-main-img');
-          if(imgEl) {
-              imgEl.style.opacity = 0;
-              setTimeout(() => {
-                 imgEl.src = randomImg(foodImages, foodIdx++);
-                 imgEl.style.opacity = 1;
-              }, 1000);
-          }
-       } else {
-          const imgEl = document.getElementById('cust-main-img');
-          if(imgEl) {
-              imgEl.style.opacity = 0;
-              setTimeout(() => {
-                 imgEl.src = randomImg(custImages, custIdx++);
-                 imgEl.style.opacity = 1;
-              }, 1000);
-          }
-       }
-    }, 3500);
+    document.getElementById('ds-next')?.addEventListener('click', () => {
+      const arr = currentCat === 'food' ? dsFood : dsCust;
+      currentIdx = (currentIdx + 1) % arr.length;
+      updateGallery();
+      resetAuto();
+    });
+
+    document.querySelectorAll('.ds-tab').forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        document.querySelectorAll('.ds-tab').forEach(t => t.classList.remove('active'));
+        e.target.classList.add('active');
+        currentCat = e.target.getAttribute('data-target');
+        
+        document.querySelectorAll('.ds-text-content').forEach(tc => tc.classList.remove('active'));
+        document.getElementById('ds-text-' + currentCat).classList.add('active');
+        
+        buildGallery(currentCat);
+        resetAuto();
+      });
+    });
+
+    function resetAuto() {
+      clearInterval(autoSlide);
+      autoSlide = setInterval(() => {
+        document.getElementById('ds-next')?.click();
+      }, 5500); 
+    }
+
+    buildGallery('food');
+    resetAuto();
   })();
 </script>
 <a href="#availability" class="mobile-sticky-book" style="text-decoration:none;">
