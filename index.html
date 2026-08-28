@@ -826,6 +826,41 @@
       .ds-right { min-height: 450px; }
       .ds-gallery-ui { bottom: 1.5rem; right: 1.5rem; padding: 0.6rem 1.2rem; }
     }
+
+    /* MAKE TEAM SECTION SMALLER */
+    .cool-team-bio {
+      display: -webkit-box !important;
+      -webkit-line-clamp: 4 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+      font-size: 0.85rem !important;
+      margin-bottom: 0.8rem !important;
+    }
+    .cool-team-card {
+      max-height: 520px;
+    }
+    .cool-team-img-wrap {
+      height: 250px !important;
+    }
+    .cool-team-body {
+      padding: 1.5rem !important;
+    }
+    @media(max-width:850px) {
+      .team-grid { grid-template-columns: 1fr 1fr !important; gap: 1rem !important; }
+      .cool-team-card { max-height: none; }
+      .cool-team-img-wrap { height: 180px !important; }
+      .cool-team-body { padding: 1rem !important; }
+      .cool-team-bio { -webkit-line-clamp: 3 !important; font-size: 0.75rem !important; }
+      .cool-team-title { font-size: 0.75rem !important; }
+      .cool-team-body h3 { font-size: 1.1rem !important; margin-bottom: 0.2rem !important; }
+      .cool-lang-pill, .cool-role-pill { font-size: 0.6rem !important; padding: 0.3rem 0.6rem !important; }
+    }
+    @media(max-width:550px) {
+      /* Keep 2 columns on very small screens, or maybe 1 column but very compact */
+      .team-grid { grid-template-columns: 1fr !important; }
+      .cool-team-img-wrap { height: 220px !important; }
+    }
+
 </style>
 
 
@@ -1294,7 +1329,7 @@
     <span class="section-label">The People of Yanagiya</span>
     <h2 class="section-title">Meet Our Team</h2>
     <div class="divider divider-center"></div>
-    <p class="section-sub" style="margin:0 auto;text-align:center;">Our passionate local hosts, guides, and artisans dedicated to making your stay in Magome unforgettable.</p>
+    <p class="section-sub" style="margin:0 auto;text-align:center;">Our passionate local hosts, guides, and artisans dedicated to making your stay in Magome unforgettable. All of our team members speak fluent Japanese and English.</p>
   </div>
 
   <div class="team-grid">
@@ -1304,7 +1339,7 @@
         <img src="kenta-san.jpg" alt="Kenta Oba - Founder &amp; Host" loading="lazy" />
         <div class="cool-team-gradient"></div>
         <span class="cool-role-pill">Founder &amp; Host</span>
-        <span class="cool-lang-pill">JP / EN</span>
+        <span class="cool-lang-pill">Japanese / English</span>
       </div>
       <div class="cool-team-body">
         <h3>Kenta Oba</h3>
@@ -1326,7 +1361,7 @@
         <img src="teamimg1.jpg" alt="Riho - Tea &amp; Local Guide" loading="lazy" />
         <div class="cool-team-gradient"></div>
         <span class="cool-role-pill">Tea &amp; Local Guide</span>
-        <span class="cool-lang-pill">Fluent English</span>
+        <span class="cool-lang-pill">Japanese / English</span>
       </div>
       <div class="cool-team-body">
         <h3>Riho</h3>
@@ -1347,7 +1382,7 @@
         <img src="teamimg2.jpg" alt="Yuji - Host, Food &amp; Wine" loading="lazy" />
         <div class="cool-team-gradient"></div>
         <span class="cool-role-pill">Food, Wine &amp; Host</span>
-        <span class="cool-lang-pill">JP / EN / FR</span>
+        <span class="cool-lang-pill">Japanese / English / French</span>
       </div>
       <div class="cool-team-body">
         <h3>Yuji</h3>
@@ -1368,7 +1403,7 @@
         <img src="starpic2.jpg" alt="Eli - Stargazing &amp; Local Guide" loading="lazy" />
         <div class="cool-team-gradient"></div>
         <span class="cool-role-pill">Stargazing Guide</span>
-        <span class="cool-lang-pill">Fluent English</span>
+        <span class="cool-lang-pill">Japanese / English</span>
       </div>
       <div class="cool-team-body">
         <h3>Eli</h3>
