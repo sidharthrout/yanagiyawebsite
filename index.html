@@ -1905,14 +1905,7 @@
     document.getElementById('calBookingBtn').href = bookingLinks[lodge];
   }
   
-  // Also initialize on load to apply AGENDA if on mobile
-  window.addEventListener('DOMContentLoaded', () => {
-     let url = calLinks['yanagiya'];
-     if (window.innerWidth < 850) {
-       url += "&mode=AGENDA";
-       document.getElementById('calIframe').src = url;
-     }
-  });
+
 
 
   /* DYNAMIC SPLIT SLIDER */
