@@ -804,44 +804,22 @@
     
     .ds-right { flex: 1; min-width: 300px; position: relative; min-height: 500px; background: var(--card); overflow: hidden; }
     
-    .ds-collage { 
+    .ds-single { 
       position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; pointer-events: none; 
-      display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 1rem; padding: 2.5rem;
     }
-    .ds-collage.active { opacity: 1; pointer-events: auto; }
+    .ds-single.active { opacity: 1; pointer-events: auto; }
+    .ds-single img { width: 100%; height: 100%; object-fit: cover; transition: opacity 1s ease; opacity: 1; }
     
-    .ds-col-item { position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.08); background: #eee; }
-    .ds-col-item img { width: 100%; height: 100%; object-fit: cover; transition: opacity 1s ease; opacity: 1; }
     
     @media (max-width: 850px) {
       .ds-left { padding: 4rem 6%; }
       .ds-right { min-height: 450px; }
-      .ds-collage { gap: 0.5rem; padding: 1.5rem; }
+      .ds-single { 
+      position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; pointer-events: none; 
     }
-
-    /* Emphasize the Mobile Sticky Booking Button */
-    .mobile-sticky-book .btn {
-        background: var(--matcha) !important; 
-        border-color: var(--matcha) !important;
-        padding: 0.9rem 1.6rem !important;
-        font-size: 0.85rem !important;
-    }
-
-</style>
-
-  <!-- DESIGN REFINEMENTS -->
-  <style>
-    /* "Ma" (Negative Space) - Increased breathing room */
-    #about, #lodges, #experiences, #stars, #magome, #tea, #team, #instagram, #faq, #contact {
-      padding-top: 9rem !important;
-      padding-bottom: 9rem !important;
-    }
-    #availability {
-      padding-top: 10rem !important;
-      padding-bottom: 10rem !important;
-      background: var(--paper) !important;
-    }
-    /* Mobile Spacing */
+    .ds-single.active { opacity: 1; pointer-events: auto; }
+    .ds-single img { width: 100%; height: 100%; object-fit: cover; transition: opacity 1s ease; opacity: 1; }
+    
     @media (max-width: 850px) {
       #about, #lodges, #experiences, #stars, #magome, #tea, #team, #instagram, #faq, #contact {
         padding-top: 5rem !important;
@@ -1443,17 +1421,11 @@
      </div>
   </div>
   <div class="ds-right">
-     <div class="ds-collage active" id="ds-collage-food">
-        <div class="ds-col-item"><img id="food-img-1" src="new/food for customer.jpg" alt="Food" loading="lazy"></div>
-        <div class="ds-col-item"><img id="food-img-2" src="new/food for custoemr 2434.jpg" alt="Food" loading="lazy"></div>
-        <div class="ds-col-item"><img id="food-img-3" src="new/food for customer 53.jpg" alt="Food" loading="lazy"></div>
-        <div class="ds-col-item"><img id="food-img-4" src="new/food for customer353.jpg" alt="Food" loading="lazy"></div>
+     <div class="ds-single active" id="ds-single-food">
+        <img id="food-main-img" src="new/food for customer.jpg" alt="Food" loading="lazy">
      </div>
-     <div class="ds-collage" id="ds-collage-customer">
-        <div class="ds-col-item"><img id="cust-img-1" src="new/with customer 4.jpg" alt="Customer" loading="lazy"></div>
-        <div class="ds-col-item"><img id="cust-img-2" src="new/with customer 55.jpg" alt="Customer" loading="lazy"></div>
-        <div class="ds-col-item"><img id="cust-img-3" src="new/with customer.jpg" alt="Customer" loading="lazy"></div>
-        <div class="ds-col-item"><img id="cust-img-4" src="new/witcusotmer.jpg" alt="Customer" loading="lazy"></div>
+     <div class="ds-single" id="ds-single-customer">
+        <img id="cust-main-img" src="new/with customer 4.jpg" alt="Customer" loading="lazy">
      </div>
   </div>
 </section>
@@ -1922,28 +1894,29 @@
     ];
     
     let isFood = true;
-    let foodIdx = 4, custIdx = 4;
+    let foodIdx = 1, custIdx = 1;
     
     function randomImg(arr, currentIdx) {
       return arr[currentIdx % arr.length];
     }
     
+    // Swap the main sections (Text + Image Container)
     setInterval(() => {
       isFood = !isFood;
       const tf = document.getElementById('ds-text-food');
       const tc = document.getElementById('ds-text-customer');
-      const cf = document.getElementById('ds-collage-food');
-      const cc = document.getElementById('ds-collage-customer');
+      const sf = document.getElementById('ds-single-food');
+      const sc = document.getElementById('ds-single-customer');
       if(tf) tf.classList.toggle('active', isFood);
       if(tc) tc.classList.toggle('active', !isFood);
-      if(cf) cf.classList.toggle('active', isFood);
-      if(cc) cc.classList.toggle('active', !isFood);
+      if(sf) sf.classList.toggle('active', isFood);
+      if(sc) sc.classList.toggle('active', !isFood);
     }, 7000);
     
+    // Crossfade the single image src slowly
     setInterval(() => {
        if (isFood) {
-          const randId = Math.floor(Math.random()*4)+1;
-          const imgEl = document.getElementById('food-img-' + randId);
+          const imgEl = document.getElementById('food-main-img');
           if(imgEl) {
               imgEl.style.opacity = 0;
               setTimeout(() => {
@@ -1952,8 +1925,7 @@
               }, 1000);
           }
        } else {
-          const randId = Math.floor(Math.random()*4)+1;
-          const imgEl = document.getElementById('cust-img-' + randId);
+          const imgEl = document.getElementById('cust-main-img');
           if(imgEl) {
               imgEl.style.opacity = 0;
               setTimeout(() => {
@@ -1962,7 +1934,7 @@
               }, 1000);
           }
        }
-    }, 2800);
+    }, 3500);
   })();
 </script>
 <a href="#availability" class="mobile-sticky-book" style="text-decoration:none;">
