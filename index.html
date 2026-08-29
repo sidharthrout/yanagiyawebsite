@@ -38,140 +38,56 @@
     ul{list-style:none}
     button{cursor:pointer;border:none;background:none;font-family:inherit}
 
-    /* ── PRELOADER (Modern Cinematic) ── */
-    #preloader{
-      position:fixed;inset:0;z-index:9999999;
-      background:radial-gradient(ellipse at 50% 40%, #1a1510 0%, #0c0a08 60%, #050403 100%);
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      transition:opacity 1.2s cubic-bezier(.4,0,.2,1), visibility 1.2s cubic-bezier(.4,0,.2,1);
-      overflow:hidden;
+    /* ── PRELOADER (Minimalist Zen) ── */
+    #zen-preloader {
+      position: fixed; inset: 0; z-index: 9999999;
+      background: #0a0d14; /* Deep luxury night */
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
     }
-    #preloader.hidden{opacity:0;visibility:hidden;pointer-events:none}
-
-    /* Floating particles */
-    .pre-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-    .pre-particle{
-      position:absolute;width:2px;height:2px;border-radius:50%;
-      background:var(--gold);opacity:0;
-      animation:particleFloat 4s ease-in-out infinite;
+    #zen-preloader.slide-up {
+      transform: translateY(-100%);
     }
-    .pre-particle:nth-child(1){left:15%;top:80%;animation-delay:0s;animation-duration:4.5s}
-    .pre-particle:nth-child(2){left:30%;top:85%;animation-delay:.6s;animation-duration:3.8s}
-    .pre-particle:nth-child(3){left:50%;top:90%;animation-delay:1.2s;animation-duration:4.2s}
-    .pre-particle:nth-child(4){left:65%;top:82%;animation-delay:.3s;animation-duration:5s}
-    .pre-particle:nth-child(5){left:80%;top:88%;animation-delay:.9s;animation-duration:3.5s}
-    .pre-particle:nth-child(6){left:25%;top:75%;animation-delay:1.5s;animation-duration:4.8s}
-    .pre-particle:nth-child(7){left:70%;top:78%;animation-delay:1.8s;animation-duration:3.6s}
-    .pre-particle:nth-child(8){left:45%;top:92%;animation-delay:2.1s;animation-duration:4.4s}
-    @keyframes particleFloat{
-      0%{opacity:0;transform:translateY(0) scale(.5)}
-      20%{opacity:.6}
-      80%{opacity:.3}
-      100%{opacity:0;transform:translateY(-45vh) scale(0)}
+    .zen-line {
+      width: 1px; height: 0; background: var(--gold);
+      margin-bottom: 2rem;
+      animation: zenLineDrop 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     }
-
-    /* Top decorative line */
-    .pre-top-line{
-      width:1px;height:0;background:linear-gradient(to bottom,transparent,var(--gold));
-      margin-bottom:2.5rem;
-      animation:preLineGrow 1.2s cubic-bezier(.4,0,.2,1) .2s forwards;
+    .zen-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300; letter-spacing: 0em;
+      color: transparent;
+      background: linear-gradient(to right, var(--gold), #ffffff, var(--gold));
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      opacity: 0;
+      animation: 
+        zenFadeSpread 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s forwards,
+        zenShine 3s linear 1s infinite;
     }
-    @keyframes preLineGrow{to{height:50px}}
-
-    /* Kanji — each character fades in separately */
-    .pre-kanji{
-      font-family:'Noto Serif JP',serif;
-      font-size:clamp(3.5rem,9vw,6rem);
-      color:var(--white);letter-spacing:.35em;
-      display:flex;gap:.1em;
+    .zen-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-top: 1.5rem;
+      opacity: 0; transform: translateY(10px);
+      animation: zenSubFade 1.2s ease 1.6s forwards;
     }
-    .pre-kanji span{
-      opacity:0;transform:translateY(20px) scale(.9);
-      animation:kanjiReveal 1s cubic-bezier(.2,.6,.3,1) forwards;
-      display:inline-block;
-      text-shadow:0 0 40px rgba(194,157,91,.3);
+    @keyframes zenLineDrop {
+      to { height: 80px; }
     }
-    .pre-kanji span:nth-child(1){animation-delay:.5s}
-    .pre-kanji span:nth-child(2){animation-delay:.9s}
-    @keyframes kanjiReveal{
-      0%{opacity:0;transform:translateY(20px) scale(.9);filter:blur(6px)}
-      100%{opacity:1;transform:none;filter:blur(0)}
+    @keyframes zenFadeSpread {
+      0% { opacity: 0; letter-spacing: 0em; filter: blur(4px); }
+      100% { opacity: 1; letter-spacing: 0.4em; filter: blur(0); }
     }
-
-    /* Glow ring behind kanji */
-    .pre-glow{
-      position:absolute;width:280px;height:280px;border-radius:50%;
-      background:radial-gradient(circle,rgba(194,157,91,.08) 0%,transparent 70%);
-      opacity:0;animation:glowPulse 3s ease-in-out 1s forwards;
-      pointer-events:none;
+    @keyframes zenShine {
+      to { background-position: 200% center; }
     }
-    @keyframes glowPulse{
-      0%{opacity:0;transform:scale(.6)}
-      50%{opacity:1;transform:scale(1)}
-      100%{opacity:.5;transform:scale(1.1)}
+    @keyframes zenSubFade {
+      to { opacity: 1; transform: translateY(0); }
     }
-
-    /* English name — Luxury Reveal */
-    .pre-name{
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(1.5rem, 3.5vw, 2.2rem);
-      font-weight:300;
-      color:var(--gold);
-      margin-top:1.5rem;
-      text-transform: uppercase;
-      opacity:0;
-      letter-spacing: 0em;
-      animation: preLuxuryReveal 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
-    }
-    @keyframes preLuxuryReveal {
-      0% { opacity: 0; letter-spacing: 0em; filter: blur(8px); transform: translateY(15px); }
-      100% { opacity: 1; letter-spacing: .3em; filter: blur(0); transform: translateY(0); }
-    }
-
-    /* Progress bar — slow & elegant */
-    .pre-bar-wrap{
-      margin-top:2.4rem;width:180px;height:1px;
-      background:rgba(255,255,255,.08);overflow:hidden;
-      border-radius:1px;
-    }
-    .pre-bar{
-      height:100%;width:0;
-      background:linear-gradient(90deg,transparent,var(--gold),var(--gold-lt),transparent);
-      animation:preBarAnim 3s cubic-bezier(.4,0,.2,1) .8s forwards;
-    }
-
-    /* Typewriter Tagline */
-    .pre-typewriter{
-      margin-top:1.4rem;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;
-      color:rgba(255,255,255,.6); font-family:'Inter',sans-serif;
-      min-height:20px; display:flex; align-items:center; justify-content:center;
-    }
-    .pre-cursor{
-      display:inline-block; width:4px; height:12px; background:var(--gold);
-      margin-left:6px; animation:cursorBlink .8s infinite;
-    }
-    @keyframes cursorBlink{
-      0%,100%{opacity:1}
-      50%{opacity:0}
-    }
-
-    /* Location line */
-    .pre-location{
-      margin-top:.6rem;font-size:.56rem;letter-spacing:.25em;text-transform:uppercase;
-      color:rgba(194,157,91,.4);opacity:0;
-      font-family:'Cormorant Garamond',serif;font-style:italic;
-      animation:preFadeUp 1s ease 2.5s forwards;
-    }
-
-    /* Bottom decorative line */
-    .pre-bottom-line{
-      width:1px;height:0;background:linear-gradient(to top,transparent,rgba(194,157,91,.3));
-      margin-top:2.5rem;
-      animation:preLineGrow .8s cubic-bezier(.4,0,.2,1) 2.2s forwards;
-    }
-
-    @keyframes preFadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-    @keyframes preBarAnim{from{width:0}to{width:100%}}
 
     /* ── COMMON STYLES ── */
     .section-label{display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
@@ -1138,24 +1054,14 @@
 <body>
 
 <!-- PRELOADER -->
-<div id="preloader">
-  <div class="pre-particles">
-    <div class="pre-particle"></div><div class="pre-particle"></div>
-    <div class="pre-particle"></div><div class="pre-particle"></div>
-    <div class="pre-particle"></div><div class="pre-particle"></div>
-    <div class="pre-particle"></div><div class="pre-particle"></div>
-  </div>
-  <div class="pre-glow"></div>
-  <div class="pre-top-line"></div>
-  <div class="pre-name">Yanagiya</div>
-  <div class="pre-bar-wrap"><div class="pre-bar"></div></div>
-  <div class="pre-typewriter"><span id="type-text"></span><span class="pre-cursor"></span></div>
-  <div class="pre-location">Magome-juku, Nakatsugawa &middot; Gifu, Japan</div>
-  <div class="pre-bottom-line"></div>
+<div id="zen-preloader">
+  <div class="zen-line"></div>
+  <h1 class="zen-brand">YANAGIYA</h1>
+  <div class="zen-subtitle">Lodge &middot; Culture &middot; Tea &middot; Tour</div>
 </div>
 <script>
   if (sessionStorage.getItem('preloaderShown') === 'true') {
-    document.getElementById('preloader').style.display = 'none';
+    document.getElementById('zen-preloader').style.display = 'none';
   }
 </script>
 
@@ -1961,32 +1867,19 @@
 </footer>
 
 <script>
-  /* ── PRELOADER & TYPEWRITER ── */
+  /* ── PRELOADER (Zen Reveal) ── */
   window.addEventListener('load', () => {
-    const p = document.getElementById('preloader');
-    const typeText = document.getElementById('type-text');
+    const zp = document.getElementById('zen-preloader');
     const isShown = sessionStorage.getItem('preloaderShown') === 'true';
 
-    if (!isShown) {
-      // Typewriter Effect
-      const textToType = "Lodge · Culture · Tea · Tour";
-      let charIdx = 0;
-      function typeWriter() {
-        if (charIdx < textToType.length) {
-          typeText.innerHTML += textToType.charAt(charIdx);
-          charIdx++;
-          setTimeout(typeWriter, 95); // Slower, more elegant typing pace
-        }
-      }
-      setTimeout(typeWriter, 1300); // Give Yanagiya name time to breathe
-
-      // Hide preloader after animation completes
+    if (!isShown && zp) {
       setTimeout(() => {
-        if (p) p.classList.add('hidden');
+        zp.classList.add('slide-up');
+        setTimeout(() => zp.remove(), 1500); // Remove from DOM after slide
         sessionStorage.setItem('preloaderShown', 'true');
-      }, 4800); // Give user time to read the final typed word 
-    } else {
-      if (p) p.style.display = 'none';
+      }, 3500); // Wait 3.5s for the animations to play, then slide up
+    } else if (zp) {
+      zp.style.display = 'none';
     }
   });
 
