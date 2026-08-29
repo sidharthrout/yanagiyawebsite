@@ -11,6 +11,9 @@
   <meta property="og:image" content="https://sidharthrout.github.io/yanagiyawebsite/heroyanagiya.jpg" />
   <meta property="og:url" content="https://sidharthrout.github.io/yanagiyawebsite/" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="description" content="Two private machiya lodges on the historic Nakasendo trail in Magome-juku, Japan. Rated 9.6/10 on Booking.com. Book direct for guided hikes, stargazing, and Magome Cha tea experiences." />
+  <link rel="canonical" href="https://sidharthrout.github.io/yanagiyawebsite/" />
+  <link rel="icon" href="logo.png" type="image/png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -663,7 +666,7 @@
     #faq{padding:5rem 6%;background:var(--white);}
     .faq-container{max-width:800px;margin:0 auto;}
     .faq-item{border-bottom:1px solid rgba(0,0,0,.08);padding:1.2rem 0;}
-    .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--ink);transition:color .3s;}
+    .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--ink);transition:color .3s;width:100%;background:none;border:none;padding:0;text-align:left;}
     .faq-q:hover{color:var(--gold);}
     .faq-icon{font-size:1.5rem;color:var(--gold);transition:transform .3s;}
     .faq-item.active .faq-icon{transform:rotate(45deg);}
@@ -796,35 +799,202 @@
       body{padding-bottom:100px;} /* padding to not hide footer content */
     }
   
-    /* MODERN SPLIT SECTION */
-    #dynamic-split { display: flex; flex-wrap: wrap; background: var(--paper); overflow: hidden; border-top: 1px solid rgba(0,0,0,0.05); }
-    .ds-left { flex: 1; min-width: 300px; padding: 6rem 8%; position: relative; display: flex; flex-direction: column; justify-content: center; }
-    .ds-tabs { display: flex; gap: 2.5rem; margin-bottom: 3rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 1rem; }
-    .ds-tab { background: none; border: none; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--muted); cursor: pointer; padding: 0; position: relative; transition: color 0.4s ease; outline: none; }
-    .ds-tab.active { color: var(--ink); }
-    .ds-tab::after { content: ''; position: absolute; bottom: -1rem; left: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.4s ease; }
+    /* ── CUISINE / GUESTS SPLIT SECTION (Redesigned) ── */
+    #dynamic-split {
+      display: flex; flex-wrap: wrap; overflow: hidden;
+      background: linear-gradient(135deg, #faf7f0 0%, #f3ede2 50%, #ece5d8 100%);
+      position: relative;
+      border-top: none;
+    }
+    #dynamic-split::before {
+      content: '食';
+      position: absolute;
+      top: 50%; left: 5%;
+      transform: translateY(-50%);
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(10rem, 18vw, 22rem);
+      font-weight: 300;
+      color: rgba(194, 157, 91, 0.04);
+      pointer-events: none;
+      z-index: 0;
+      line-height: 1;
+    }
+
+    .ds-left {
+      flex: 1 1 420px; min-width: 320px;
+      padding: 7rem 8% 7rem 10%;
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    /* Vertical gold accent line */
+    .ds-left::before {
+      content: '';
+      position: absolute;
+      left: 6%; top: 20%; height: 60%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--gold-lt), var(--gold), var(--gold-lt), transparent);
+      opacity: 0.5;
+    }
+
+    .ds-tabs {
+      display: flex; gap: 3rem;
+      margin-bottom: 3.5rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid rgba(194, 157, 91, 0.2);
+      position: relative;
+    }
+    .ds-tab {
+      background: none; border: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 400;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer; padding: 0.3rem 0;
+      position: relative;
+      transition: color 0.5s ease;
+      outline: none;
+    }
+    .ds-tab.active { color: var(--ink); font-weight: 600; }
+    .ds-tab::after {
+      content: '';
+      position: absolute; bottom: -1.25rem; left: 0;
+      width: 0; height: 2.5px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+      border-radius: 2px;
+      transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
     .ds-tab.active::after { width: 100%; }
-    
-    .ds-text-content { display: none; animation: dsFadeIn 0.8s ease forwards; }
+    .ds-tab:hover:not(.active) { color: var(--warm); }
+
+    .ds-text-content {
+      display: none;
+      animation: dsFadeIn 0.9s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
     .ds-text-content.active { display: block; }
-    @keyframes dsFadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-    
-    .ds-right { flex: 1; min-width: 300px; position: relative; min-height: 550px; }
-    .ds-gallery-container { position: absolute; inset: 0; overflow: hidden; background: #000; }
-    .ds-gallery-track { display: flex; height: 100%; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
-    .ds-gallery-slide { flex: 0 0 100%; height: 100%; position: relative; overflow: hidden; }
-    .ds-gallery-slide img { width: 100%; height: 100%; object-fit: cover; transition: transform 8s ease-out; opacity:0.8; }
-    .ds-gallery-slide.active img { transform: scale(1.08); opacity:1; }
-    
-    .ds-gallery-ui { position: absolute; bottom: 2rem; right: 2rem; display: flex; align-items: center; gap: 1.5rem; background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); padding: 0.8rem 1.5rem; border-radius: 50px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); z-index: 10; }
-    .ds-nav-btn { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--ink); padding: 0.2rem 0.5rem; transition: color 0.3s; outline: none; }
-    .ds-nav-btn:hover { color: var(--gold); }
-    .ds-counter { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; color: var(--ink); min-width: 45px; text-align: center; }
-    
+    @keyframes dsFadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Override section-label / title / sub for this section */
+    .ds-text-content .section-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: inline-block;
+      position: relative;
+      padding-left: 2.5rem;
+    }
+    .ds-text-content .section-label::before {
+      content: '';
+      position: absolute; left: 0; top: 50%;
+      width: 1.8rem; height: 1px;
+      background: var(--gold);
+    }
+    .ds-text-content .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+    .ds-text-content .divider {
+      width: 50px; height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-bottom: 1.8rem;
+      border-radius: 1px;
+    }
+    .ds-text-content .section-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--muted);
+      max-width: 440px;
+      font-weight: 300;
+    }
+
+    /* Right: Gallery */
+    .ds-right {
+      flex: 1 1 480px; min-width: 320px;
+      position: relative;
+      min-height: 600px;
+    }
+    .ds-gallery-container {
+      position: absolute; inset: 0;
+      overflow: hidden;
+      background: var(--ink);
+    }
+    .ds-gallery-track {
+      display: flex; height: 100%;
+      transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .ds-gallery-slide {
+      flex: 0 0 100%; height: 100%;
+      position: relative; overflow: hidden;
+    }
+    .ds-gallery-slide img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 10s ease-out, opacity 1s ease;
+      opacity: 0.65;
+      filter: brightness(0.92);
+    }
+    .ds-gallery-slide.active img {
+      transform: scale(1.06);
+      opacity: 1;
+      filter: brightness(1);
+    }
+
+    /* Gallery UI — elegant frosted capsule */
+    .ds-gallery-ui {
+      position: absolute; bottom: 2.5rem; right: 2.5rem;
+      display: flex; align-items: center; gap: 1.2rem;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(20px) saturate(1.6);
+      -webkit-backdrop-filter: blur(20px) saturate(1.6);
+      padding: 0.7rem 1.6rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      z-index: 10;
+    }
+    .ds-nav-btn {
+      background: none; border: none;
+      font-size: 1rem; cursor: pointer;
+      color: rgba(255,255,255,0.9);
+      padding: 0.3rem 0.5rem;
+      transition: color 0.3s, transform 0.3s;
+      outline: none;
+      line-height: 1;
+    }
+    .ds-nav-btn:hover {
+      color: var(--gold-lt);
+      transform: scale(1.15);
+    }
+    .ds-counter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-style: italic;
+      color: rgba(255,255,255,0.85);
+      min-width: 42px; text-align: center;
+      letter-spacing: 0.05em;
+    }
+
     @media (max-width: 850px) {
-      .ds-left { padding: 5rem 6%; }
-      .ds-right { min-height: 450px; }
-      .ds-gallery-ui { bottom: 1.5rem; right: 1.5rem; padding: 0.6rem 1.2rem; }
+      #dynamic-split::before { left: 2%; font-size: 10rem; }
+      .ds-left { padding: 5rem 6% 5rem 8%; }
+      .ds-left::before { left: 3%; top: 15%; height: 70%; }
+      .ds-right { min-height: 420px; }
+      .ds-gallery-ui { bottom: 1.5rem; right: 1.5rem; padding: 0.5rem 1.2rem; gap: 1rem; }
+      .ds-tabs { gap: 2rem; }
+      .ds-tab { font-size: 1.15rem; }
+    }
+    @media (max-width: 550px) {
+      .ds-left::before { display: none; }
+      .ds-left { padding: 4rem 6%; }
+      .ds-right { min-height: 350px; }
     }
 
     /* MAKE TEAM SECTION SMALLER */
@@ -1439,14 +1609,16 @@
      <div class="ds-text-content active" id="ds-text-food">
         <span class="section-label">Farm to Table</span>
         <h2 class="section-title">Nourishing Local Foods</h2>
+        <p style="font-family:'Noto Serif JP',serif;font-size:0.85rem;color:var(--gold);margin-top:-0.8rem;margin-bottom:1.8rem;letter-spacing:0.15em;font-weight:300;">地元の食材を大切に</p>
         <div class="divider"></div>
-        <p class="section-sub">We serve wholesome, locally-sourced meals prepared with care, showcasing the seasonal flavors of the Kiso Valley.</p>
+        <p class="section-sub">We serve wholesome, locally-sourced meals prepared with care, showcasing the seasonal flavors of the Kiso Valley. Each dish tells the story of this mountain landscape — from foraged herbs to river fish, from village gardens to century-old recipes passed through generations.</p>
      </div>
      <div class="ds-text-content" id="ds-text-customer">
         <span class="section-label">Moments We Cherish</span>
-        <h2 class="section-title">Time with Our Customers</h2>
+        <h2 class="section-title">Time with Our Guests</h2>
+        <p style="font-family:'Noto Serif JP',serif;font-size:0.85rem;color:var(--gold);margin-top:-0.8rem;margin-bottom:1.8rem;letter-spacing:0.15em;font-weight:300;">大切なひととき</p>
         <div class="divider"></div>
-        <p class="section-sub">Capturing the smiles, stories, and shared memories with guests from around the world.</p>
+        <p class="section-sub">Capturing the smiles, stories, and shared memories with guests from around the world. Every visit creates a new chapter in the Yanagiya story — and yours.</p>
      </div>
   </div>
   <div class="ds-right">
@@ -1471,12 +1643,13 @@
   </div>
 
   
-  <div class="insta-feed-container reveal" style="max-width: 1200px; margin: 2.5rem auto; min-height: 300px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border: 1px dashed #ccc; border-radius: 8px;">
-     <!-- INSTAGRAM WIDGET EMBED CODE GOES HERE -->
-     <!-- Example: <script src="https://apps.elfsight.com/p/platform.js" defer></script><div class="elfsight-app-YOUR-ID-HERE"></div> -->
-     <p style="color: var(--muted); font-size: 0.9rem; text-align: center; padding: 2rem;">
-        <em>Your live Instagram feed will appear here.<br>Paste your embed code (e.g., from Elfsight, Curator.io, or SnapWidget) into this container in index.html.</em>
-     </p>
+  <div class="insta-grid reveal">
+    <div class="insta-thumb"><img src="new/tea.jpg" alt="Magome Cha iced tea" loading="lazy" /></div>
+    <div class="insta-thumb"><img src="new/magome.jpg" alt="Magome-juku stone path" loading="lazy" /></div>
+    <div class="insta-thumb"><img src="new/night sky.jpg" alt="Stars over Magome" loading="lazy" /></div>
+    <div class="insta-thumb"><img src="new/hiking.jpg" alt="Nakasendo trail hike" loading="lazy" /></div>
+    <div class="insta-thumb"><img src="new/tea (3).jpg" alt="Iced matcha on the post road" loading="lazy" /></div>
+    <div class="insta-thumb"><img src="new/yanagiya summer.jpg" alt="Yanagiya in summer" loading="lazy" /></div>
   </div>
 
 
@@ -1520,21 +1693,21 @@
   </div>
   
   <div class="faq-container reveal">
-    <div class="faq-item" onclick="this.classList.toggle('active')">
-      <div class="faq-q">Can we forward our luggage between Tsumago and Magome? <span class="faq-icon">+</span></div>
-      <div class="faq-a">Yes! There is a reliable baggage forwarding service between Tsumago and Magome available daily from March to November. You can drop your bags at the Magome Tourist Information Center in the morning, and they will be delivered to Tsumago by the afternoon so you can hike the Nakasendo trail empty-handed.</div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.parentElement.classList.toggle('active'));">Can we forward our luggage between Tsumago and Magome? <span class="faq-icon">+</span></button>
+      <div class="faq-a" role="region">Yes! There is a reliable baggage forwarding service between Tsumago and Magome available daily from March to November. You can drop your bags at the Magome Tourist Information Center in the morning, and they will be delivered to Tsumago by the afternoon so you can hike the Nakasendo trail empty-handed.</div>
     </div>
-    <div class="faq-item" onclick="this.classList.toggle('active')">
-      <div class="faq-q">Are meals included? <span class="faq-icon">+</span></div>
-      <div class="faq-a">For Yanagiya Main Lodge, we do not provide meals, but you have full access to a modern kitchen, or you can dine at local eateries. For Yanagiya Iri, you can book an exclusive botanical hot-pot dinner hosted by Yuji, featuring seasonal river fish and game meat with sommelier-paired wines.</div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.parentElement.classList.toggle('active'));">Are meals included? <span class="faq-icon">+</span></button>
+      <div class="faq-a" role="region">For Yanagiya Main Lodge, we do not provide meals, but you have full access to a modern kitchen, or you can dine at local eateries. For Yanagiya Iri, you can book an exclusive botanical hot-pot dinner hosted by Yuji, featuring seasonal river fish and game meat with sommelier-paired wines.</div>
     </div>
-    <div class="faq-item" onclick="this.classList.toggle('active')">
-      <div class="faq-q">Is the entire house private? <span class="faq-icon">+</span></div>
-      <div class="faq-a">Absolutely. When you book either Yanagiya Main Lodge or Yanagiya Iri, you are renting the entire private house. You will never share the space, bathrooms, or kitchen with strangers.</div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.parentElement.classList.toggle('active'));">Is the entire house private? <span class="faq-icon">+</span></button>
+      <div class="faq-a" role="region">Absolutely. When you book either Yanagiya Main Lodge or Yanagiya Iri, you are renting the entire private house. You will never share the space, bathrooms, or kitchen with strangers.</div>
     </div>
-    <div class="faq-item" onclick="this.classList.toggle('active')">
-      <div class="faq-q">Where do we park if we rent a car? <span class="faq-icon">+</span></div>
-      <div class="faq-a">We provide dedicated free parking for our guests. Since driving directly on the historic Nakasendo stone road is restricted during the day, we will send you specific map directions to our private guest parking area upon booking.</div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.parentElement.classList.toggle('active'));">Where do we park if we rent a car? <span class="faq-icon">+</span></button>
+      <div class="faq-a" role="region">We provide dedicated free parking for our guests. Since driving directly on the historic Nakasendo stone road is restricted during the day, we will send you specific map directions to our private guest parking area upon booking.</div>
     </div>
   </div>
 </section>
@@ -1678,8 +1851,8 @@
         <li><a href="mailto:magome.yanagiya@gmail.com">magome.yanagiya@gmail.com</a></li>
         <li><a href="tel:08061843170">080-6184-3170</a></li>
         <li><a href="https://www.instagram.com/yanagiya_japanesetea/" target="_blank" rel="noopener">@yanagiya_japanesetea</a></li>
-        <li><a>馬籠 4292, Nakatsugawa</a></li>
-        <li><a>Gifu 508-0502, Japan</a></li>
+        <li><span>馬籠 4292, Nakatsugawa</span></li>
+        <li><span>Gifu 508-0502, Japan</span></li>
       </ul>
     </div>
   </div>
@@ -1696,7 +1869,7 @@
     setTimeout(() => {
       const p = document.getElementById('preloader');
       if (p) p.classList.add('hidden');
-    }, 4500);
+    }, 1200);
   });
 
   /* ── NAVBAR SCROLL ── */
@@ -1879,14 +2052,35 @@
   /* ── FORM SUBMIT ── */
   function handleFormSubmit(e) {
     e.preventDefault();
+    const fname = document.getElementById('fname').value;
+    const lname = document.getElementById('lname').value;
+    const email = document.getElementById('email').value;
+    const checkin = document.getElementById('checkin').value;
+    const checkout = document.getElementById('checkout').value;
+    const lodge = document.getElementById('lodgeSelect').value;
+    const guests = document.getElementById('guestsCount').value;
+    const message = document.getElementById('message').value;
+
+    const subject = encodeURIComponent('Reservation Enquiry from ' + fname + ' ' + lname);
+    const body = encodeURIComponent(
+      'Name: ' + fname + ' ' + lname + '\n' +
+      'Email: ' + email + '\n' +
+      'Check-in: ' + checkin + '\n' +
+      'Check-out: ' + checkout + '\n' +
+      'Lodge: ' + lodge + '\n' +
+      'Guests: ' + guests + '\n\n' +
+      'Message:\n' + message
+    );
+
+    window.location.href = 'mailto:magome.yanagiya@gmail.com?subject=' + subject + '&body=' + body;
+
     const btn = document.getElementById('submitBtn');
-    btn.textContent = 'Enquiry Sent! We will reply within 24h.';
+    btn.textContent = 'Opening your email client...';
     btn.style.background = 'var(--matcha)';
     setTimeout(() => {
       btn.textContent = 'Send Reservation Enquiry \u2192';
       btn.style.background = '';
-      e.target.reset();
-    }, 4000);
+    }, 5000);
   }
   /* ── CALENDAR TABS ── */
   const calLinks = {
