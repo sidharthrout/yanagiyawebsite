@@ -140,11 +140,19 @@
       animation:preBarAnim 3s cubic-bezier(.4,0,.2,1) .8s forwards;
     }
 
-    /* Tagline */
-    .pre-tagline{
-      margin-top:1.4rem;font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;
-      color:rgba(255,255,255,.35);opacity:0;
-      animation:preFadeUp 1s ease 2s forwards;
+    /* Typewriter Tagline */
+    .pre-typewriter{
+      margin-top:1.4rem;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;
+      color:rgba(255,255,255,.6); font-family:'Inter',sans-serif;
+      min-height:20px; display:flex; align-items:center; justify-content:center;
+    }
+    .pre-cursor{
+      display:inline-block; width:4px; height:12px; background:var(--gold);
+      margin-left:6px; animation:cursorBlink .8s infinite;
+    }
+    @keyframes cursorBlink{
+      0%,100%{opacity:1}
+      50%{opacity:0}
     }
 
     /* Location line */
@@ -1141,7 +1149,7 @@
   <div class="pre-top-line"></div>
   <div class="pre-name">Yanagiya</div>
   <div class="pre-bar-wrap"><div class="pre-bar"></div></div>
-  <div class="pre-tagline">Magome &middot; Nakasendo &middot; Japanese Lodges &amp; Magome Cha</div>
+  <div class="pre-typewriter"><span id="type-text"></span><span class="pre-cursor"></span></div>
   <div class="pre-location">Magome-juku, Nakatsugawa &middot; Gifu, Japan</div>
   <div class="pre-bottom-line"></div>
 </div>
@@ -1953,14 +1961,32 @@
 </footer>
 
 <script>
-  /* ── PRELOADER ── */
+  /* ── PRELOADER & TYPEWRITER ── */
   window.addEventListener('load', () => {
-    if (sessionStorage.getItem('preloaderShown') !== 'true') {
+    const p = document.getElementById('preloader');
+    const typeText = document.getElementById('type-text');
+    const isShown = sessionStorage.getItem('preloaderShown') === 'true';
+
+    if (!isShown) {
+      // Typewriter Effect
+      const textToType = "Lodge · Culture · Tea · Tour";
+      let charIdx = 0;
+      function typeWriter() {
+        if (charIdx < textToType.length) {
+          typeText.innerHTML += textToType.charAt(charIdx);
+          charIdx++;
+          setTimeout(typeWriter, 65);
+        }
+      }
+      setTimeout(typeWriter, 1200); // Start typing after name reveals
+
+      // Hide preloader after animation completes
       setTimeout(() => {
-        const p = document.getElementById('preloader');
         if (p) p.classList.add('hidden');
         sessionStorage.setItem('preloaderShown', 'true');
-      }, 2400); // Give it a little more time to load
+      }, 3800); 
+    } else {
+      if (p) p.style.display = 'none';
     }
   });
 
