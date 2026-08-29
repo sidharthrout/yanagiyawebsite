@@ -1112,8 +1112,32 @@
       }
       .contact-methods { flex-direction: column; }
     }
-</style>
+
+    /* INFINITY SCROLL MARQUEE */
+    @keyframes scrollInfinity { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes scrollInfinityReverse { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+    .infinity-track:hover { animation-play-state: paused !important; }
+    .food-img-box {
+      flex-shrink: 0; width: 280px; height: 280px; border-radius: 12px;
+      overflow: visible; position: relative; z-index: 1;
+      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s;
+    }
+    .food-img-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s; }
+    .food-img-box:hover { z-index: 20; transform: scale(1.2) translateY(-10px); }
+    .food-img-box:hover img { box-shadow: 0 25px 60px rgba(0,0,0,0.5); }
     
+    /* Smooth transitions for Magome and Stars sections */
+    #magome, #stars {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    #magome.in-view, #stars.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+</style>
 </head>
 <body>
 
@@ -1213,7 +1237,8 @@
     <div class="stat-label">Single-Origin Magome Cha</div>
   </div>
 </div>
-
+
+
 
 <!-- OUR STORY / ABOUT -->
 <section id="about">
@@ -1352,26 +1377,46 @@
   </div>
   <div style="width: 100vw; margin-left: calc(-50vw + 50%); overflow: hidden;">
     <div class="infinity-track" style="display:flex; gap:1.5rem; width:max-content; animation: scrollInfinity 40s linear infinite;">
-            <div class="food-img-box"><img src="with custoemr/customer_01.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_02.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_03.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_04.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_05.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_06.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_07.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_08.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_09.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_10.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_01.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_02.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_03.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_04.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_05.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_06.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_07.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_08.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_09.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_10.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_01.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_02.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_03.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_04.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_05.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_06.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_07.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_08.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_09.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_10.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_01.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_02.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_03.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_04.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_05.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_06.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_07.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_08.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_09.jpg" alt="Guest memory" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="with custoemr/customer_10.jpg" alt="Guest memory" loading="lazy"></div>
+
     </div>
   </div>
 </section>
@@ -1390,42 +1435,78 @@
   </div>
   <div style="width: 100vw; margin-left: calc(-50vw + 50%); overflow: hidden;">
     <div class="infinity-track" style="display:flex; gap:1.5rem; width:max-content; animation: scrollInfinityReverse 50s linear infinite;">
-            <div class="food-img-box"><img src="customer food/food_02.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_03.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_04.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_05.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_06.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_07.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_08.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_09.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_10.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_11.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_12.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_13.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_14.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_15.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_16.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_17.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_18.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_19.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_02.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_03.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_04.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_05.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_06.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_07.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_08.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_09.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_10.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_11.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_12.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_13.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_14.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_15.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_16.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_17.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_18.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_19.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_02.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_03.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_04.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_05.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_06.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_07.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_08.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_09.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_10.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_11.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_12.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_13.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_14.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_15.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_16.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_17.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_18.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_19.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_02.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_03.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_04.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_05.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_06.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_07.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_08.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_09.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_10.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_11.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_12.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_13.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_14.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_15.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_16.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_17.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_18.jpg" alt="Local cuisine" loading="lazy"></div>
+
+            <div class="food-img-box"><img src="customer food/food_19.jpg" alt="Local cuisine" loading="lazy"></div>
+
     </div>
   </div>
 </section>
@@ -1478,7 +1559,8 @@
       </div>
     </div>
   </div>
-
+
+
 </section>
 
 <!-- UNDER THE STARS OF MAGOME SECTION -->
@@ -1546,8 +1628,10 @@
        </div>
     </div>
   </div>
-</section>
-
+</section>
+
+
+
 <!-- MAGOME CHA (TEA SECTION - PROMINENT MAGOME CHA TITLE) -->
 <section id="tea">
   <div class="tea-layout">
@@ -2399,6 +2483,20 @@
     tl2.to(starPanels[0], { opacity: 0, duration: 1 }).to(starPanels[1], { opacity: 1, duration: 1 }, "<")
        .to(starPanels[1], { opacity: 0, duration: 1 }).to(starPanels[2], { opacity: 1, duration: 1 }, "<");
   }
+
+  // FADE IN MAGOME AND STARS
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, { threshold: 0.15 });
+  
+  const magomeSec = document.getElementById('magome');
+  const starsSec = document.getElementById('stars');
+  if(magomeSec) fadeObserver.observe(magomeSec);
+  if(starsSec) fadeObserver.observe(starsSec);
 </script>
 
 </body>
