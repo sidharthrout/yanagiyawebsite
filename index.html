@@ -1065,6 +1065,65 @@
         height: 500px !important;
       }
     }
+    
+    /* ── LUXURY BOOKING SECTION ── */
+    .dark-booking-section {
+      background: var(--night);
+      padding: 6rem 5%;
+      position: relative;
+    }
+    .luxury-booking-card {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--night-card);
+      border: 1px solid rgba(194,157,91,0.2);
+      border-radius: 12px;
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 3rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .booking-concierge {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .booking-concierge h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      color: var(--gold-lt);
+      margin-bottom: 1rem;
+    }
+    .booking-concierge p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    .contact-methods {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .booking-partner {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem;
+      text-align: center;
+    }
+    .booking-partner span {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.4);
+    }
+    @media (max-width: 950px) {
+      .luxury-booking-card {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+      }
+      .contact-methods { flex-direction: column; }
+    }
 </style>
     
 </head>
@@ -1675,27 +1734,41 @@
 </section>
 
 <!-- AVAILABILITY CALENDAR -->
-<section id="availability">
+<section id="availability" class="dark-booking-section">
   <div class="reveal">
-    <span class="section-label">Plan Your Visit</span>
-    <h2 class="section-title">Check Availability 🐈</h2>
-    <div class="divider divider-center"></div>
-    <p class="section-sub" style="margin:0 auto 3rem;">Select a lodge below to view our live availability. We recommend booking early for peak autumn seasons. Our resident lucky cat hopes to welcome you soon! 🐾</p>
+    <span class="section-label" style="color:var(--gold-lt);">Plan Your Visit</span>
+    <h2 class="section-title" style="color:var(--white);">Reserve Your Sanctuary 🐈</h2>
+    <div class="divider divider-center" style="background:var(--gold);"></div>
+    <p class="section-sub" style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto 3rem;">
+      Select a lodge below to view our live availability. We recommend booking early for peak seasons. 
+      Our resident lucky cat hopes to welcome you soon! 🐾
+    </p>
   </div>
 
-  <div class="calendar-wrapper reveal">
-    <div class="calendar-tabs">
-      <button class="cal-tab active" onclick="switchCalendar('yanagiya', this)">Yanagiya (Main Lodge)</button>
-      <button class="cal-tab" onclick="switchCalendar('iri', this)">Yanagiya Iri (Hillside)</button>
+  <div class="luxury-booking-card reveal">
+    <div class="calendar-wrapper" style="background:transparent; padding:0; box-shadow:none;">
+      <div class="calendar-tabs" style="margin-bottom:1.5rem;">
+        <button class="cal-tab active" onclick="switchCalendar('yanagiya', this)" style="border-color:rgba(255,255,255,0.2); color:var(--white);">Yanagiya (Main Lodge)</button>
+        <button class="cal-tab" onclick="switchCalendar('iri', this)" style="border-color:rgba(255,255,255,0.2); color:var(--white);">Yanagiya Iri (Hillside)</button>
+      </div>
+      
+      <div class="cal-scroll-wrap" style="width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:8px;">
+        <iframe id="calIframe" class="calendar-frame" src="https://calendar.google.com/calendar/embed?src=5e0203688673db5f6cc12a7c6c597ce95597aac51f4d82cf6004dffa56f9c675%40group.calendar.google.com&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23121722&color=%23c29d5b" scrolling="yes" style="background:#121722;"></iframe>
+      </div>
     </div>
     
-    <div class="cal-scroll-wrap" style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
-      <iframe id="calIframe" class="calendar-frame" src="https://calendar.google.com/calendar/embed?src=5e0203688673db5f6cc12a7c6c597ce95597aac51f4d82cf6004dffa56f9c675%40group.calendar.google.com&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23f7f4ee&color=%23c29d5b" scrolling="yes"></iframe>
-    </div>
-    
-    <div class="cal-actions">
-      <a href="#contact" class="btn btn-primary">Dates Open? Request Direct Booking &darr;</a>
-      <a href="https://www.booking.com/hotel/jp/guesthouse-yanagiya.html" target="_blank" rel="noopener" class="btn btn-booking" id="calBookingBtn">Book on Booking.com</a>
+    <div class="booking-concierge">
+      <h3>Concierge &amp; Direct Booking</h3>
+      <p>Bypass external fees by booking directly with us. We respond to all inquiries within 24 hours.</p>
+      
+      <div class="contact-methods" style="flex-direction:column; gap:0.8rem;">
+        <a href="#contact" class="btn btn-primary" style="display:flex; justify-content:center; background:var(--gold); border:none; color:var(--ink);">Request Direct Booking &darr;</a>
+      </div>
+      
+      <div class="booking-partner">
+        <span style="display:block; margin-bottom:0.8rem;">Also available on</span>
+        <a href="https://www.booking.com/hotel/jp/guesthouse-yanagiya.html" target="_blank" rel="noopener" class="btn btn-booking" id="calBookingBtn" style="display:flex; justify-content:center;">Book on Booking.com</a>
+      </div>
     </div>
   </div>
 </section>
