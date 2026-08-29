@@ -18,7 +18,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <!-- Smooth Scroll Library -->
+  <!-- Modern Animation Libraries (Awwwards 2026 Style) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -31,7 +34,6 @@
     html, body { 
       width: 100%; 
       overflow-x: hidden; 
-      scroll-behavior: smooth;
     }
     html { font-size: 16px; }
     body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.6; }
@@ -40,121 +42,54 @@
     ul{list-style:none}
     button{cursor:pointer;border:none;background:none;font-family:inherit}
 
-    /* ── PRELOADER (Modern Zen) ── */
+    /* ── PRELOADER (Minimalist Zen) ── */
     #zen-preloader {
       position: fixed; inset: 0; z-index: 9999999;
-      background: radial-gradient(ellipse at center, #14100e 0%, #0a0d14 100%);
+      background: #0a0d14; /* Deep luxury night */
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
     }
-    #zen-preloader.hidden {
-      opacity: 0; visibility: hidden; pointer-events: none;
-    }
-    .zen-bg {
-      position: absolute; inset: 0; overflow: hidden; opacity: 0.3;
-      background-image: 
-        radial-gradient(1px 1px at 20% 30%, var(--gold), transparent),
-        radial-gradient(1px 1px at 80% 70%, var(--gold-lt), transparent),
-        radial-gradient(1.5px 1.5px at 40% 80%, var(--gold), transparent),
-        radial-gradient(1px 1px at 90% 20%, var(--gold-lt), transparent),
-        radial-gradient(2px 2px at 60% 40%, var(--gold), transparent);
-      background-repeat: repeat; background-size: 400px 300px;
-      animation: zenDrift 20s linear infinite;
-    }
-    @keyframes zenDrift {
-      to { background-position: 400px 300px; }
+    #zen-preloader.slide-up {
+      transform: translateY(-100%);
     }
     .zen-line {
-      width: 1px; height: 0; background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-      margin-bottom: 2.5rem;
-      animation: zenLineDrop 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      width: 1px; height: 0; background: var(--gold);
+      margin-bottom: 2rem;
+      animation: zenLineDrop 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     }
     .zen-brand {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.8rem, 7vw, 5rem);
-      font-weight: 200;
-      letter-spacing: 0.2em;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300; letter-spacing: 0em;
       color: transparent;
-      background: linear-gradient(100deg, var(--gold) 0%, #fff 35%, var(--gold-lt) 65%, var(--gold) 100%);
-      background-size: 300% auto;
+      background: linear-gradient(to right, var(--gold), #ffffff, var(--gold));
+      background-size: 200% auto;
       -webkit-background-clip: text;
       background-clip: text;
-      position: relative;
-      overflow: hidden;
-      height: 1.15em;
-      line-height: 1.15;
-      filter: drop-shadow(0 4px 24px rgba(194,157,91,0.15));
-    }
-    .zen-brand .typewriter {
-      display: inline-block;
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 1px solid var(--gold);
-      width: 0;
-      color: transparent;
-      background: linear-gradient(100deg, var(--gold) 0%, #fff 35%, var(--gold-lt) 65%, var(--gold) 100%);
-      background-size: 300% auto;
-      -webkit-background-clip: text;
-      background-clip: text;
+      opacity: 0;
       animation: 
-        typeIn 2s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards,
-        typeShine 4s linear 2.4s infinite,
-        blink 1s step-end infinite;
+        zenFadeSpread 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s forwards,
+        zenShine 3s linear 1s infinite;
     }
-    @keyframes typeIn {
-      0% { width: 0; opacity: 1; }
-      95% { width: 100%; opacity: 1; }
-      100% { width: 100%; opacity: 1; border-right-color: var(--gold); }
-    }
-    @keyframes typeShine { to { background-position: 300% center; } }
-    @keyframes blink { 50% { border-color: transparent; } }
     .zen-subtitle {
       font-family: 'Inter', sans-serif;
-      font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      margin-top: 1.8rem;
-      opacity: 0; transform: translateY(12px);
-      animation: subFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards;
+      font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-top: 1.5rem;
+      opacity: 0; transform: translateY(10px);
+      animation: zenSubFade 1.2s ease 1.6s forwards;
     }
-    .zen-subtitle span {
-      display: inline-block; opacity: 0; transform: translateY(10px);
-      animation: letterUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    .zen-subtitle span:nth-child(1)  { animation-delay: 2.3s; }
-    .zen-subtitle span:nth-child(2)  { animation-delay: 2.38s; }
-    .zen-subtitle span:nth-child(3)  { animation-delay: 2.46s; }
-    .zen-subtitle span:nth-child(4)  { animation-delay: 2.54s; }
-    .zen-subtitle span:nth-child(5)  { animation-delay: 2.62s; }
-    .zen-subtitle span:nth-child(6)  { animation-delay: 2.7s; }
-    .zen-subtitle span:nth-child(7)  { animation-delay: 2.78s; }
-    .zen-subtitle span:nth-child(8)  { animation-delay: 2.86s; }
-    .zen-subtitle span:nth-child(9)  { animation-delay: 2.94s; }
-    .zen-subtitle span:nth-child(10) { animation-delay: 3.02s; }
-    .zen-subtitle span:nth-child(11) { animation-delay: 3.1s; }
-    .zen-subtitle span:nth-child(12) { animation-delay: 3.18s; }
-    .zen-subtitle span:nth-child(13) { animation-delay: 3.26s; }
-    .zen-subtitle span:nth-child(14) { animation-delay: 3.34s; }
-    .zen-subtitle span:nth-child(15) { animation-delay: 3.42s; }
-    .zen-subtitle span:nth-child(16) { animation-delay: 3.5s; }
-    .zen-subtitle span:nth-child(17) { animation-delay: 3.58s; }
-    .zen-subtitle span:nth-child(18) { animation-delay: 3.66s; }
-    .zen-subtitle span:nth-child(19) { animation-delay: 3.74s; }
-    .zen-subtitle span:nth-child(20) { animation-delay: 3.82s; }
-    .zen-subtitle span:nth-child(21) { animation-delay: 3.9s; }
-    .zen-subtitle span:nth-child(22) { animation-delay: 3.98s; }
-    .zen-subtitle span:nth-child(23) { animation-delay: 4.06s; }
-    .zen-subtitle span:nth-child(24) { animation-delay: 4.14s; }
-    .zen-subtitle span:nth-child(25) { animation-delay: 4.22s; }
-    .zen-subtitle span:nth-child(26) { animation-delay: 4.3s; }
     @keyframes zenLineDrop {
-      0% { height: 0; opacity: 0; transform: translateY(-10px); }
-      20% { opacity: 1; }
-      100% { height: 100px; opacity: 1; transform: translateY(0); }
+      to { height: 80px; }
     }
-    @keyframes subFade {
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes zenFadeSpread {
+      0% { opacity: 0; letter-spacing: 0em; filter: blur(4px); }
+      100% { opacity: 1; letter-spacing: 0.4em; filter: blur(0); }
     }
-    @keyframes letterUp {
+    @keyframes zenShine {
+      to { background-position: 200% center; }
+    }
+    @keyframes zenSubFade {
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -185,10 +120,6 @@
     .btn-matcha{background:var(--matcha);color:var(--white);border:1px solid var(--matcha)}
     .btn-matcha:hover{background:#2e4428;border-color:#2e4428}
 
-    section {
-      transition: background-color 0.6s ease, transform 0.6s ease;
-    }
-    
     .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
     .reveal.visible{opacity:1;transform:none}
 
@@ -467,12 +398,26 @@
       color:var(--gold-lt);font-size:1.05rem;margin:1.5rem 0 2rem;
     }
     
-    /* ── HERO SECTION ── */
+    /* ── AWWWARDS 2026 MODERN CSS ── */
+    html.lenis { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    .lenis.lenis-stopped { overflow: hidden; }
+    .lenis.lenis-scrolling iframe { pointer-events: none; }
+    
+    .cursor-follower {
+      position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+      background: var(--gold); border-radius: 50%; pointer-events: none;
+      z-index: 999999; mix-blend-mode: difference; transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, background 0.3s;
+    }
+    .cursor-follower.hovering { width: 60px; height: 60px; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); }
+
     .hero-cinematic {
-      position: relative; width: 100%; height: 100vh; overflow: hidden; background: #111;
+      position: relative; width: 100vw; height: 100vh; overflow: hidden; background: #111;
     }
     .hero-cinematic-img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      position: absolute; inset: -5%; width: 110%; height: 110%; object-fit: cover;
       will-change: transform;
     }
     .hero-cinematic-overlay {
@@ -482,7 +427,7 @@
 
     /* Green Stats Banner */
     .global-stats-banner {
-      background: #344e2d; color: #fff; width: 100%; margin: 0;
+      background: #344e2d; color: #fff; width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);
       padding: 3rem 5%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
       border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);
       position: relative; z-index: 10;
@@ -699,6 +644,24 @@
     .stat-val{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:300;line-height:1}
     .stat-txt{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;margin-top:.6rem;color:rgba(255,255,255,.78)}
 
+    /* ── INSTAGRAM STRIP ── */
+    #instagram{padding:5.5rem 6%;background:var(--card);text-align:center}
+    .insta-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:2.5rem 0}
+    .insta-thumb{aspect-ratio:1/1;overflow:hidden;position:relative;background:var(--ink)}
+    .insta-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease,opacity .6s ease}
+    .insta-thumb:hover img{transform:scale(1.08);opacity:.85}
+
+    /* ── AVAILABILITY CALENDAR ── */
+    #availability{padding:6.5rem 6%;background:var(--paper);text-align:center;}
+    .calendar-wrapper{max-width:1000px;margin:0 auto;background:var(--card);padding:2.5rem;border-radius:8px;box-shadow:0 8px 40px rgba(21,18,16,.08); border:1px solid rgba(21,18,16,.05);}
+    .calendar-tabs{display:flex;justify-content:center;gap:1rem;margin-bottom:2rem;}
+    .cal-tab{padding:.85rem 1.8rem;border:1px solid var(--gold);background:transparent;color:var(--ink);border-radius:4px;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;transition:all var(--ease);}
+    .cal-tab.active{background:var(--gold);color:var(--white);box-shadow:0 4px 15px rgba(194,157,91,.3);}
+    .cal-tab:hover:not(.active){background:rgba(194,157,91,.08);}
+    .calendar-frame{width:100%;height:550px;border:none;border-radius:4px;background:#f9f9f9; margin-bottom:0;}
+    .cal-actions{display:flex;justify-content:center;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;}
+    .cal-actions .btn{font-size:.8rem; padding:1rem 2rem;}
+
     /* ── FAQ ACCORDION ── */
     #faq{padding:5rem 6%;background:var(--white);}
     .faq-container{max-width:800px;margin:0 auto;}
@@ -815,7 +778,7 @@
       .calendar-tabs{flex-direction:column;}
       .calendar-frame{height:420px;}
       .cal-actions .btn{width:100%;}
-      #lodges,#experiences,#stars,#team{padding:4rem 5%}
+      #lodges,#experiences,#stars,#team,#instagram,#availability{padding:4rem 5%}
     }
     /* ── STICKY MOBILE BOOK BAR ── */
     .mobile-sticky-book{display:none;}
@@ -910,7 +873,7 @@
     .ds-text-content.active { display: block; }
     @keyframes dsFadeIn {
       from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; /* transform removed */ }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* Override section-label / title / sub for this section */
@@ -1105,7 +1068,7 @@
       border-radius: 12px;
       padding: 2.5rem;
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 350px;
       gap: 3rem;
       box-shadow: 0 20px 50px rgba(0,0,0,0.5);
     }
@@ -1164,7 +1127,15 @@
     .food-img-box:hover img { box-shadow: 0 25px 60px rgba(0,0,0,0.5); }
     
     /* Smooth transitions for Magome and Stars sections */
-    /* magome and stars fade removed to fix pinning stability */
+    #magome, #stars {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    #magome.in-view, #stars.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
 </style>
 </head>
@@ -1172,12 +1143,9 @@
 
 <!-- PRELOADER -->
 <div id="zen-preloader">
-  <div class="zen-bg"></div>
   <div class="zen-line"></div>
-  <h1 class="zen-brand"><span class="typewriter">YANAGIYA</span></h1>
-  <div class="zen-subtitle">
-    <span>L</span><span>o</span><span>d</span><span>g</span><span>e</span><span>&nbsp;</span><span>&middot;</span><span>&nbsp;</span><span>C</span><span>u</span><span>l</span><span>t</span><span>u</span><span>r</span><span>e</span><span>&nbsp;</span><span>&middot;</span><span>&nbsp;</span><span>T</span><span>e</span><span>a</span><span>&nbsp;</span><span>&middot;</span><span>&nbsp;</span><span>T</span><span>o</span><span>u</span><span>r</span>
-  </div>
+  <h1 class="zen-brand">YANAGIYA</h1>
+  <div class="zen-subtitle">Lodge &middot; Culture &middot; Tea &middot; Tour</div>
 </div>
 
 
@@ -1220,12 +1188,12 @@
   <a href="#contact" class="btn btn-primary m-book" onclick="closeMobile()">Reserve Now</a>
 </nav>
 
+<!-- GSAP CUSTOM CURSOR -->
+<div class="cursor-follower" id="cursorFollower"></div>
+
 <!-- HERO SECTION (CINEMATIC) -->
 <section id="hero" class="hero-cinematic">
-  <div class="hero-slide active"><img src="magomejuku.jpg" alt="Yanagiya lodge on the historic Magome post road" loading="eager" /></div>
-  <div class="hero-slide"><img src="heroyanagiya.jpg" alt="Yanagiya exterior at sunset" loading="lazy" /></div>
-  <div class="hero-slide"><img src="stay2.jpg" alt="Yanagiya interior with traditional tatami" loading="lazy" /></div>
-  <div class="hero-slide"><img src="starpic.jpg" alt="Night sky over Magome-juku" loading="lazy" /></div>
+  <img src="magomejuku.jpg" alt="Yanagiya lodge on the historic Magome post road" class="hero-cinematic-img" id="heroImg" />
   <div class="hero-cinematic-overlay"></div>
   
   <div class="hero-content">
@@ -1235,7 +1203,7 @@
         <span class="rating-val" style="color:#fff;">9.6</span>
         <span class="rating-desc" style="color:rgba(255,255,255,0.8);">Exceptional · Booking.com</span>
       </div>
-      <p class="hero-kanji-sub" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">&#20013;&#23665;&#36947; &middot; &#23487;&#22580;&#30010;</p>
+      <p class="hero-kanji-sub" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">柳屋 · 中山道 馬籠宿</p>
       <h1 style="font-size: clamp(3rem, 6vw, 5.5rem); text-shadow: 0 4px 20px rgba(0,0,0,0.5); letter-spacing: -0.02em;">Where Ancient Paths Meet Modern Peace</h1>
       <p style="font-size: 1.1rem; max-width: 600px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Two authentic private machiya lodges nestled along the historic Nakasendo highway in Magome-juku. Wake to misty mountains, locally harvested Magome Cha, and starry night skies.</p>
       
@@ -1244,11 +1212,6 @@
       </div>
     </div>
   </div>
-  
-  <!-- Hero Navigation Controls -->
-  <div class="hero-dots" id="heroDots"></div>
-  <button class="hero-arrow prev" id="heroPrev">&#8249;</button>
-  <button class="hero-arrow next" id="heroNext">&#8250;</button>
 </section>
 
 <!-- GLOBAL STATS BANNER -->
@@ -1408,7 +1371,7 @@
       The trail brings travelers from all over the world to Magome. Every evening brings new conversations, new friendships, and shared laughter around the hearth.
     </p>
   </div>
-  <div style="width: 100%; overflow: hidden;">
+  <div style="width: 100vw; margin-left: calc(-50vw + 50%); overflow: hidden;">
     <div class="infinity-track" style="display:flex; gap:3rem; width:max-content; animation: scrollInfinity 40s linear infinite;">
             <div class="food-img-box"><img src="with custoemr/customer_01.jpg" alt="Guest memory" loading="lazy"></div>
 
@@ -1466,7 +1429,7 @@
       We serve wholesome, locally-sourced meals showcasing the seasonal flavors of the Kiso Valley.
     </p>
   </div>
-  <div style="width: 100%; overflow: hidden;">
+  <div style="width: 100vw; margin-left: calc(-50vw + 50%); overflow: hidden;">
     <div class="infinity-track" style="display:flex; gap:3rem; width:max-content; animation: scrollInfinityReverse 50s linear infinite;">
             <div class="food-img-box"><img src="customer food/food_02.jpg" alt="Local cuisine" loading="lazy"></div>
 
@@ -1597,20 +1560,20 @@
 </section>
 
 <!-- UNDER THE STARS OF MAGOME SECTION -->
-<section id="stars" style="background: var(--night); position: relative; overflow: hidden; scroll-behavior: smooth;">
-  <div style="display: flex; flex-wrap: wrap; max-width: 1400px; margin: 0 auto; min-height: 100vh; align-items: center; gap: 2rem;">
+<section id="stars" style="background: var(--night); position: relative; overflow: hidden;">
+  <div style="display: flex; flex-wrap: wrap; max-width: 1400px; margin: 0 auto; min-height: 100vh; align-items: center;">
     <div style="flex: 1; min-width: 300px; padding: 5%; color: white;">
       <span class="section-kanji-tag" style="color:var(--gold-lt);">夜の静寂 · 満天の星空</span>
       <span class="section-label" style="color:var(--gold-lt); display:block; margin-bottom:1rem;">Magome After Dark</span>
-      <h2 class="section-title" style="font-size: clamp(2rem, 3.5vw, 3.5rem); margin-bottom:1.5rem; color: #ffffff;">Discover Another Side of Magome</h2>
+      <h2 class="section-title" style="font-size: clamp(2rem, 3.5vw, 3.5rem); margin-bottom:1.5rem;">Discover Another Side of Magome</h2>
       <div class="divider" style="background:var(--gold-lt);"></div>
-      <p style="font-size:1.15rem; line-height:1.8; color:#ffffff; margin-bottom:1.5rem;">
+      <p style="font-size:1.15rem; line-height:1.8; color:rgba(255,255,255,0.9); margin-bottom:1.5rem;">
         <em>"When the daytime visitors leave, Magome changes."</em>
       </p>
-      <p style="font-size:1.05rem; line-height:1.8; color:#ffffff; margin-bottom:1.5rem;">
+      <p style="font-size:1.05rem; line-height:1.8; color:rgba(255,255,255,0.75); margin-bottom:1.5rem;">
         The streets become quiet. The mountains disappear into darkness. And above them, the night sky begins to appear.
       </p>
-      <p style="font-size:1.05rem; line-height:1.8; color:#ffffff; margin-bottom:2rem;">
+      <p style="font-size:1.05rem; line-height:1.8; color:rgba(255,255,255,0.75); margin-bottom:2rem;">
         Our stargazing experiences are about something simple: <strong>Standing outside. Looking up. Listening to the mountains. And slowing down.</strong>
       </p>
       <div style="display:flex;gap:.8rem;flex-wrap:wrap;">
@@ -1618,7 +1581,7 @@
         <a href="https://www.instagram.com/yanagiya_japanesetea/" target="_blank" class="btn btn-outline" style="border-color:rgba(255,255,255,.4);color:#fff;">View Star Journal</a>
       </div>
     </div>
-    <div style="flex: 1; min-width: 300px; height: 80vh; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); margin: 5%; margin-left: 0;">
+    <div style="flex: 1; min-width: 300px; height: 80vh; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); margin: 5%;">
        <div style="position: absolute; inset:0;">
            <div class="star-panel" style="position: absolute; inset:0; z-index:3; opacity: 1;">
              <img src="night star/nightstar2.jpg" style="width:100%; height:100%; object-fit:cover;" />
@@ -1637,7 +1600,35 @@
   </div>
 </section>
 
-<!-- TEA SECTION -->
+<!-- MAGOME-JUKU KEN BURNS / PARALLAX SLIDER SECTION -->
+<section id="magome" style="background: var(--paper); position: relative; overflow: hidden; padding: 0;">
+  <div style="display: flex; flex-wrap: wrap; width: 100%; min-height: 100vh; align-items: center;">
+    <div style="flex: 1; min-width: 300px; padding: 5%; display: flex; flex-direction: column; justify-content: center;">
+      <span class="section-label">Living History</span>
+      <h2 class="section-title">Magome-juku  馬籠宿</h2>
+      <div class="divider"></div>
+      <p style="font-size:1.15rem; line-height:1.8; color:var(--ink); margin-bottom:1.5rem;">
+        Step straight from our doorsteps onto stone cobblestones laid during the Edo era. Magome-juku was the 43rd post station of the Nakasendo road.
+      </p>
+      <p style="font-size:1.05rem; line-height:1.8; color:var(--muted); margin-bottom:2rem;">
+        Follow the sloping stone path flanked by traditional wooden machiya, listen to water wheels spinning in crystal channels, and experience the quiet rhythm of the post town.
+      </p>
+      <div><a href="#experiences" class="btn btn-gold">Explore Experiences &#8594;</a></div>
+    </div>
+    <div style="flex: 1; min-width: 300px; height: 80vh; position: relative; margin: 5%; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+       <div style="position: absolute; inset:0;">
+           <div class="magome-panel" style="position: absolute; inset:0; z-index:3; opacity: 1;"><img src="magomejuku.jpg" style="width:100%; height:100%; object-fit:cover;" /></div>
+           <div class="magome-panel" style="position: absolute; inset:0; z-index:2; opacity: 0;"><img src="aboutmagome-1.jpg" style="width:100%; height:100%; object-fit:cover;" /></div>
+           <div class="magome-panel" style="position: absolute; inset:0; z-index:1; opacity: 0;"><img src="aboutmagome.jpg" style="width:100%; height:100%; object-fit:cover;" /></div>
+           <div class="magome-panel" style="position: absolute; inset:0; z-index:0; opacity: 0;"><img src="new/magome.jpg" style="width:100%; height:100%; object-fit:cover;" /></div>
+       </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- MAGOME CHA (TEA SECTION - PROMINENT MAGOME CHA TITLE) -->
 <section id="tea">
   <div class="tea-layout">
     <div class="tea-text reveal">
@@ -1800,7 +1791,71 @@
 
 
 
-<!-- FAQ SECTION -->
+<!-- INSTAGRAM STRIP -->
+<section id="instagram">
+  <div class="reveal">
+    <span class="section-label">Follow Our Journal</span>
+    <h2 class="section-title">@yanagiya_japanesetea</h2>
+    <div class="divider divider-center"></div>
+    <p class="section-sub" style="margin:0 auto;">Daily glimpses into life on the Nakasendo, steaming cups of Magome Cha, seasonal snowfall, and misty mountain mornings.</p>
+  </div>
+
+  
+  <div class="insta-grid reveal">
+    <div class="insta-thumb"><img src="new/tea.jpg" alt="Magome Cha iced tea" loading="lazy" /></div>
+    <div class="insta-thumb"><img src="new/magome.jpg" alt="Magome-juku stone path" loading="lazy" /></div>
+    <div class="insta-thumb"><img src="new/night sky.jpg" alt="Stars over Magome" loading="lazy" /></div>
+    <div class="insta-thumb"><img src="new/hiking.jpg" alt="Nakasendo trail hike" loading="lazy" /></div>
+    <div class="insta-thumb"><img src="new/tea (3).jpg" alt="Iced matcha on the post road" loading="lazy" /></div>
+    <div class="insta-thumb"><img src="new/yanagiya summer.jpg" alt="Yanagiya in summer" loading="lazy" /></div>
+  </div>
+
+
+  <a href="https://www.instagram.com/yanagiya_japanesetea/" target="_blank" rel="noopener" class="btn btn-insta">
+    &#128247; Follow @yanagiya_japanesetea on Instagram
+  </a>
+</section>
+
+<!-- AVAILABILITY CALENDAR -->
+<section id="availability" class="dark-booking-section">
+  <div class="reveal">
+    <span class="section-label" style="color:var(--gold-lt);">Plan Your Visit</span>
+    <h2 class="section-title" style="color:var(--white);">Reserve Your Sanctuary 🐈</h2>
+    <div class="divider divider-center" style="background:var(--gold);"></div>
+    <p class="section-sub" style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto 3rem;">
+      Select a lodge below to view our live availability. We recommend booking early for peak seasons. 
+      Our resident lucky cat hopes to welcome you soon! 🐾
+    </p>
+  </div>
+
+  <div class="luxury-booking-card reveal">
+    <div class="calendar-wrapper" style="background:transparent; padding:0; box-shadow:none;">
+      <div class="calendar-tabs" style="margin-bottom:1.5rem;">
+        <button class="cal-tab active" onclick="switchCalendar('yanagiya', this)" style="border-color:rgba(255,255,255,0.2); color:var(--white);">Yanagiya (Main Lodge)</button>
+        <button class="cal-tab" onclick="switchCalendar('iri', this)" style="border-color:rgba(255,255,255,0.2); color:var(--white);">Yanagiya Iri (Hillside)</button>
+      </div>
+      
+      <div class="cal-scroll-wrap" style="width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:8px;">
+        <iframe id="calIframe" class="calendar-frame" src="https://calendar.google.com/calendar/embed?src=5e0203688673db5f6cc12a7c6c597ce95597aac51f4d82cf6004dffa56f9c675%40group.calendar.google.com&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23f7f4ee&color=%23c29d5b" scrolling="yes" style="background:#121722;"></iframe>
+      </div>
+    </div>
+    
+    <div class="booking-concierge">
+      <h3>Concierge &amp; Direct Booking</h3>
+      <p>Bypass external fees by booking directly with us. We respond to all inquiries within 24 hours.</p>
+      
+      <div class="contact-methods" style="flex-direction:column; gap:0.8rem;">
+        <a href="#contact" class="btn btn-primary" style="display:flex; justify-content:center; background:var(--gold); border:none; color:var(--ink);">Request Direct Booking &darr;</a>
+      </div>
+      
+      <div class="booking-partner">
+        <span style="display:block; margin-bottom:0.8rem;">Also available on</span>
+        <a href="https://www.booking.com/hotel/jp/guesthouse-yanagiya.html" target="_blank" rel="noopener" class="btn btn-booking" id="calBookingBtn" style="display:flex; justify-content:center;">Book on Booking.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FAQ SECTION -->
 <section id="faq">
   <div class="reveal">
@@ -1825,6 +1880,17 @@
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.parentElement.classList.toggle('active'));">Where do we park if we rent a car? <span class="faq-icon">+</span></button>
       <div class="faq-a" role="region">We provide dedicated free parking for our guests. Since driving directly on the historic Nakasendo stone road is restricted during the day, we will send you specific map directions to our private guest parking area upon booking.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOM MAP SECTION -->
+<section id="location-map">
+  <div class="map-container">
+    <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3246.331281488318!2d137.5645511!3d35.5256956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60032e3a127a6cfd%3A0x6b107e335da43118!2sYanagiya!5e0!3m2!1sen!2sjp!4v1700000000000!5m2!1sen!2sjp" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="map-overlay-text reveal">
+      <h3>Yanagiya (柳屋)</h3>
+      <p>Nakasendo Post Road<br>Magome-juku, Gifu, Japan</p>
     </div>
   </div>
 </section>
@@ -1977,10 +2043,10 @@
       window.scrollTo(0, 0);
       document.body.style.overflow = 'hidden';
       setTimeout(() => {
-        zp.classList.add('hidden');
+        zp.classList.add('slide-up');
         document.body.style.overflow = '';
-        setTimeout(() => zp.remove(), 800);
-      }, 4800);
+        setTimeout(() => zp.remove(), 1500);
+      }, 2000);
     }
   });
 
@@ -2013,12 +2079,6 @@
   (function () {
     const slides = [...document.querySelectorAll('#hero .hero-slide')];
     const dotsWrap = document.getElementById('heroDots');
-    const prevBtn = document.getElementById('heroPrev');
-    const nextBtn = document.getElementById('heroNext');
-    
-    // Only initialize if elements exist
-    if (!slides.length || !dotsWrap || !prevBtn || !nextBtn) return;
-    
     let cur = 0, timer;
     slides.forEach((_, i) => {
       const d = document.createElement('button');
@@ -2038,8 +2098,8 @@
     }
     function start() { timer = setInterval(() => goTo(cur + 1), 6000); }
     function stop() { clearInterval(timer); }
-    prevBtn.onclick = () => { stop(); goTo(cur - 1); start(); };
-    nextBtn.onclick = () => { stop(); goTo(cur + 1); start(); };
+    document.getElementById('heroPrev').onclick = () => { stop(); goTo(cur - 1); start(); };
+    document.getElementById('heroNext').onclick = () => { stop(); goTo(cur + 1); start(); };
     const heroEl = document.getElementById('hero');
     heroEl.addEventListener('mouseenter', stop);
     heroEl.addEventListener('mouseleave', start);
@@ -2140,7 +2200,7 @@
     const slides = [...document.querySelectorAll('#teaSlider .tea-slide')];
     const dotsWrap = document.getElementById('teaDots');
     if (!dotsWrap || !slides.length) return;
-    let cur = 0, autoSlide;
+    let cur = 0;
     slides.forEach((_, i) => {
       const d = document.createElement('button');
       d.className = 'tea-dot' + (i === 0 ? ' active' : '');
@@ -2150,78 +2210,12 @@
         cur = i;
         slides[cur].classList.add('active');
         dotsWrap.children[cur].classList.add('active');
-        resetAuto();
       };
       dotsWrap.appendChild(d);
     });
-    function resetAuto() {
-      clearInterval(autoSlide);
-      autoSlide = setInterval(() => {
-        cur = (cur + 1) % slides.length;
-        slides.forEach(s => s.classList.remove('active'));
-        dotsWrap.querySelectorAll('.tea-dot').forEach(d => d.classList.remove('active'));
-        slides[cur].classList.add('active');
-        dotsWrap.children[cur].classList.add('active');
-      }, 5500);
-    }
-    resetAuto();
+    /* Auto-slider disabled for less busy UI */
   })();
 
-  /* ── DYNAMIC SPLIT TAB SWITCHING ── */
-  (function() {
-    const tabs = document.querySelectorAll('.ds-tab');
-    const contents = document.querySelectorAll('.ds-text-content');
-    
-    if (tabs.length === 0 || contents.length === 0) return;
-    
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const cat = tab.getAttribute('data-cat');
-        
-        // Update active tab
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        
-        // Update active content
-        contents.forEach(c => c.classList.remove('active'));
-        document.querySelector(`.ds-text-content[data-cat="${cat}"]`)?.classList.add('active');
-      });
-    });
-  })();
-
-  /* ── DYNAMIC SPLIT GALLERY ── */
-  (function() {
-    const track = document.getElementById('ds-track');
-    const prevBtn = document.getElementById('ds-prev');
-    const nextBtn = document.getElementById('ds-next');
-    const currentEl = document.getElementById('ds-current');
-    const totalEl = document.getElementById('ds-total');
-    
-    if (!track || !prevBtn || !nextBtn) return;
-    
-    const slides = [...track.querySelectorAll('.ds-gallery-slide')];
-    let cur = 0;
-    
-    if (totalEl) totalEl.textContent = slides.length;
-    
-    function showSlide(n) {
-      slides.forEach(s => s.classList.remove('active'));
-      slides[cur].classList.add('active');
-      if (currentEl) currentEl.textContent = cur + 1;
-      track.style.transform = `translateX(-${cur * 100}%)`;
-    }
-    
-    prevBtn.addEventListener('click', () => {
-      cur = (cur - 1 + slides.length) % slides.length;
-      showSlide();
-    });
-    
-    nextBtn.addEventListener('click', () => {
-      cur = (cur + 1) % slides.length;
-      showSlide();
-    });
-  })();
-  
   /* ── SCROLL REVEAL ── */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
@@ -2372,10 +2366,139 @@
     resetAuto();
   })();
 </script>
+<a href="#availability" class="mobile-sticky-book" style="text-decoration:none;">
+  <div class="msb-text">
+    <div class="msb-title">Check Availability</div>
+    <div class="msb-sub">Best Rates Direct</div>
+  </div>
+  <div class="btn btn-primary" style="padding:.7rem 1.4rem;font-size:.75rem;">Book Now</div>
+</a>
 
 
 <script>
-  // Simple Reveal animation on scroll using IntersectionObserver
+  // AWWWARDS 2026: LENIS SMOOTH SCROLL
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true,
+  });
+  
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+  
+  // Connect GSAP ScrollTrigger to Lenis
+  gsap.registerPlugin(ScrollTrigger);
+  
+
+  // Hero Cinematic Animation
+  if (document.getElementById('heroImg')) {
+    }
+  
+  if (document.querySelector('.hero-text-card')) {
+    gsap.to('.hero-text-card', {
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      },
+      y: '-100px',
+      opacity: 0,
+      ease: 'none'
+    });
+  }
+
+  // Kinetic Typography
+  if(document.getElementById('kineticText')) {
+    gsap.to('#kineticText', {
+      xPercent: -50,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#kineticText',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+  }
+  
+  // Object-based transition for the gallery container
+  if(document.querySelector('.ds-gallery-container')) {
+      gsap.from('.ds-gallery-container', {
+        scrollTrigger: {
+          trigger: '#dynamic-split',
+          start: 'top 85%',
+          end: 'top 25%',
+          scrub: 1
+        },
+        clipPath: 'circle(10% at 50% 50%)',
+        scale: 0.8,
+        ease: 'power2.out'
+      });
+  }
+
+  // AWWWARDS 2026: Reveal Animations (Staggered 3D Fade-in)
+  const revealElements = document.querySelectorAll('.reveal');
+  revealElements.forEach((el) => {
+    gsap.fromTo(el, 
+      { opacity: 0, y: 40, rotationX: 10 },
+      {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        },
+        opacity: 1,
+        y: 0,
+        rotationX: 0,
+        duration: 1.2,
+        ease: 'power3.out'
+      }
+    );
+  });
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // TRAIL ZOOM-SCROLL EFFECT
+  const trailCard = document.querySelector('.trail-feature-card');
+  if (trailCard) {
+    gsap.fromTo(trailCard,
+      { filter: 'blur(1.5rem)', scale: 0.85, opacity: 0 },
+      { 
+        filter: 'blur(0rem)', scale: 1, opacity: 1, 
+        scrollTrigger: {
+          trigger: trailCard,
+          start: 'top bottom',
+          end: 'center center',
+          scrub: 1
+        }
+      }
+    );
+  }
+
+  // MAGOME PINNED SCROLL
+  const magomePanels = document.querySelectorAll('.magome-panel');
+  if (magomePanels.length > 0) {
+    const tl1 = gsap.timeline({ scrollTrigger: { trigger: '#magome', pin: true, scrub: 1, start: 'center center', end: '+=180%' } });
+    tl1.to(magomePanels[0], { opacity: 0, duration: 1 }).to(magomePanels[1], { opacity: 1, duration: 1 }, "<")
+       .to(magomePanels[1], { opacity: 0, duration: 1 }).to(magomePanels[2], { opacity: 1, duration: 1 }, "<")
+       .to(magomePanels[2], { opacity: 0, duration: 1 }).to(magomePanels[3], { opacity: 1, duration: 1 }, "<")
+       .to('.magome-right', { opacity: 0, y: -50, duration: 1, delay: 0.5 }); // Smooth exit fade out
+  }
+  
+  // STARS PINNED SCROLL
+  const starPanels = document.querySelectorAll('.star-panel');
+  if (starPanels.length > 0) {
+    const tl2 = gsap.timeline({ scrollTrigger: { trigger: '#stars', pin: true, scrub: 1, start: 'center center', end: '+=150%' } });
+    tl2.to(starPanels[0], { opacity: 0, duration: 1 }).to(starPanels[1], { opacity: 1, duration: 1 }, "<")
+       .to(starPanels[1], { opacity: 0, duration: 1 }).to(starPanels[2], { opacity: 1, duration: 1 }, "<")
+       .to('.stars-right', { opacity: 0, y: -50, duration: 1, delay: 0.5 }); // Smooth exit fade out
+  }
+
+  // FADE IN MAGOME AND STARS
   const fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if(entry.isIntersecting) {
@@ -2384,7 +2507,10 @@
     });
   }, { threshold: 0.15 });
   
-// Observer removed for Magome/Stars to fix pinning issue
+  const magomeSec = document.getElementById('magome');
+  const starsSec = document.getElementById('stars');
+  if(magomeSec) fadeObserver.observe(magomeSec);
+  if(starsSec) fadeObserver.observe(starsSec);
 </script>
 
 </body>

@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlRoot">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yanagiya | 飛騨豚しゃぶしゃぶ / Hida Pork Shabu-Shabu</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="description" content="飛騨の小さなしゃぶしゃぶ専門店「柳家」のオンライン予約。ディナーのみ ¥5,000／人。Online reservation for Yanagiya, a Hida Pork Shabu-Shabu restaurant in Japan. Dinner only, ¥5,000 per person.">
+  <meta property="og:title" content="Yanagiya | 飛騨豚しゃぶしゃぶ">
+  <meta property="og:description" content="飛騨の小さなしゃぶしゃぶ専門店のオンライン予約 / Online table reservation">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://table.magome-yanagiya.com/">
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --text: #2c2c2c;
+      --accent: #8b6f47;
+      --accent-light: #c4a882;
+      --border: #e0d6c8;
+      --card-bg: #ffffff;
+      --success: #4a7c59;
+      --error: #b54a4a;
+      --disabled: #c0b8ad;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 24px 20px 40px;
+    }
+
+    /* Hiatus Banner */
+    .hiatus-banner {
+      background: #f5f0e8;
+      border: 1px solid #c4a882;
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .hiatus-banner .hiatus-icon { font-size: 22px; margin-bottom: 6px; }
+    .hiatus-banner .hiatus-ja {
+      font-size: 14px;
+      font-weight: 600;
+      color: #5a4a35;
+      margin-bottom: 4px;
+      line-height: 1.7;
+    }
+    .hiatus-banner .hiatus-en {
+      font-size: 12px;
+      color: #8b7a65;
+      line-height: 1.6;
+    }
+
+    /* Language Switcher */
+    .lang-switcher {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      padding: 16px 0 0;
+    }
+
+    .lang-btn {
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: transparent;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      color: #999;
+      transition: all 0.15s;
+    }
+
+    .lang-btn:hover { border-color: var(--accent-light); color: var(--accent); }
+    .lang-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 24px 0 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .header p {
+      font-size: 13px;
+      color: #888;
+      letter-spacing: 1px;
+    }
+
+    /* Menu Section */
+    .menu-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .menu-section h2 {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0ece6;
+    }
+
+    .menu-item:last-child { border-bottom: none; }
+
+    .menu-item .name {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .menu-item .desc {
+      font-size: 12px;
+      color: #999;
+      margin-top: 2px;
+    }
+
+    .menu-item .price {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .note {
+      font-size: 12px;
+      color: #999;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #f0ece6;
+    }
+
+    /* Form */
+    .form-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 20px;
+      margin-bottom: 24px;
+    }
+
+    .form-section h2 {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%238b6f47'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Date Selector */
+    .date-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .date-scroll::-webkit-scrollbar { display: none; }
+
+    .date-btn {
+      flex-shrink: 0;
+      width: 64px;
+      padding: 10px 4px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .date-btn:hover { border-color: var(--accent-light); }
+
+    .date-btn.selected {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .date-btn .dow {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.7;
+    }
+
+    .date-btn .day {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .date-btn .mon {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      opacity: 0.7;
+    }
+
+    /* Time Slots */
+    .slot-group-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    .time-slots {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .time-btn {
+      padding: 12px 8px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .time-btn:hover:not(.sold-out) { border-color: var(--accent-light); }
+
+    .time-btn.selected {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .time-btn.sold-out {
+      background: #fff0f0;
+      border-color: #e8b4b4;
+      cursor: not-allowed;
+    }
+
+    .time-btn.sold-out .slot-time {
+      color: #c0392b;
+      font-weight: 700;
+      text-decoration: line-through;
+    }
+
+    .time-btn.sold-out .slot-label {
+      color: #c0392b;
+      font-weight: 600;
+      opacity: 1;
+    }
+
+    .sold-out-note {
+      font-size: 12px;
+      color: #c0392b;
+      background: #fff0f0;
+      border: 1px solid #e8b4b4;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .sold-out-note.show { display: block; }
+
+    .time-btn .slot-label {
+      font-size: 10px;
+      opacity: 0.6;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* Party size availability note */
+    .party-note {
+      font-size: 12px;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-top: 8px;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .party-note.show { display: block; }
+
+    .party-note.warn {
+      background: #fffbec;
+      border: 1px solid #f0d878;
+      color: #7d6100;
+    }
+
+    .party-note.full {
+      background: #fff0f0;
+      border: 1px solid #e8b4b4;
+      color: #c0392b;
+    }
+
+    /* Skeleton loader */
+    .time-btn.skeleton {
+      background: linear-gradient(90deg, #f0ece6 25%, #e8e2d9 50%, #f0ece6 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite;
+      border-color: #e0d6c8;
+      cursor: default;
+      pointer-events: none;
+      height: 52px;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Submit */
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .submit-btn:hover { background: #7a6140; }
+
+    .submit-btn:disabled {
+      background: var(--disabled);
+      cursor: not-allowed;
+    }
+
+    /* Result */
+    .result-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .result-overlay.show { display: flex; }
+
+    .result-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px 24px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .result-card.success .icon { color: var(--success); }
+    .result-card.error .icon { color: var(--error); }
+
+    .result-card .icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .result-card h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .result-card p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .result-card .details {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px 0;
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .result-card button {
+      margin-top: 16px;
+      padding: 12px 32px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .contact-title {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .contact-btn:hover { opacity: 0.8; }
+
+    .contact-btn-ig {
+      background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: white;
+    }
+
+    .contact-btn-wa {
+      background: #25d366;
+      color: white;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 20px 0;
+      font-size: 12px;
+      color: #bbb;
+    }
+
+    .cancel-note {
+      font-size: 12px;
+      color: #999;
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* Loading spinner */
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+      <button class="lang-btn" onclick="setLanguage('ja')">日本語</button>
+      <button class="lang-btn active" id="langBtn-en" onclick="setLanguage('en')">EN</button>
+      <button class="lang-btn" onclick="setLanguage('ko')">한국어</button>
+      <button class="lang-btn" onclick="setLanguage('zh')">中文</button>
+      <button class="lang-btn" onclick="setLanguage('tw')">繁體</button>
+    </div>
+
+    <!-- Hiatus Banner -->
+    <div class="hiatus-banner">
+      <div class="hiatus-icon">🌿</div>
+      <div class="hiatus-ja" id="i18n-hiatus-msg">
+        しゃぶしゃぶコースの予約受付を一時休止しております。<br>
+        再開時期は決まり次第お知らせします。
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+      <h1>Yanagiya</h1>
+      <p id="i18n-subtitle">Shabu-Shabu Restaurant</p>
+    </div>
+
+    <!-- Menu -->
+    <div class="menu-section">
+      <img src="menu.jpg" alt="Hida Pork Shabu-Shabu" style="width:100%;border-radius:8px;margin-bottom:16px;display:block;">
+      <div class="menu-item">
+        <div>
+          <div class="name" id="i18n-dish-name">Hida Pork Shabu-Shabu Experience</div>
+          <div class="desc">17:30 – 20:30</div>
+        </div>
+        <div class="price">¥5,000 / person</div>
+      </div>
+      <div class="note" id="i18n-menu-note">
+        Tea, ice cream and other sides available on-site.<br>
+        Vegan options are not available. Payment accepted at the restaurant (cash / credit card).
+      </div>
+    </div>
+
+    <!-- ▼▼▼ 予約再開時：style="display:none" を削除してください ▼▼▼ -->
+    <!-- Reservation Form -->
+    <div class="form-section" style="display:none">
+      <h2 id="i18n-form-title">Make a Reservation</h2>
+
+      <!-- Date -->
+      <div class="form-group">
+        <label id="i18n-date-label">Date</label>
+        <div class="date-scroll" id="dateScroll"></div>
+      </div>
+
+      <!-- Time -->
+      <div class="form-group" id="timeGroup" style="display:none;">
+        <label id="i18n-time-label">Time</label>
+        <div class="time-slots" id="timeSlots"></div>
+        <div class="sold-out-note" id="soldOutNote"></div>
+      </div>
+
+      <!-- Party Size -->
+      <div class="form-group">
+        <label id="i18n-party-label">Party Size</label>
+        <select id="partySize" onchange="checkPartySize()">
+          <option value="">Select number of guests</option>
+          <option value="1">1 guest</option>
+          <option value="2">2 guests</option>
+          <option value="3">3 guests</option>
+          <option value="4">4 guests</option>
+          <option value="5">5 guests</option>
+          <option value="6">6 guests</option>
+          <option value="7">7 guests</option>
+          <option value="8">8 guests</option>
+        </select>
+        <div class="party-note" id="partyNote"></div>
+      </div>
+
+      <!-- Name -->
+      <div class="form-group">
+        <label id="i18n-name-label">Name</label>
+        <input type="text" id="guestName" placeholder="Your name" autocomplete="name">
+      </div>
+
+      <!-- Submit -->
+      <button class="submit-btn" id="submitBtn" onclick="submitReservation()" disabled style="opacity:0.45;cursor:not-allowed;pointer-events:none;">
+        Reserve Now
+      </button>
+
+      <p class="cancel-note" id="i18n-cancel-note">
+        Cancellations are not available online.<br>
+        Please contact us by phone or email to cancel.
+      </p>
+    </div>
+
+    <!-- Map -->
+    <div style="border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:24px;">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1115.3993323244918!2d137.56564295361684!3d35.52545925826787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601cb7e094be1ffd%3A0x99c63b52e6dc7d94!2sYanagiya_Japanesetea!5e0!3m2!1sja!2sjp!4v1775464419520!5m2!1sja!2sjp"
+        width="100%"
+        height="240"
+        style="border:0;display:block;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <!-- Contact / Cancel -->
+    <div class="contact-section">
+      <div class="contact-title" id="i18n-contact-title">お問い合わせ・キャンセルはこちら</div>
+      <div class="contact-buttons">
+        <a href="https://instagram.com/yanagiya_japanesetea" target="_blank" rel="noopener" class="contact-btn contact-btn-ig">
+          📷 Instagram
+        </a>
+        <a href="https://wa.me/818061843170" target="_blank" rel="noopener" class="contact-btn contact-btn-wa">
+          💬 WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div class="footer">
+      Yanagiya &copy; 2026<br>
+      <span style="font-size:11px;color:#ccc;line-height:2;">
+        ご予約時にご入力いただいたお名前・人数は、予約管理のみに使用し、第三者への提供は行いません。<br>
+        Your name and party size are used solely for reservation management and will not be shared with third parties.
+      </span>
+    </div>
+  </div>
+
+  <!-- Result Overlay -->
+  <div class="result-overlay" id="resultOverlay">
+    <div class="result-card" id="resultCard">
+      <div class="icon" id="resultIcon"></div>
+      <h3 id="resultTitle"></h3>
+      <p id="resultMsg"></p>
+      <div class="details" id="resultDetails" style="display:none;"></div>
+      <button onclick="closeResult()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // CONFIG
+    // ============================================================
+    // reservation.html と proxy.php を同じフォルダに置いている場合はこちら
+    const GAS_URL = './proxy.php';
+    const DAYS_AHEAD = 60;
+    const CLOSED_WEEKDAYS = [];
+    const TIME_SLOTS = ['17:30', '19:00'];
+
+    // ============================================================
+    // TRANSLATIONS
+    // ============================================================
+    const TRANSLATIONS = {
+      en: {
+        htmlLang: 'en',
+        subtitle: 'Shabu-Shabu Restaurant',
+        dishName: 'Hida Pork Shabu-Shabu Experience',
+        menuNote: 'Tea, ice cream and other sides available on-site.<br>Vegan options are not available. Payment accepted at the restaurant (cash / credit card).',
+        formTitle: 'Make a Reservation',
+        dateLabel: 'Date',
+        timeLabel: 'Time',
+        partyLabel: 'Party Size',
+        partyPlaceholder: 'Select number of guests',
+        guests: n => n === 1 ? '1 guest' : `${n} guests`,
+        nameLabel: 'Name',
+        namePlaceholder: 'Your name',
+        submitBtn: 'Reserve Now',
+        cancelNote: 'To cancel or enquire, please contact us via Instagram or WhatsApp.',
+        contactTitle: 'Enquiries &amp; Cancellations',
+        soldOutNote: '⚠️ This time slot is fully booked. We are a small restaurant with limited seating — all tables have been reserved. Please select another date or time.',
+        soldOutLabel: 'SOLD OUT',
+        alertDate: 'Please select a date.',
+        alertTime: 'Please select a time slot.',
+        alertParty: 'Please select the number of guests.',
+        alertName: 'Please enter your name.',
+        reserving: 'Reserving...',
+        successTitle: 'Reservation Confirmed!',
+        successMsg: 'We look forward to seeing you!',
+        errorTitle: 'Reservation Failed',
+        mealLabel: 'Dinner (¥5,000 / person)',
+        screenshotNote: '📸 Please take a screenshot of this confirmation.',
+        screenshotSub: 'We do not send confirmation emails. This screen is your only proof of reservation.',
+        guestSuffix: n => `${n} guest${n > 1 ? 's' : ''}`,
+        connectionError: 'Connection error. Please try again.',
+        slotError: 'This slot is no longer available. Please try another time.',
+        partyWarn: n => `⚠️ Groups of ${n} or fewer can still be accommodated at this time.`,
+        partyFull: '⚠️ This time slot is fully booked.',
+        hiatusMsg: 'Online reservations are temporarily suspended.<br>We will announce the reopening date as soon as it is confirmed.',
+      },
+      ja: {
+        htmlLang: 'ja',
+        subtitle: '飛騨豚しゃぶしゃぶ',
+        dishName: '飛騨豚しゃぶしゃぶ体験',
+        menuNote: 'お茶・アイスクリームなどのサイドメニューもご用意しています。<br>ヴィーガン対応はございません。お支払いは店頭にて（現金・クレジットカード可）。',
+        formTitle: 'ご予約',
+        dateLabel: '日付',
+        timeLabel: '時間',
+        partyLabel: '人数',
+        partyPlaceholder: '人数を選択してください',
+        guests: n => `${n}名`,
+        nameLabel: 'お名前',
+        namePlaceholder: 'お名前を入力してください',
+        submitBtn: '予約する',
+        cancelNote: 'キャンセル・お問い合わせは Instagram または WhatsApp にてご連絡ください。',
+        contactTitle: 'お問い合わせ・キャンセルはこちら',
+        soldOutNote: '⚠️ このスロットは満席です。当店は少人数制の小さなお店です。別の日時をお選びください。',
+        soldOutLabel: '満席',
+        alertDate: '日付を選択してください。',
+        alertTime: '時間を選択してください。',
+        alertParty: '人数を選択してください。',
+        alertName: 'お名前を入力してください。',
+        reserving: '予約中...',
+        successTitle: 'ご予約完了！',
+        successMsg: 'ご来店をお待ちしております！',
+        errorTitle: '予約に失敗しました',
+        mealLabel: 'ディナー（¥5,000 / 人）',
+        screenshotNote: '📸 この画面のスクリーンショットを必ず保存してください。',
+        screenshotSub: '確認メールは送信されません。この画面が予約の証明になります。',
+        guestSuffix: n => `${n}名`,
+        connectionError: '通信エラーが発生しました。もう一度お試しください。',
+        slotError: 'このスロットはすでに満席です。別の時間をお選びください。',
+        partyWarn: n => `⚠️ この時間帯は ${n}名様以下でご予約いただけます。`,
+        partyFull: '⚠️ この時間帯は満席です。',
+        hiatusMsg: 'しゃぶしゃぶコースの予約受付を一時休止しております。<br>再開時期は決まり次第お知らせします。',
+      },
+      ko: {
+        htmlLang: 'ko',
+        subtitle: '샤부샤부 레스토랑',
+        dishName: '히다 포크 샤부샤부 체험',
+        menuNote: '차, 아이스크림 등 사이드 메뉴도 제공됩니다.<br>비건 옵션은 제공되지 않습니다. 결제는 매장에서 (현금 / 신용카드).',
+        formTitle: '예약하기',
+        dateLabel: '날짜',
+        timeLabel: '시간',
+        partyLabel: '인원',
+        partyPlaceholder: '인원 수를 선택하세요',
+        guests: n => `${n}명`,
+        nameLabel: '이름',
+        namePlaceholder: '이름을 입력하세요',
+        submitBtn: '예약하기',
+        cancelNote: '취소 및 문의는 Instagram 또는 WhatsApp으로 연락해 주세요.',
+        contactTitle: '문의 및 취소',
+        soldOutNote: '⚠️ 이 시간대는 만석입니다. 소규모 식당으로 자리가 제한되어 있습니다. 다른 날짜나 시간을 선택해 주세요.',
+        soldOutLabel: '만석',
+        alertDate: '날짜를 선택해 주세요.',
+        alertTime: '시간을 선택해 주세요.',
+        alertParty: '인원 수를 선택해 주세요.',
+        alertName: '이름을 입력해 주세요.',
+        reserving: '예약 중...',
+        successTitle: '예약 완료!',
+        successMsg: '방문을 기다리겠습니다!',
+        errorTitle: '예약 실패',
+        mealLabel: '디너 (¥5,000 / 1인)',
+        screenshotNote: '📸 이 화면의 스크린샷을 반드시 저장해 주세요.',
+        screenshotSub: '확인 이메일은 발송되지 않습니다. 이 화면이 예약 증빙입니다.',
+        guestSuffix: n => `${n}명`,
+        connectionError: '연결 오류가 발생했습니다. 다시 시도해 주세요.',
+        slotError: '이미 만석입니다. 다른 시간을 선택해 주세요.',
+        partyWarn: n => `⚠️ 이 시간대는 ${n}명 이하만 예약 가능합니다.`,
+        partyFull: '⚠️ 이 시간대는 만석입니다.',
+        hiatusMsg: '예약 접수를 일시적으로 중단하고 있습니다.<br>재개 시기가 결정되는 대로 안내 드리겠습니다.',
+      },
+      zh: {
+        htmlLang: 'zh',
+        subtitle: '涮涮锅餐厅',
+        dishName: '飞驒猪肉涮涮锅体验',
+        menuNote: '提供茶水、冰淇淋等配餐。<br>不提供素食选项。餐厅内付款（现金 / 信用卡）。',
+        formTitle: '预约',
+        dateLabel: '日期',
+        timeLabel: '时间',
+        partyLabel: '人数',
+        partyPlaceholder: '请选择用餐人数',
+        guests: n => `${n}位`,
+        nameLabel: '姓名',
+        namePlaceholder: '请输入您的姓名',
+        submitBtn: '立即预约',
+        cancelNote: '如需取消或咨询，请通过 Instagram 或 WhatsApp 联系我们。',
+        contactTitle: '咨询与取消',
+        soldOutNote: '⚠️ 该时间段已满席。我们是一家小型餐厅，座位有限，请选择其他日期或时间。',
+        soldOutLabel: '满席',
+        alertDate: '请选择日期。',
+        alertTime: '请选择时间。',
+        alertParty: '请选择人数。',
+        alertName: '请输入您的姓名。',
+        reserving: '预约中...',
+        successTitle: '预约成功！',
+        successMsg: '期待您的光临！',
+        errorTitle: '预约失败',
+        mealLabel: '晚餐（¥5,000 / 人）',
+        screenshotNote: '📸 请务必截图保存此页面。',
+        screenshotSub: '我们不发送确认邮件，此页面是您的预约凭证。',
+        guestSuffix: n => `${n}位`,
+        connectionError: '连接错误，请重试。',
+        slotError: '该时段已满席，请选择其他时间。',
+        partyWarn: n => `⚠️ 该时段最多可接受 ${n} 位的预约。`,
+        partyFull: '⚠️ 该时段已满席。',
+        hiatusMsg: '预约接受暂时中止。<br>开放时间确定后，我们将立即通知。',
+      },
+      tw: {
+        htmlLang: 'zh-TW',
+        subtitle: '涮涮鍋餐廳',
+        dishName: '飛驒豬肉涮涮鍋體驗',
+        menuNote: '提供茶水、冰淇淋等配餐。<br>不提供素食選項。餐廳內付款（現金 / 信用卡）。',
+        formTitle: '預約',
+        dateLabel: '日期',
+        timeLabel: '時間',
+        partyLabel: '人數',
+        partyPlaceholder: '請選擇用餐人數',
+        guests: n => `${n}位`,
+        nameLabel: '姓名',
+        namePlaceholder: '請輸入您的姓名',
+        submitBtn: '立即預約',
+        cancelNote: '如需取消或諮詢，請透過 Instagram 或 WhatsApp 聯繫我們。',
+        contactTitle: '諮詢與取消',
+        soldOutNote: '⚠️ 該時段已客滿。我們是一家小型餐廳，座位有限，請選擇其他日期或時間。',
+        soldOutLabel: '客滿',
+        alertDate: '請選擇日期。',
+        alertTime: '請選擇時間。',
+        alertParty: '請選擇人數。',
+        alertName: '請輸入您的姓名。',
+        reserving: '預約中...',
+        successTitle: '預約成功！',
+        successMsg: '期待您的光臨！',
+        errorTitle: '預約失敗',
+        mealLabel: '晚餐（¥5,000 / 人）',
+        screenshotNote: '📸 請務必截圖保存此頁面。',
+        screenshotSub: '我們不發送確認郵件，此頁面是您的預約憑證。',
+        guestSuffix: n => `${n}位`,
+        connectionError: '連線錯誤，請重試。',
+        slotError: '該時段已客滿，請選擇其他時間。',
+        partyWarn: n => `⚠️ 該時段最多可接受 ${n} 位的預約。`,
+        partyFull: '⚠️ 該時段已客滿。',
+        hiatusMsg: '預約受理暫時中止。<br>開放時間確定後，我們將立即通知。',
+      }
+    };
+
+    let currentLang = 'en';
+
+    function setLanguage(lang) {
+      if (!TRANSLATIONS[lang]) return;
+      currentLang = lang;
+      const t = TRANSLATIONS[lang];
+
+      // html lang attribute
+      document.getElementById('htmlRoot').lang = t.htmlLang;
+
+      // Update lang buttons
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      const map = { ja: 0, en: 1, ko: 2, zh: 3, tw: 4 };
+      document.querySelectorAll('.lang-btn')[map[lang]].classList.add('active');
+
+      // Static text
+      document.getElementById('i18n-subtitle').textContent    = t.subtitle;
+      document.getElementById('i18n-dish-name').textContent   = t.dishName;
+      document.getElementById('i18n-menu-note').innerHTML     = t.menuNote;
+      document.getElementById('i18n-form-title').textContent  = t.formTitle;
+      document.getElementById('i18n-date-label').textContent  = t.dateLabel;
+      document.getElementById('i18n-time-label').textContent  = t.timeLabel;
+      document.getElementById('i18n-party-label').textContent = t.partyLabel;
+      document.getElementById('i18n-name-label').textContent  = t.nameLabel;
+      document.getElementById('i18n-cancel-note').innerHTML   = t.cancelNote;
+      document.getElementById('i18n-contact-title').textContent = t.contactTitle;
+      document.getElementById('submitBtn').textContent        = t.submitBtn;
+      document.getElementById('i18n-hiatus-msg').innerHTML    = t.hiatusMsg;
+      document.getElementById('guestName').placeholder       = t.namePlaceholder;
+
+      // Party size select options
+      const select = document.getElementById('partySize');
+      const currentVal = select.value;
+      select.options[0].text = t.partyPlaceholder;
+      for (let i = 1; i <= 6; i++) {
+        select.options[i].text = t.guests(i);
+      }
+      select.value = currentVal;
+
+      // Sold out note (if visible)
+      const note = document.getElementById('soldOutNote');
+      note.textContent = t.soldOutNote;
+
+      // Re-render time slots if a date is selected (to update SOLD OUT label)
+      if (selectedDate && availability) {
+        renderTimeSlots();
+      }
+
+      // Save preference
+      try { localStorage.setItem('yanagiya_lang', lang); } catch(e) {}
+    }
+
+    // ============================================================
+    // DATE HELPERS
+    // ============================================================
+    function getBusinessDates() {
+      const dates = [];
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      for (let i = 0; i <= DAYS_AHEAD; i++) {
+        const d = new Date(today);
+        d.setDate(today.getDate() + i);
+        if (!CLOSED_WEEKDAYS.includes(d.getDay())) {
+          const y = d.getFullYear();
+          const m = String(d.getMonth() + 1).padStart(2, '0');
+          const day = String(d.getDate()).padStart(2, '0');
+          dates.push(`${y}-${m}-${day}`);
+        }
+      }
+      return dates;
+    }
+
+    // ============================================================
+    // STATE
+    // ============================================================
+    let selectedDate = null;
+    const selectedMeal = 'dinner';
+    let selectedTime = null;
+    let availability = {};
+    let slotDataCache = {}; // { '17:30': {table6,table2,fullBooking}, ... }
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', () => {
+      // Load saved language
+      try {
+        const saved = localStorage.getItem('yanagiya_lang');
+        if (saved && TRANSLATIONS[saved]) {
+          setLanguage(saved);
+        } else {
+          setLanguage('en');
+        }
+      } catch(e) {
+        setLanguage('en');
+      }
+      renderDates();
+    });
+
+    function renderDates() {
+      const container = document.getElementById('dateScroll');
+      const days   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+      getBusinessDates().forEach(dateStr => {
+        const d = new Date(dateStr + 'T00:00:00');
+        const btn = document.createElement('div');
+        btn.className = 'date-btn';
+        btn.dataset.date = dateStr;
+        btn.innerHTML = `
+          <div class="dow">${days[d.getDay()]}</div>
+          <div class="day">${d.getDate()}</div>
+          <div class="mon">${months[d.getMonth()]}</div>
+        `;
+        btn.onclick = () => selectDate(btn, dateStr);
+        container.appendChild(btn);
+      });
+    }
+
+    // ============================================================
+    // DATE SELECTION
+    // ============================================================
+    function selectDate(el, dateStr) {
+      document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedDate = dateStr;
+      selectedTime = null;
+
+      // Show skeleton immediately
+      showSkeletonSlots();
+
+      // Fetch availability
+      fetchAvailability(dateStr);
+    }
+
+    function showSkeletonSlots() {
+      const container = document.getElementById('timeSlots');
+      const group = document.getElementById('timeGroup');
+      container.innerHTML = '';
+      TIME_SLOTS.forEach(() => {
+        const btn = document.createElement('div');
+        btn.className = 'time-btn skeleton';
+        container.appendChild(btn);
+      });
+      group.style.display = 'block';
+      document.getElementById('soldOutNote').classList.remove('show');
+    }
+
+    // ============================================================
+    // TIME SLOTS
+    // ============================================================
+    function renderTimeSlots() {
+      const container = document.getElementById('timeSlots');
+      const group = document.getElementById('timeGroup');
+      const t = TRANSLATIONS[currentLang];
+      container.innerHTML = '';
+
+      let anySoldOut = false;
+
+      TIME_SLOTS.forEach(time => {
+        const btn = document.createElement('div');
+        btn.className = 'time-btn';
+        btn.dataset.time = time;
+
+        const key = `${selectedDate}_${time}`;
+        const isSoldOut = availability[key] === true;
+
+        if (isSoldOut) {
+          anySoldOut = true;
+          btn.classList.add('sold-out');
+          btn.innerHTML = `<span class="slot-time">${time}</span><span class="slot-label">${t.soldOutLabel}</span>`;
+        } else {
+          btn.innerHTML = `<span class="slot-time">${time}</span>`;
+          btn.onclick = () => selectTime(btn, time);
+        }
+
+        container.appendChild(btn);
+      });
+
+      group.style.display = 'block';
+
+      const note = document.getElementById('soldOutNote');
+      note.textContent = t.soldOutNote;
+      if (anySoldOut) {
+        note.classList.add('show');
+      } else {
+        note.classList.remove('show');
+      }
+    }
+
+    function selectTime(el, time) {
+      document.querySelectorAll('#timeSlots .time-btn').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedTime = time;
+      checkPartySize(); // 時間変更時にも人数チェックを再実行
+    }
+
+    // ============================================================
+    // PARTY SIZE REAL-TIME CHECK
+    // ============================================================
+
+    // gas-code.jsと同一ロジック（同期必須）
+    function canAccommodate(slotData, partySize) {
+      if (!slotData) return true;
+      if (slotData.manualBlock) return false;
+      if (slotData.fullBooking) return false;
+
+      const table2Occupied = slotData.table2 != null;
+      const leftOccupied   = slotData.table6left != null;
+      const rightOccupied  = slotData.table6right != null;
+      const fullOccupied   = slotData.table6full != null
+                          || (leftOccupied && slotData.table6left >= 3);
+      const groups6 = [leftOccupied, rightOccupied, slotData.table6full != null].filter(Boolean).length;
+      const totalGroups = (table2Occupied ? 1 : 0) + groups6;
+
+      if (partySize >= 7) return !table2Occupied && groups6 === 0;
+      if (partySize >= 5) return groups6 === 0;
+      if (partySize >= 3) return groups6 === 0;
+      if (totalGroups >= 3) return false;
+      if (fullOccupied) return !table2Occupied;
+      if (!table2Occupied) return true;
+      if (!rightOccupied && groups6 < 2) return true;
+      if (!leftOccupied && groups6 < 2) return true;
+      return false;
+    }
+
+    // この時間帯に予約できる最大人数を返す（0 = 完全満席）
+    function findMaxAvailable(slotData) {
+      for (let i = 8; i >= 1; i--) {
+        if (canAccommodate(slotData, i)) return i;
+      }
+      return 0;
+    }
+
+    function checkPartySize() {
+      const note    = document.getElementById('partyNote');
+      const size    = parseInt(document.getElementById('partySize').value);
+      const t       = TRANSLATIONS[currentLang];
+
+      // 時間も人数も選択されていなければ非表示
+      if (!selectedTime || !size) {
+        note.className = 'party-note';
+        note.textContent = '';
+        return;
+      }
+
+      const slotData = slotDataCache[selectedTime];
+      if (!slotData) {
+        // サーバーデータ未取得（古いGASバージョンなど）→ 何も表示しない
+        note.className = 'party-note';
+        return;
+      }
+
+      if (canAccommodate(slotData, size)) {
+        // 予約可能 → メッセージなし（押せる状態なのでシンプルに）
+        note.className = 'party-note';
+        note.textContent = '';
+      } else {
+        const max = findMaxAvailable(slotData);
+        if (max === 0) {
+          note.className = 'party-note full show';
+          note.textContent = t.partyFull;
+        } else {
+          note.className = 'party-note warn show';
+          note.textContent = t.partyWarn(max);
+        }
+      }
+    }
+
+    // ============================================================
+    // FETCH AVAILABILITY
+    // ============================================================
+    function fetchAvailability(dateStr) {
+      if (GAS_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+        availability = {};
+        renderTimeSlots();
+        return;
+      }
+
+      const url = `${GAS_URL}?action=availability&date=${dateStr}`;
+      console.log('fetchAvailability URL:', url);
+
+      fetch(url)
+        .then(r => {
+          return r.text().then(text => {
+            if (!r.ok) {
+              throw new Error(`Server ${r.status} ${r.statusText}: ${text}`);
+            }
+            try {
+              return JSON.parse(text);
+            } catch (parseError) {
+              console.error('Invalid JSON response from availability endpoint', text);
+              throw new Error('Invalid response from server.');
+            }
+          });
+        })
+        .then(data => {
+          availability = {};
+          (data.soldOut || []).forEach(k => { availability[k] = true; });
+          slotDataCache = data.slotData || {};
+          renderTimeSlots();
+        })
+        .catch(err => {
+          console.error('Failed to fetch availability', err);
+          availability = {};
+          slotDataCache = {};
+          renderTimeSlots();
+        });
+    }
+
+    // ============================================================
+    // SUBMIT RESERVATION
+    // ============================================================
+    function submitReservation() {
+      const t = TRANSLATIONS[currentLang];
+      const name = document.getElementById('guestName').value.trim();
+      const size = document.getElementById('partySize').value;
+
+      if (!selectedDate) return alert(t.alertDate);
+      if (!selectedTime) return alert(t.alertTime);
+      if (!size) return alert(t.alertParty);
+      if (!name) return alert(t.alertName);
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = `<span class="spinner"></span>${t.reserving}`;
+
+      const payload = {
+        action: 'reserve',
+        date: selectedDate,
+        meal: selectedMeal,
+        time: selectedTime,
+        partySize: parseInt(size),
+        name: name
+      };
+
+      console.log('submitReservation', GAS_URL, payload);
+
+      if (GAS_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+        setTimeout(() => {
+          showResult(true, payload);
+          btn.disabled = false;
+          btn.textContent = t.submitBtn;
+        }, 1000);
+        return;
+      }
+
+      fetch(GAS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      })
+      .then(r => {
+        return r.text().then(text => {
+          if (!r.ok) {
+            throw new Error(`Server ${r.status} ${r.statusText}: ${text}`);
+          }
+          try {
+            return JSON.parse(text);
+          } catch (parseError) {
+            console.error('Invalid JSON response from server', text);
+            throw new Error('Invalid response from server. Please try again later.');
+          }
+        });
+      })
+      .then(data => {
+        if (data && data.success) {
+          showResult(true, payload);
+        } else {
+          showResult(false, null, (data && data.message) ? data.message : t.slotError);
+        }
+      })
+      .catch(err => {
+        console.error('Reservation request failed', err);
+        showResult(false, null, t.connectionError);
+      })
+      .finally(() => {
+        btn.disabled = false;
+        btn.textContent = t.submitBtn;
+      });
+    }
+
+    // ============================================================
+    // RESULT DISPLAY
+    // ============================================================
+    function showResult(success, booking, errorMsg) {
+      const t = TRANSLATIONS[currentLang];
+      const overlay  = document.getElementById('resultOverlay');
+      const card     = document.getElementById('resultCard');
+      const icon     = document.getElementById('resultIcon');
+      const title    = document.getElementById('resultTitle');
+      const msg      = document.getElementById('resultMsg');
+      const details  = document.getElementById('resultDetails');
+
+      card.className = 'result-card ' + (success ? 'success' : 'error');
+      icon.textContent  = success ? '✓' : '✗';
+      title.textContent = success ? t.successTitle : t.errorTitle;
+
+      if (success) {
+        msg.textContent = t.successMsg;
+        const dateObj  = new Date(booking.date + 'T00:00:00');
+        const dateLabel = dateObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        details.innerHTML = `
+          <strong>${booking.name}</strong><br>
+          📅 ${dateLabel}<br>
+          🍽️ ${t.mealLabel}<br>
+          🕐 ${booking.time}<br>
+          👥 ${t.guestSuffix(booking.partySize)}
+          <hr style="border:none;border-top:1px solid #e0d6c8;margin:12px 0;">
+          <span style="color:#c0392b;font-weight:600;">${t.screenshotNote}</span><br>
+          <span style="font-size:12px;color:#888;">${t.screenshotSub}</span>
+          <hr style="border:none;border-top:1px solid #e0d6c8;margin:12px 0;">
+          <span style="font-size:12px;color:#888;">${t.cancelNote}</span><br>
+          <div style="display:flex;gap:8px;margin-top:10px;justify-content:center;">
+            <a href="https://instagram.com/yanagiya_japanesetea" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:8px 14px;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:white;">📷 Instagram</a>
+            <a href="https://wa.me/818061843170" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;padding:8px 14px;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;background:#25d366;color:white;">💬 WhatsApp</a>
+          </div>
+        `;
+        details.style.display = 'block';
+      } else {
+        msg.textContent = errorMsg;
+        details.style.display = 'none';
+      }
+
+      overlay.classList.add('show');
+    }
+
+    function closeResult() {
+      document.getElementById('resultOverlay').classList.remove('show');
+    }
+  </script>
+</body>
+</html>
