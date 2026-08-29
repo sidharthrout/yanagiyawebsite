@@ -19,5 +19,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # Xserver usually requires navigating into the domain's public_html folder
-          server-dir: magome-yanagiya.com/public_html/
+          # Upload directly to the FTP root, as that is the web root
+          server-dir: ./
