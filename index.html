@@ -1168,6 +1168,177 @@
     .food-img-box:hover { z-index: 20; transform: scale(1.2) translateY(-10px); }
     .food-img-box:hover img { box-shadow: 0 25px 60px rgba(0,0,0,0.5); }
     
+    /* ══════════════════════════════════════════════════════
+       NEW VISUAL ENHANCEMENTS (kanji tags, lodges, marquees,
+       experiences, stars, tea, calendar, map)
+       ══════════════════════════════════════════════════════ */
+
+    /* ── JAPANESE SECTION TAG (was unstyled / invisible) ── */
+    .section-kanji-tag{
+      display:block;font-family:'Noto Serif JP',serif;
+      font-size:1.05rem;letter-spacing:.42em;text-indent:.42em;
+      color:var(--gold-lt);margin-bottom:.9rem;text-transform:none;
+      text-shadow:0 1px 12px rgba(0,0,0,.25);
+    }
+    #food-marquee .section-kanji-tag{color:var(--warm);text-shadow:none}
+
+    /* ── LODGE CARDS: CINEMATIC TOUCH ── */
+    .lodge-card{position:relative}
+    .lodge-gallery-box::after{
+      content:'';position:absolute;inset:0;z-index:4;pointer-events:none;
+      background:linear-gradient(to top,rgba(21,18,16,.68) 0%,rgba(21,18,16,0) 46%);
+      opacity:.5;transition:opacity .5s ease;
+    }
+    .lodge-card:hover .lodge-gallery-box::after{opacity:.9}
+    .lodge-slide img{transition:transform 6s cubic-bezier(.2,.6,.2,1)}
+    .lodge-slide.active img{animation:lodgeKen 7s ease-out forwards}
+    @keyframes lodgeKen{0%{transform:scale(1.01)}100%{transform:scale(1.14)}}
+    .lodge-card:hover .lodge-slide.active img{animation-play-state:running}
+    .lodge-badge{display:inline-flex;align-items:center;gap:.5rem}
+    .lodge-badge::before{
+      content:'';width:6px;height:6px;border-radius:50%;background:var(--gold-lt);
+      box-shadow:0 0 10px var(--gold);animation:pulseDot 2s ease-in-out infinite;
+    }
+    @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.75)}}
+    .lodge-cta{
+      position:absolute;left:50%;bottom:3.2rem;transform:translate(-50%,18px);
+      z-index:6;opacity:0;transition:all .5s ease;
+      background:var(--gold);color:var(--ink);font-size:.66rem;font-weight:700;
+      letter-spacing:.2em;text-transform:uppercase;padding:.72rem 1.7rem;border-radius:30px;
+      box-shadow:0 8px 26px rgba(0,0,0,.4);white-space:nowrap;text-decoration:none;
+    }
+    .lodge-card:hover .lodge-cta{opacity:1;transform:translate(-50%,0)}
+    .lodge-cta:hover{background:var(--gold-lt)}
+    .lodge-body h3{transition:color .4s ease}
+    .lodge-card:hover .lodge-body h3{color:var(--matcha)}
+    .lodge-tag{transition:all .35s ease}
+    .lodge-tag:hover{border-color:var(--gold);color:var(--gold);background:var(--white);transform:translateY(-2px)}
+    @media(max-width:850px){ .lodge-cta{display:none} }
+
+    /* ── MARQUEE EDGE FADE ── */
+    .marquee-edge{
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+      mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+    }
+    .memories-track .food-img-box{width:320px;height:320px}
+    .memories-track .food-img-box img{border-radius:16px}
+    .memories-track .food-img-box::after{
+      content:'';position:absolute;inset:0;border-radius:16px;pointer-events:none;
+      border:1px solid rgba(232,202,146,.22);
+    }
+
+    /* ── EXPERIENCES: HIGHLIGHT CHIPS + MINI CARDS ── */
+    .exp-stats{
+      display:flex;gap:.7rem;flex-wrap:wrap;margin:1.4rem 0 1.8rem;
+    }
+    .exp-stat{
+      display:flex;align-items:center;gap:.55rem;
+      background:rgba(255,255,255,.07);border:1px solid rgba(232,202,146,.3);
+      border-radius:30px;padding:.5rem 1.1rem;
+      font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-lt);
+      backdrop-filter:blur(6px);
+    }
+    .exp-stat b{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:#fff}
+    .exp-mini-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;max-width:1200px;margin:0 auto;
+    }
+    .exp-mini{
+      position:relative;border-radius:8px;overflow:hidden;min-height:230px;
+      box-shadow:0 8px 30px rgba(0,0,0,.16);transition:all .45s ease;
+    }
+    .exp-mini img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;transition:transform .8s ease}
+    .exp-mini::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(21,18,16,.9) 0%,rgba(21,18,16,.15) 55%,transparent 100%);
+    }
+    .exp-mini:hover{transform:translateY(-8px);box-shadow:0 18px 44px rgba(0,0,0,.28)}
+    .exp-mini:hover img{transform:scale(1.09)}
+    .exp-mini-body{position:absolute;left:0;right:0;bottom:0;padding:1.3rem 1.4rem;z-index:2;color:#fff}
+    .exp-mini-body .exp-mini-icon{font-size:1.3rem;display:block;margin-bottom:.45rem}
+    .exp-mini-body h4{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;margin-bottom:.3rem}
+    .exp-mini-body p{font-size:.78rem;color:rgba(255,255,255,.75);line-height:1.6}
+    .exp-mini-tag{
+      display:inline-block;margin-top:.6rem;font-size:.6rem;font-weight:700;letter-spacing:.18em;
+      text-transform:uppercase;color:var(--gold-lt);border-bottom:1px solid var(--gold);
+      padding-bottom:2px;transition:letter-spacing .3s;
+    }
+    .exp-mini:hover .exp-mini-tag{letter-spacing:.28em}
+    @media(max-width:850px){ .exp-mini-grid{grid-template-columns:1fr} .exp-mini{min-height:200px} }
+
+    /* ── STARS SECTION: TWINKLE + KEN BURNS ── */
+    #stars::before{
+      content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+      background-image:
+        radial-gradient(1.5px 1.5px at 12% 22%,rgba(255,255,255,.9),transparent 55%),
+        radial-gradient(1px 1px at 28% 12%,rgba(255,255,255,.7),transparent 55%),
+        radial-gradient(1.5px 1.5px at 41% 68%,rgba(255,255,255,.8),transparent 55%),
+        radial-gradient(1px 1px at 55% 32%,rgba(255,255,255,.65),transparent 55%),
+        radial-gradient(2px 2px at 68% 55%,rgba(255,255,255,.85),transparent 55%),
+        radial-gradient(1px 1px at 76% 18%,rgba(255,255,255,.7),transparent 55%),
+        radial-gradient(1.5px 1.5px at 86% 74%,rgba(255,255,255,.8),transparent 55%),
+        radial-gradient(1px 1px at 92% 42%,rgba(255,255,255,.6),transparent 55%),
+        radial-gradient(1.5px 1.5px at 8% 80%,rgba(255,255,255,.75),transparent 55%),
+        radial-gradient(1px 1px at 33% 88%,rgba(255,255,255,.65),transparent 55%);
+      animation:twinkle 4.5s ease-in-out infinite alternate;
+    }
+    @keyframes twinkle{from{opacity:.45}to{opacity:1}}
+    #stars .star-panel img{transition:transform 6s ease;animation:starKen 9s ease-out forwards}
+    @keyframes starKen{0%{transform:scale(1.02)}100%{transform:scale(1.12)}}
+    #stars > div > div{position:relative;z-index:1}
+
+    /* ── TEA SECTION: STEAM + LEAVES ── */
+    .magome-cha-badge{position:relative;overflow:visible}
+    .magome-cha-badge::after{
+      content:'';position:absolute;top:-.4rem;left:50%;transform:translateX(-50%);
+      width:14px;height:14px;border-radius:50%;
+      background:radial-gradient(circle,rgba(255,255,255,.35),transparent 70%);
+      animation:steam 3s ease-in-out infinite;
+    }
+    @keyframes steam{
+      0%{opacity:0;transform:translate(-50%,4px) scale(.6)}
+      40%{opacity:.8}
+      100%{opacity:0;transform:translate(-50%,-18px) scale(1.2)}
+    }
+    .tea-slide img{transition:transform 6s ease}
+    .tea-slide.active img{animation:teaKen 8s ease-out forwards}
+    @keyframes teaKen{0%{transform:scale(1.02)}100%{transform:scale(1.13)}}
+    .tea-slider-box::after{
+      content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+      background:linear-gradient(to top,rgba(21,18,16,.55),transparent 30%);
+    }
+    .tea-item{padding-left:1.1rem;border-radius:6px}
+    .tea-item .tea-bullet{transition:transform .3s ease}
+    .tea-item:hover .tea-bullet{transform:scale(1.45);box-shadow:0 0 12px var(--matcha-lt)}
+
+    /* ── AVAILABILITY / CALENDAR SECTION ── */
+    #availability{padding:6.5rem 6%;background:var(--night);position:relative;overflow:hidden}
+    #availability::before{
+      content:'';position:absolute;inset:0;pointer-events:none;
+      background:
+        radial-gradient(900px 500px at 80% 0%,rgba(194,157,91,.08),transparent 60%),
+        radial-gradient(700px 500px at 10% 100%,rgba(62,90,54,.12),transparent 60%);
+    }
+    .cal-shell{
+      position:relative;max-width:980px;margin:0 auto;border-radius:10px;overflow:hidden;
+      border:1px solid rgba(194,157,91,.35);box-shadow:0 18px 60px rgba(0,0,0,.45);
+    }
+    .cal-tabs{
+      display:flex;gap:.6rem;justify-content:center;margin:2.2rem 0 1.6rem;flex-wrap:wrap;
+    }
+    .cal-tab{
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
+      color:rgba(255,255,255,.75);font-size:.72rem;font-weight:600;letter-spacing:.16em;
+      text-transform:uppercase;padding:.7rem 1.7rem;border-radius:30px;cursor:pointer;
+      transition:all .35s ease;font-family:inherit;
+    }
+    .cal-tab:hover{border-color:var(--gold-lt);color:#fff}
+    .cal-tab.active{background:var(--gold);color:var(--ink);border-color:var(--gold);box-shadow:0 6px 20px rgba(194,157,91,.35)}
+    .cal-frame{width:100%;height:560px;border:none;display:block;background:#f7f4ee}
+    @media(max-width:600px){ .cal-frame{height:440px} }
+    .cal-foot{
+      position:relative;display:flex;justify-content:center;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:1.6rem;
+    }
+
     /* Smooth transitions for Magome and Stars sections */
     /* magome and stars fade removed to fix pinning stability */
 
@@ -1213,7 +1384,8 @@
     <li><a href="#experiences">Trail &amp; Tours</a></li>
     <li><a href="getting-here.html">Getting Here</a></li>
     <li><a href="#stars">Night Sky</a></li>
-    <li><a href="#magome">Magome-juku</a></li>
+    <li><a href="#availability">Availability</a></li>
+    <li><a href="#map-section">Magome-juku</a></li>
     <li><a href="#tea">Magome Cha</a></li>
     <li><a href="#team">Our Team</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -1233,7 +1405,8 @@
   <a href="#experiences" onclick="closeMobile()">Trail &amp; Guided Walks</a>
   <a href="getting-here.html" onclick="closeMobile()">Getting Here</a>
   <a href="#stars"       onclick="closeMobile()">Night Sky &amp; Stars</a>
-  <a href="#magome"      onclick="closeMobile()">Magome-juku</a>
+  <a href="#availability" onclick="closeMobile()">Check Availability</a>
+  <a href="#map-section" onclick="closeMobile()">Magome-juku</a>
   <a href="#tea"         onclick="closeMobile()">Magome Cha (馬籠茶)</a>
   <a href="#team"        onclick="closeMobile()">Our Team</a>
   <a href="#contact"     onclick="closeMobile()">Contact &amp; Book</a>
@@ -1259,8 +1432,9 @@
       <h1 style="font-size: clamp(3rem, 6vw, 5.5rem); text-shadow: 0 4px 20px rgba(0,0,0,0.5); letter-spacing: -0.02em;">Where Ancient Paths Meet Modern Peace</h1>
       <p style="font-size: 1.1rem; max-width: 600px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Two authentic private machiya lodges nestled along the historic Nakasendo highway in Magome-juku. Wake to misty mountains, locally harvested Magome Cha, and starry night skies.</p>
       
-      <div class="hero-actions" style="margin-top: 2rem;">
+      <div class="hero-actions" style="margin-top: 2rem; display:flex; gap:.9rem; flex-wrap:wrap;">
         <a href="#lodges" class="btn btn-gold mag-btn">Book &amp; Explore Lodges &#8594;</a>
+        <a href="#availability" class="btn btn-outline" style="border-color:rgba(255,255,255,.5);color:#fff;">Check Availability</a>
       </div>
     </div>
   </div>
@@ -1336,7 +1510,7 @@
 
   <div class="lodges-grid">
     <!-- LODGE 1: YANAGIYA -->
-    <article class="lodge-card reveal">
+    <article class="lodge-card reveal" style="transition-delay:.05s;">
       <div class="lodge-gallery-box" id="gallery1">
         <div class="lodge-badge">Yanagiya · 柳屋</div>
         <div class="lodge-slide active"><img src="heroyanagiya.webp" alt="Yanagiya exterior daytime on the post road" loading="lazy" /></div>
@@ -1346,6 +1520,7 @@
         <div class="lodge-slide"><img src="604104124.webp" alt="Yanagiya daytime cafe shop front" loading="lazy" /></div>
         <div class="lodge-slide"><img src="yanagiya2.webp" alt="Yanagiya modern bathroom &amp; washroom" loading="lazy" /></div>
         <div class="lodge-dots" id="dots1"></div>
+        <a href="yanagiya.html" class="lodge-cta">View Yanagiya &#8594;</a>
         <div class="lodge-nav-controls">
           <button class="lodge-nav-btn" onclick="shiftLodge('gallery1','dots1',-1)" aria-label="Previous image">&#8592;</button>
           <button class="lodge-nav-btn" onclick="shiftLodge('gallery1','dots1',1)" aria-label="Next image">&#8594;</button>
@@ -1374,7 +1549,7 @@
     </article>
 
     <!-- LODGE 2: YANAGIYA IRI -->
-    <article class="lodge-card reveal">
+    <article class="lodge-card reveal" style="transition-delay:.18s;">
       <div class="lodge-gallery-box" id="gallery2">
         <div class="lodge-badge">Yanagiya Iri · 柳屋 伝</div>
         <div class="lodge-slide active"><img src="imghero.webp" alt="Yanagiya Iri lodge amidst rice fields and forests" loading="lazy" /></div>
@@ -1385,6 +1560,7 @@
         <div class="lodge-slide"><img src="stay3.webp" alt="Yanagiya Iri peaceful bedroom" loading="lazy" /></div>
         <div class="lodge-slide"><img src="iri.webp" alt="Yanagiya Iri scenic views" loading="lazy" /></div>
         <div class="lodge-dots" id="dots2"></div>
+        <a href="yanagiya-iri.html" class="lodge-cta">View Yanagiya Iri &#8594;</a>
         <div class="lodge-nav-controls">
           <button class="lodge-nav-btn" onclick="shiftLodge('gallery2','dots2',-1)" aria-label="Previous image">&#8592;</button>
           <button class="lodge-nav-btn" onclick="shiftLodge('gallery2','dots2',1)" aria-label="Next image">&#8594;</button>
@@ -1416,6 +1592,33 @@
   </div>
 </section>
 
+<!-- AVAILABILITY CALENDAR -->
+<section id="availability">
+  <div style="text-align:center; padding:0 6% 1rem; position:relative;">
+    <span class="section-kanji-tag">空室カレンダー</span>
+    <span class="section-label" style="color:var(--gold-lt);">Live Availability</span>
+    <h2 class="section-title" style="color:var(--white);">Check Your Dates</h2>
+    <div class="divider divider-center" style="background:var(--gold-lt);"></div>
+    <p style="color:rgba(255,255,255,.75); max-width:600px; margin:0 auto; font-size:1rem; line-height:1.8;">
+      Select a lodge to see real-time availability. Blank dates are open for your private stay — reserve directly or on Booking.com.
+    </p>
+  </div>
+
+  <div class="cal-tabs" role="tablist">
+    <button class="cal-tab active" role="tab" aria-selected="true" onclick="switchCalendar('yanagiya', this)">Yanagiya &middot; 柳屋</button>
+    <button class="cal-tab" role="tab" aria-selected="false" onclick="switchCalendar('iri', this)">Yanagiya Iri &middot; 柳屋 伝</button>
+  </div>
+
+  <div class="cal-shell">
+    <iframe id="calIframe" class="cal-frame" title="Yanagiya availability calendar" src="https://calendar.google.com/calendar/embed?src=5e0203688673db5f6cc12a7c6c597ce95597aac51f4d82cf6004dffa56f9c675%40group.calendar.google.com&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23f7f4ee&color=%23c29d5b"></iframe>
+  </div>
+
+  <div class="cal-foot">
+    <a id="calBookingBtn" href="https://www.booking.com/hotel/jp/guesthouse-yanagiya.html" target="_blank" rel="noopener" class="btn btn-gold mag-btn">Book This Lodge &#8594;</a>
+    <a href="#contact" class="btn btn-outline" style="border-color:rgba(255,255,255,.4);color:#fff;">Direct Host Enquiry</a>
+  </div>
+</section>
+
 
 <!-- CUSTOMER MEMORIES -->
 <section id="customer-memories" style="padding: 6rem 0; background: var(--night); overflow: hidden; position: relative; margin-top:-1px;">
@@ -1428,8 +1631,8 @@
       The trail brings travelers from all over the world to Magome. Every evening brings new conversations, new friendships, and shared laughter around the hearth.
     </p>
   </div>
-  <div style="width: 100%; overflow: hidden;">
-    <div class="infinity-track" style="display:flex; gap:3rem; width:max-content; animation: scrollInfinity 40s linear infinite;">
+  <div class="marquee-edge" style="width: 100%; overflow: hidden;">
+    <div class="infinity-track memories-track" style="display:flex; gap:3rem; width:max-content; animation: scrollInfinity 40s linear infinite;">
             <div class="food-img-box"><img src="with custoemr/customer_01.webp" alt="Guest memory" loading="lazy"></div>
 
             <div class="food-img-box"><img src="with custoemr/customer_02.webp" alt="Guest memory" loading="lazy"></div>
@@ -1486,7 +1689,7 @@
       We serve wholesome, locally-sourced meals showcasing the seasonal flavors of the Kiso Valley.
     </p>
   </div>
-  <div style="width: 100%; overflow: hidden;">
+  <div class="marquee-edge" style="width: 100%; overflow: hidden;">
     <div class="infinity-track" style="display:flex; gap:3rem; width:max-content; animation: scrollInfinityReverse 50s linear infinite;">
             <div class="food-img-box"><img src="customer food/food_02.webp" alt="Local cuisine" loading="lazy"></div>
 
@@ -1597,6 +1800,12 @@
         "Follow in the footsteps of travelers who walked the Nakasendo centuries ago. Starting from historic Magome, journey along old stone paths, through forests and quiet mountain villages with a local guide who brings the stories and landscapes of the trail to life."
       </p>
 
+      <div class="exp-stats">
+        <span class="exp-stat"><b>8&nbsp;km</b>&nbsp; Magome → Tsumago</span>
+        <span class="exp-stat"><b>3&nbsp;hrs</b>&nbsp; Scenic Hike</span>
+        <span class="exp-stat"><b>400&nbsp;yr</b>&nbsp; Old Trail</span>
+      </div>
+
       <!-- Warm Human Touch Message -->
       <div class="trail-dm-callout">
         <p>
@@ -1614,6 +1823,37 @@
         </a>
       </div>
     </div>
+  </div>
+
+  <!-- Experience Mini Cards -->
+  <div class="exp-mini-grid reveal">
+    <a href="#stars" class="exp-mini">
+      <img src="night star/nightstar2.webp" alt="Stargazing above Magome" loading="lazy" />
+      <div class="exp-mini-body">
+        <span class="exp-mini-icon">&#127754;</span>
+        <h4>Dark Sky Stargazing</h4>
+        <p>Kiso Valley is one of Japan's best dark-sky spots. Look up with our guides and watch the Milky Way appear.</p>
+        <span class="exp-mini-tag">Night Experience</span>
+      </div>
+    </a>
+    <a href="yanagiya-iri.html" class="exp-mini">
+      <img src="new/food for customer.webp" alt="Seasonal farmhouse dinner by Yuji" loading="lazy" />
+      <div class="exp-mini-body">
+        <span class="exp-mini-icon">&#129346;</span>
+        <h4>Sommelier Farmhouse Dining</h4>
+        <p>Seasonal botan nabe and mountain cuisine hosted by resident sommelier &amp; hunter Yuji, paired with Japanese wines.</p>
+        <span class="exp-mini-tag">Dining with Yuji</span>
+      </div>
+    </a>
+    <a href="#tea" class="exp-mini">
+      <img src="new/tea.webp" alt="Magome Cha estate tea experience" loading="lazy" />
+      <div class="exp-mini-body">
+        <span class="exp-mini-icon">&#127861;</span>
+        <h4>Estate Tea Tasting</h4>
+        <p>Sip single-origin Magome Cha straight from the family tea gardens that blanket the mountain slopes.</p>
+        <span class="exp-mini-tag">Tea Experience</span>
+      </div>
+    </a>
   </div>
 
 
@@ -1752,7 +1992,7 @@
       <div class="magome-cha-badge">&#127861; Estate-Grown Magome Cha · 馬籠茶</div>
       <h2 class="section-title">Magome Cha<br /><em>馬籠の日本茶</em></h2>
       <div class="divider" style="background:var(--matcha-lt);"></div>
-      <p class="section-sub">Cultivated on the cool mountain slopes above Magome-juku, our signature **Magome Cha (馬籠茶)** leaves benefit from sharp alpine temperature variations and morning mountain mist. We handcraft small-batch teas that preserve the deep umami and refreshing aroma of the Kiso Valley.</p>
+      <p class="section-sub">Cultivated on the cool mountain slopes above Magome-juku, our signature <strong>Magome Cha (馬籠茶)</strong> leaves benefit from sharp alpine temperature variations and morning mountain mist. We handcraft small-batch teas that preserve the deep umami and refreshing aroma of the Kiso Valley.</p>
       
       <div class="tea-menu">
         <div class="tea-item"><div class="tea-bullet"></div><span class="tea-item-name">Magome Sencha (煎茶) — First Spring Flush</span><span class="tea-item-sub">Crisp &amp; Refreshing</span></div>
@@ -1936,6 +2176,19 @@
   </div>
 </section>
 
+<!-- GOOGLE MAP -->
+<section id="map-section" style="padding:0;">
+  <div class="map-container">
+    <iframe class="map-iframe" title="Map to Yanagiya Guest House, Magome-juku" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      src="https://maps.google.com/maps?q=%E9%A6%AC%E7%B1%A0%204292%2C%20%E4%B8%AD%E6%B4%A5%E5%B7%9D%E5%B8%82%2C%20%E5%B2%90%E9%98%9C%E7%9C%8C%20508-0502%2C%20%E6%97%A5%E6%9C%AC&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+    <div class="map-overlay-text">
+      <h3>&#127968; Yanagiya Guest House</h3>
+      <p>馬籠 4292, Nakatsugawa, Gifu 508-0502, Japan</p>
+      <p style="margin-top:.4rem;color:var(--gold-lt);">&#128205; On the historic Nakasendo post road, Magome-juku</p>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT & BOOKING -->
 <section id="contact">
   <div class="contact-hero-img reveal">
@@ -2052,7 +2305,8 @@
       <ul>
         <li><a href="#experiences">Nakasendo Trail Walk</a></li>
         <li><a href="#stars">Under the Stars Tour</a></li>
-        <li><a href="#magome">Magome-juku Post Town</a></li>
+        <li><a href="#map-section">Magome-juku Post Town</a></li>
+        <li><a href="#availability">Live Availability</a></li>
         <li><a href="#tea">Magome Cha (馬籠茶)</a></li>
         <li><a href="#team">Our Team</a></li>
       </ul>
