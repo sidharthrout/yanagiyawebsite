@@ -1975,16 +1975,16 @@
         if (charIdx < textToType.length) {
           typeText.innerHTML += textToType.charAt(charIdx);
           charIdx++;
-          setTimeout(typeWriter, 65);
+          setTimeout(typeWriter, 95); // Slower, more elegant typing pace
         }
       }
-      setTimeout(typeWriter, 1200); // Start typing after name reveals
+      setTimeout(typeWriter, 1300); // Give Yanagiya name time to breathe
 
       // Hide preloader after animation completes
       setTimeout(() => {
         if (p) p.classList.add('hidden');
         sessionStorage.setItem('preloaderShown', 'true');
-      }, 3800); 
+      }, 4800); // Give user time to read the final typed word 
     } else {
       if (p) p.style.display = 'none';
     }
