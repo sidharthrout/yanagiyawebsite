@@ -46,3 +46,6 @@ Thumbs.db
 /backup/
 /images jpeg/
 /table/
+
+# ── Raw hero PNG (optimized JPG version is tracked) ──
+/heroimag.png
