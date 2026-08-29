@@ -21,3 +21,10 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           # Upload directly to the FTP root, as that is the web root
           server-dir: ./
+          # Never upload raw sources, backups, or admin tooling (160MB+ of JPEGs, backups, PHP admin)
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/backup/**
+            **/images jpeg/**
+            **/table/**

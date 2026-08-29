@@ -41,3 +41,8 @@ Thumbs.db
 *~
 .vscode/
 .idea/
+
+# ── Local sources / backups / admin tooling (NOT deployed) ──
+/backup/
+/images jpeg/
+/table/

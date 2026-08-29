@@ -14,6 +14,59 @@
   <meta name="description" content="Two private machiya lodges on the historic Nakasendo trail in Magome-juku, Japan. Rated 9.6/10 on Booking.com. Book direct for guided hikes, stargazing, and Magome Cha tea experiences." />
   <link rel="canonical" href="https://sidharthrout.github.io/yanagiyawebsite/" />
   <link rel="icon" href="logo.webp" type="image/png" />
+  <link rel="apple-touch-icon" href="logo.png" />
+
+  <!-- Analytics (Plausible — privacy-friendly, no cookies) -->
+  <script defer data-domain="yanagiyawebsite" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Structured Data: LodgingBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "name": "Yanagiya Guest House",
+    "alternateName": "Guesthouse Yanagiya · 柳屋",
+    "description": "Two private machiya lodges on the historic Nakasendo trail in Magome-juku, Japan. Estate-grown Magome Cha, guided trail walks, dark sky stargazing, and sommelier-curated dining.",
+    "image": "https://sidharthrout.github.io/yanagiyawebsite/heroyanagiya.webp",
+    "url": "https://sidharthrout.github.io/yanagiyawebsite/",
+    "telephone": "+81-80-6184-3170",
+    "email": "magome.yanagiya@gmail.com",
+    "priceRange": "$$",
+    "currenciesAccepted": "JPY",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "馬籠 4292",
+      "addressLocality": "Nakatsugawa",
+      "addressRegion": "Gifu",
+      "postalCode": "508-0502",
+      "addressCountry": "JP"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 35.5310,
+      "longitude": 137.5620
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "9.6",
+      "bestRating": "10",
+      "reviewCount": "250"
+    },
+    "checkinTime": "15:00",
+    "checkoutTime": "10:00",
+    "amenityFeature": [
+      { "@type": "LocationFeatureSpecification", "name": "Free Wi-Fi", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Air conditioning", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Full kitchen", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Private whole-house rental", "value": true }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/yanagiya_japanesetea/",
+      "https://www.booking.com/hotel/jp/guesthouse-yanagiya.html",
+      "https://www.booking.com/hotel/jp/yanagiya-iri"
+    ]
+  }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -109,6 +162,11 @@
     @media (prefers-reduced-motion: reduce) {
       .pl-panel { transition-duration: .4s; }
       .pl-center { animation: none; opacity: 1; }
+      .infinity-track, .memories-track { animation-play-state: paused !important; }
+      .lodge-slide.active img, .tea-slide.active img, .trail-slide.active img,
+      #stars .star-panel img, .exp-mini img { animation: none !important; }
+      .magome-cha-badge::after, .lodge-badge::before, #stars::before { animation: none !important; }
+      .exp-mini, .lodge-cta, .lodge-tag { transition-duration: .01s !important; }
     }
 
     /* ── COMMON STYLES ── */
@@ -1415,10 +1473,10 @@
 
 <!-- HERO SECTION (CINEMATIC) -->
 <section id="hero" class="hero-cinematic">
-  <div class="hero-slide active"><img src="magomejuku.webp" alt="Yanagiya lodge on the historic Magome post road" loading="eager" /></div>
-  <div class="hero-slide"><img src="heroyanagiya.webp" alt="Yanagiya exterior at sunset" loading="lazy" /></div>
-  <div class="hero-slide"><img src="stay2.webp" alt="Yanagiya interior with traditional tatami" loading="lazy" /></div>
-  <div class="hero-slide"><img src="starpic.webp" alt="Night sky over Magome-juku" loading="lazy" /></div>
+  <div class="hero-slide active"><img src="magomejuku.webp" alt="Yanagiya lodge on the historic Magome post road" width="1445" height="1088" loading="eager" /></div>
+  <div class="hero-slide"><img src="heroyanagiya.webp" alt="Yanagiya exterior at sunset" width="1672" height="941" loading="lazy" /></div>
+  <div class="hero-slide"><img src="stay2.webp" alt="Yanagiya interior with traditional tatami" width="1448" height="1086" loading="lazy" /></div>
+  <div class="hero-slide"><img src="starpic.webp" alt="Night sky over Magome-juku" width="1050" height="1400" loading="lazy" /></div>
   <div class="hero-cinematic-overlay"></div>
   
   <div class="hero-content">
@@ -1456,7 +1514,7 @@
     <div class="stat-label">Booking.com Review Score</div>
   </div>
   <div class="stat-block reveal" style="transition-delay: 0.2s;">
-    <div class="stat-num">260+</div>
+    <div class="stat-num">250+</div>
     <div class="stat-label">Verified Guest Reviews</div>
   </div>
   <div class="stat-block reveal" style="transition-delay: 0.3s;">
@@ -1470,7 +1528,7 @@
 <!-- OUR STORY / ABOUT -->
 <section id="about">
   <div class="about-img-wrap reveal">
-    <img src="stay2.webp" alt="Traditional living room at Yanagiya with warm wooden beams" loading="lazy" />
+    <img src="stay2.webp" alt="Traditional living room at Yanagiya with warm wooden beams" width="1448" height="1086" loading="lazy" />
   </div>
   <div class="about-content reveal">
     <span class="section-label">Our Heritage</span>
@@ -1513,7 +1571,7 @@
     <article class="lodge-card reveal" style="transition-delay:.05s;">
       <div class="lodge-gallery-box" id="gallery1">
         <div class="lodge-badge">Yanagiya · 柳屋</div>
-        <div class="lodge-slide active"><img src="heroyanagiya.webp" alt="Yanagiya exterior daytime on the post road" loading="lazy" /></div>
+        <div class="lodge-slide active"><img src="heroyanagiya.webp" alt="Yanagiya exterior daytime on the post road" width="1672" height="941" loading="lazy" /></div>
         <div class="lodge-slide"><img src="yanagiya1.webp" alt="Yanagiya tatami room with futon bedding" loading="lazy" /></div>
         <div class="lodge-slide"><img src="674929029.webp" alt="Traditional tatami futon room" loading="lazy" /></div>
         <div class="lodge-slide"><img src="yanagiya7.webp" alt="Yanagiya nighttime entrance with illuminated sign" loading="lazy" /></div>
@@ -1527,7 +1585,7 @@
         </div>
       </div>
       <div class="lodge-body">
-        <span class="rating-pill"><strong>9.6</strong> Exceptional · 260+ Reviews on Booking.com</span>
+        <span class="rating-pill"><strong>9.6</strong> Exceptional · 250+ Reviews on Booking.com</span>
         <p class="lodge-kanji">柳屋</p>
         <h3>Yanagiya (Main Machiya)</h3>
         <p>The original merchant machiya townhouse sitting right on the historic post road. Features soaring cedar ceilings, handmade tatami suites, a modern full kitchen, and panoramic windows facing emerald rice terraces. Sleeps up to 8 guests in private comfort.</p>
@@ -1552,7 +1610,7 @@
     <article class="lodge-card reveal" style="transition-delay:.18s;">
       <div class="lodge-gallery-box" id="gallery2">
         <div class="lodge-badge">Yanagiya Iri · 柳屋 伝</div>
-        <div class="lodge-slide active"><img src="imghero.webp" alt="Yanagiya Iri lodge amidst rice fields and forests" loading="lazy" /></div>
+        <div class="lodge-slide active"><img src="imghero.webp" alt="Yanagiya Iri lodge amidst rice fields and forests" width="1920" height="814" loading="lazy" /></div>
         <div class="lodge-slide"><img src="new/scenery from yanagiya iri.webp" alt="Stunning sunset over rice field paddies at Yanagiya Iri" loading="lazy" /></div>
         <div class="lodge-slide"><img src="new/LINE_ALBUM_20260828_260828_33.webp" alt="Golden sunset reflected in rice terraces near Yanagiya Iri" loading="lazy" /></div>
         <div class="lodge-slide"><img src="iri-1.webp" alt="Yanagiya Iri peaceful mountain surroundings" loading="lazy" /></div>
@@ -1968,15 +2026,15 @@
     <div style="flex: 1; min-width: 300px; height: 80vh; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); margin: 5%; margin-left: 0;">
        <div style="position: absolute; inset:0;">
            <div class="star-panel" style="position: absolute; inset:0; z-index:3; opacity: 1;">
-             <img src="night star/nightstar2.webp" style="width:100%; height:100%; object-fit:cover;" />
+             <img src="night star/nightstar2.webp" alt="Kiso Dark Sky Reserve under a star-filled night sky" style="width:100%; height:100%; object-fit:cover;" />
              <div style="position: absolute; bottom: 5%; left: 5%; color:white; background:rgba(0,0,0,0.5); padding: 0.5rem 1.5rem; border-radius: 4px; backdrop-filter: blur(4px);">Kiso Dark Sky Reserve</div>
            </div>
            <div class="star-panel" style="position: absolute; inset:0; z-index:2; opacity: 0;">
-             <img src="night star/starpic2.webp" style="width:100%; height:100%; object-fit:cover;" />
+             <img src="night star/starpic2.webp" alt="Stargazing tour guided by Eli under the night sky" style="width:100%; height:100%; object-fit:cover;" />
              <div style="position: absolute; bottom: 5%; left: 5%; color:white; background:rgba(0,0,0,0.5); padding: 0.5rem 1.5rem; border-radius: 4px; backdrop-filter: blur(4px);">Guided by Eli · 星空ガイド</div>
            </div>
            <div class="star-panel" style="position: absolute; inset:0; z-index:1; opacity: 0;">
-             <img src="night star/night view in  yanagiya iri.webp" style="width:100%; height:100%; object-fit:cover;" />
+             <img src="night star/night view in  yanagiya iri.webp" alt="Night view of rice paddies from Yanagiya Iri" style="width:100%; height:100%; object-fit:cover;" />
              <div style="position: absolute; bottom: 5%; left: 5%; color:white; background:rgba(0,0,0,0.5); padding: 0.5rem 1.5rem; border-radius: 4px; backdrop-filter: blur(4px);">Night view Yanagiya</div>
            </div>
        </div>
@@ -2192,7 +2250,7 @@
 <!-- CONTACT & BOOKING -->
 <section id="contact">
   <div class="contact-hero-img reveal">
-    <img src="stay2.webp" alt="Yanagiya interior atmosphere" loading="lazy" />
+    <img src="stay2.webp" alt="Yanagiya interior atmosphere" width="1448" height="1086" loading="lazy" />
   </div>
   
   <div class="contact-box">
@@ -2219,6 +2277,12 @@
     <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.5rem;">
       <a href="https://www.booking.com/hotel/jp/guesthouse-yanagiya.html" target="_blank" rel="noopener" class="btn btn-booking" style="font-size:.72rem;">Yanagiya on Booking.com</a>
       <a href="https://www.booking.com/hotel/jp/yanagiya-iri" target="_blank" rel="noopener" class="btn btn-booking" style="font-size:.72rem;">Yanagiya Iri on Booking.com</a>
+    </div>
+
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1.5rem;align-items:center;">
+      <span style="font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);">Prefer chat?</span>
+      <a href="https://ig.me/m/yanagiya_japanesetea" target="_blank" rel="noopener" class="btn btn-insta" style="font-size:.72rem;">&#9993; DM on Instagram</a>
+      <a href="https://wa.me/818061843170?text=Hello%20Yanagiya!%20I%27d%20like%20to%20ask%20about%20availability." target="_blank" rel="noopener" class="btn btn-outline" style="font-size:.72rem;border-color:var(--matcha);color:var(--matcha);">&#128172; WhatsApp</a>
     </div>
 
     <form class="contact-form" onsubmit="handleFormSubmit(event)">
@@ -2326,7 +2390,7 @@
 
   <div class="footer-bottom">
     <span>&#169; 2026 Yanagiya Guest House · Magome-juku, Nakatsugawa, Gifu, Japan</span>
-    <span>Rated 9.6 / 10 Exceptional on Booking.com (260+ reviews)</span>
+    <span>Rated 9.6 / 10 Exceptional on Booking.com (250+ reviews)</span>
   </div>
 </footer>
 
@@ -2339,7 +2403,7 @@
     const barEl = document.getElementById('plBar');
     const progEl = pre.querySelector('.pl-prog');
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const RUN = 2100, MIN_TOTAL = 2400;
+    const RUN = 800, MIN_TOTAL = 1000;
     const start = performance.now();
     let finished = false;
 
@@ -2373,7 +2437,7 @@
       window.addEventListener('load', () => {
         setTimeout(finish, Math.max(0, MIN_TOTAL - (performance.now() - start)));
       }, { once: true });
-      setTimeout(finish, 4500);
+      setTimeout(finish, 2200);
     }
   })();
 
