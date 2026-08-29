@@ -72,6 +72,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <!-- Smooth Scroll Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -93,25 +94,26 @@
     ul{list-style:none}
     button{cursor:pointer;border:none;background:none;font-family:inherit}
 
-    /* ── PRELOADER (Shoji Reveal) ── */
+    /* ── PRELOADER (Japanese Enso · Shoji Reveal) ── */
     #preloader { position: fixed; inset: 0; z-index: 9999999; }
     .pl-panel {
-      position: absolute; left: 0; width: 100%; height: 50%;
+      position: absolute; top: 0; width: 50%; height: 100%;
       background:
-        radial-gradient(1200px 700px at 50% 35%, rgba(194,157,91,.10), transparent 60%),
-        radial-gradient(900px 600px at 80% 100%, rgba(62,90,54,.12), transparent 60%),
-        linear-gradient(180deg, #1a1612 0%, #0b0e15 100%);
+        radial-gradient(1100px 700px at 30% 30%, rgba(194,157,91,.09), transparent 60%),
+        radial-gradient(900px 600px at 75% 90%, rgba(62,90,54,.14), transparent 60%),
+        linear-gradient(160deg, #17130f 0%, #0b0e15 100%);
       will-change: transform;
-      transition: transform 1.05s cubic-bezier(.76,0,.18,1);
+      transition: transform 1.15s cubic-bezier(.76,0,.18,1);
     }
     .pl-panel::after {
       content: ''; position: absolute; inset: 0; opacity: .05; mix-blend-mode: overlay;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
     }
-    .pl-panel.top { top: 0; border-bottom: 1px solid rgba(194,157,91,.22); }
-    .pl-panel.bottom { bottom: 0; }
-    #preloader.open .pl-panel.top { transform: translateY(-101%); }
-    #preloader.open .pl-panel.bottom { transform: translateY(101%); }
+    .pl-panel.left { left: 0; border-right: 1px solid rgba(194,157,91,.2); }
+    .pl-panel.right { right: 0; border-left: 1px solid rgba(194,157,91,.2); }
+    #preloader.open .pl-panel.left { transform: translateX(-101%); }
+    #preloader.open .pl-panel.right { transform: translateX(101%); }
+
     .pl-center {
       position: absolute; inset: 0; z-index: 2;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -119,30 +121,77 @@
       animation: plEnter .9s cubic-bezier(.16,1,.3,1) .1s forwards;
       transition: opacity .5s ease, transform .5s ease;
     }
-    #preloader.open .pl-center { animation: none; opacity: 0; transform: scale(1.05); pointer-events: none; }
-    .pl-ring {
-      position: relative; width: 158px; height: 158px;
-      filter: drop-shadow(0 8px 32px rgba(194,157,91,.22));
+    #preloader.open .pl-center { animation: none; opacity: 0; transform: scale(1.04); pointer-events: none; }
+
+    /* Enso brush circle */
+    .pl-enso {
+      position: relative; width: 196px; height: 196px;
+      filter: drop-shadow(0 10px 40px rgba(194,157,91,.28));
     }
-    .pl-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
-    .pl-track { fill: none; stroke: rgba(255,255,255,.08); stroke-width: 2; }
-    .pl-prog {
-      fill: none; stroke: url(#plGold); stroke-width: 2.5; stroke-linecap: round;
-      stroke-dasharray: 92 8; stroke-dashoffset: 92; transition: stroke-dashoffset .12s linear;
+    .pl-enso svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .pl-enso .pl-track {
+      fill: none; stroke: rgba(255,255,255,.07); stroke-width: 3; stroke-linecap: round;
     }
-    .pl-num {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      font-family: 'Cormorant Garamond', serif; font-weight: 300;
-      font-size: 2.55rem; line-height: 1; color: var(--gold-lt); letter-spacing: .02em;
+    .pl-enso .pl-prog {
+      fill: none; stroke: url(#plGold); stroke-width: 3; stroke-linecap: round;
+      stroke-dasharray: 100 100; stroke-dashoffset: 100;
+      transition: stroke-dashoffset .12s linear;
+      filter: drop-shadow(0 0 6px rgba(232,202,146,.6));
     }
-    .pl-num .pct { font-size: .42em; color: rgba(255,255,255,.35); margin-left: 1px; }
-    .pl-label {
-      margin-top: 1.5rem; font-size: .6rem; letter-spacing: .45em; text-transform: uppercase;
+    /* Red sun (hinomaru) behind kanji */
+    .pl-hinomaru {
+      position: absolute; top: 50%; left: 50%;
+      width: 118px; height: 118px;
+      transform: translate(-50%,-50%);
+      background: radial-gradient(circle at 40% 38%, #e54b4b, #b3271f 75%);
+      border-radius: 50%;
+      opacity: .92;
+      box-shadow: 0 0 40px rgba(229,75,75,.35), inset 0 -6px 18px rgba(0,0,0,.25);
+      animation: hinomaruPulse 3.2s ease-in-out infinite;
+    }
+    @keyframes hinomaruPulse {
+      0%,100% { transform: translate(-50%,-50%) scale(1); }
+      50%     { transform: translate(-50%,-50%) scale(1.05); }
+    }
+    /* Kanji stack */
+    .pl-kanji {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      z-index: 2; pointer-events: none;
+      font-family: 'Noto Serif JP', serif;
+    }
+    .pl-kanji .k1, .pl-kanji .k2 {
+      color: #fff; line-height: 1; text-shadow: 0 2px 18px rgba(0,0,0,.5);
+    }
+    .pl-kanji .k1 { font-size: 2.6rem; font-weight: 300; opacity: 0; animation: kanjiIn 1s cubic-bezier(.16,1,.3,1) .35s forwards; }
+    .pl-kanji .k2 { font-size: 1.5rem; font-weight: 300; margin-top: .55rem; color: var(--gold-lt); opacity: 0; animation: kanjiIn 1s cubic-bezier(.16,1,.3,1) .8s forwards; }
+    @keyframes kanjiIn {
+      from { opacity: 0; transform: translateY(10px); letter-spacing: .35em; }
+      to   { opacity: 1; transform: none; letter-spacing: .18em; }
+    }
+    /* Vertical seal text */
+    .pl-vertical {
+      position: absolute; right: 4.5%; top: 50%; transform: translateY(-50%);
+      writing-mode: vertical-rl; z-index: 3;
+      font-family: 'Noto Serif JP', serif; font-size: .85rem; letter-spacing: .5em;
       color: rgba(255,255,255,.35);
     }
+    .pl-vertical small { display: block; margin-top: 1.2rem; font-size: .6rem; color: rgba(255,255,255,.2); letter-spacing: .7em; }
+    @media (max-width: 640px) { .pl-vertical { display: none; } }
+
+    .pl-num {
+      margin-top: 1.6rem;
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: 1.05rem; line-height: 1; color: var(--gold-lt); letter-spacing: .25em;
+    }
+    .pl-num .pct { font-size: .55em; color: rgba(255,255,255,.4); }
+    .pl-label {
+      margin-top: .9rem; font-size: .58rem; letter-spacing: .5em; text-transform: uppercase;
+      color: rgba(255,255,255,.4); text-indent: .5em;
+    }
     .pl-bar {
-      width: min(240px, 56vw); height: 1px; margin-top: 1.4rem;
-      background: rgba(255,255,255,.1); overflow: hidden;
+      width: min(220px, 54vw); height: 1px; margin-top: 1.5rem;
+      background: rgba(255,255,255,.12); overflow: hidden;
     }
     .pl-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--gold), var(--gold-lt)); }
     .pl-brand {
@@ -162,11 +211,12 @@
     @media (prefers-reduced-motion: reduce) {
       .pl-panel { transition-duration: .4s; }
       .pl-center { animation: none; opacity: 1; }
+      .pl-hinomaru, .pl-kanji .k1, .pl-kanji .k2 { animation: none; opacity: 1; }
       .infinity-track, .memories-track { animation-play-state: paused !important; }
-      .lodge-slide.active img, .tea-slide.active img, .trail-slide.active img,
-      #stars .star-panel img, .exp-mini img { animation: none !important; }
+      .lodge-slide.active img, .trail-slide.active img,
+      #stars .star-panel img { animation: none !important; }
       .magome-cha-badge::after, .lodge-badge::before, #stars::before { animation: none !important; }
-      .exp-mini, .lodge-cta, .lodge-tag { transition-duration: .01s !important; }
+      .lodge-cta, .lodge-tag { transition-duration: .01s !important; }
     }
 
     /* ── COMMON STYLES ── */
@@ -266,11 +316,10 @@
     .mobile-menu a.m-book:hover{color:var(--white);background:#b08c4a;}
 
     /* ── HERO ── */
-    #hero{position:relative;height:100vh;min-height:650px;overflow:hidden}
-    .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
-    .hero-slide.active{opacity:1}
-    .hero-slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);animation:kenburns 10s ease-in-out forwards}
-    @keyframes kenburns{from{transform:scale(1.06)}to{transform:scale(1)}}
+    #hero{position:relative;height:100vh;min-height:650px;overflow:hidden;background:#0e0b09}
+    .hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%}
+    #heroCanvas0{z-index:1}
+    #heroCanvas1,#heroCanvas2,#heroCanvas3{z-index:2}
     
     .hero-overlay{
       position:absolute;inset:0;
@@ -313,19 +362,46 @@
       text-shadow:0 1px 8px rgba(0,0,0,.4);
     }
     .hero-actions{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center}
-    .hero-dots{position:absolute;bottom:2.2rem;right:6%;display:flex;gap:.55rem;z-index:15}
-    .hero-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4);transition:all .3s;cursor:pointer}
-    .hero-dot.active{background:var(--gold);transform:scale(1.35)}
-    .hero-arrow{
-      position:absolute;top:50%;transform:translateY(-50%);
-      width:46px;height:46px;border:1px solid rgba(255,255,255,.35);
-      background:rgba(18,14,12,.4);backdrop-filter:blur(6px);
-      display:flex;align-items:center;justify-content:center;
-      color:var(--white);font-size:1.2rem;cursor:pointer;transition:all var(--ease);z-index:15;border-radius:50%;
+
+    /* ── CANVAS SLIDESHOW CONTROLS (circular-mask parallax) ── */
+    .link-list{
+      position:absolute;left:50%;transform:translateX(-50%);bottom:24px;z-index:12;
+      display:inline-block;
     }
-    .hero-arrow:hover{background:var(--white);color:var(--ink);border-color:var(--white)}
-    .hero-arrow.prev{left:2%}
-    .hero-arrow.next{right:2%}
+    .link-list ul{list-style:none;display:flex}
+    .link-list li{overflow:hidden;float:left}
+    .link-list a{
+      position:relative;width:12px;height:12px;margin:5px;display:inline-block;
+      border-radius:50%;background-color:rgba(255,255,255,.55);
+      transition:background-color .5s ease;
+    }
+    .link-list a.is-active{background-color:var(--gold)}
+    .btns{position:absolute;top:45%;width:100%;z-index:12}
+    .btns button{
+      position:absolute;display:inline-block;width:44px;height:44px;
+      text-align:center;line-height:44px;font-weight:700;font-size:9px;
+      font-family:'Inter',serif;letter-spacing:.08em;color:var(--ink);
+      border-radius:50%;background-color:rgba(255,255,255,.9);cursor:pointer;
+      border:0;transition:all .5s ease;
+    }
+    .btns button:focus{outline:0}
+    .btns button:before{
+      content:'';position:absolute;width:44px;height:44px;top:0;left:0;
+      border:2px solid var(--gold);border-radius:50%;opacity:0;transition:all .5s ease;
+    }
+    .btns button span{opacity:0;transition:opacity .2s ease;position:relative;top:-2px}
+    .btns button:hover{
+      background-color:var(--gold);color:#fff;width:64px;height:64px;transform:translateY(-10px);
+    }
+    .btns button:hover:before{opacity:1;width:104px;height:104px;top:-22px;left:-22px}
+    .btns button:hover span{opacity:1}
+    .btns .show-prev{left:15%}
+    .btns .show-next{right:15%}
+    @media(max-width:900px){
+      .btns button{width:36px;height:36px;line-height:36px}
+      .btns .show-prev{left:4%}
+      .btns .show-next{right:4%}
+    }
 
     /* ── ABOUT STORY ── */
     #about{display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--white);overflow:hidden}
@@ -537,8 +613,9 @@
       will-change: transform;
     }
     .hero-cinematic-overlay {
-      position: absolute; inset: 0;
+      position: absolute; inset: 0; z-index: 3;
       background: linear-gradient(to top, rgba(18,14,12,0.95) 0%, rgba(18,14,12,0.4) 50%, rgba(18,14,12,0.2) 100%);
+      pointer-events: none;
     }
 
     /* Green Stats Banner */
@@ -691,13 +768,31 @@
     .tea-bullet{width:7px;height:7px;border-radius:50%;background:var(--matcha-lt);flex-shrink:0}
     .tea-item-name{font-size:.88rem;color:rgba(255,255,255,.88)}
     .tea-item-sub{font-size:.72rem;color:rgba(255,255,255,.45);margin-left:auto}
-    .tea-slider-box{position:relative;min-height:560px;overflow:hidden}
-    .tea-slide{position:absolute;inset:0;opacity:0;transition:opacity .9s ease}
-    .tea-slide.active{opacity:1}
-    .tea-slide img{width:100%;height:100%;object-fit:cover}
-    .tea-dots{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem;z-index:5}
-    .tea-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:background .3s}
-    .tea-dot.active{background:var(--gold)}
+    .tea-slider-box{position:relative;min-height:560px;overflow:hidden;background:#14100e}
+    .tea-canvas{position:absolute;top:0;left:0;width:100%;height:100%}
+    #teaCanvas0{z-index:1}
+    #teaCanvas1,#teaCanvas2,#teaCanvas3{z-index:2}
+    .tea-canvas-head{
+      position:absolute;top:1.4rem;left:1.4rem;z-index:6;
+      display:flex;align-items:center;gap:.7rem;
+      background:rgba(21,18,16,.6);backdrop-filter:blur(8px);
+      color:rgba(255,255,255,.85);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
+      padding:.45rem .95rem;border-radius:2px;border:1px solid rgba(232,202,146,.3);
+    }
+    .tea-canvas-kanji{
+      font-family:'Noto Serif JP',serif;font-size:1rem;color:var(--gold-lt);letter-spacing:.1em;
+    }
+    .tea-links{bottom:3.4rem;z-index:6}
+    .tea-links a{background-color:rgba(255,255,255,.45)}
+    .tea-links a.is-active{background-color:var(--gold)}
+    .tea-btns{top:50%}
+    .tea-btns .show-prev{left:4%}
+    .tea-btns .show-next{right:4%}
+    @media(max-width:900px){
+      .tea-btns button{width:34px;height:34px;line-height:34px}
+      .tea-btns .show-prev{left:2%}
+      .tea-btns .show-next{right:2%}
+    }
 
     /* ── COOL MEET OUR TEAM SECTION (REDESIGNED) ── */
     #team{padding:7rem 6%;background:var(--paper)}
@@ -869,7 +964,8 @@
       .form-grid2{grid-template-columns:1fr}
       .hero-text-card{padding:1.6rem 1.4rem}
       .hero-content{left:4%;right:4%;bottom:6vh}
-      .hero-arrow{display:none}
+      .btns{display:none}
+      .link-list{display:none}
       .lodge-gallery-box{height:260px}
       .cool-team-img-wrap{height:280px}
       .trail-img-slider{min-height:280px}
@@ -1297,31 +1393,6 @@
       backdrop-filter:blur(6px);
     }
     .exp-stat b{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:#fff}
-    .exp-mini-grid{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;max-width:1200px;margin:0 auto;
-    }
-    .exp-mini{
-      position:relative;border-radius:8px;overflow:hidden;min-height:230px;
-      box-shadow:0 8px 30px rgba(0,0,0,.16);transition:all .45s ease;
-    }
-    .exp-mini img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;transition:transform .8s ease}
-    .exp-mini::after{
-      content:'';position:absolute;inset:0;
-      background:linear-gradient(to top,rgba(21,18,16,.9) 0%,rgba(21,18,16,.15) 55%,transparent 100%);
-    }
-    .exp-mini:hover{transform:translateY(-8px);box-shadow:0 18px 44px rgba(0,0,0,.28)}
-    .exp-mini:hover img{transform:scale(1.09)}
-    .exp-mini-body{position:absolute;left:0;right:0;bottom:0;padding:1.3rem 1.4rem;z-index:2;color:#fff}
-    .exp-mini-body .exp-mini-icon{font-size:1.3rem;display:block;margin-bottom:.45rem}
-    .exp-mini-body h4{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:400;margin-bottom:.3rem}
-    .exp-mini-body p{font-size:.78rem;color:rgba(255,255,255,.75);line-height:1.6}
-    .exp-mini-tag{
-      display:inline-block;margin-top:.6rem;font-size:.6rem;font-weight:700;letter-spacing:.18em;
-      text-transform:uppercase;color:var(--gold-lt);border-bottom:1px solid var(--gold);
-      padding-bottom:2px;transition:letter-spacing .3s;
-    }
-    .exp-mini:hover .exp-mini-tag{letter-spacing:.28em}
-    @media(max-width:850px){ .exp-mini-grid{grid-template-columns:1fr} .exp-mini{min-height:200px} }
 
     /* ── STARS SECTION: TWINKLE + KEN BURNS ── */
     #stars::before{
@@ -1357,12 +1428,9 @@
       40%{opacity:.8}
       100%{opacity:0;transform:translate(-50%,-18px) scale(1.2)}
     }
-    .tea-slide img{transition:transform 6s ease}
-    .tea-slide.active img{animation:teaKen 8s ease-out forwards}
-    @keyframes teaKen{0%{transform:scale(1.02)}100%{transform:scale(1.13)}}
     .tea-slider-box::after{
-      content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
-      background:linear-gradient(to top,rgba(21,18,16,.55),transparent 30%);
+      content:'';position:absolute;inset:0;z-index:4;pointer-events:none;
+      background:linear-gradient(to top,rgba(21,18,16,.5),transparent 25%);
     }
     .tea-item{padding-left:1.1rem;border-radius:6px}
     .tea-item .tea-bullet{transition:transform .3s ease}
@@ -1377,22 +1445,43 @@
         radial-gradient(700px 500px at 10% 100%,rgba(62,90,54,.12),transparent 60%);
     }
     .cal-shell{
-      position:relative;max-width:980px;margin:0 auto;border-radius:10px;overflow:hidden;
+      position:relative;max-width:980px;margin:0 auto;border-radius:12px;overflow:hidden;
       border:1px solid rgba(194,157,91,.35);box-shadow:0 18px 60px rgba(0,0,0,.45);
+      background:#f7f4ee;
     }
+    .cal-shell-head{
+      display:flex;align-items:center;gap:.6rem;
+      background:linear-gradient(90deg,rgba(194,157,91,.18),rgba(62,90,54,.12));
+      border-bottom:1px solid rgba(194,157,91,.28);
+      padding:.7rem 1.4rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--gold-lt);font-weight:600;
+    }
+    .cal-dot{width:8px;height:8px;border-radius:50%;background:#7ed49a;box-shadow:0 0 10px rgba(126,212,154,.8);flex-shrink:0}
     .cal-tabs{
-      display:flex;gap:.6rem;justify-content:center;margin:2.2rem 0 1.6rem;flex-wrap:wrap;
+      display:flex;gap:.8rem;justify-content:center;margin:2.4rem 0 1.8rem;flex-wrap:wrap;
     }
     .cal-tab{
-      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);
-      color:rgba(255,255,255,.75);font-size:.72rem;font-weight:600;letter-spacing:.16em;
-      text-transform:uppercase;padding:.7rem 1.7rem;border-radius:30px;cursor:pointer;
-      transition:all .35s ease;font-family:inherit;
+      display:flex;align-items:center;gap:.8rem;
+      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);
+      color:rgba(255,255,255,.8);padding:.55rem 1.4rem .55rem .6rem;border-radius:50px;cursor:pointer;
+      transition:all .35s ease;font-family:inherit;text-align:left;
     }
-    .cal-tab:hover{border-color:var(--gold-lt);color:#fff}
-    .cal-tab.active{background:var(--gold);color:var(--ink);border-color:var(--gold);box-shadow:0 6px 20px rgba(194,157,91,.35)}
+    .cal-tab:hover{border-color:var(--gold-lt);color:#fff;transform:translateY(-2px)}
+    .cal-tab.active{
+      background:linear-gradient(135deg,var(--gold),#b98f4e);color:var(--ink);border-color:var(--gold);
+      box-shadow:0 8px 26px rgba(194,157,91,.4);
+    }
+    .cal-thumb{
+      width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;
+      border:2px solid rgba(255,255,255,.25);background:#201b17;
+    }
+    .cal-tab.active .cal-thumb{border-color:rgba(21,18,16,.4)}
+    .cal-thumb img{width:100%;height:100%;object-fit:cover}
+    .cal-tab-txt{display:flex;flex-direction:column;line-height:1.25}
+    .cal-tab-txt b{font-family:'Cormorant Garamond',serif;font-size:1.02rem;font-weight:600;letter-spacing:.04em}
+    .cal-tab-txt small{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
     .cal-frame{width:100%;height:560px;border:none;display:block;background:#f7f4ee}
-    @media(max-width:600px){ .cal-frame{height:440px} }
+    @media(max-width:600px){ .cal-frame{height:440px} .cal-tab{padding:.45rem 1rem .45rem .5rem} .cal-thumb{width:38px;height:38px} }
     .cal-foot{
       position:relative;display:flex;justify-content:center;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:1.6rem;
     }
@@ -1406,11 +1495,11 @@
 
 <!-- PRELOADER -->
 <div id="preloader" aria-hidden="true">
-  <div class="pl-panel top"></div>
-  <div class="pl-panel bottom"></div>
+  <div class="pl-panel left"></div>
+  <div class="pl-panel right"></div>
   <div class="pl-center">
-    <div class="pl-ring">
-      <svg viewBox="0 0 160 160" aria-hidden="true">
+    <div class="pl-enso">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
         <defs>
           <linearGradient id="plGold" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stop-color="#e8ca92"/>
@@ -1418,15 +1507,21 @@
             <stop offset="1" stop-color="#f3e2b8"/>
           </linearGradient>
         </defs>
-        <circle class="pl-track" cx="80" cy="80" r="70"/>
-        <circle class="pl-prog" cx="80" cy="80" r="70" pathLength="100"/>
+        <circle class="pl-track" cx="60" cy="60" r="54"/>
+        <circle class="pl-prog" cx="60" cy="60" r="54" pathLength="100"/>
       </svg>
-      <span class="pl-num"><span id="plNum">0</span><span class="pct">%</span></span>
+      <div class="pl-hinomaru"></div>
+      <div class="pl-kanji">
+        <span class="k1">柳屋</span>
+        <span class="k2">YANAGIYA</span>
+      </div>
     </div>
+    <div class="pl-num"><span id="plNum">0</span><span class="pct">%</span></div>
     <div class="pl-label">Loading &middot; 馬籠宿</div>
     <div class="pl-bar"><i id="plBar"></i></div>
     <div class="pl-brand">Yanagiya <span class="jp">柳屋 &middot; Magome-juku</span></div>
   </div>
+  <div class="pl-vertical">おもてなしの宿<small>Nakasendo · Magome</small></div>
 </div>
 
 
@@ -1471,12 +1566,12 @@
   <a href="#contact" class="btn btn-primary m-book" onclick="closeMobile()">Reserve Now</a>
 </nav>
 
-<!-- HERO SECTION (CINEMATIC) -->
+<!-- HERO SECTION (CINEMATIC CANVAS PARALLAX) -->
 <section id="hero" class="hero-cinematic">
-  <div class="hero-slide active"><img src="magomejuku.webp" alt="Yanagiya lodge on the historic Magome post road" width="1445" height="1088" loading="eager" /></div>
-  <div class="hero-slide"><img src="heroyanagiya.webp" alt="Yanagiya exterior at sunset" width="1672" height="941" loading="lazy" /></div>
-  <div class="hero-slide"><img src="stay2.webp" alt="Yanagiya interior with traditional tatami" width="1448" height="1086" loading="lazy" /></div>
-  <div class="hero-slide"><img src="starpic.webp" alt="Night sky over Magome-juku" width="1050" height="1400" loading="lazy" /></div>
+  <canvas id="heroCanvas0" class="hero-canvas" aria-hidden="true"></canvas>
+  <canvas id="heroCanvas1" class="hero-canvas" aria-hidden="true"></canvas>
+  <canvas id="heroCanvas2" class="hero-canvas" aria-hidden="true"></canvas>
+  <canvas id="heroCanvas3" class="hero-canvas" aria-hidden="true"></canvas>
   <div class="hero-cinematic-overlay"></div>
   
   <div class="hero-content">
@@ -1497,10 +1592,18 @@
     </div>
   </div>
   
-  <!-- Hero Navigation Controls -->
-  <div class="hero-dots" id="heroDots"></div>
-  <button class="hero-arrow prev" id="heroPrev">&#8249;</button>
-  <button class="hero-arrow next" id="heroNext">&#8250;</button>
+  <!-- Canvas Slideshow Controls -->
+  <nav class="link-list" aria-label="Hero slides">
+    <ul>
+      <li><a href="#" data-order="0" data-imagesrc="magomejuku.webp" class="is-active" aria-label="Slide 1"></a></li>
+      <li><a href="#" data-order="1" data-imagesrc="heroyanagiya.webp" aria-label="Slide 2"></a></li>
+      <li><a href="#" data-order="2" data-imagesrc="stay2.webp" aria-label="Slide 3"></a></li>
+    </ul>
+  </nav>
+  <nav class="btns" aria-label="Hero navigation">
+    <button class="show-prev" aria-label="Previous image"><span>PREV</span></button>
+    <button class="show-next" aria-label="Next image"><span>NEXT</span></button>
+  </nav>
 </section>
 
 <!-- GLOBAL STATS BANNER -->
@@ -1663,11 +1766,21 @@
   </div>
 
   <div class="cal-tabs" role="tablist">
-    <button class="cal-tab active" role="tab" aria-selected="true" onclick="switchCalendar('yanagiya', this)">Yanagiya &middot; 柳屋</button>
-    <button class="cal-tab" role="tab" aria-selected="false" onclick="switchCalendar('iri', this)">Yanagiya Iri &middot; 柳屋 伝</button>
+    <button class="cal-tab active" role="tab" aria-selected="true" onclick="switchCalendar('yanagiya', this)">
+      <span class="cal-thumb"><img src="heroyanagiya.webp" alt="" loading="lazy" /></span>
+      <span class="cal-tab-txt"><b>Yanagiya</b><small>柳屋 · Main Machiya</small></span>
+    </button>
+    <button class="cal-tab" role="tab" aria-selected="false" onclick="switchCalendar('iri', this)">
+      <span class="cal-thumb"><img src="imghero.webp" alt="" loading="lazy" /></span>
+      <span class="cal-tab-txt"><b>Yanagiya Iri</b><small>柳屋 伝 · Hillside Lodge</small></span>
+    </button>
   </div>
 
   <div class="cal-shell">
+    <div class="cal-shell-head">
+      <span class="cal-dot"></span>
+      <span>Live calendar &middot; blank dates are open for your stay</span>
+    </div>
     <iframe id="calIframe" class="cal-frame" title="Yanagiya availability calendar" src="https://calendar.google.com/calendar/embed?src=5e0203688673db5f6cc12a7c6c597ce95597aac51f4d82cf6004dffa56f9c675%40group.calendar.google.com&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23f7f4ee&color=%23c29d5b"></iframe>
   </div>
 
@@ -1883,37 +1996,6 @@
     </div>
   </div>
 
-  <!-- Experience Mini Cards -->
-  <div class="exp-mini-grid reveal">
-    <a href="#stars" class="exp-mini">
-      <img src="night star/nightstar2.webp" alt="Stargazing above Magome" loading="lazy" />
-      <div class="exp-mini-body">
-        <span class="exp-mini-icon">&#127754;</span>
-        <h4>Dark Sky Stargazing</h4>
-        <p>Kiso Valley is one of Japan's best dark-sky spots. Look up with our guides and watch the Milky Way appear.</p>
-        <span class="exp-mini-tag">Night Experience</span>
-      </div>
-    </a>
-    <a href="yanagiya-iri.html" class="exp-mini">
-      <img src="new/food for customer.webp" alt="Seasonal farmhouse dinner by Yuji" loading="lazy" />
-      <div class="exp-mini-body">
-        <span class="exp-mini-icon">&#129346;</span>
-        <h4>Sommelier Farmhouse Dining</h4>
-        <p>Seasonal botan nabe and mountain cuisine hosted by resident sommelier &amp; hunter Yuji, paired with Japanese wines.</p>
-        <span class="exp-mini-tag">Dining with Yuji</span>
-      </div>
-    </a>
-    <a href="#tea" class="exp-mini">
-      <img src="new/tea.webp" alt="Magome Cha estate tea experience" loading="lazy" />
-      <div class="exp-mini-body">
-        <span class="exp-mini-icon">&#127861;</span>
-        <h4>Estate Tea Tasting</h4>
-        <p>Sip single-origin Magome Cha straight from the family tea gardens that blanket the mountain slopes.</p>
-        <span class="exp-mini-tag">Tea Experience</span>
-      </div>
-    </a>
-  </div>
-
 
 </section>
 
@@ -2069,16 +2151,30 @@
     </div>
     
     <div class="tea-slider-box" id="teaSlider">
-      <div class="tea-slide active"><img src="new/tea.webp" alt="Iced Magome Cha held against scenic rice fields and mountains" loading="lazy" /></div>
-      <div class="tea-slide"><img src="new/tea (2).webp" alt="Refreshing Yanagiya tea in the historic Magome village" loading="lazy" /></div>
-      <div class="tea-slide"><img src="new/tea (3).webp" alt="Iced matcha Yanagiya drink held on Magome-juku stone path" loading="lazy" /></div>
-      <div class="tea-slide"><img src="new/tea (4).webp" alt="Yanagiya tea tasting flight" loading="lazy" /></div>
-      <div class="tea-slide"><img src="new/tea (5).webp" alt="Yanagiya hojicha drink" loading="lazy" /></div>
-      <div class="tea-slide"><img src="new/tea and magome.webp" alt="Yanagiya drink overlooking green rice field paddy" loading="lazy" /></div>
-      <div class="tea-slide"><img src="new/tea set.webp" alt="Beautiful Magome tea set" loading="lazy" /></div>
-      <div class="tea-slide"><img src="new/tea set (2).webp" alt="Japanese tea ceremony set" loading="lazy" /></div>
-      <div class="tea-slide"><img src="new/tea tree samll.webp" alt="A small Magome tea tree seedling growing in a pot" loading="lazy" /></div>
-      <div class="tea-dots" id="teaDots"></div>
+      <canvas id="teaCanvas0" class="tea-canvas" aria-hidden="true"></canvas>
+      <canvas id="teaCanvas1" class="tea-canvas" aria-hidden="true"></canvas>
+      <canvas id="teaCanvas2" class="tea-canvas" aria-hidden="true"></canvas>
+      <canvas id="teaCanvas3" class="tea-canvas" aria-hidden="true"></canvas>
+      <div class="tea-canvas-head">
+        <span class="tea-canvas-kanji">茶</span>
+        <span>Magome Cha Gallery</span>
+      </div>
+      <nav class="link-list tea-links" aria-label="Tea slides">
+        <ul>
+          <li><a href="#" data-order="0" data-imagesrc="new/tea.webp" class="is-active" aria-label="Tea 1"></a></li>
+          <li><a href="#" data-order="1" data-imagesrc="new/tea (2).webp" aria-label="Tea 2"></a></li>
+          <li><a href="#" data-order="2" data-imagesrc="new/tea (3).webp" aria-label="Tea 3"></a></li>
+          <li><a href="#" data-order="3" data-imagesrc="new/tea (4).webp" aria-label="Tea 4"></a></li>
+          <li><a href="#" data-order="4" data-imagesrc="new/tea (5).webp" aria-label="Tea 5"></a></li>
+          <li><a href="#" data-order="5" data-imagesrc="new/tea and magome.webp" aria-label="Tea 6"></a></li>
+          <li><a href="#" data-order="6" data-imagesrc="new/tea set.webp" aria-label="Tea 7"></a></li>
+          <li><a href="#" data-order="7" data-imagesrc="new/tea set (2).webp" aria-label="Tea 8"></a></li>
+        </ul>
+      </nav>
+      <nav class="btns tea-btns" aria-label="Tea navigation">
+        <button class="show-prev" aria-label="Previous image"><span>PREV</span></button>
+        <button class="show-next" aria-label="Next image"><span>NEXT</span></button>
+      </nav>
     </div>
   </div>
 </section>
@@ -2417,7 +2513,7 @@
 
     const set = (p) => {
       if (numEl) numEl.textContent = Math.round(p);
-      if (progEl) progEl.style.strokeDashoffset = 92 - (92 * p) / 100;
+      if (progEl) progEl.style.strokeDashoffset = 100 - (100 * p) / 100;
       if (barEl) barEl.style.width = p + '%';
     };
 
@@ -2466,41 +2562,182 @@
     if (navLogo) navLogo.style.opacity = '1';
   }
 
-  /* ── HERO SLIDER ── */
+  /* ── HERO CANVAS CIRCULAR-MASK PARALLAX SLIDESHOW (GSAP) ── */
   (function () {
-    const slides = [...document.querySelectorAll('#hero .hero-slide')];
-    const dotsWrap = document.getElementById('heroDots');
-    const prevBtn = document.getElementById('heroPrev');
-    const nextBtn = document.getElementById('heroNext');
-    
-    // Only initialize if elements exist
-    if (!slides.length || !dotsWrap || !prevBtn || !nextBtn) return;
-    
-    let cur = 0, timer;
-    slides.forEach((_, i) => {
-      const d = document.createElement('button');
-      d.className = 'hero-dot' + (i === 0 ? ' active' : '');
-      d.setAttribute('aria-label', 'Slide ' + (i + 1));
-      d.onclick = () => goTo(i);
-      dotsWrap.appendChild(d);
-    });
-    function goTo(n) {
-      slides[cur].classList.remove('active');
-      dotsWrap.children[cur].classList.remove('active');
-      cur = (n + slides.length) % slides.length;
-      slides[cur].classList.add('active');
-      dotsWrap.children[cur].classList.add('active');
-      const img = slides[cur].querySelector('img');
-      if (img) { img.style.animation = 'none'; img.offsetWidth; img.style.animation = ''; }
+    var canvas0 = document.getElementById('heroCanvas0'),
+        canvas1 = document.getElementById('heroCanvas1'),
+        canvas2 = document.getElementById('heroCanvas2'),
+        canvas3 = document.getElementById('heroCanvas3');
+    if (!canvas0 || !canvas1 || !canvas2 || !canvas3 || typeof gsap === 'undefined') return;
+
+    var ctx0 = canvas0.getContext('2d'),
+        ctx1 = canvas1.getContext('2d'),
+        ctx2 = canvas2.getContext('2d'),
+        ctx3 = canvas3.getContext('2d'),
+        linklist = document.querySelector('.link-list'),
+        btns = document.querySelector('.btns'),
+        nextBtn = btns.querySelector('.show-next');
+
+    var IS_ACTIVE = 'is-active';
+    var isAnimating = false, currentImage = 0, prevImage = 0, currentLink;
+    var partMove = { val: 1 };
+    var slideshowInterval;
+    var imagesList = [], linkList = [];
+    var imgW, imgH;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var partList = [
+      { context: ctx1, xpos: 100, radius: 0 },
+      { context: ctx2, xpos: -70, radius: 0 },
+      { context: ctx3, xpos: 50, radius: 0 }
+    ];
+
+    function drawImages() {
+      var imgPrev = imagesList[prevImage];
+      var imgNext = imagesList[currentImage];
+      var VW = canvas0.width, VH = canvas0.height;
+
+      ctx0.globalAlpha = 1;
+      ctx0.drawImage(imgNext, 0, 0, imgW, imgH);
+      ctx0.globalAlpha = partMove.val;
+      ctx0.drawImage(imgPrev, 0, 0, imgW, imgH);
+
+      var obj, ctx, xPrev, xNext;
+      for (var i = 0; i < partList.length; i++) {
+        obj = partList[i];
+        ctx = obj.context;
+        xPrev = -obj.xpos * (1 - partMove.val);
+        xNext = obj.xpos * partMove.val;
+
+        ctx.clearRect(0, 0, VW, VH);
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(VW / 2, VH / 2, obj.radius, 0, 2 * Math.PI, false);
+        ctx.fill();
+
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-in';
+        ctx.drawImage(imgNext, xNext, 0, imgW, imgH);
+
+        ctx.globalAlpha = partMove.val;
+        ctx.globalCompositeOperation = 'source-atop';
+        ctx.drawImage(imgPrev, xPrev, 0, imgW, imgH);
+
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 1;
+
+        if (i === 0) {
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = 'rgba(255,255,255,.7)';
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
     }
-    function start() { timer = setInterval(() => goTo(cur + 1), 6000); }
-    function stop() { clearInterval(timer); }
-    prevBtn.onclick = () => { stop(); goTo(cur - 1); start(); };
-    nextBtn.onclick = () => { stop(); goTo(cur + 1); start(); };
-    const heroEl = document.getElementById('hero');
-    heroEl.addEventListener('mouseenter', stop);
-    heroEl.addEventListener('mouseleave', start);
-    start();
+
+    function changeImage() {
+      if (isAnimating) return;
+      isAnimating = true;
+      gsap.to(partMove, {
+        val: 0, duration: 1.1, ease: 'power1.inOut',
+        onUpdate: drawImages,
+        onComplete: function () {
+          partMove.val = 1;
+          isAnimating = false;
+        }
+      });
+    }
+
+    function selectLink() {
+      if (currentLink !== undefined) currentLink.classList.remove(IS_ACTIVE);
+      currentLink = linkList[currentImage];
+      currentLink.classList.add(IS_ACTIVE);
+    }
+
+    function goTo(n) {
+      if (isAnimating || n === currentImage) return;
+      prevImage = currentImage;
+      currentImage = (n + imagesList.length) % imagesList.length;
+      changeImage();
+      selectLink();
+      clearInterval(slideshowInterval);
+      if (!reduce) slideshowInterval = setInterval(slideshowChange, 4000);
+    }
+
+    function slideshowChange() {
+      prevImage = currentImage;
+      currentImage = (currentImage + 1 >= imagesList.length) ? 0 : currentImage + 1;
+      changeImage();
+      selectLink();
+    }
+
+    function calculateScreen() {
+      var hero = document.getElementById('hero');
+      var VW = hero.clientWidth, VH = hero.clientHeight;
+      canvas0.width = canvas1.width = canvas2.width = canvas3.width = VW;
+      canvas0.height = canvas1.height = canvas2.height = canvas3.height = VH;
+      partList[0].radius = VW * 0.4;
+      partList[1].radius = VW * 0.25;
+      partList[2].radius = VW * 0.08;
+    }
+
+    function resizeBg() {
+      var image1 = imagesList[0];
+      if (!image1) return;
+      var IAR = image1.width / image1.height;
+      var AR = canvas0.width / canvas0.height;
+      if (IAR < AR) { imgW = canvas0.width; imgH = canvas0.width / IAR; }
+      else { imgW = canvas0.height * IAR; imgH = canvas0.height; }
+    }
+
+    function debounce(func, wait) {
+      var timeout;
+      return function () {
+        var context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(function () { func.apply(context, args); }, wait);
+      };
+    }
+
+    function init() {
+      calculateScreen();
+      resizeBg();
+      selectLink();
+      drawImages();
+      if (reduce) return;
+      slideshowInterval = setInterval(slideshowChange, 4000);
+    }
+
+    var links = linklist.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      (function (idx, link) {
+        linkList.push(link);
+        var img = new Image();
+        img.onload = function () {
+          imagesList[idx] = img;
+          if (imagesList.length === links.length && imagesList.every(function (x) { return x; })) init();
+        };
+        img.src = link.getAttribute('data-imagesrc');
+      })(i, links[i]);
+    }
+
+    linklist.addEventListener('click', function (e) {
+      e.preventDefault();
+      var trgt = e.target;
+      if (trgt.nodeName === 'A') goTo(parseInt(trgt.getAttribute('data-order'), 10));
+    });
+    btns.addEventListener('click', function (e) {
+      e.preventDefault();
+      var trgt = e.target;
+      if (trgt.nodeName !== 'BUTTON') return;
+      if (trgt.classList.contains('show-next')) goTo(currentImage + 1);
+      else goTo(currentImage - 1);
+    });
+    window.addEventListener('resize', debounce(function () {
+      calculateScreen();
+      resizeBg();
+      drawImages();
+    }, 200));
   })();
 
   /* ── TRAIL SLIDER ── */
@@ -2618,36 +2855,175 @@
   setupLodgeGallery('gallery1', 'dots1');
   setupLodgeGallery('gallery2', 'dots2');
 
-  /* ── TEA SLIDER ── */
+  /* ── TEA CANVAS CIRCULAR-MASK PARALLAX SLIDESHOW (GSAP) ── */
   (function () {
-    const slides = [...document.querySelectorAll('#teaSlider .tea-slide')];
-    const dotsWrap = document.getElementById('teaDots');
-    if (!dotsWrap || !slides.length) return;
-    let cur = 0, autoSlide;
-    slides.forEach((_, i) => {
-      const d = document.createElement('button');
-      d.className = 'tea-dot' + (i === 0 ? ' active' : '');
-      d.onclick = () => {
-        slides[cur].classList.remove('active');
-        dotsWrap.children[cur].classList.remove('active');
-        cur = i;
-        slides[cur].classList.add('active');
-        dotsWrap.children[cur].classList.add('active');
-        resetAuto();
-      };
-      dotsWrap.appendChild(d);
-    });
-    function resetAuto() {
-      clearInterval(autoSlide);
-      autoSlide = setInterval(() => {
-        cur = (cur + 1) % slides.length;
-        slides.forEach(s => s.classList.remove('active'));
-        dotsWrap.querySelectorAll('.tea-dot').forEach(d => d.classList.remove('active'));
-        slides[cur].classList.add('active');
-        dotsWrap.children[cur].classList.add('active');
-      }, 5500);
+    var canvas0 = document.getElementById('teaCanvas0'),
+        canvas1 = document.getElementById('teaCanvas1'),
+        canvas2 = document.getElementById('teaCanvas2'),
+        canvas3 = document.getElementById('teaCanvas3');
+    if (!canvas0 || !canvas1 || !canvas2 || !canvas3 || typeof gsap === 'undefined') return;
+
+    var ctx0 = canvas0.getContext('2d'),
+        ctx1 = canvas1.getContext('2d'),
+        ctx2 = canvas2.getContext('2d'),
+        ctx3 = canvas3.getContext('2d'),
+        linklist = document.querySelector('.tea-links'),
+        btns = document.querySelector('.tea-btns');
+
+    var IS_ACTIVE = 'is-active';
+    var isAnimating = false, currentImage = 0, prevImage = 0, currentLink;
+    var partMove = { val: 1 };
+    var slideshowInterval;
+    var imagesList = [], linkList = [];
+    var imgW, imgH;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var partList = [
+      { context: ctx1, xpos: 100, radius: 0 },
+      { context: ctx2, xpos: -70, radius: 0 },
+      { context: ctx3, xpos: 50, radius: 0 }
+    ];
+
+    function drawImages() {
+      var imgPrev = imagesList[prevImage];
+      var imgNext = imagesList[currentImage];
+      var VW = canvas0.width, VH = canvas0.height;
+
+      ctx0.globalAlpha = 1;
+      ctx0.drawImage(imgNext, 0, 0, imgW, imgH);
+      ctx0.globalAlpha = partMove.val;
+      ctx0.drawImage(imgPrev, 0, 0, imgW, imgH);
+
+      var obj, ctx, xPrev, xNext;
+      for (var i = 0; i < partList.length; i++) {
+        obj = partList[i];
+        ctx = obj.context;
+        xPrev = -obj.xpos * (1 - partMove.val);
+        xNext = obj.xpos * partMove.val;
+
+        ctx.clearRect(0, 0, VW, VH);
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(VW / 2, VH / 2, obj.radius, 0, 2 * Math.PI, false);
+        ctx.fill();
+
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-in';
+        ctx.drawImage(imgNext, xNext, 0, imgW, imgH);
+
+        ctx.globalAlpha = partMove.val;
+        ctx.globalCompositeOperation = 'source-atop';
+        ctx.drawImage(imgPrev, xPrev, 0, imgW, imgH);
+
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 1;
+        ctx.restore();
+      }
     }
-    resetAuto();
+
+    function changeImage() {
+      if (isAnimating) return;
+      isAnimating = true;
+      gsap.to(partMove, {
+        val: 0, duration: 1.1, ease: 'power1.inOut',
+        onUpdate: drawImages,
+        onComplete: function () {
+          partMove.val = 1;
+          isAnimating = false;
+        }
+      });
+    }
+
+    function selectLink() {
+      if (currentLink !== undefined) currentLink.classList.remove(IS_ACTIVE);
+      currentLink = linkList[currentImage];
+      currentLink.classList.add(IS_ACTIVE);
+    }
+
+    function goTo(n) {
+      if (isAnimating || n === currentImage) return;
+      prevImage = currentImage;
+      currentImage = (n + imagesList.length) % imagesList.length;
+      changeImage();
+      selectLink();
+      clearInterval(slideshowInterval);
+      if (!reduce) slideshowInterval = setInterval(slideshowChange, 5000);
+    }
+
+    function slideshowChange() {
+      prevImage = currentImage;
+      currentImage = (currentImage + 1 >= imagesList.length) ? 0 : currentImage + 1;
+      changeImage();
+      selectLink();
+    }
+
+    function calculateScreen() {
+      var box = document.getElementById('teaSlider');
+      var VW = box.clientWidth, VH = box.clientHeight;
+      canvas0.width = canvas1.width = canvas2.width = canvas3.width = VW;
+      canvas0.height = canvas1.height = canvas2.height = canvas3.height = VH;
+      partList[0].radius = VW * 0.42;
+      partList[1].radius = VW * 0.26;
+      partList[2].radius = VW * 0.08;
+    }
+
+    function resizeBg() {
+      var image1 = imagesList[0];
+      if (!image1) return;
+      var IAR = image1.width / image1.height;
+      var AR = canvas0.width / canvas0.height;
+      if (IAR < AR) { imgW = canvas0.width; imgH = canvas0.width / IAR; }
+      else { imgW = canvas0.height * IAR; imgH = canvas0.height; }
+    }
+
+    function debounce(func, wait) {
+      var timeout;
+      return function () {
+        var context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(function () { func.apply(context, args); }, wait);
+      };
+    }
+
+    function init() {
+      calculateScreen();
+      resizeBg();
+      selectLink();
+      drawImages();
+      if (reduce) return;
+      slideshowInterval = setInterval(slideshowChange, 5000);
+    }
+
+    var links = linklist.querySelectorAll('a');
+    for (var i = 0; i < links.length; i++) {
+      (function (idx, link) {
+        linkList.push(link);
+        var img = new Image();
+        img.onload = function () {
+          imagesList[idx] = img;
+          if (imagesList.length === links.length && imagesList.every(function (x) { return x; })) init();
+        };
+        img.src = link.getAttribute('data-imagesrc');
+      })(i, links[i]);
+    }
+
+    linklist.addEventListener('click', function (e) {
+      e.preventDefault();
+      var trgt = e.target;
+      if (trgt.nodeName === 'A') goTo(parseInt(trgt.getAttribute('data-order'), 10));
+    });
+    btns.addEventListener('click', function (e) {
+      e.preventDefault();
+      var trgt = e.target;
+      if (trgt.nodeName !== 'BUTTON') return;
+      if (trgt.classList.contains('show-next')) goTo(currentImage + 1);
+      else goTo(currentImage - 1);
+    });
+    window.addEventListener('resize', debounce(function () {
+      calculateScreen();
+      resizeBg();
+      drawImages();
+    }, 200));
   })();
 
   /* ── DYNAMIC SPLIT TAB SWITCHING ── */
