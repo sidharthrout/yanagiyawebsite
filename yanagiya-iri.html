@@ -115,6 +115,7 @@
 
     @media(max-width:900px){
       .detail-wrap{grid-template-columns:1fr;gap:2.5rem}
+      .detail-wrap > div, .detail-wrap > aside { min-width: 0; overflow: hidden; }
       .gallery-grid{grid-template-columns:1fr 1fr}
       .gallery-item.span2{grid-column:auto;grid-row:auto;aspect-ratio:4/3}
       .spec-bar{grid-template-columns:repeat(2,1fr)}
@@ -150,15 +151,18 @@
       border-radius: 8px;
     }
     .calendar-frame {
-      min-width: 800px !important;
+      min-width: 100% !important;
+      width: 800px;
       height: 600px !important;
     }
     @media (max-width: 850px) {
       .calendar-frame {
         height: 500px !important;
+        min-width: 800px !important;
       }
     }
 </style>
+
     
 </head>
 <body>
