@@ -42,7 +42,790 @@
     ul{list-style:none}
     button{cursor:pointer;border:none;background:none;font-family:inherit}
 
+    /* ── PRELOADER (Minimalist Zen) ── */
+    #zen-preloader {
+      position: fixed; inset: 0; z-index: 9999999;
+      background: #0a0d14; /* Deep luxury night */
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+    #zen-preloader.slide-up {
+      transform: translateY(-100%);
+    }
+    .zen-line {
+      width: 1px; height: 0; background: var(--gold);
+      margin-bottom: 2rem;
+      animation: zenLineDrop 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+    .zen-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 300; letter-spacing: 0em;
+      color: transparent;
+      background: linear-gradient(to right, var(--gold), #ffffff, var(--gold));
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      opacity: 0;
+      animation: 
+        zenFadeSpread 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s forwards,
+        zenShine 3s linear 1s infinite;
+    }
+    .zen-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-top: 1.5rem;
+      opacity: 0; transform: translateY(10px);
+      animation: zenSubFade 1.2s ease 1.6s forwards;
+    }
+    @keyframes zenLineDrop {
+      to { height: 80px; }
+    }
+    @keyframes zenFadeSpread {
+      0% { opacity: 0; letter-spacing: 0em; filter: blur(4px); }
+      100% { opacity: 1; letter-spacing: 0.4em; filter: blur(0); }
+    }
+    @keyframes zenShine {
+      to { background-position: 200% center; }
+    }
+    @keyframes zenSubFade {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── COMMON STYLES ── */
+    .section-label{display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.1rem,4.5vw,3.6rem);font-weight:300;line-height:1.15;color:var(--ink)}
+    .section-title em{font-style:italic;font-family:'Cormorant Garamond',serif}
+    .section-sub{font-size:.95rem;line-height:1.8;color:var(--muted);max-width:64ch;margin-top:.85rem}
+    .divider{width:2.75rem;height:2px;background:var(--gold);margin:1.2rem 0}
+    .divider-center{margin:1.2rem auto}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+      padding:.85rem 1.85rem;font-size:.75rem;font-weight:600;
+      letter-spacing:.16em;text-transform:uppercase;transition:all var(--ease);
+      border-radius:var(--radius);text-align:center;
+    }
+    .btn-primary{background:var(--ink);color:var(--white);border:1px solid var(--ink)}
+    .btn-primary:hover{background:var(--matcha);border-color:var(--matcha);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.15)}
+    .btn-outline{border:1px solid var(--ink);color:var(--ink);background:transparent}
+    .btn-outline:hover{background:var(--ink);color:var(--white);transform:translateY(-2px)}
+    .btn-gold{background:var(--gold);color:var(--white);border:1px solid var(--gold)}
+    .btn-gold:hover{background:#b08c4a;border-color:#b08c4a;transform:translateY(-2px);box-shadow:0 6px 20px rgba(194,157,91,.3)}
+    .btn-booking{background:#003580;color:var(--white);border:1px solid #003580}
+    .btn-booking:hover{background:#00224f;border-color:#00224f;transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,53,128,.25)}
+    .btn-insta{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:var(--white);border:none}
+    .btn-insta:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(220,39,67,.35);color:var(--white)}
+    .btn-matcha{background:var(--matcha);color:var(--white);border:1px solid var(--matcha)}
+    .btn-matcha:hover{background:#2e4428;border-color:#2e4428}
+
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* ── NAVBAR ── */
+    #navbar{
+      position:fixed;top:0;left:0;width:100%;z-index:1000;
+      height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;
+      padding:0 5%;background:transparent;transition:background var(--ease),box-shadow var(--ease);
+    }
+    #navbar.scrolled{
+      background:rgba(247,244,238,.96);backdrop-filter:blur(16px);
+      box-shadow:0 1px 24px rgba(21,18,16,.08);
+    }
+    .nav-logo{display:flex;flex-direction:column;line-height:1.1;transition:opacity .3s ease}
+    .nav-logo .logo-en{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:400;letter-spacing:.05em;color:var(--white);transition:color var(--ease)}
+    .nav-logo .logo-jp{font-family:'Noto Serif JP',serif;font-size:.65rem;letter-spacing:.25em;color:rgba(255,255,255,.75);transition:color var(--ease);margin-top:2px}
+    #navbar.scrolled .nav-logo .logo-en{color:var(--ink)}
+    #navbar.scrolled .nav-logo .logo-jp{color:var(--muted)}
     
+    .nav-links{display:flex;gap:1.4rem;align-items:center}
+    .nav-links a{
+      font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+      color:rgba(255,255,255,.9);transition:color var(--ease);position:relative;padding:.3rem 0;
+    }
+    .nav-links a::after{
+      content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;
+      background:var(--gold);transition:width var(--ease);
+    }
+    .nav-links a:hover::after{width:100%}
+    #navbar.scrolled .nav-links a{color:var(--ink)}
+    #navbar.scrolled .nav-links a:hover{color:var(--matcha)}
+    
+    .nav-actions{display:flex;align-items:center;gap:.8rem}
+    .nav-book-btn{
+      font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+      padding:.55rem 1.35rem;border:1px solid var(--white);color:var(--white);
+      transition:all var(--ease);border-radius:var(--radius);background:rgba(255,255,255,.08);
+    }
+    .nav-book-btn:hover{background:var(--white);color:var(--ink)}
+    #navbar.scrolled .nav-book-btn{border-color:var(--ink);color:var(--ink);background:transparent}
+    #navbar.scrolled .nav-book-btn:hover{background:var(--ink);color:var(--white)}
+
+    .hamburger{display:none;flex-direction:column;gap:5px;width:28px;padding:4px 0;z-index:1100}
+    .hamburger span{display:block;width:100%;height:2px;background:var(--white);transition:all .35s ease}
+    #navbar.scrolled .hamburger span{background:var(--ink)}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+    .mobile-menu{
+      display:none;position:fixed;inset:0;z-index:900;
+      background:rgba(247,244,238,.98);backdrop-filter:blur(20px);
+      flex-direction:column;align-items:center;justify-content:center;
+      gap:1.4rem;opacity:0;transform:translateY(-100%);transition:opacity .4s ease,transform .4s ease;
+    }
+    .mobile-menu.open{display:flex;opacity:1;transform:none}
+    .mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:1.85rem;font-weight:300;color:var(--ink)}
+    .mobile-menu a:hover{color:var(--matcha)}
+    .mobile-menu a.m-book{
+      margin-top:.75rem;font-family:'Inter',sans-serif;font-size:.85rem;
+      font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+      color:var(--white);background:var(--gold);border:none;
+    }
+    .mobile-menu a.m-book:hover{color:var(--white);background:#b08c4a;}
+
+    /* ── HERO ── */
+    #hero{position:relative;height:100vh;min-height:650px;overflow:hidden}
+    .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease}
+    .hero-slide.active{opacity:1}
+    .hero-slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);animation:kenburns 10s ease-in-out forwards}
+    @keyframes kenburns{from{transform:scale(1.06)}to{transform:scale(1)}}
+    
+    .hero-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(
+        135deg,
+        rgba(15,12,10,.5) 0%,
+        rgba(15,12,10,.25) 45%,
+        rgba(15,12,10,.1) 75%,
+        rgba(15,12,10,.4) 100%
+      );
+    }
+    .hero-content{
+      position:absolute;bottom:10vh;left:6%;right:6%;max-width:700px;
+      color:var(--white);z-index:10;
+    }
+    .hero-text-card{
+      background:rgba(0,0,0,.08);backdrop-filter:blur(2px);
+      border:1px solid rgba(255,255,255,.1);
+      padding:2.2rem 2.5rem;border-radius:6px;
+      box-shadow:none;
+    }
+    .hero-badge{
+      display:inline-flex;align-items:center;gap:.65rem;
+      background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);
+      padding:.4rem .9rem;margin-bottom:1.1rem;border-radius:3px;
+    }
+    .hero-badge .stars{color:#f5b83d;font-size:.9rem}
+    .hero-badge .rating-val{font-weight:700;font-size:1rem;color:var(--white)}
+    .hero-badge .rating-desc{font-size:.68rem;letter-spacing:.08em;color:rgba(255,255,255,.8)}
+    .hero-kanji-sub{font-family:'Noto Serif JP',serif;font-size:1.05rem;letter-spacing:.3em;color:var(--gold-lt);margin-bottom:.4rem}
+    .hero-content h1{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(2.3rem,5.5vw,4.5rem);
+      font-weight:300;line-height:1.08;letter-spacing:.02em;margin-bottom:.9rem;
+      text-shadow:0 2px 14px rgba(0,0,0,.5);
+    }
+    .hero-content p{
+      font-size:clamp(.88rem,1.3vw,1rem);line-height:1.75;
+      color:rgba(255,255,255,.88);margin-bottom:1.6rem;max-width:54ch;
+      text-shadow:0 1px 8px rgba(0,0,0,.4);
+    }
+    .hero-actions{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center}
+    .hero-dots{position:absolute;bottom:2.2rem;right:6%;display:flex;gap:.55rem;z-index:15}
+    .hero-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4);transition:all .3s;cursor:pointer}
+    .hero-dot.active{background:var(--gold);transform:scale(1.35)}
+    .hero-arrow{
+      position:absolute;top:50%;transform:translateY(-50%);
+      width:46px;height:46px;border:1px solid rgba(255,255,255,.35);
+      background:rgba(18,14,12,.4);backdrop-filter:blur(6px);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--white);font-size:1.2rem;cursor:pointer;transition:all var(--ease);z-index:15;border-radius:50%;
+    }
+    .hero-arrow:hover{background:var(--white);color:var(--ink);border-color:var(--white)}
+    .hero-arrow.prev{left:2%}
+    .hero-arrow.next{right:2%}
+
+    /* ── ABOUT STORY ── */
+    #about{display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--white);overflow:hidden}
+    .about-img-wrap{position:relative;overflow:hidden;min-height:540px}
+    .about-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+    .about-img-wrap:hover img{transform:scale(1.04)}
+    .about-content{display:flex;flex-direction:column;justify-content:center;padding:6rem 8%}
+    .about-content .section-title{color:var(--white)}
+    .about-content .section-sub{color:rgba(255,255,255,.72)}
+    .about-features{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:2.5rem}
+    .about-feat-item{display:flex;gap:.85rem;align-items:flex-start}
+    .about-feat-item .feat-icon{
+      width:38px;height:38px;flex-shrink:0;border:1px solid var(--gold);
+      display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--gold);
+    }
+    .about-feat-item h4{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:.25rem}
+    .about-feat-item p{font-size:.82rem;color:rgba(255,255,255,.65);line-height:1.5}
+
+    /* ── LODGES SECTION ── */
+    #lodges{padding:6.5rem 6%;background:var(--paper)}
+    .lodges-header{text-align:center;margin-bottom:4rem}
+    .lodges-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1240px;margin:0 auto}
+    .lodge-card{
+      background:var(--card);box-shadow:0 4px 30px rgba(21,18,16,.06);
+      border-radius:6px;overflow:hidden;transition:all var(--ease);
+      display:flex;flex-direction:column;
+    }
+    .lodge-card:hover{box-shadow:0 12px 50px rgba(21,18,16,.12);transform:translateY(-4px)}
+    .lodge-gallery-box{position:relative;height:350px;overflow:hidden}
+    .lodge-slide{position:absolute;inset:0;opacity:0;transition:opacity .7s ease}
+    .lodge-slide.active{opacity:1}
+    .lodge-slide img{width:100%;height:100%;object-fit:cover}
+    .lodge-badge{
+      position:absolute;top:1.2rem;left:1.2rem;
+      background:rgba(18,14,12,.75);backdrop-filter:blur(8px);
+      color:var(--white);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+      padding:.4rem .85rem;z-index:5;border-radius:2px;
+    }
+    .lodge-nav-controls{position:absolute;bottom:1rem;right:1rem;display:flex;gap:.4rem;z-index:5}
+    .lodge-nav-btn{
+      width:32px;height:32px;background:rgba(18,14,12,.6);color:var(--white);
+      display:flex;align-items:center;justify-content:center;font-size:.85rem;
+      border-radius:50%;transition:background .3s;
+    }
+    .lodge-nav-btn:hover{background:var(--ink)}
+    .lodge-dots{position:absolute;bottom:1.1rem;left:1.1rem;display:flex;gap:.4rem;z-index:5}
+    .lodge-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:all .3s}
+    .lodge-dot.active{background:var(--white);transform:scale(1.3)}
+    
+    .lodge-body{padding:2.2rem 2.2rem 2.5rem;display:flex;flex-direction:column;flex:1}
+    .lodge-kanji{font-family:'Noto Serif JP',serif;font-size:1.15rem;letter-spacing:.2em;color:var(--warm);margin-bottom:.25rem}
+    .lodge-body h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;margin-bottom:.65rem}
+    .lodge-body p{font-size:.88rem;color:var(--muted);line-height:1.75;margin-bottom:1.25rem}
+    
+    .lodge-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.75rem}
+    .lodge-tag{
+      font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+      padding:.32rem .7rem;border:1px solid rgba(21,18,16,.1);
+      color:var(--muted);background:var(--paper);border-radius:2px;
+    }
+    .lodge-actions{
+      margin-top:auto;display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;
+      padding-top:1.2rem;border-top:1px solid rgba(21,18,16,.08);
+    }
+    .rating-pill{
+      display:inline-flex;align-items:center;gap:.4rem;
+      background:#f0f5fc;border:1px solid #c9def5;
+      padding:.35rem .75rem;font-size:.68rem;color:#003580;border-radius:3px;
+      margin-bottom:.9rem;
+    }
+    .rating-pill strong{font-size:.9rem}
+
+    /* ── NAKASENDO TRAIL & GUIDED ADVENTURES ── */
+    #experiences{padding:6.5rem 6%;background:var(--card)}
+    .exp-header{text-align:center;margin-bottom:3.8rem}
+    
+    /* Enhanced Trail Feature Card */
+    .trail-feature-card{
+      background:var(--ink);color:var(--white);border-radius:8px;overflow:hidden;
+      display:grid;grid-template-columns:1.2fr 1fr;margin-bottom:3.5rem;
+      box-shadow:0 12px 40px rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.08);
+    }
+    .trail-img-slider{position:relative;overflow:hidden;min-height:420px}
+    .trail-slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease}
+    .trail-slide.active{opacity:1}
+    .trail-slide img{width:100%;height:100%;object-fit:cover}
+    .trail-slider-badge{
+      position:absolute;top:1.2rem;left:1.2rem;z-index:5;
+      background:rgba(21,18,16,.8);backdrop-filter:blur(6px);
+      color:var(--gold-lt);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;
+      padding:.35rem .8rem;border-radius:2px;
+    }
+    .trail-dots{position:absolute;bottom:1.2rem;left:1.2rem;display:flex;gap:.5rem;z-index:5}
+    .trail-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer}
+    .trail-dot.active{background:var(--gold);transform:scale(1.3)}
+
+    .trail-content{padding:3.5rem 4rem;display:flex;flex-direction:column;justify-content:center}
+    .trail-content .section-title{color:var(--white);font-size:clamp(1.9rem,3.2vw,2.8rem);margin-bottom:.6rem}
+    .trail-quote{
+      font-size:1rem;line-height:1.85;color:rgba(255,255,255,.9);
+      border-left:2px solid var(--gold);padding-left:1.2rem;margin:1.2rem 0 1.6rem;
+    }
+    
+    /* Warm Human-Touch DM Callout Box */
+    .trail-dm-callout{
+      background:rgba(255,255,255,.06);border:1px dashed rgba(232,202,146,.4);
+      padding:1.4rem;border-radius:6px;margin-bottom:1.8rem;
+    }
+    .trail-dm-callout p{font-size:.86rem;line-height:1.7;color:rgba(255,255,255,.85)}
+    .trail-dm-callout strong{color:var(--gold-lt);font-weight:600}
+
+    .exp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+    .exp-card{
+      position:relative;overflow:hidden;border-radius:6px;aspect-ratio:3/4;
+      box-shadow:0 4px 20px rgba(0,0,0,.08);
+    }
+    .exp-card img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+    .exp-card:hover img{transform:scale(1.07)}
+    .exp-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(18,14,12,.92) 0%,rgba(18,14,12,.2) 60%,transparent 100%);
+      display:flex;flex-direction:column;justify-content:flex-end;padding:1.8rem;color:var(--white);
+    }
+    .exp-overlay .exp-tag{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.35rem}
+    .exp-overlay h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;margin-bottom:.4rem}
+    .exp-overlay p{font-size:.82rem;color:rgba(255,255,255,.75);line-height:1.6}
+
+    /* ── UNDER THE STARS OF MAGOME ── */
+    #stars{
+      background:radial-gradient(ellipse at center, #171f30 0%, #090c13 100%);
+      color:var(--white);padding:7rem 6%;position:relative;overflow:hidden;
+    }
+    .stars-bg-canvas{
+      position:absolute;inset:0;opacity:.7;pointer-events:none;
+      background-image:radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+                       radial-gradient(2px 2px at 80px 120px, #e8ca92, rgba(0,0,0,0)),
+                       radial-gradient(1px 1px at 150px 70px, #ffffff, rgba(0,0,0,0)),
+                       radial-gradient(2px 2px at 220px 200px, #a8c4f0, rgba(0,0,0,0)),
+                       radial-gradient(1.5px 1.5px at 310px 140px, #ffffff, rgba(0,0,0,0));
+      background-repeat:repeat;background-size:400px 300px;
+    }
+    .stars-layout{
+      display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:center;
+      max-width:1240px;margin:0 auto;position:relative;z-index:5;
+    }
+    .stars-content .section-title{color:var(--white);margin-bottom:1rem}
+    .stars-content p{color:rgba(255,255,255,.82);font-size:1rem;line-height:1.85;margin-bottom:1.2rem}
+    .stars-quote{
+      border-left:2px solid var(--gold);padding-left:1.2rem;font-style:italic;
+      color:var(--gold-lt);font-size:1.05rem;margin:1.5rem 0 2rem;
+    }
+    
+    /* ── AWWWARDS 2026 MODERN CSS ── */
+    html.lenis { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    .lenis.lenis-stopped { overflow: hidden; }
+    .lenis.lenis-scrolling iframe { pointer-events: none; }
+    
+    .cursor-follower {
+      position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+      background: var(--gold); border-radius: 50%; pointer-events: none;
+      z-index: 999999; mix-blend-mode: difference; transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, background 0.3s;
+    }
+    .cursor-follower.hovering { width: 60px; height: 60px; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); }
+
+    .hero-cinematic {
+      position: relative; width: 100vw; height: 100vh; overflow: hidden; background: #111;
+    }
+    .hero-cinematic-img {
+      position: absolute; inset: -5%; width: 110%; height: 110%; object-fit: cover;
+      will-change: transform;
+    }
+    .hero-cinematic-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(18,14,12,0.95) 0%, rgba(18,14,12,0.4) 50%, rgba(18,14,12,0.2) 100%);
+    }
+
+    /* Green Stats Banner */
+    .global-stats-banner {
+      background: #344e2d; color: #fff; width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);
+      padding: 3rem 5%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: relative; z-index: 10;
+    }
+    .stat-block { text-align: center; border-right: 1px solid rgba(255,255,255,0.15); }
+    .stat-block:last-child { border-right: none; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; margin-bottom: 0.5rem; line-height: 1; }
+    .stat-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.8); }
+
+    @media (max-width: 900px) {
+      .global-stats-banner { grid-template-columns: repeat(2, 1fr); gap: 2rem 1rem; }
+      .stat-block:nth-child(2) { border-right: none; }
+      .stat-block { border-right: 1px solid rgba(255,255,255,0.15); }
+      .kinetic-track { font-size: 4rem; }
+    }
+    @media (max-width: 500px) {
+      .global-stats-banner { grid-template-columns: 1fr; border-right: none; }
+      .stat-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 1.5rem; }
+      .stat-block:last-child { border-bottom: none; padding-bottom: 0; }
+    }
+
+    /* Kinetic Typography */
+    .kinetic-track {
+      white-space: nowrap; font-family: 'Cormorant Garamond', serif; font-size: 8rem;
+      color: transparent; -webkit-text-stroke: 1px rgba(194,157,91,0.2); font-weight: 300;
+      line-height: 1; text-transform: uppercase; user-select: none; pointer-events: none;
+    }
+    
+    .stars-gallery{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+    .star-img-box{
+      position:relative;border-radius:6px;overflow:hidden;aspect-ratio:4/5;
+      border:1px solid rgba(255,255,255,.15);box-shadow:0 8px 30px rgba(0,0,0,.4);
+    }
+    .star-img-box img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+    .star-img-box:hover img{transform:scale(1.06)}
+    .star-img-box .star-cap{
+      position:absolute;bottom:0;inset-x:0;padding:1rem;
+      background:linear-gradient(to top, rgba(9,12,19,.9), transparent);
+      font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-lt);
+    }
+
+    /* ── MAGOME-JUKU KEN BURNS / PARALLAX SLIDER SECTION ── */
+    #magome{padding:6.5rem 0 0;background:var(--paper);overflow:hidden}
+    .magome-header{text-align:center;padding:0 6% 3rem}
+    
+    .kb-slider-container{
+      position:relative;width:100%;height:75vh;min-height:540px;max-height:800px;
+      overflow:hidden;background:#151210;
+    }
+    .kb-slide{
+      position:absolute;inset:0;opacity:0;visibility:hidden;
+      transition:opacity 1.2s ease, visibility 1.2s ease;
+    }
+    .kb-slide.active{
+      opacity:1;visibility:visible;z-index:2;
+    }
+    .kb-slide img{
+      width:100%;height:100%;object-fit:cover;
+      transform:scale(1.12) translate(0, 0);
+    }
+    .kb-slide.active:nth-child(1) img{animation:kbZoomIn 12s ease-in-out infinite alternate}
+    .kb-slide.active:nth-child(2) img{animation:kbPanLeft 12s ease-in-out infinite alternate}
+    .kb-slide.active:nth-child(3) img{animation:kbZoomOut 12s ease-in-out infinite alternate}
+    .kb-slide.active:nth-child(4) img{animation:kbPanRight 12s ease-in-out infinite alternate}
+    .kb-slide.active:nth-child(5) img{animation:kbZoomIn 12s ease-in-out infinite alternate}
+
+    @keyframes kbZoomIn{from{transform:scale(1.05) translate(0,0)}to{transform:scale(1.18) translate(-1%, -1%)}}
+    @keyframes kbZoomOut{from{transform:scale(1.2) translate(1%,1%)}to{transform:scale(1.06) translate(0, 0)}}
+    @keyframes kbPanLeft{from{transform:scale(1.12) translate(2%,0)}to{transform:scale(1.12) translate(-2%, 0)}}
+    @keyframes kbPanRight{from{transform:scale(1.14) translate(-2%,1%)}to{transform:scale(1.14) translate(2%, -1%)}}
+
+    .kb-slider-overlay{
+      position:absolute;inset:0;z-index:3;
+      background:linear-gradient(
+        to right,
+        rgba(15,12,10,.85) 0%,
+        rgba(15,12,10,.5) 50%,
+        rgba(15,12,10,.75) 100%
+      );
+      pointer-events:none;
+    }
+    
+    .kb-floating-card{
+      position:absolute;right:6%;bottom:8%;z-index:10;
+      max-width:420px;background:rgba(21,18,16,.3);backdrop-filter:blur(6px);
+      border:1px solid rgba(255,255,255,.1);padding:1.8rem 2rem;border-radius:6px;
+      color:var(--white);box-shadow:none;
+    }
+    .kb-floating-card .section-title{color:var(--white);font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:.5rem}
+    .kb-floating-card p{font-size:.85rem;line-height:1.6;color:rgba(255,255,255,.9);margin-bottom:1.2rem;}
+
+    .kb-nav-arrow{
+      position:absolute;top:50%;transform:translateY(-50%);z-index:12;
+      width:52px;height:52px;border:1px solid rgba(255,255,255,.35);
+      background:rgba(21,18,16,.5);backdrop-filter:blur(6px);
+      color:var(--white);font-size:1.4rem;display:flex;align-items:center;
+      justify-content:center;border-radius:50%;transition:all var(--ease);
+    }
+    .kb-nav-arrow:hover{background:var(--white);color:var(--ink);border-color:var(--white)}
+    .kb-nav-arrow.prev{left:2%}
+    .kb-nav-arrow.next{right:2%}
+
+    .kb-indicators{
+      position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:12;
+      display:flex;align-items:center;gap:.6rem;
+    }
+    .kb-dot{
+      width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.4);
+      transition:all .3s;cursor:pointer;
+    }
+    .kb-dot.active{background:var(--gold);transform:scale(1.4)}
+
+    .magome-facts-bar{
+      display:grid;grid-template-columns:repeat(3,1fr);background:var(--ink);
+      color:var(--white);
+    }
+    .magome-fact-box{padding:2.8rem 2.2rem;border-right:1px solid rgba(255,255,255,.08)}
+    .magome-fact-box:last-child{border-right:none}
+    .fact-num{font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--gold);line-height:1}
+    .fact-title{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:.4rem 0 .7rem}
+    .fact-desc{font-size:.84rem;color:rgba(255,255,255,.7);line-height:1.7}
+
+    /* ── MAGOME CHA (TEA SECTION) ── */
+    #tea{background:var(--ink);color:var(--white);overflow:hidden}
+    .tea-layout{display:grid;grid-template-columns:1fr 1fr}
+    .tea-text{display:flex;flex-direction:column;justify-content:center;padding:6.5rem 8%}
+    
+    /* Magome Cha Header Badge */
+    .magome-cha-badge{
+      display:inline-flex;align-items:center;gap:.55rem;
+      background:rgba(94,131,84,.25);border:1px solid var(--matcha-lt);
+      padding:.4rem 1rem;border-radius:20px;color:var(--gold-lt);
+      font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+      margin-bottom:1rem;width:fit-content;
+    }
+    .tea-text .section-title{color:var(--white)}
+    .tea-text .section-sub{color:rgba(255,255,255,.72)}
+    .tea-menu{margin-top:2.2rem;display:flex;flex-direction:column;gap:.65rem}
+    .tea-item{
+      display:flex;align-items:center;gap:1rem;padding:.7rem .9rem;
+      border-left:2px solid transparent;transition:all .3s ease;
+    }
+    .tea-item:hover{border-left-color:var(--matcha-lt);background:rgba(255,255,255,.04)}
+    .tea-bullet{width:7px;height:7px;border-radius:50%;background:var(--matcha-lt);flex-shrink:0}
+    .tea-item-name{font-size:.88rem;color:rgba(255,255,255,.88)}
+    .tea-item-sub{font-size:.72rem;color:rgba(255,255,255,.45);margin-left:auto}
+    .tea-slider-box{position:relative;min-height:560px;overflow:hidden}
+    .tea-slide{position:absolute;inset:0;opacity:0;transition:opacity .9s ease}
+    .tea-slide.active{opacity:1}
+    .tea-slide img{width:100%;height:100%;object-fit:cover}
+    .tea-dots{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem;z-index:5}
+    .tea-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:background .3s}
+    .tea-dot.active{background:var(--gold)}
+
+    /* ── COOL MEET OUR TEAM SECTION (REDESIGNED) ── */
+    #team{padding:7rem 6%;background:var(--paper)}
+    .team-header{text-align:center;margin-bottom:4.5rem}
+    .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;max-width:1360px;margin:0 auto}
+    .cool-team-card{
+      background:var(--card);border-radius:8px;overflow:hidden;
+      box-shadow:0 6px 28px rgba(21,18,16,.06);display:flex;flex-direction:column;
+      transition:all var(--ease);border:1px solid rgba(21,18,16,.06);
+      position:relative;
+    }
+    .cool-team-card:hover{transform:translateY(-8px);box-shadow:0 18px 45px rgba(21,18,16,.14)}
+    
+    .cool-team-img-wrap{
+      height:320px;overflow:hidden;position:relative;background:#1e1a17;
+    }
+    .cool-team-img-wrap img{
+      width:100%;height:100%;object-fit:cover;transition:transform .8s ease;
+    }
+    .cool-team-card:hover .cool-team-img-wrap img{transform:scale(1.06)}
+    
+    .cool-team-gradient{
+      position:absolute;inset:0;
+      background:linear-gradient(to top, rgba(21,18,16,.85) 0%, transparent 60%);
+    }
+    .cool-role-pill{
+      position:absolute;bottom:1.1rem;left:1.1rem;z-index:5;
+      background:rgba(194,157,91,.92);backdrop-filter:blur(6px);
+      color:var(--white);font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+      padding:.35rem .85rem;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.25);
+    }
+    .cool-lang-pill{
+      position:absolute;top:1rem;right:1rem;z-index:5;
+      background:rgba(21,18,16,.75);backdrop-filter:blur(6px);
+      color:rgba(255,255,255,.9);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;
+      padding:.3rem .65rem;border-radius:4px;border:1px solid rgba(255,255,255,.15);
+    }
+
+    .cool-team-body{
+      padding:1.8rem 1.7rem 2.2rem;display:flex;flex-direction:column;flex:1;
+    }
+    .cool-team-body h3{
+      font-family:'Cormorant Garamond',serif;font-size:1.85rem;font-weight:400;
+      color:var(--ink);line-height:1.1;margin-bottom:.25rem;
+    }
+    .cool-team-title{
+      font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+      color:var(--matcha);margin-bottom:1.1rem;
+    }
+    .cool-team-bio{
+      font-size:.84rem;color:var(--muted);line-height:1.75;
+    }
+    .cool-team-highlight{
+      margin-top:auto;padding-top:1.2rem;border-top:1px solid rgba(21,18,16,.08);
+      font-size:.74rem;color:var(--warm);font-style:italic;
+    }
+
+    /* ── STATS STRIP ── */
+    #stats{background:var(--matcha);color:var(--white);padding:3.8rem 6%;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+    .stat-val{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:300;line-height:1}
+    .stat-txt{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;margin-top:.6rem;color:rgba(255,255,255,.78)}
+
+    /* ── INSTAGRAM STRIP ── */
+    #instagram{padding:5.5rem 6%;background:var(--card);text-align:center}
+    .insta-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:2.5rem 0}
+    .insta-thumb{aspect-ratio:1/1;overflow:hidden;position:relative;background:var(--ink)}
+    .insta-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease,opacity .6s ease}
+    .insta-thumb:hover img{transform:scale(1.08);opacity:.85}
+
+    /* ── AVAILABILITY CALENDAR ── */
+    #availability{padding:6.5rem 6%;background:var(--paper);text-align:center;}
+    .calendar-wrapper{max-width:1000px;margin:0 auto;background:var(--card);padding:2.5rem;border-radius:8px;box-shadow:0 8px 40px rgba(21,18,16,.08); border:1px solid rgba(21,18,16,.05);}
+    .calendar-tabs{display:flex;justify-content:center;gap:1rem;margin-bottom:2rem;}
+    .cal-tab{padding:.85rem 1.8rem;border:1px solid var(--gold);background:transparent;color:var(--ink);border-radius:4px;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;transition:all var(--ease);}
+    .cal-tab.active{background:var(--gold);color:var(--white);box-shadow:0 4px 15px rgba(194,157,91,.3);}
+    .cal-tab:hover:not(.active){background:rgba(194,157,91,.08);}
+    .calendar-frame{width:100%;height:550px;border:none;border-radius:4px;background:#f9f9f9; margin-bottom:0;}
+    .cal-actions{display:flex;justify-content:center;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;}
+    .cal-actions .btn{font-size:.8rem; padding:1rem 2rem;}
+
+    /* ── FAQ ACCORDION ── */
+    #faq{padding:5rem 6%;background:var(--white);}
+    .faq-container{max-width:800px;margin:0 auto;}
+    .faq-item{border-bottom:1px solid rgba(0,0,0,.08);padding:1.2rem 0;}
+    .faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--ink);transition:color .3s;width:100%;background:none;border:none;padding:0;text-align:left;}
+    .faq-q:hover{color:var(--gold);}
+    .faq-icon{font-size:1.5rem;color:var(--gold);transition:transform .3s;}
+    .faq-item.active .faq-icon{transform:rotate(45deg);}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease, margin-top .4s ease;color:var(--muted);font-size:.9rem;line-height:1.7;}
+    .faq-item.active .faq-a{max-height:500px;margin-top:1rem;}
+
+    /* ── CUSTOM MAP ── */
+    .map-container{width:100%;height:500px;background:#110e0c;position:relative;overflow:hidden;}
+    .map-iframe{width:100%;height:calc(100% + 30px);border:none;filter:grayscale(100%) invert(95%) sepia(20%) hue-rotate(5deg) contrast(1.1);opacity:0.8; -webkit-clip-path:inset(0 0 30px 0); clip-path:inset(0 0 30px 0); margin-bottom:-30px;}
+    .map-overlay-text{position:absolute;top:2rem;left:2rem;background:rgba(18,14,12,.8);backdrop-filter:blur(10px);padding:1.5rem;border:1px solid rgba(194,157,91,.4);border-radius:6px;pointer-events:none;}
+    .map-overlay-text h3{color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:.5rem;}
+    .map-overlay-text p{color:var(--white);font-size:.8rem;letter-spacing:.05em;}
+    @media(max-width:768px){ .map-overlay-text{top:auto;bottom:2rem;left:1rem;right:1rem;text-align:center;} }
+
+    /* ── CONTACT & BOOKING ── */
+    #contact{display:grid;grid-template-columns:1fr 1.15fr;background:var(--paper)}
+    .contact-hero-img{overflow:hidden;min-height:550px;position:relative}
+    .contact-hero-img img{width:100%;height:100%;object-fit:cover}
+    .contact-box{padding:6rem 8%;background:var(--card);display:flex;flex-direction:column;justify-content:center}
+    .quick-channels{
+      background:var(--matcha-bg);border:1px solid #d3e2cf;
+      padding:1.2rem 1.4rem;border-radius:4px;margin:1.5rem 0 2rem;
+      display:flex;flex-direction:column;gap:.75rem;
+    }
+    .quick-channel-item{display:flex;align-items:center;gap:.75rem;font-size:.86rem;color:var(--ink)}
+    .quick-channel-item a{color:var(--matcha);font-weight:600;transition:color .3s}
+    .quick-channel-item a:hover{color:var(--ink);text-decoration:underline}
+    .contact-form{display:flex;flex-direction:column;gap:1.2rem}
+    .form-grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .form-field{display:flex;flex-direction:column;gap:.35rem}
+    .form-field label{font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+    .form-field input,.form-field select,.form-field textarea{
+      border:1px solid rgba(21,18,16,.16);padding:.8rem 1rem;font-size:.88rem;
+      font-family:inherit;color:var(--ink);background:var(--paper);outline:none;
+      border-radius:3px;transition:border-color .3s;
+    }
+    .form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--matcha)}
+
+    /* ── FOOTER ── */
+    footer{background:#110e0c;color:rgba(255,255,255,.65);padding:4.5rem 6% 2.5rem}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.2fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.08)}
+    .footer-brand .logo-en{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:400;color:var(--white)}
+    .footer-brand .logo-jp{font-family:'Noto Serif JP',serif;font-size:.65rem;letter-spacing:.3em;color:rgba(255,255,255,.4);margin-top:.2rem;margin-bottom:1rem}
+    .footer-brand p{font-size:.82rem;line-height:1.8;max-width:32ch}
+    .footer-social-links{display:flex;gap:.8rem;margin-top:1.4rem;flex-wrap:wrap}
+    .footer-social-btn{
+      padding:.45rem .9rem;border:1px solid rgba(255,255,255,.16);
+      color:var(--white);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+      border-radius:2px;transition:all .3s;display:inline-flex;align-items:center;gap:.4rem;
+    }
+    .footer-social-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(255,255,255,.04)}
+    .footer-col h5{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.3rem}
+    .footer-col ul{display:flex;flex-direction:column;gap:.65rem}
+    .footer-col ul li a{font-size:.82rem;transition:color .3s}
+    .footer-col ul li a:hover{color:var(--white)}
+    .footer-bottom{padding-top:1.8rem;display:flex;justify-content:space-between;align-items:center;font-size:.7rem;color:rgba(255,255,255,.35)}
+
+    /* ── MOBILE VIEW OPTIMIZATION (COMPREHENSIVE) ── */
+    @media(max-width:1200px){
+      .team-grid{grid-template-columns:repeat(2,1fr)}
+      .exp-grid{grid-template-columns:1fr 1fr}
+      .trail-feature-card{grid-template-columns:1fr}
+      .trail-content{padding:2.8rem 2.5rem}
+      .stars-layout{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:850px){
+      :root{--nav-h:64px}
+      .nav-links,.nav-book-btn{display:none}
+      .hamburger{display:flex}
+      #about{grid-template-columns:1fr}
+      .about-img-wrap{min-height:55vw}
+      .about-content{padding:4rem 6%}
+      .lodges-grid{grid-template-columns:1fr}
+      .tea-layout{grid-template-columns:1fr}
+      .tea-slider-box{min-height:55vw}
+      .tea-text{padding:4rem 6%}
+      .kb-slider-container{height:65vh;min-height:480px}
+      .kb-floating-card{left:4%;right:4%;top:auto;bottom:1.2rem;transform:none;padding:1.6rem 1.4rem}
+      .kb-nav-arrow{display:none}
+      .magome-facts-bar{grid-template-columns:1fr}
+      .magome-fact-box{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+      .exp-grid{grid-template-columns:1fr}
+      #contact{grid-template-columns:1fr}
+      .contact-hero-img{min-height:50vw}
+      .contact-box{padding:4rem 6%}
+      #stats{grid-template-columns:repeat(2,1fr)}
+      .insta-grid{grid-template-columns:repeat(3,1fr)}
+      .footer-grid{grid-template-columns:1fr}
+      .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+    }
+    @media(max-width:550px){
+      .pre-kanji{font-size:3.5rem; letter-spacing:.15em}
+      .pre-name{font-size:1.1rem; letter-spacing:.3em}
+      .pre-tagline{font-size:.55rem; letter-spacing:.2em; text-align:center; padding:0 1rem; line-height:1.6}
+      .pre-location{font-size:.5rem; letter-spacing:.15em; text-align:center}
+      .pre-bar-wrap{width:140px; margin-top:2rem}
+      .team-grid{grid-template-columns:1fr}
+      .stars-gallery{grid-template-columns:1fr}
+      .form-grid2{grid-template-columns:1fr}
+      .hero-text-card{padding:1.6rem 1.4rem}
+      .hero-content{left:4%;right:4%;bottom:6vh}
+      .hero-arrow{display:none}
+      .lodge-gallery-box{height:260px}
+      .cool-team-img-wrap{height:280px}
+      .trail-img-slider{min-height:280px}
+      .trail-content{padding:2rem 1.4rem}
+      .calendar-wrapper{padding:1.5rem 1rem;}
+      .calendar-tabs{flex-direction:column;}
+      .calendar-frame{height:420px;}
+      .cal-actions .btn{width:100%;}
+      #lodges,#experiences,#stars,#team,#instagram,#availability{padding:4rem 5%}
+    }
+    /* ── STICKY MOBILE BOOK BAR ── */
+    .mobile-sticky-book{display:none;}
+    @media(max-width:850px){
+      .mobile-sticky-book{
+        display:flex;position:fixed;bottom:0;left:0;right:0;
+        background:rgba(21,18,16,.96);
+        -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+        padding:1rem 5% calc(1rem + env(safe-area-inset-bottom));
+        z-index:999999;
+        justify-content:space-between;align-items:center;
+        border-top:1px solid rgba(194,157,91,.3);
+        box-shadow:0 -5px 20px rgba(0,0,0,.15);
+      }
+      .mobile-sticky-book .msb-title{color:var(--white);font-weight:600;font-size:.9rem;letter-spacing:.05em;}
+      .mobile-sticky-book .msb-sub{color:var(--gold-lt);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;margin-top:.1rem;}
+      .mobile-sticky-book .btn{padding:.7rem 1.4rem;font-size:.75rem;}
+      body{padding-bottom:100px;} /* padding to not hide footer content */
+    }
+  
+    /* ── CUISINE / GUESTS SPLIT SECTION (Redesigned) ── */
+    #dynamic-split {
+      display: flex; flex-wrap: wrap; overflow: hidden;
+      background: linear-gradient(135deg, #faf7f0 0%, #f3ede2 50%, #ece5d8 100%);
+      position: relative;
+      border-top: none;
+    }
+    #dynamic-split::before {
+      content: '食';
+      position: absolute;
+      top: 50%; left: 5%;
+      transform: translateY(-50%);
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(10rem, 18vw, 22rem);
+      font-weight: 300;
+      color: rgba(194, 157, 91, 0.04);
+      pointer-events: none;
+      z-index: 0;
+      line-height: 1;
+    }
+
+    .ds-left {
+      flex: 1 1 420px; min-width: 320px;
+      padding: 7rem 8% 7rem 10%;
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; justify-content: center;
+    }
     /* Vertical gold accent line */
     .ds-left::before {
       content: '';
@@ -386,16 +1169,12 @@
 </nav>
 
 <!-- GSAP CUSTOM CURSOR -->
+<div class="cursor-follower" id="cursorFollower"></div>
 
 <!-- HERO SECTION (CINEMATIC) -->
 <section id="hero" class="hero-cinematic">
-    <div class="hero-slide active"><img src="heroyanagiya.jpg" alt="Yanagiya lodge" style="width:100%;height:100%;object-fit:cover;" /></div>
-  <div class="hero-slide"><img src="imghero.jpg" alt="Yanagiya lodge" style="width:100%;height:100%;object-fit:cover;" /></div>
-  <div class="hero-slide"><img src="new hero.png" alt="Yanagiya lodge" style="width:100%;height:100%;object-fit:cover;" /></div>
-  <div class="hero-cinematic-overlay" style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,12,10,.5) 0%,rgba(15,12,10,.25) 45%,rgba(15,12,10,.1) 75%,rgba(15,12,10,.4) 100%);z-index:3;pointer-events:none;"></div>
-  <div class="hero-dots" id="heroDots"></div>
-  <button id="heroPrev" style="display:none;"></button>
-  <button id="heroNext" style="display:none;"></button>
+  <img src="magomejuku.jpg" alt="Yanagiya lodge on the historic Magome post road" class="hero-cinematic-img" id="heroImg" />
+  <div class="hero-cinematic-overlay"></div>
   
   <div class="hero-content">
     <div class="hero-text-card reveal" style="background: transparent; box-shadow: none; border: none; padding: 0;">
@@ -434,6 +1213,7 @@
     <div class="stat-label">Single-Origin Magome Cha</div>
   </div>
 </div>
+
 
 <!-- OUR STORY / ABOUT -->
 <section id="about">
@@ -572,31 +1352,29 @@
   </div>
   <div style="width: 100vw; margin-left: calc(-50vw + 50%); overflow: hidden;">
     <div class="infinity-track" style="display:flex; gap:1.5rem; width:max-content; animation: scrollInfinity 40s linear infinite;">
-
-            <div class="food-img-box"><img src="with custoemr/customer_01.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_02.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_03.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_04.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_05.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_06.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_07.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_08.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_09.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_10.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_01.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_02.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_03.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_04.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_05.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_06.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_07.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_08.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_09.jpg" alt="Guest memory" loading="lazy"></div>
-            <div class="food-img-box"><img src="with custoemr/customer_10.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_01.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_02.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_03.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_04.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_05.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_06.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_07.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_08.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_09.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_10.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_01.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_02.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_03.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_04.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_05.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_06.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_07.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_08.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_09.jpg" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_10.jpg" alt="Guest memory" loading="lazy"></div>
     </div>
   </div>
 </section>
-
 
 
 <!-- LOCAL FOOD MARQUEE -->
@@ -612,43 +1390,42 @@
   </div>
   <div style="width: 100vw; margin-left: calc(-50vw + 50%); overflow: hidden;">
     <div class="infinity-track" style="display:flex; gap:1.5rem; width:max-content; animation: scrollInfinityReverse 50s linear infinite;">
-
-            <div class="food-img-box"><img src="customer food/food_02.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_03.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_04.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_05.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_06.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_07.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_08.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_09.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_10.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_11.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_12.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_13.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_14.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_15.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_16.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_17.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_18.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_19.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_02.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_03.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_04.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_05.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_06.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_07.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_08.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_09.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_10.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_11.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_12.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_13.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_14.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_15.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_16.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_17.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_18.jpg" alt="Local cuisine" loading="lazy"></div>
-            <div class="food-img-box"><img src="customer food/food_19.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_02.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_03.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_04.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_05.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_06.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_07.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_08.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_09.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_10.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_11.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_12.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_13.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_14.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_15.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_16.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_17.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_18.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_19.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_02.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_03.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_04.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_05.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_06.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_07.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_08.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_09.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_10.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_11.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_12.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_13.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_14.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_15.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_16.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_17.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_18.jpg" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_19.jpg" alt="Local cuisine" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -701,14 +1478,13 @@
       </div>
     </div>
   </div>
-
+
 </section>
 
 <!-- UNDER THE STARS OF MAGOME SECTION -->
 <section id="stars" style="background: var(--night); position: relative; overflow: hidden;">
   <div style="display: flex; flex-wrap: wrap; max-width: 1400px; margin: 0 auto; min-height: 100vh; align-items: center;">
-    <!-- Left Side: Text -->
-    <div class="stars-left" style="flex: 1; min-width: 300px; padding: 5% 5% 5% 2%; color: white;">
+    <div style="flex: 1; min-width: 300px; padding: 5%; color: white;">
       <span class="section-kanji-tag" style="color:var(--gold-lt);">夜の静寂 · 満天の星空</span>
       <span class="section-label" style="color:var(--gold-lt); display:block; margin-bottom:1rem;">Magome After Dark</span>
       <h2 class="section-title" style="font-size: clamp(2rem, 3.5vw, 3.5rem); margin-bottom:1.5rem;">Discover Another Side of Magome</h2>
@@ -717,31 +1493,29 @@
         <em>"When the daytime visitors leave, Magome changes."</em>
       </p>
       <p style="font-size:1.05rem; line-height:1.8; color:rgba(255,255,255,0.75); margin-bottom:1.5rem;">
-        The streets become quiet. The mountains disappear into darkness. And above them, the night sky begins to appear. Away from the lights of the cities, the mountains around Magome offer a completely different experience after sunset.
+        The streets become quiet. The mountains disappear into darkness. And above them, the night sky begins to appear.
       </p>
       <p style="font-size:1.05rem; line-height:1.8; color:rgba(255,255,255,0.75); margin-bottom:2rem;">
-        Our night and stargazing experiences are about something very simple: <strong>Standing outside. Looking up. Listening to the mountains. And slowing down.</strong>
+        Our stargazing experiences are about something simple: <strong>Standing outside. Looking up. Listening to the mountains. And slowing down.</strong>
       </p>
       <div style="display:flex;gap:.8rem;flex-wrap:wrap;">
         <a href="https://ig.me/m/yanagiya_japanesetea" target="_blank" class="btn btn-gold mag-btn">Inquire Stargazing &#8594;</a>
         <a href="https://www.instagram.com/yanagiya_japanesetea/" target="_blank" class="btn btn-outline" style="border-color:rgba(255,255,255,.4);color:#fff;">View Star Journal</a>
       </div>
     </div>
-
-    <!-- Right Side: Pinned Crossfade Images -->
-    <div class="stars-right" style="flex: 1; min-width: 300px; height: 80vh; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); margin: 5%;">
-       <div id="starsRightPin" style="position: absolute; inset:0; width: 100%; height: 100%;">
+    <div style="flex: 1; min-width: 300px; height: 80vh; position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); margin: 5%;">
+       <div style="position: absolute; inset:0;">
            <div class="star-panel" style="position: absolute; inset:0; z-index:3; opacity: 1;">
              <img src="night star/nightstar2.jpg" style="width:100%; height:100%; object-fit:cover;" />
-             <div class="star-cap" style="position: absolute; bottom: 5%; left: 5%; color:white; background:rgba(0,0,0,0.5); padding: 0.5rem 1.5rem; border-radius: 4px; backdrop-filter: blur(4px);">Kiso Dark Sky Reserve</div>
+             <div style="position: absolute; bottom: 5%; left: 5%; color:white; background:rgba(0,0,0,0.5); padding: 0.5rem 1.5rem; border-radius: 4px; backdrop-filter: blur(4px);">Kiso Dark Sky Reserve</div>
            </div>
            <div class="star-panel" style="position: absolute; inset:0; z-index:2; opacity: 0;">
              <img src="night star/starpic2.jpg" style="width:100%; height:100%; object-fit:cover;" />
-             <div class="star-cap" style="position: absolute; bottom: 5%; left: 5%; color:white; background:rgba(0,0,0,0.5); padding: 0.5rem 1.5rem; border-radius: 4px; backdrop-filter: blur(4px);">Guided by Eli · 星空ガイド</div>
+             <div style="position: absolute; bottom: 5%; left: 5%; color:white; background:rgba(0,0,0,0.5); padding: 0.5rem 1.5rem; border-radius: 4px; backdrop-filter: blur(4px);">Guided by Eli · 星空ガイド</div>
            </div>
            <div class="star-panel" style="position: absolute; inset:0; z-index:1; opacity: 0;">
              <img src="night star/night view in  yanagiya iri.png" style="width:100%; height:100%; object-fit:cover;" />
-             <div class="star-cap" style="position: absolute; bottom: 5%; left: 5%; color:white; background:rgba(0,0,0,0.5); padding: 0.5rem 1.5rem; border-radius: 4px; backdrop-filter: blur(4px);">Night view Yanagiya</div>
+             <div style="position: absolute; bottom: 5%; left: 5%; color:white; background:rgba(0,0,0,0.5); padding: 0.5rem 1.5rem; border-radius: 4px; backdrop-filter: blur(4px);">Night view Yanagiya</div>
            </div>
        </div>
     </div>
@@ -751,39 +1525,29 @@
 <!-- MAGOME-JUKU KEN BURNS / PARALLAX SLIDER SECTION -->
 <section id="magome" style="background: var(--paper); position: relative; overflow: hidden; padding: 0;">
   <div style="display: flex; flex-wrap: wrap; width: 100%; min-height: 100vh; align-items: center;">
-    <div class="magome-left" style="flex: 1; min-width: 300px; padding: 5% 5% 5% 5%; display: flex; flex-direction: column; justify-content: center;">
+    <div style="flex: 1; min-width: 300px; padding: 5%; display: flex; flex-direction: column; justify-content: center;">
       <span class="section-label">Living History</span>
-      <h2 class="section-title">Magome-juku  ???</h2>
+      <h2 class="section-title">Magome-juku  馬籠宿</h2>
       <div class="divider"></div>
-      <p style="font-size:1.15rem; line-height:1.8; color:var(--text); margin-bottom:1.5rem;">
+      <p style="font-size:1.15rem; line-height:1.8; color:var(--ink); margin-bottom:1.5rem;">
         Step straight from our doorsteps onto stone cobblestones laid during the Edo era. Magome-juku was the 43rd post station of the Nakasendo road.
       </p>
-      <p style="font-size:1.05rem; line-height:1.8; color:var(--text-light); margin-bottom:2rem;">
+      <p style="font-size:1.05rem; line-height:1.8; color:var(--muted); margin-bottom:2rem;">
         Follow the sloping stone path flanked by traditional wooden machiya, listen to water wheels spinning in crystal channels, and experience the quiet rhythm of the post town.
       </p>
-      <div>
-        <a href="#experiences" class="btn btn-gold">Explore Experiences &#8594;</a>
-      </div>
+      <div><a href="#experiences" class="btn btn-gold">Explore Experiences &#8594;</a></div>
     </div>
-    <div class="magome-right" style="flex: 1; min-width: 300px; height: 80vh; position: relative; margin: 5%; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
-       <div id="magomeRightPin" style="position: absolute; inset:0; width: 100%; height: 100%;">
-           <div class="magome-panel" style="position: absolute; inset:0; z-index:3; opacity: 1;">
-             <img src="magomejuku.jpg" style="width:100%; height:100%; object-fit:cover;" />
-           </div>
-           <div class="magome-panel" style="position: absolute; inset:0; z-index:2; opacity: 0;">
-             <img src="aboutmagome-1.jpg" style="width:100%; height:100%; object-fit:cover;" />
-           </div>
-           <div class="magome-panel" style="position: absolute; inset:0; z-index:1; opacity: 0;">
-             <img src="aboutmagome.jpg" style="width:100%; height:100%; object-fit:cover;" />
-           </div>
-           <div class="magome-panel" style="position: absolute; inset:0; z-index:0; opacity: 0;">
-             <img src="new/magome.jpg" style="width:100%; height:100%; object-fit:cover;" />
-           </div>
+    <div style="flex: 1; min-width: 300px; height: 80vh; position: relative; margin: 5%; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+       <div style="position: absolute; inset:0;">
+           <div class="magome-panel" style="position: absolute; inset:0; z-index:3; opacity: 1;"><img src="magomejuku.jpg" style="width:100%; height:100%; object-fit:cover;" /></div>
+           <div class="magome-panel" style="position: absolute; inset:0; z-index:2; opacity: 0;"><img src="aboutmagome-1.jpg" style="width:100%; height:100%; object-fit:cover;" /></div>
+           <div class="magome-panel" style="position: absolute; inset:0; z-index:1; opacity: 0;"><img src="aboutmagome.jpg" style="width:100%; height:100%; object-fit:cover;" /></div>
+           <div class="magome-panel" style="position: absolute; inset:0; z-index:0; opacity: 0;"><img src="new/magome.jpg" style="width:100%; height:100%; object-fit:cover;" /></div>
        </div>
     </div>
   </div>
-</section>
-
+</section>
+
 <!-- MAGOME CHA (TEA SECTION - PROMINENT MAGOME CHA TITLE) -->
 <section id="tea">
   <div class="tea-layout">
@@ -811,121 +1575,21 @@
     </div>
     
     <div class="tea-slider-box" id="teaSlider">
-      <div class="tea-slide active"><img src="tea tree/tea tree garden.jpg" alt="Magome Tea Tree" loading="lazy" /></div>
-      <div class="tea-slide "><img src="tea tree/tea leaf prepartion.jpg" alt="Magome Tea Preparation" loading="lazy" /></div>
-      <div class="tea-slide "><img src="tea tree/tea tree.jpg" alt="Magome Tea" loading="lazy" /></div>
-      <div class="tea-slide "><img src="tea tree/tea tree preparation.jpg" alt="Magome Tea Harvest" loading="lazy" /></div>
+      <div class="tea-slide active"><img src="new/tea.jpg" alt="Iced Magome Cha held against scenic rice fields and mountains" loading="lazy" /></div>
+      <div class="tea-slide"><img src="new/tea (2).jpg" alt="Refreshing Yanagiya tea in the historic Magome village" loading="lazy" /></div>
+      <div class="tea-slide"><img src="new/tea (3).jpg" alt="Iced matcha Yanagiya drink held on Magome-juku stone path" loading="lazy" /></div>
+      <div class="tea-slide"><img src="new/tea (4).jpg" alt="Yanagiya tea tasting flight" loading="lazy" /></div>
+      <div class="tea-slide"><img src="new/tea (5).jpg" alt="Yanagiya hojicha drink" loading="lazy" /></div>
+      <div class="tea-slide"><img src="new/tea and magome.jpg" alt="Yanagiya drink overlooking green rice field paddy" loading="lazy" /></div>
+      <div class="tea-slide"><img src="new/tea set.jpg" alt="Beautiful Magome tea set" loading="lazy" /></div>
+      <div class="tea-slide"><img src="new/tea set (2).jpg" alt="Japanese tea ceremony set" loading="lazy" /></div>
+      <div class="tea-slide"><img src="new/tea tree samll.jpg" alt="A small Magome tea tree seedling growing in a pot" loading="lazy" /></div>
       <div class="tea-dots" id="teaDots"></div>
     </div>
   </div>
 </section>
 
-\
-<style>
-.tea-carousel-section {
-    position: relative;
-    width: 100%;
-    background-color: var(--night);
-    overflow: hidden;
-    padding: 6rem 0;
-    margin-top: -1px;
-}
-.tea-carousel-header {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-.loop-images {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-.tea-carousel-track {
-    --left: -300rem;
-    --time: 60s;
-    --total: 12;
-    min-width: calc(10rem * var(--total));
-    height: 30rem;
-    position: relative;
-    width: 100vw;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.tea-carousel-track .carousel-item {
-    position: absolute;
-    width: 30rem;
-    height: 30rem;
-    left: 100%;
-    display: flex;
-    justify-content: center;
-    perspective: 1000px;
-    transform-style: preserve-3d;
-    animation: scroll-left-3d var(--time) linear infinite;
-    animation-delay: calc(var(--time) / var(--total) * (var(--i) - 1) - var(--time));
-    will-change: left;
-    transition: 0.5s ease-in-out;
-    cursor: pointer;
-}
-.tea-carousel-track .carousel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: rotateY(-45deg);
-    transition: 0.5s ease-in-out;
-    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
-    mask-image: linear-gradient(to right, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
-    border-radius: 8px;
-    box-shadow: -10px 10px 30px rgba(0,0,0,0.5);
-}
-.tea-carousel-track .carousel-item:hover {
-    z-index: 100;
-}
-.tea-carousel-track .carousel-item:hover img {
-    transform: rotateY(0deg) translateY(-1rem) scale(1.1);
-    -webkit-mask-image: none;
-    mask-image: none;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-}
-@keyframes scroll-left-3d {
-    to {
-        left: var(--left);
-    }
-}
-@media(max-width: 768px) {
-    .tea-carousel-track .carousel-item { width: 20rem; height: 20rem; }
-    .tea-carousel-track { height: 20rem; --left: -200rem; }
-}
-</style>
-
-<section class="tea-carousel-section" id="tea-cups">
-    <div class="tea-carousel-header reveal">
-        <span class="section-kanji-tag">職人の手仕事</span>
-        <span class="section-label" style="color:var(--gold-lt);">The Art of the Cup</span>
-        <h2 class="section-title" style="color: white;">Crafted for Magome Tea</h2>
-        <div class="divider divider-center" style="background:var(--gold);"></div>
-        <p style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto; font-size:1.05rem;">
-            A beautiful cup elevates the tea experience. Explore our collection of hand-picked ceramics and tea sets.
-        </p>
-    </div>
-    <div class="loop-images reveal">
-        <div class="tea-carousel-track">
-            <div class="carousel-item" style="--i: 1;"><img src="tea cup/all type of cup.jpg" alt="Magome tea cup"></div>
-            <div class="carousel-item" style="--i: 2;"><img src="tea cup/tea (2).jpg" alt="Magome tea cup"></div>
-            <div class="carousel-item" style="--i: 3;"><img src="tea cup/tea (3).jpg" alt="Magome tea cup"></div>
-            <div class="carousel-item" style="--i: 4;"><img src="tea cup/tea (4).jpg" alt="Magome tea cup"></div>
-            <div class="carousel-item" style="--i: 5;"><img src="tea cup/tea (5).jpg" alt="Magome tea cup"></div>
-            <div class="carousel-item" style="--i: 6;"><img src="tea cup/tea and magome.jpg" alt="Magome tea cup"></div>
-            <div class="carousel-item" style="--i: 7;"><img src="tea cup/tea set.jpg" alt="Magome tea cup"></div>
-            <div class="carousel-item" style="--i: 8;"><img src="tea cup/tea.jpg" alt="Magome tea cup"></div>
-            <div class="carousel-item" style="--i: 9;"><img src="tea cup/tea1.jpg" alt="Magome tea cup"></div>
-            <div class="carousel-item" style="--i: 10;"><img src="tea cup/tea2.jpg" alt="Magome tea cup"></div>
-            <div class="carousel-item" style="--i: 11;"><img src="tea cup/tea3.jpg" alt="Magome tea cup"></div>
-            <div class="carousel-item" style="--i: 12;"><img src="tea cup/tea4.jpg" alt="Magome tea cup"></div>
-        </div>
-    </div>
-</section>
-\
-\
+<!-- TEA STATS BANNER -->
 <div class="global-stats-banner tea-stats" style="background: var(--matcha);">
   <div class="stat-block reveal">
     <div class="stat-num">1600+</div>
@@ -1302,7 +1966,7 @@
         zp.classList.add('slide-up');
         setTimeout(() => zp.remove(), 1500); // Remove from DOM after slide
         sessionStorage.setItem('preloaderShown', 'true');
-      }, 2500); // Wait 2.5s then slide up
+      }, 2500); // Slide up after 2.5s
     } else if (zp) {
       zp.style.display = 'none';
     }
@@ -1352,7 +2016,7 @@
       slides[cur].classList.add('active');
       dotsWrap.children[cur].classList.add('active');
       const img = slides[cur].querySelector('img');
-
+      if (img) { img.style.animation = 'none'; img.offsetWidth; img.style.animation = ''; }
     }
     function start() { timer = setInterval(() => goTo(cur + 1), 6000); }
     function stop() { clearInterval(timer); }
@@ -1647,43 +2311,13 @@
   }
   requestAnimationFrame(raf);
   
-
   // Connect GSAP ScrollTrigger to Lenis
   gsap.registerPlugin(ScrollTrigger);
-
-  // Marquee Velocity Logic
-  let scrollVelocity = 0;
-  lenis.on('scroll', (e) => {
-    scrollVelocity = e.velocity;
-  });
-
-  gsap.ticker.add(() => {
-    const skew = scrollVelocity * 0.2;
-    const tracks = document.querySelectorAll('.food-track, .tea-carousel-track');
-    tracks.forEach(track => {
-      const anims = track.getAnimations();
-      if (anims.length > 0) {
-        anims[0].playbackRate = 1 + Math.abs(scrollVelocity) * 0.02;
-      }
-    });
-  });
-
   
 
   // Hero Cinematic Animation
   if (document.getElementById('heroImg')) {
-    gsap.to('#heroImg', {
-      scrollTrigger: {
-        trigger: '#hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true
-      },
-      scale: 1, 
-      y: '20%',
-      ease: 'none'
-    });
-  }
+    }
   
   if (document.querySelector('.hero-text-card')) {
     gsap.to('.hero-text-card', {
@@ -1749,72 +2383,24 @@
   });
 
   gsap.registerPlugin(ScrollTrigger);
-  // --- MAGOME & STARS PINNED SCROLL EFFECTS ---
-  const magomePanels = document.querySelectorAll('.magome-panel');
-  if (magomePanels.length > 0) {
-    const tl1 = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#magome',
-        pin: true,
-        scrub: 1,
-        start: 'center center',
-        end: '+=150%'
-      }
-    });
-    tl1.to(magomePanels[0], { opacity: 0, duration: 1 })
-       .to(magomePanels[1], { opacity: 1, duration: 1 }, "<")
-       .to(magomePanels[1], { opacity: 0, duration: 1 })
-       .to(magomePanels[2], { opacity: 1, duration: 1 }, "<")
-       .to(magomePanels[2], { opacity: 0, duration: 1 })
-       .to(magomePanels[3], { opacity: 1, duration: 1 }, "<");
-  }
-
-  const starPanels = document.querySelectorAll('.star-panel');
-  if (starPanels.length > 0) {
-    const tl2 = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#stars',
-        pin: true,
-        scrub: 1,
-        start: 'center center',
-        end: '+=150%'
-      }
-    });
-    tl2.to(starPanels[0], { opacity: 0, duration: 1 })
-       .to(starPanels[1], { opacity: 1, duration: 1 }, "<")
-       .to(starPanels[1], { opacity: 0, duration: 1 })
-       .to(starPanels[2], { opacity: 1, duration: 1 }, "<");
-  }
-
-  gsap.registerPlugin(ScrollTrigger);
 
   // MAGOME PINNED SCROLL
   const magomePanels = document.querySelectorAll('.magome-panel');
   if (magomePanels.length > 0) {
-    const tl1 = gsap.timeline({
-      scrollTrigger: { trigger: '#magome', pin: true, scrub: 1, start: 'center center', end: '+=150%' }
-    });
-    tl1.to(magomePanels[0], { opacity: 0, duration: 1 })
-       .to(magomePanels[1], { opacity: 1, duration: 1 }, "<")
-       .to(magomePanels[1], { opacity: 0, duration: 1 })
-       .to(magomePanels[2], { opacity: 1, duration: 1 }, "<")
-       .to(magomePanels[2], { opacity: 0, duration: 1 })
-       .to(magomePanels[3], { opacity: 1, duration: 1 }, "<");
+    const tl1 = gsap.timeline({ scrollTrigger: { trigger: '#magome', pin: true, scrub: 1, start: 'center center', end: '+=150%' } });
+    tl1.to(magomePanels[0], { opacity: 0, duration: 1 }).to(magomePanels[1], { opacity: 1, duration: 1 }, "<")
+       .to(magomePanels[1], { opacity: 0, duration: 1 }).to(magomePanels[2], { opacity: 1, duration: 1 }, "<")
+       .to(magomePanels[2], { opacity: 0, duration: 1 }).to(magomePanels[3], { opacity: 1, duration: 1 }, "<");
   }
-
   // STARS PINNED SCROLL
   const starPanels = document.querySelectorAll('.star-panel');
   if (starPanels.length > 0) {
-    const tl2 = gsap.timeline({
-      scrollTrigger: { trigger: '#stars', pin: true, scrub: 1, start: 'center center', end: '+=150%' }
-    });
-    tl2.to(starPanels[0], { opacity: 0, duration: 1 })
-       .to(starPanels[1], { opacity: 1, duration: 1 }, "<")
-       .to(starPanels[1], { opacity: 0, duration: 1 })
-       .to(starPanels[2], { opacity: 1, duration: 1 }, "<");
+    const tl2 = gsap.timeline({ scrollTrigger: { trigger: '#stars', pin: true, scrub: 1, start: 'center center', end: '+=150%' } });
+    tl2.to(starPanels[0], { opacity: 0, duration: 1 }).to(starPanels[1], { opacity: 1, duration: 1 }, "<")
+       .to(starPanels[1], { opacity: 0, duration: 1 }).to(starPanels[2], { opacity: 1, duration: 1 }, "<");
   }
-
 </script>
+
 </body>
 </html>
 
