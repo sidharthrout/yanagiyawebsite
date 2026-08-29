@@ -90,7 +90,7 @@
       to { background-position: 200% center; }
     }
     @keyframes zenSubFade {
-      to { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; /* transform removed */ }
     }
 
     /* ── COMMON STYLES ── */
@@ -414,7 +414,7 @@
     .cursor-follower.hovering { width: 60px; height: 60px; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); }
 
     .hero-cinematic {
-      position: relative; width: 100vw; height: 100vh; overflow: hidden; background: #111;
+      position: relative; width: 100%; height: 100vh; overflow: hidden; background: #111;
     }
     .hero-cinematic-img {
       position: absolute; inset: -5%; width: 110%; height: 110%; object-fit: cover;
@@ -873,7 +873,7 @@
     .ds-text-content.active { display: block; }
     @keyframes dsFadeIn {
       from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+      to   { opacity: 1; /* transform removed */ }
     }
 
     /* Override section-label / title / sub for this section */
@@ -1129,12 +1129,12 @@
     /* Smooth transitions for Magome and Stars sections */
     #magome, #stars {
       opacity: 0;
-      transform: translateY(50px);
+      /* transform removed to fix gsap pin */
       transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
     }
     #magome.in-view, #stars.in-view {
       opacity: 1;
-      transform: translateY(0);
+      /* transform removed */
     }
 
 </style>
@@ -1203,7 +1203,7 @@
         <span class="rating-val" style="color:#fff;">9.6</span>
         <span class="rating-desc" style="color:rgba(255,255,255,0.8);">Exceptional · Booking.com</span>
       </div>
-      <p class="hero-kanji-sub" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">柳屋 · 中山道 馬籠宿</p>
+      <p class="hero-kanji-sub" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">&#20013;&#23665;&#36947; &middot; &#23487;&#22580;&#30010;</p>
       <h1 style="font-size: clamp(3rem, 6vw, 5.5rem); text-shadow: 0 4px 20px rgba(0,0,0,0.5); letter-spacing: -0.02em;">Where Ancient Paths Meet Modern Peace</h1>
       <p style="font-size: 1.1rem; max-width: 600px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Two authentic private machiya lodges nestled along the historic Nakasendo highway in Magome-juku. Wake to misty mountains, locally harvested Magome Cha, and starry night skies.</p>
       
@@ -1605,7 +1605,7 @@
   <div style="display: flex; flex-wrap: wrap; width: 100%; min-height: 100vh; align-items: center;">
     <div style="flex: 1; min-width: 300px; padding: 5%; display: flex; flex-direction: column; justify-content: center;">
       <span class="section-label">Living History</span>
-      <h2 class="section-title">Magome-juku  馬籠宿</h2>
+      <h2 class="section-title">Magome-juku &#39340;&#31840;&#23487;</h2>
       <div class="divider"></div>
       <p style="font-size:1.15rem; line-height:1.8; color:var(--ink); margin-bottom:1.5rem;">
         Step straight from our doorsteps onto stone cobblestones laid during the Edo era. Magome-juku was the 43rd post station of the Nakasendo road.
@@ -1820,7 +1820,7 @@
 <section id="availability" class="dark-booking-section">
   <div class="reveal">
     <span class="section-label" style="color:var(--gold-lt);">Plan Your Visit</span>
-    <h2 class="section-title" style="color:var(--white);">Reserve Your Sanctuary 🐈</h2>
+    <h2 class="section-title" style="color:var(--white);">Reserve Your Sanctuary &#128008;</h2>
     <div class="divider divider-center" style="background:var(--gold);"></div>
     <p class="section-sub" style="color:rgba(255,255,255,0.7); max-width:600px; margin:0 auto 3rem;">
       Select a lodge below to view our live availability. We recommend booking early for peak seasons. 
@@ -2397,19 +2397,7 @@
   if (document.getElementById('heroImg')) {
     }
   
-  if (document.querySelector('.hero-text-card')) {
-    gsap.to('.hero-text-card', {
-      scrollTrigger: {
-        trigger: '#hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true
-      },
-      y: '-100px',
-      opacity: 0,
-      ease: 'none'
-    });
-  }
+// hero text fade removed upon scroll
 
   // Kinetic Typography
   if(document.getElementById('kineticText')) {
