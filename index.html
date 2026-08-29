@@ -1068,13 +1068,17 @@
   </div>
   <div class="pre-glow"></div>
   <div class="pre-top-line"></div>
-  <div class="pre-kanji"><span>柳</span><span>屋</span></div>
-  <div class="pre-name">Yanagiya Guest House</div>
+  <div class="pre-name">Yanagiya</div>
   <div class="pre-bar-wrap"><div class="pre-bar"></div></div>
   <div class="pre-tagline">Magome &middot; Nakasendo &middot; Japanese Lodges &amp; Magome Cha</div>
   <div class="pre-location">Magome-juku, Nakatsugawa &middot; Gifu, Japan</div>
   <div class="pre-bottom-line"></div>
 </div>
+<script>
+  if (sessionStorage.getItem('preloaderShown') === 'true') {
+    document.getElementById('preloader').style.display = 'none';
+  }
+</script>
 
 <!-- NAVBAR -->
 <nav id="navbar">
@@ -1866,10 +1870,13 @@
 <script>
   /* ── PRELOADER ── */
   window.addEventListener('load', () => {
-    setTimeout(() => {
-      const p = document.getElementById('preloader');
-      if (p) p.classList.add('hidden');
-    }, 1200);
+    if (sessionStorage.getItem('preloaderShown') !== 'true') {
+      setTimeout(() => {
+        const p = document.getElementById('preloader');
+        if (p) p.classList.add('hidden');
+        sessionStorage.setItem('preloaderShown', 'true');
+      }, 2400); // Give it a little more time to load
+    }
   });
 
   /* ── NAVBAR SCROLL ── */
