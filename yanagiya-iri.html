@@ -24,7 +24,11 @@
       --ink:#151210;--paper:#f7f4ee;--matcha:#3e5a36;--gold:#c29d5b;
       --gold-lt:#e8ca92;--muted:#66605b;--white:#ffffff;--radius:6px;--ease:.4s cubic-bezier(.25,.46,.45,.94)
     }
-    body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);overflow-x:clip;line-height:1.6}
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
     img{display:block;max-width:100%}
     a{text-decoration:none;color:inherit}
     
