@@ -159,6 +159,40 @@
         min-width: 800px !important;
       }
     }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* ── LUXURY BOOKING SECTION ── */
+    .dark-booking-section {
+      background: var(--ink);
+      padding: 3rem;
+      position: relative;
+      border-radius: 8px;
+      margin-top: 3rem;
+    }
+    .dark-booking-section p {
+      color: rgba(255,255,255,0.7);
+    }
+    .dark-booking-section h2 {
+      color: var(--gold-lt);
+    }
+    .luxury-booking-card {
+      background: transparent;
+      border-top: 1px solid rgba(194,157,91,0.2);
+      padding-top: 2rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
 </style>
 
     
@@ -191,7 +225,7 @@
 
 <main class="detail-wrap">
   <div>
-    <div class="spec-bar">
+    <div class="spec-bar reveal">
       <div class="spec-item"><div class="spec-num">8</div><div class="spec-label">Max Guests</div></div>
       <div class="spec-item"><div class="spec-num">3</div><div class="spec-label">Tatami Rooms</div></div>
       <div class="spec-item"><div class="spec-num">100m²</div><div class="spec-label">Private Space</div></div>
@@ -200,24 +234,24 @@
 
     <!-- Verified Gallery Grid -->
     <div class="gallery-grid">
-      <div class="gallery-item span2"><img src="heroyanagiya.jpg" alt="Yanagiya exterior on the post road" /></div>
-      <div class="gallery-item"><img src="yanagiya1.jpg" alt="Tatami futon bedroom" /></div>
-      <div class="gallery-item"><img src="674929029.jpg" alt="Traditional futon bedroom suite" /></div>
-      <div class="gallery-item"><img src="new/yanagiya.jpg" alt="Yanagiya Imanishiki shop entrance with OPEN sign and tea menu display" /></div>
-      <div class="gallery-item"><img src="new/tea (4).jpg" alt="Yanagiya tea tasting flight — Pinot, Aroma and Barrel Flavor Cups" /></div>
-      <div class="gallery-item"><img src="new/yangiya.jpg" alt="Marodome-juku cowbell keychains for sale at Yanagiya" /></div>
-      <div class="gallery-item"><img src="new/cat.jpg" alt="Resident cat being petted inside Yanagiya guesthouse" /></div>
-      <div class="gallery-item"><img src="yanagiya7.jpg" alt="Nighttime glowing lantern" /></div>
-      <div class="gallery-item"><img src="yanagiya2.jpg" alt="Modern bathroom &amp; washroom" /></div>
+      <div class="gallery-item span2 reveal"><img src="heroyanagiya.jpg" alt="Yanagiya exterior on the post road" /></div>
+      <div class="gallery-item reveal"><img src="yanagiya1.jpg" alt="Tatami futon bedroom" /></div>
+      <div class="gallery-item reveal"><img src="674929029.jpg" alt="Traditional futon bedroom suite" /></div>
+      <div class="gallery-item reveal"><img src="new/yanagiya.jpg" alt="Yanagiya Imanishiki shop entrance with OPEN sign and tea menu display" /></div>
+      <div class="gallery-item reveal"><img src="new/tea (4).jpg" alt="Yanagiya tea tasting flight — Pinot, Aroma and Barrel Flavor Cups" /></div>
+      <div class="gallery-item reveal"><img src="new/yangiya.jpg" alt="Marodome-juku cowbell keychains for sale at Yanagiya" /></div>
+      <div class="gallery-item reveal"><img src="new/cat.jpg" alt="Resident cat being petted inside Yanagiya guesthouse" /></div>
+      <div class="gallery-item reveal"><img src="yanagiya7.jpg" alt="Nighttime glowing lantern" /></div>
+      <div class="gallery-item reveal"><img src="yanagiya2.jpg" alt="Modern bathroom &amp; washroom" /></div>
     </div>
 
-    <section class="prose-section">
+    <section class="prose-section reveal">
       <h2>About Yanagiya</h2>
       <p>Yanagiya is a masterfully preserved Japanese merchant townhouse located in the heart of Magome-juku. When you book Yanagiya, you receive 100% private and exclusive access to the entire building — no sharing with strangers.</p>
       <p>Traditional features including soaring dark-timber cedar beams, shoji lattice screens, and fresh igusa tatami matting create a timeless atmosphere, while modern touches like air conditioning/heating, high-speed Wi-Fi, modern shower and bath facilities, and a fully equipped kitchen ensure maximum relaxation.</p>
     </section>
 
-    <section class="prose-section">
+    <section class="prose-section reveal">
       <h2>Included Amenities</h2>
       <div class="amenities-grid">
         <div class="amenity-item"><span class="amenity-icon">&#10003;</span> Exclusive Whole House Rental</div>
@@ -231,20 +265,20 @@
       </div>
     </section>
 
-    <section class="prose-section">
+    <section class="prose-section reveal">
       <h2>Location &amp; Access</h2>
       <p><strong>Address:</strong> 馬籠 4292, Nakatsugawa, Gifu 508-0502, Japan</p>
       <p>Situated directly along the stone-paved Nakasendo post road in Magome-juku. Just a 20-minute scenic bus ride from JR Nakatsugawa Station (JR Chuo Main Line).</p>
       <p><strong>Check-in:</strong> 15:00 – 19:00 | <strong>Check-out:</strong> 10:00</p>
     </section>
 
-    <section class="prose-section">
-      <h2>Check Availability 🐈</h2>
-      <p>Our resident lucky cat hopes to welcome you soon! 🐾 Select your dates below. If the dates are blank, the lodge is available for your private stay.</p>
-      <div class="calendar-container">
-        <div class="cal-scroll-wrap" style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
-      <iframe class="calendar-frame" src="https://calendar.google.com/calendar/embed?src=5e0203688673db5f6cc12a7c6c597ce95597aac51f4d82cf6004dffa56f9c675%40group.calendar.google.com&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff&color=%23c29d5b" scrolling="yes"></iframe>
-    </div>
+    <section class="prose-section dark-booking-section reveal">
+      <h2>Reserve Yanagiya</h2>
+      <p>Select your dates below. If the dates are blank, the lodge is available for your private stay.</p>
+      <div class="luxury-booking-card">
+        <div class="cal-scroll-wrap" style="width: 100%; max-width: 100vw; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+          <iframe class="calendar-frame" src="https://calendar.google.com/calendar/embed?src=5e0203688673db5f6cc12a7c6c597ce95597aac51f4d82cf6004dffa56f9c675%40group.calendar.google.com&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23151210&color=%23c29d5b" scrolling="yes"></iframe>
+        </div>
       </div>
     </section>
   </div>
@@ -288,5 +322,24 @@
 
 
 
+<script>
+  // Intersection Observer for Reveal Animations
+  document.addEventListener("DOMContentLoaded", () => {
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: "0px 0px -50px 0px",
+      threshold: 0.1
+    });
+
+    reveals.forEach(r => observer.observe(r));
+  });
+</script>
 </body>
 </html>

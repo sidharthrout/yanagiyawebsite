@@ -165,6 +165,40 @@
         min-width: 800px !important;
       }
     }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* ── LUXURY BOOKING SECTION ── */
+    .dark-booking-section {
+      background: var(--ink);
+      padding: 3rem;
+      position: relative;
+      border-radius: 8px;
+      margin-top: 3rem;
+    }
+    .dark-booking-section p {
+      color: rgba(255,255,255,0.7);
+    }
+    .dark-booking-section h2 {
+      color: var(--gold-lt);
+    }
+    .luxury-booking-card {
+      background: transparent;
+      border-top: 1px solid rgba(194,157,91,0.2);
+      padding-top: 2rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
 </style>
 
     
@@ -197,7 +231,7 @@
 
 <main class="detail-wrap">
   <div>
-    <div class="spec-bar">
+    <div class="spec-bar reveal">
       <div class="spec-item"><div class="spec-num">6</div><div class="spec-label">Max Guests</div></div>
       <div class="spec-item"><div class="spec-num">2</div><div class="spec-label">Bedrooms</div></div>
       <div class="spec-item"><div class="spec-num">100%</div><div class="spec-label">Private Sanctuary</div></div>
@@ -206,30 +240,30 @@
 
     <!-- Verified Gallery Grid -->
     <div class="gallery-grid">
-      <div class="gallery-item span2"><img src="new/scenery from yanagiya iri.jpg" alt="Breathtaking sunset over rice field paddies at Yanagiya Iri" /></div>
-      <div class="gallery-item"><img src="new/yanagiya iri inside.jpg" alt="Yanagiya Iri interior living room with sofa and rice field view" /></div>
-      <div class="gallery-item"><img src="new/yanagia iri inside.jpg" alt="Yanagiya Iri living room sofa with mountain view through large windows" /></div>
-      <div class="gallery-item"><img src="new/LINE_ALBUM_20260828_260828_3.jpg" alt="Yanagiya Iri exterior building with property sign" /></div>
-      <div class="gallery-item"><img src="new/LINE_ALBUM_20260828_260828_33.jpg" alt="Golden sunset light reflecting in rice terraces near Yanagiya Iri" /></div>
-      <div class="gallery-item"><img src="new/magome (2).jpg" alt="Rice field paddies with Mt. Ena mountain backdrop — view from Yanagiya Iri area" /></div>
-      <div class="gallery-item"><img src="iri-1.jpg" alt="Hillside path to Yanagiya Iri" /></div>
-      <div class="gallery-item"><img src="stay1.jpg" alt="Front view of Yanagiya Iri" /></div>
-      <div class="gallery-item"><img src="stay3.jpg" alt="Tatami sleeping quarters" /></div>
+      <div class="gallery-item span2 reveal"><img src="new/scenery from yanagiya iri.jpg" alt="Breathtaking sunset over rice field paddies at Yanagiya Iri" /></div>
+      <div class="gallery-item reveal"><img src="new/yanagiya iri inside.jpg" alt="Yanagiya Iri interior living room with sofa and rice field view" /></div>
+      <div class="gallery-item reveal"><img src="new/yanagia iri inside.jpg" alt="Yanagiya Iri living room sofa with mountain view through large windows" /></div>
+      <div class="gallery-item reveal"><img src="new/LINE_ALBUM_20260828_260828_3.jpg" alt="Yanagiya Iri exterior building with property sign" /></div>
+      <div class="gallery-item reveal"><img src="new/LINE_ALBUM_20260828_260828_33.jpg" alt="Golden sunset light reflecting in rice terraces near Yanagiya Iri" /></div>
+      <div class="gallery-item reveal"><img src="new/magome (2).jpg" alt="Rice field paddies with Mt. Ena mountain backdrop — view from Yanagiya Iri area" /></div>
+      <div class="gallery-item reveal"><img src="iri-1.jpg" alt="Hillside path to Yanagiya Iri" /></div>
+      <div class="gallery-item reveal"><img src="stay1.jpg" alt="Front view of Yanagiya Iri" /></div>
+      <div class="gallery-item reveal"><img src="stay3.jpg" alt="Tatami sleeping quarters" /></div>
     </div>
 
-    <section class="prose-section">
+    <section class="prose-section reveal">
       <h2>About Yanagiya Iri</h2>
       <p>Yanagiya Iri is nestled deeper into the slopes of Magome, surrounded by century-old Japanese cedar trees and ancient stone rice terraces. Designed for travelers seeking profound peace, silence, and communion with nature.</p>
       <p>Sit out on the wooden engawa veranda listening to the mountain stream, sip handcrafted Magome Cha, or unwind in the private bath overlooking the forest.</p>
     </section>
 
     <!-- Dining Feature Box with Yuji's actual food photos -->
-    <div class="dining-feature-box">
+    <div class="dining-feature-box reveal">
       <h3>&#129346; Hosted Evening Dining by Yuji (Sommelier &amp; Hunter)</h3>
       <p>Yanagiya Iri guests can enjoy exclusive seasonal botan nabe hot-pot dinners prepared by resident host Yuji. Featuring fresh mountain river fish, locally sourced wild boar game, and Japanese wine pairings curated by Yuji as a qualified sommelier.</p>
     </div>
 
-    <section class="prose-section">
+    <section class="prose-section reveal">
       <h2>Included Amenities</h2>
       <div class="amenities-grid">
         <div class="amenity-item"><span class="amenity-icon">&#10003;</span> Entire Private Hillside House</div>
@@ -243,20 +277,20 @@
       </div>
     </section>
 
-    <section class="prose-section">
+    <section class="prose-section reveal">
       <h2>Location &amp; Access</h2>
       <p><strong>Address:</strong> Magome, Nakatsugawa, Gifu, Japan</p>
       <p>Located a peaceful 5-minute walk from Yanagiya Main Lodge on the gentle hillside above the post town.</p>
       <p><strong>Check-in:</strong> 15:00 – 19:00 | <strong>Check-out:</strong> 10:00</p>
     </section>
 
-    <section class="prose-section">
-      <h2>Check Availability 🐈</h2>
-      <p>Our resident lucky cat hopes to welcome you soon! 🐾 Select your dates below. If the dates are blank, the lodge is available for your private stay.</p>
-      <div class="calendar-container">
-        <div class="cal-scroll-wrap" style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch;">
-      <iframe class="calendar-frame" src="https://calendar.google.com/calendar/embed?src=22c555497077319efe10976e790840bac6c41243ef02020a4bf314ecbfcca845%40group.calendar.google.com&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23ffffff&color=%23c29d5b" scrolling="yes"></iframe>
-    </div>
+    <section class="prose-section dark-booking-section reveal">
+      <h2>Reserve Yanagiya Iri</h2>
+      <p>Select your dates below. If the dates are blank, the lodge is available for your private stay.</p>
+      <div class="luxury-booking-card">
+        <div class="cal-scroll-wrap" style="width: 100%; max-width: 100vw; overflow-x: auto; -webkit-overflow-scrolling: touch;">
+          <iframe class="calendar-frame" src="https://calendar.google.com/calendar/embed?src=22c555497077319efe10976e790840bac6c41243ef02020a4bf314ecbfcca845%40group.calendar.google.com&ctz=Asia%2FTokyo&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0&bgcolor=%23151210&color=%23c29d5b" scrolling="yes"></iframe>
+        </div>
       </div>
     </section>
   </div>
@@ -301,5 +335,24 @@
 
 
 
+<script>
+  // Intersection Observer for Reveal Animations
+  document.addEventListener("DOMContentLoaded", () => {
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: "0px 0px -50px 0px",
+      threshold: 0.1
+    });
+
+    reveals.forEach(r => observer.observe(r));
+  });
+</script>
 </body>
 </html>

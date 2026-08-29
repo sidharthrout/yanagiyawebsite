@@ -125,6 +125,17 @@
       .route-card{padding:1.8rem;}
       .route-time{position:relative;top:auto;right:auto;display:inline-block;margin-bottom:1rem;margin-left:1rem;}
     }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -137,7 +148,7 @@
   <a href="index.html" class="nav-back">&#8592; Back to Home</a>
 </nav>
 
-<header class="guide-header">
+<header class="guide-header reveal">
   <h1>Your Journey Here 🚂</h1>
   <p>A hand-crafted guide to reaching the Nakasendo</p>
 </header>
@@ -145,7 +156,7 @@
 <main class="guide-container">
   
   <!-- Mascot Intro -->
-  <div class="mascot-row">
+  <div class="mascot-row reveal">
     <div class="mascot-avatar">🐱</div>
     <div class="chat-bubble">
       <p><strong>Konnichiwa! Welcome to our mountain!</strong> 🐾</p>
@@ -155,7 +166,7 @@
   </div>
 
   <!-- Tokyo Route -->
-  <div class="route-card">
+  <div class="route-card reveal">
     <div class="route-time">Approx 3.5 Hours</div>
     <h2 class="route-title">🗼 From Tokyo</h2>
     
@@ -185,7 +196,7 @@
   </div>
 
   <!-- Kyoto / Osaka Route -->
-  <div class="route-card" style="border-color:#003580;">
+  <div class="route-card reveal" style="border-color:#003580;">
     <div class="route-time" style="color:#003580; background:rgba(0,53,128,0.1);">Approx 2.5 Hours</div>
     <h2 class="route-title">🐙 From Kyoto or Osaka</h2>
     
@@ -215,7 +226,7 @@
   </div>
 
   <!-- Pro Tips -->
-  <div class="pro-tip">
+  <div class="pro-tip reveal">
     <div class="pro-tip-icon">🧳</div>
     <div>
       <h4>Lucky Cat's Pro Tip: Luggage Forwarding</h4>
@@ -229,5 +240,24 @@
   <p>&#169; 2026 Yanagiya Guest House · Magome-juku, Nakasendo, Japan</p>
 </footer>
 
+<script>
+  // Intersection Observer for Reveal Animations
+  document.addEventListener("DOMContentLoaded", () => {
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: "0px 0px -50px 0px",
+      threshold: 0.1
+    });
+
+    reveals.forEach(r => observer.observe(r));
+  });
+</script>
 </body>
 </html>
