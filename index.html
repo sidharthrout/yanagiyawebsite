@@ -18,6 +18,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Modern Animation Libraries (Awwwards 2026 Style) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -393,7 +397,67 @@
       border-left:2px solid var(--gold);padding-left:1.2rem;font-style:italic;
       color:var(--gold-lt);font-size:1.05rem;margin:1.5rem 0 2rem;
     }
+    
+    /* ── AWWWARDS 2026 MODERN CSS ── */
+    html.lenis { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto; }
+    .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    .lenis.lenis-stopped { overflow: hidden; }
+    .lenis.lenis-scrolling iframe { pointer-events: none; }
+    
+    .cursor-follower {
+      position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+      background: var(--gold); border-radius: 50%; pointer-events: none;
+      z-index: 999999; mix-blend-mode: difference; transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s, background 0.3s;
+    }
+    .cursor-follower.hovering { width: 60px; height: 60px; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); }
+
+    .hero-cinematic {
+      position: relative; width: 100vw; height: 100vh; overflow: hidden; background: #111;
+    }
+    .hero-cinematic-img {
+      position: absolute; inset: -5%; width: 110%; height: 110%; object-fit: cover;
+      will-change: transform;
+    }
+    .hero-cinematic-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(18,14,12,0.95) 0%, rgba(18,14,12,0.4) 50%, rgba(18,14,12,0.2) 100%);
+    }
+
+    /* Green Stats Banner */
+    .global-stats-banner {
+      background: #344e2d; color: #fff; width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%);
+      padding: 3rem 5%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: relative; z-index: 10;
+    }
+    .stat-block { text-align: center; border-right: 1px solid rgba(255,255,255,0.15); }
+    .stat-block:last-child { border-right: none; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; margin-bottom: 0.5rem; line-height: 1; }
+    .stat-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.8); }
+
+    @media (max-width: 900px) {
+      .global-stats-banner { grid-template-columns: repeat(2, 1fr); gap: 2rem 1rem; }
+      .stat-block:nth-child(2) { border-right: none; }
+      .stat-block { border-right: 1px solid rgba(255,255,255,0.15); }
+      .kinetic-track { font-size: 4rem; }
+    }
+    @media (max-width: 500px) {
+      .global-stats-banner { grid-template-columns: 1fr; border-right: none; }
+      .stat-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 1.5rem; }
+      .stat-block:last-child { border-bottom: none; padding-bottom: 0; }
+    }
+
+    /* Kinetic Typography */
+    .kinetic-track {
+      white-space: nowrap; font-family: 'Cormorant Garamond', serif; font-size: 8rem;
+      color: transparent; -webkit-text-stroke: 1px rgba(194,157,91,0.2); font-weight: 300;
+      line-height: 1; text-transform: uppercase; user-select: none; pointer-events: none;
+    }
+    
     .stars-gallery{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
     .star-img-box{
       position:relative;border-radius:6px;overflow:hidden;aspect-ratio:4/5;
       border:1px solid rgba(255,255,255,.15);box-shadow:0 8px 30px rgba(0,0,0,.4);
@@ -1104,37 +1168,84 @@
   <a href="#contact" class="btn btn-primary m-book" onclick="closeMobile()">Reserve Now</a>
 </nav>
 
-<!-- HERO SECTION -->
-<section id="hero">
-  <div class="hero-slide active"><img src="heroyanagiya.jpg" alt="Yanagiya lodge on the historic Magome post road" /></div>
-  <div class="hero-slide"><img src="imghero.jpg" alt="Yanagiya Iri surrounded by lush rice terraces and mountains" loading="lazy" /></div>
-  <div class="hero-slide"><img src="stay2.jpg" alt="Yanagiya living room glowing warmly with tatami and shoji" loading="lazy" /></div>
-  <div class="hero-slide"><img src="magomejuku.jpg" alt="Magome-juku post town cobblestone street at sunset" loading="lazy" /></div>
-  <div class="hero-slide"><img src="497016312-1.jpg" alt="Yanagiya daytime post road with lantern and clear blue sky" loading="lazy" /></div>
-  
-  <div class="hero-overlay"></div>
+<!-- GSAP CUSTOM CURSOR -->
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<!-- HERO SECTION (CINEMATIC) -->
+<section id="hero" class="hero-cinematic">
+  <img src="magomejuku.jpg" alt="Yanagiya lodge on the historic Magome post road" class="hero-cinematic-img" id="heroImg" />
+  <div class="hero-cinematic-overlay"></div>
   
   <div class="hero-content">
-    <div class="hero-text-card">
-      <div class="hero-badge">
-        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-        <span class="rating-val">9.6</span>
-        <span class="rating-desc">Exceptional · 260+ Reviews on Booking.com</span>
+    <div class="hero-text-card reveal" style="background: transparent; box-shadow: none; border: none; padding: 0;">
+      <div class="hero-badge" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
+        <span class="stars" style="color:var(--gold-lt);">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span class="rating-val" style="color:#fff;">9.6</span>
+        <span class="rating-desc" style="color:rgba(255,255,255,0.8);">Exceptional · Booking.com</span>
       </div>
-      <p class="hero-kanji-sub">柳屋 · 中山道 馬籠宿</p>
-      <h1>Where Ancient Paths Meet Modern Peace</h1>
-      <p>Two authentic private machiya lodges nestled along the historic Nakasendo highway in Magome-juku. Wake to misty mountains, locally harvested Magome Cha, and starry night skies.</p>
+      <p class="hero-kanji-sub" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">柳屋 · 中山道 馬籠宿</p>
+      <h1 style="font-size: clamp(3rem, 6vw, 5.5rem); text-shadow: 0 4px 20px rgba(0,0,0,0.5); letter-spacing: -0.02em;">Where Ancient Paths Meet Modern Peace</h1>
+      <p style="font-size: 1.1rem; max-width: 600px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Two authentic private machiya lodges nestled along the historic Nakasendo highway in Magome-juku. Wake to misty mountains, locally harvested Magome Cha, and starry night skies.</p>
       
-      <div class="hero-actions">
-        <a href="#lodges" class="btn btn-gold">Book &amp; Explore Lodges &#8594;</a>
-        <a href="#experiences" class="btn btn-outline" style="border-color:rgba(255,255,255,.6);color:#fff;">Guided Trail Walks</a>
+      <div class="hero-actions" style="margin-top: 2rem;">
+        <a href="#lodges" class="btn btn-gold mag-btn">Book &amp; Explore Lodges &#8594;</a>
       </div>
     </div>
   </div>
-  
-  <div class="hero-dots" id="heroDots"></div>
-  <button class="hero-arrow prev" id="heroPrev" aria-label="Previous slide">&#8592;</button>
-  <button class="hero-arrow next" id="heroNext" aria-label="Next slide">&#8594;</button>
+</section>
+
+<!-- GLOBAL STATS BANNER -->
+<div class="global-stats-banner">
+  <div class="stat-block reveal">
+    <div class="stat-num">2</div>
+    <div class="stat-label">Private Machiya Lodges</div>
+  </div>
+  <div class="stat-block reveal" style="transition-delay: 0.1s;">
+    <div class="stat-num">9.6</div>
+    <div class="stat-label">Booking.com Review Score</div>
+  </div>
+  <div class="stat-block reveal" style="transition-delay: 0.2s;">
+    <div class="stat-num">260+</div>
+    <div class="stat-label">Verified Guest Reviews</div>
+  </div>
+  <div class="stat-block reveal" style="transition-delay: 0.3s;">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Single-Origin Magome Cha</div>
+  </div>
+</div>
+
+<!-- DYNAMIC 50/50 SECTION: FOOD & CUSTOMERS -->
+<section id="dynamic-split">
+  <div class="ds-left">
+     <div class="ds-tabs">
+        <button class="ds-tab active" data-target="food">Cuisine</button>
+        <button class="ds-tab" data-target="customer">Guests</button>
+     </div>
+     <div class="ds-text-content active" id="ds-text-food">
+        <span class="section-label">Farm to Table</span>
+        <h2 class="section-title">Nourishing Local Foods</h2>
+        <p style="font-family:'Noto Serif JP',serif;font-size:0.85rem;color:var(--gold);margin-top:-0.8rem;margin-bottom:1.8rem;letter-spacing:0.15em;font-weight:300;">地元の食材を大切に</p>
+        <div class="divider"></div>
+        <p class="section-sub">We serve wholesome, locally-sourced meals prepared with care, showcasing the seasonal flavors of the Kiso Valley. Each dish tells the story of this mountain landscape — from foraged herbs to river fish, from village gardens to century-old recipes passed through generations.</p>
+     </div>
+     <div class="ds-text-content" id="ds-text-customer">
+        <span class="section-label">Moments We Cherish</span>
+        <h2 class="section-title">Time with Our Guests</h2>
+        <p style="font-family:'Noto Serif JP',serif;font-size:0.85rem;color:var(--gold);margin-top:-0.8rem;margin-bottom:1.8rem;letter-spacing:0.15em;font-weight:300;">大切なひととき</p>
+        <div class="divider"></div>
+        <p class="section-sub">Capturing the smiles, stories, and shared memories with guests from around the world. Every visit creates a new chapter in the Yanagiya story — and yours.</p>
+     </div>
+  </div>
+  <div class="ds-right">
+     <div class="ds-gallery-container">
+        <div class="ds-gallery-track" id="ds-track"></div>
+        <div class="ds-gallery-ui">
+           <button class="ds-nav-btn" id="ds-prev">&#8592;</button>
+           <div class="ds-counter"><span id="ds-curr">1</span> / <span id="ds-tot">12</span></div>
+           <button class="ds-nav-btn" id="ds-next">&#8594;</button>
+        </div>
+     </div>
+  </div>
 </section>
 
 <!-- OUR STORY / ABOUT -->
@@ -1480,6 +1591,26 @@
   </div>
 </section>
 
+<!-- TEA STATS BANNER -->
+<div class="global-stats-banner tea-stats" style="background: var(--matcha);">
+  <div class="stat-block reveal">
+    <div class="stat-num">1600+</div>
+    <div class="stat-label">Feet Elevation</div>
+  </div>
+  <div class="stat-block reveal" style="transition-delay: 0.1s;">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Pesticide Free &amp; Organic</div>
+  </div>
+  <div class="stat-block reveal" style="transition-delay: 0.2s;">
+    <div class="stat-num">400+</div>
+    <div class="stat-label">Years of Tradition</div>
+  </div>
+  <div class="stat-block reveal" style="transition-delay: 0.3s;">
+    <div class="stat-num">3</div>
+    <div class="stat-label">Signature Blends</div>
+  </div>
+</div>
+
 <!-- COOL REDESIGNED MEET OUR TEAM SECTION -->
 <section id="team">
   <div class="team-header reveal">
@@ -1577,48 +1708,10 @@
   </div>
 </section>
 
-<!-- STATS -->
-<section id="stats">
-  <div class="reveal"><div class="stat-val">2</div><div class="stat-txt">Private Machiya Lodges</div></div>
-  <div class="reveal"><div class="stat-val">9.6</div><div class="stat-txt">Booking.com Review Score</div></div>
-  <div class="reveal"><div class="stat-val">260+</div><div class="stat-txt">Verified Guest Reviews</div></div>
-  <div class="reveal"><div class="stat-val">100%</div><div class="stat-txt">Single-Origin Magome Cha</div></div>
-</section>
 
 
-<!-- DYNAMIC 50/50 SECTION: FOOD & CUSTOMERS -->
-<section id="dynamic-split">
-  <div class="ds-left">
-     <div class="ds-tabs">
-        <button class="ds-tab active" data-target="food">Cuisine</button>
-        <button class="ds-tab" data-target="customer">Guests</button>
-     </div>
-     <div class="ds-text-content active" id="ds-text-food">
-        <span class="section-label">Farm to Table</span>
-        <h2 class="section-title">Nourishing Local Foods</h2>
-        <p style="font-family:'Noto Serif JP',serif;font-size:0.85rem;color:var(--gold);margin-top:-0.8rem;margin-bottom:1.8rem;letter-spacing:0.15em;font-weight:300;">地元の食材を大切に</p>
-        <div class="divider"></div>
-        <p class="section-sub">We serve wholesome, locally-sourced meals prepared with care, showcasing the seasonal flavors of the Kiso Valley. Each dish tells the story of this mountain landscape — from foraged herbs to river fish, from village gardens to century-old recipes passed through generations.</p>
-     </div>
-     <div class="ds-text-content" id="ds-text-customer">
-        <span class="section-label">Moments We Cherish</span>
-        <h2 class="section-title">Time with Our Guests</h2>
-        <p style="font-family:'Noto Serif JP',serif;font-size:0.85rem;color:var(--gold);margin-top:-0.8rem;margin-bottom:1.8rem;letter-spacing:0.15em;font-weight:300;">大切なひととき</p>
-        <div class="divider"></div>
-        <p class="section-sub">Capturing the smiles, stories, and shared memories with guests from around the world. Every visit creates a new chapter in the Yanagiya story — and yours.</p>
-     </div>
-  </div>
-  <div class="ds-right">
-     <div class="ds-gallery-container">
-        <div class="ds-gallery-track" id="ds-track"></div>
-        <div class="ds-gallery-ui">
-           <button class="ds-nav-btn" id="ds-prev">&#8592;</button>
-           <div class="ds-counter"><span id="ds-curr">1</span> / <span id="ds-tot">12</span></div>
-           <button class="ds-nav-btn" id="ds-next">&#8594;</button>
-        </div>
-     </div>
-  </div>
-</section>
+
+
 
 <!-- INSTAGRAM STRIP -->
 <section id="instagram">
@@ -2204,6 +2297,115 @@
   </div>
   <div class="btn btn-primary" style="padding:.7rem 1.4rem;font-size:.75rem;">Book Now</div>
 </a>
+
+
+<script>
+  // AWWWARDS 2026: LENIS SMOOTH SCROLL
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true,
+  });
+  
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+  
+  // Connect GSAP ScrollTrigger to Lenis
+  gsap.registerPlugin(ScrollTrigger);
+  
+  // Custom Cursor
+  const cursor = document.getElementById('cursorFollower');
+  if(cursor) {
+    document.addEventListener('mousemove', (e) => {
+      gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1, ease: 'power2.out' });
+    });
+    document.querySelectorAll('a, button, .ds-gallery-slide').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+    });
+  }
+
+  // Hero Cinematic Animation
+  if (document.getElementById('heroImg')) {
+    gsap.to('#heroImg', {
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      },
+      scale: 1, 
+      y: '20%',
+      ease: 'none'
+    });
+  }
+  
+  if (document.querySelector('.hero-text-card')) {
+    gsap.to('.hero-text-card', {
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      },
+      y: '-100px',
+      opacity: 0,
+      ease: 'none'
+    });
+  }
+
+  // Kinetic Typography
+  if(document.getElementById('kineticText')) {
+    gsap.to('#kineticText', {
+      xPercent: -50,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#kineticText',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+  }
+  
+  // Object-based transition for the gallery container
+  if(document.querySelector('.ds-gallery-container')) {
+      gsap.from('.ds-gallery-container', {
+        scrollTrigger: {
+          trigger: '#dynamic-split',
+          start: 'top 85%',
+          end: 'top 25%',
+          scrub: 1
+        },
+        clipPath: 'circle(10% at 50% 50%)',
+        scale: 0.8,
+        ease: 'power2.out'
+      });
+  }
+
+  // AWWWARDS 2026: Reveal Animations (Staggered 3D Fade-in)
+  const revealElements = document.querySelectorAll('.reveal');
+  revealElements.forEach((el) => {
+    gsap.fromTo(el, 
+      { opacity: 0, y: 40, rotationX: 10 },
+      {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        },
+        opacity: 1,
+        y: 0,
+        rotationX: 0,
+        duration: 1.2,
+        ease: 'power3.out'
+      }
+    );
+  });
+</script>
 
 </body>
 </html>
