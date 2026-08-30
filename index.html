@@ -503,39 +503,40 @@
     }
     .trail-scrolly-grid{
       display:grid;grid-template-columns:repeat(12,1fr);
-      gap:1.2rem;width:100%;margin:0 auto;padding:3.4rem 1.2rem 1.2rem;
+      gap:.8rem;width:100%;margin:0 auto;padding:3.2rem 1rem 1rem;
     }
-    .trail-image_cont{position:relative;overflow:hidden;height:44vh;border-radius:12px}
+    .trail-image_cont{position:relative;overflow:hidden;height:30vh;border-radius:12px}
     .trail-image_cont img{
       position:absolute;width:100%;height:170%;object-fit:cover;bottom:0;left:0;
       will-change:transform;
     }
-    .trail-image_cont:nth-child(1){grid-column:1/-1;height:54vh}
-    .trail-image_cont:nth-child(2){grid-column:1/-1;height:42vh}
-    .trail-image_cont:nth-child(3){grid-column:1/-1;height:42vh}
+    .trail-image_cont:nth-child(1){grid-column:1/-1;height:40vh}
+    .trail-image_cont:nth-child(2){grid-column:1/span 6;height:30vh}
+    .trail-image_cont:nth-child(3){grid-column:7/span 6;height:30vh}
     .trail-image_cont:nth-child(3) img{object-position:right}
-    .trail-image_cont:nth-child(4){grid-column:1/-1;height:50vh}
-    .trail-image_cont:nth-child(5){grid-column:1/-1;height:44vh}
-    .trail-image_cont:nth-child(6){grid-column:1/-1;height:44vh}
-    @media screen and (min-width:1000px){
-      .trail-image_cont:nth-child(1){grid-column:1/-1;height:58vh}
-      .trail-image_cont:nth-child(2){grid-column:2/span 4;height:42vh}
-      .trail-image_cont:nth-child(3){grid-column:8/span 4;height:42vh}
-      .trail-image_cont:nth-child(4){grid-column:1/-1;height:54vh}
-      .trail-image_cont:nth-child(5){grid-column:8/span 4;height:46vh}
-      .trail-image_cont:nth-child(6){grid-column:2/span 4;height:46vh}
+    .trail-image_cont:nth-child(4){grid-column:1/span 6;height:30vh}
+    .trail-image_cont:nth-child(5){grid-column:7/span 6;height:30vh}
+    .trail-image_cont:nth-child(6){grid-column:1/-1;height:34vh}
+    @media screen and (max-width:999px){
+      .trail-image_cont{grid-column:1/-1 !important}
+      .trail-image_cont:nth-child(1){height:36vh}
+      .trail-image_cont:nth-child(2){height:28vh}
+      .trail-image_cont:nth-child(3){height:28vh}
+      .trail-image_cont:nth-child(4){height:28vh}
+      .trail-image_cont:nth-child(5){height:28vh}
+      .trail-image_cont:nth-child(6){height:30vh}
     }
 
     /* ── GSAP SCROLL SHOWCASE (logo spread + grid + parallax + pin) ── */
     .exp-showcase{position:relative;z-index:1;margin-bottom:3.5rem}
     .exp-logo-section{
-      height:78vh;min-height:420px;display:flex;align-items:center;justify-content:center;
-      background:var(--ink);border-radius:18px;overflow:hidden;margin-bottom:3.5rem;
+      height:auto;min-height:0;padding:3.2rem 2rem;display:flex;align-items:center;justify-content:center;
+      background:var(--ink);border-radius:18px;overflow:hidden;margin-bottom:3rem;
     }
     .exp-logo-line{
       display:flex;justify-content:center;flex-wrap:wrap;padding:0 4%;
       font-family:'Cormorant Garamond',serif;font-weight:300;
-      font-size:clamp(2rem,6vw,4.6rem);color:var(--gold-lt);letter-spacing:.08em;text-align:center;
+      font-size:clamp(1.7rem,4.5vw,3.6rem);color:var(--gold-lt);letter-spacing:.08em;text-align:center;
     }
     .exp-logo-line .el-letter{display:inline-block;will-change:transform,opacity}
     .exp-logo-line .el-kanji{
@@ -569,7 +570,7 @@
       .exp-grid-layout{grid-template-columns:1fr}
       .exp-column-content{grid-template-rows:repeat(3,30vh)}
       .exp-pin-track{width:400%}
-      .exp-logo-section{height:60vh}
+      .exp-logo-section{padding:2.6rem 1.2rem}
     }
 
     .trail-content{padding:2rem 2.2rem;display:flex;flex-direction:column;justify-content:center;position:sticky;top:5.5rem;align-self:start;height:fit-content}
@@ -3563,16 +3564,24 @@
       document.body.style.overflow = '';
 
       const center = pre.querySelector('.pl-center');
+      const vertical = pre.querySelector('.pl-vertical');
       const panelL = pre.querySelector('.pl-panel.left');
       const panelR = pre.querySelector('.pl-panel.right');
 
+      /* Safety net: preloader always disappears, no matter what */
+      setTimeout(function () {
+        if (pre.parentNode) { pre.style.display = 'none'; pre.remove(); }
+      }, 2400);
+
       if (window.gsap && center && panelL && panelR) {
-        /* Disable CSS transitions so GSAP animates every frame cleanly (no fighting = smooth) */
-        [center, panelL, panelR].forEach(el => { el.style.transition = 'none'; });
-        const tl = gsap.timeline({ onComplete: () => pre.remove() });
-        tl.to(center, { opacity: 0, scale: 1.05, y: -16, duration: .55, ease: 'power2.in' })
-          .to(panelL, { xPercent: -101, duration: 1.15, ease: 'power4.inOut' }, '-=.2')
-          .to(panelR, { xPercent: 101, duration: 1.15, ease: 'power4.inOut' }, '-=1.05');
+        /* Disable CSS transitions so GSAP animates every frame cleanly */
+        [center, vertical, panelL, panelR].forEach(el => { if (el) el.style.transition = 'none'; });
+        const tl = gsap.timeline({ onComplete: () => { pre.style.display = 'none'; pre.remove(); } });
+        /* Circle + content leave first (fast), THEN the shoji panels part */
+        tl.to(center, { opacity: 0, duration: .35, ease: 'power2.in' }, 0)
+          .to(vertical, { opacity: 0, duration: .25, ease: 'power2.in' }, 0)
+          .to(panelL, { xPercent: -101, duration: 1.1, ease: 'power4.inOut' }, .3)
+          .to(panelR, { xPercent: 101, duration: 1.1, ease: 'power4.inOut' }, .38);
       } else {
         pre.classList.add('open');
         setTimeout(() => pre.remove(), 1250);
@@ -3873,18 +3882,22 @@
     });
 
     var pinTrack = document.querySelector('.exp-pin-track');
+    var pinSection = document.querySelector('.exp-pin-section');
     var pinTl = gsap.timeline({
       scrollTrigger: {
         pin: true,
         trigger: '.exp-pin-section',
         scrub: true,
         start: 'top top',
-        end: function () { return '+=' + (pinTrack ? pinTrack.offsetWidth : 2000); },
+        end: function () {
+          var dist = pinTrack.scrollWidth - (pinSection ? pinSection.clientWidth : 0);
+          return '+=' + Math.round(dist * 1.2);
+        },
         invalidateOnRefresh: true
       }
     });
-    pinTl.fromTo(pinTrack, { x: function () { return window.innerWidth * 0.9; } }, {
-      x: function () { return -(pinTrack.offsetWidth - window.innerWidth * 0.1); },
+    pinTl.fromTo(pinTrack, { x: function () { return pinSection ? pinSection.clientWidth : window.innerWidth; } }, {
+      x: function () { return -(pinTrack.scrollWidth - (pinSection ? pinSection.clientWidth : 0)); },
       ease: 'none'
     }, 0);
   })();
@@ -4459,11 +4472,12 @@
       return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
     }
 
-    /* Fetch iCal (with CORS-friendly fallbacks) */
+    /* Fetch iCal (CORS-friendly proxies; Google blocks direct browser reads) */
     function fetchIcs(url) {
       var attempts = [
-        url,
-        'https://api.allorigins.win/raw?url=' + encodeURIComponent(url)
+        'https://r.jina.ai/' + encodeURIComponent(url),
+        'https://api.allorigins.win/raw?url=' + encodeURIComponent(url),
+        'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(url)
       ];
       function tryNext(i) {
         if (i >= attempts.length) return Promise.reject(new Error('fetch failed'));
@@ -4477,6 +4491,8 @@
     /* Parse VCALENDAR VEVENT date ranges into a booked-day set */
     function parseIcs(text) {
       var set = {};
+      var idx = text.indexOf('BEGIN:VCALENDAR');
+      if (idx > 0) text = text.slice(idx);
       var vevents = text.split('BEGIN:VEVENT');
       for (var i = 1; i < vevents.length; i++) {
         var mStart = /DTSTART[^:]*:(\d{8})/.exec(vevents[i]);
