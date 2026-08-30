@@ -486,15 +486,15 @@
     .exp-header .section-title{color:var(--ink)}
     .exp-header .section-sub{color:var(--muted)}
     
-    /* Enhanced Trail Feature Card - text card, full-width GSAP scrolly gallery below */
+    /* Enhanced Trail Feature Card - transparent so the mist background glows through */
     .trail-feature-card{
       background:var(--ink);color:var(--white);border-radius:18px;
-      margin-bottom:2rem;
+      display:grid;grid-template-columns:1fr 1.25fr;margin-bottom:3.5rem;
       box-shadow:0 18px 55px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);
       position:relative;z-index:1;
     }
-    /* Full-width GSAP scroll-parallax trail gallery */
-    .trail-scrolly-wrap{position:relative;overflow:hidden;background:#14100e;border-radius:18px;margin-bottom:3.5rem}
+    /* GSAP scroll-parallax image grid (Guided Adventure) */
+    .trail-img-scrolly{position:relative;overflow:hidden;background:#14100e;border-radius:0 18px 18px 0}
     .trail-scrolly-badge{
       position:absolute;top:1.2rem;left:1.2rem;z-index:20;
       background:rgba(21,18,16,.8);backdrop-filter:blur(6px);
@@ -503,29 +503,27 @@
     }
     .trail-scrolly-grid{
       display:grid;grid-template-columns:repeat(12,1fr);
-      gap:1.4rem;width:100%;margin:0 auto;padding:4.6rem 1.4rem 1.4rem;
+      gap:1.2rem;width:100%;margin:0 auto;padding:3.4rem 1.2rem 1.2rem;
     }
-    .trail-image_cont{position:relative;overflow:hidden;height:52vh;border-radius:12px}
+    .trail-image_cont{position:relative;overflow:hidden;height:44vh;border-radius:12px}
     .trail-image_cont img{
       position:absolute;width:100%;height:170%;object-fit:cover;bottom:0;left:0;
       will-change:transform;
     }
-    .trail-image_cont:nth-child(1){grid-column:1/-1;height:84vh}
-    .trail-image_cont:nth-child(2){grid-column:2/span 5;height:54vh}
-    .trail-image_cont:nth-child(3){grid-column:8/span 4;height:54vh}
+    .trail-image_cont:nth-child(1){grid-column:1/-1;height:54vh}
+    .trail-image_cont:nth-child(2){grid-column:1/-1;height:42vh}
+    .trail-image_cont:nth-child(3){grid-column:1/-1;height:42vh}
     .trail-image_cont:nth-child(3) img{object-position:right}
-    .trail-image_cont:nth-child(4){grid-column:1/-1;height:60vh}
-    .trail-image_cont:nth-child(5){grid-column:8/span 4;height:62vh}
-    .trail-image_cont:nth-child(6){grid-column:2/span 5;height:62vh}
-    @media screen and (max-width:999px){
-      .trail-scrolly-grid{gap:1.2rem;padding:4.2rem 1rem 1rem}
-      .trail-image_cont{grid-column:1/-1 !important}
-      .trail-image_cont:nth-child(1){height:56vh}
-      .trail-image_cont:nth-child(2){height:44vh}
-      .trail-image_cont:nth-child(3){height:44vh}
-      .trail-image_cont:nth-child(4){height:48vh}
-      .trail-image_cont:nth-child(5){height:48vh}
-      .trail-image_cont:nth-child(6){height:48vh}
+    .trail-image_cont:nth-child(4){grid-column:1/-1;height:50vh}
+    .trail-image_cont:nth-child(5){grid-column:1/-1;height:44vh}
+    .trail-image_cont:nth-child(6){grid-column:1/-1;height:44vh}
+    @media screen and (min-width:1000px){
+      .trail-image_cont:nth-child(1){grid-column:1/-1;height:58vh}
+      .trail-image_cont:nth-child(2){grid-column:2/span 4;height:42vh}
+      .trail-image_cont:nth-child(3){grid-column:8/span 4;height:42vh}
+      .trail-image_cont:nth-child(4){grid-column:1/-1;height:54vh}
+      .trail-image_cont:nth-child(5){grid-column:8/span 4;height:46vh}
+      .trail-image_cont:nth-child(6){grid-column:2/span 4;height:46vh}
     }
 
     /* ── GSAP SCROLL SHOWCASE (logo spread + grid + parallax + pin) ── */
@@ -562,7 +560,7 @@
       height:80vh;overflow:hidden;display:grid;grid-template-rows:1fr;border-radius:18px;
     }
     .exp-pin-track{
-      width:400%;display:grid;grid-column-gap:1rem;grid-template-columns:repeat(4,1fr);
+      width:250%;display:grid;grid-column-gap:1rem;grid-template-columns:repeat(4,1fr);
       will-change:transform;padding:0 4%;
     }
     .exp-pin-box{position:relative;height:100%;width:100%;border-radius:14px;overflow:hidden;display:block}
@@ -570,10 +568,11 @@
     @media(max-width:850px){
       .exp-grid-layout{grid-template-columns:1fr}
       .exp-column-content{grid-template-rows:repeat(3,30vh)}
+      .exp-pin-track{width:400%}
       .exp-logo-section{height:60vh}
     }
 
-    .trail-content{padding:2.4rem 2.6rem;display:flex;flex-direction:column;justify-content:center;max-width:860px}
+    .trail-content{padding:2rem 2.2rem;display:flex;flex-direction:column;justify-content:center;position:sticky;top:5.5rem;align-self:start;height:fit-content}
     .trail-content .section-title{color:var(--white);font-size:clamp(1.2rem,2vw,1.55rem);margin-bottom:.45rem}
     .trail-quote{
       font-size:.78rem;line-height:1.7;color:rgba(255,255,255,.9);
@@ -727,11 +726,6 @@
       border-left:2px solid var(--gold);padding-left:1.2rem;font-style:italic;
       color:var(--gold-lt);font-size:1.05rem;margin:1.5rem 0 2rem;
     }
-    /* Glow on the left-side stars text */
-    #stars .section-kanji-tag{text-shadow:0 0 18px rgba(232,202,146,.65),0 0 44px rgba(255,255,255,.25)}
-    #stars .section-title{text-shadow:0 0 22px rgba(232,202,146,.5),0 0 60px rgba(255,255,255,.2)}
-    #stars .section-label{text-shadow:0 0 12px rgba(232,202,146,.5)}
-    #stars p em{text-shadow:0 0 16px rgba(255,255,255,.4)}
     
     /* ── HERO SECTION ── */
     .hero-cinematic {
@@ -969,22 +963,12 @@
       transform:translate(0,var(--y,0));
     }
     .tea-album .controls button:before{
-      border:1px solid rgba(255,255,255,.45);
-      background:rgba(255,255,255,.13);
-      backdrop-filter:blur(12px) saturate(1.4);
-      -webkit-backdrop-filter:blur(12px) saturate(1.4);
-      box-shadow:0 8px 24px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.4), inset 0 -6px 14px rgba(0,0,0,.18);
+      border:2px solid hsl(0,0%,90%);background:linear-gradient(hsla(0,0%,80%,.65),hsl(0,0%,0%)) hsl(0,0%,0%);
       content:'';box-sizing:border-box;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
       height:80%;width:80%;border-radius:50%;
-      transition:background .3s ease,box-shadow .3s ease;
-    }
-    .tea-album .controls button:hover:before{
-      background:rgba(255,255,255,.22);
-      box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 20px rgba(232,202,146,.35), inset 0 1px 0 rgba(255,255,255,.55);
     }
     .tea-album .controls button:active:before{
-      background:rgba(255,255,255,.28);
-      box-shadow:0 4px 14px rgba(0,0,0,.4), inset 0 2px 8px rgba(0,0,0,.25);
+      background:linear-gradient(hsl(0,0%,0%),hsla(0,0%,80%,.65)) hsl(0,0%,0%);
     }
     .tea-album .controls button:nth-of-type(1){right:100%}
     .tea-album .controls button:nth-of-type(2){left:100%}
@@ -995,7 +979,7 @@
     .tea-album .controls button:hover{--y:-5%}
     .tea-album .controls button svg{
       position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(0deg) translate(2%,0);
-      height:30%;fill:#fff;filter:drop-shadow(0 1px 4px rgba(0,0,0,.55));
+      height:30%;fill:hsl(0,0%,90%);
     }
     .tea-album .controls button:nth-of-type(1) svg{transform:translate(-50%,-50%) rotate(180deg) translate(2%,0)}
     .tea-album .drag-proxy{visibility:hidden;position:absolute}
@@ -1142,7 +1126,8 @@
       .team-grid{grid-template-columns:repeat(2,1fr)}
       .exp-grid{grid-template-columns:1fr 1fr}
       .trail-feature-card{grid-template-columns:1fr}
-      .trail-content{padding:2.8rem 2.5rem}
+      .trail-content{padding:2.8rem 2.5rem;position:static}
+      .trail-img-scrolly{border-radius:0 0 18px 18px}
       .stars-layout{grid-template-columns:1fr}
       .footer-grid{grid-template-columns:1fr 1fr}
     }
@@ -1185,6 +1170,7 @@
       .link-list{display:none}
       .lodge-gallery-box{height:260px}
       .cool-team-img-wrap{height:280px}
+      .trail-image_cont{height:38vh}
       .trail-content{padding:2rem 1.4rem}
       .calendar-wrapper{padding:1.5rem 1rem;}
       .calendar-tabs{flex-direction:column;}
@@ -3043,7 +3029,7 @@
     </div>
   </div>
 
-  <!-- Featured Nakasendo Trail Card: text, then full-width GSAP scrolly grid below -->
+  <!-- Featured Nakasendo Trail Card: text left, image scroll right -->
   <div class="trail-feature-card reveal">
     <div class="trail-content">
       <span class="section-label" style="color:var(--gold-lt);">Guided Adventure</span>
@@ -3076,18 +3062,16 @@
         </a>
       </div>
     </div>
-  </div>
-
-  <!-- Full-width GSAP scroll-parallax trail gallery -->
-  <div class="trail-scrolly-wrap" id="trailScrolly">
-    <div class="trail-scrolly-badge">&#127957; Guided Hiking Tour</div>
-    <div class="trail-scrolly-grid">
-      <div class="trail-image_cont"><img src="new/hiking.webp" alt="Beautiful hiking trail on the Nakasendo" loading="lazy" /></div>
-      <div class="trail-image_cont"><img src="new/hiking (2).webp" alt="Guided walk on the Nakasendo trail" loading="lazy" /></div>
-      <div class="trail-image_cont"><img src="new/hiking (3).webp" alt="Scenic hiking path through Kiso mountains" loading="lazy" /></div>
-      <div class="trail-image_cont"><img src="new/hiking (4).webp" alt="Exploring ancient stone pathways" loading="lazy" /></div>
-      <div class="trail-image_cont"><img src="new/hiking (5).webp" alt="Discovering historic post towns along the trail" loading="lazy" /></div>
-      <div class="trail-image_cont"><img src="new/hiking path.webp" alt="Lush green hiking trail in nature" loading="lazy" /></div>
+    <div class="trail-img-scrolly" id="trailScrolly">
+      <div class="trail-scrolly-badge">&#127957; Guided Hiking Tour</div>
+      <div class="trail-scrolly-grid">
+        <div class="trail-image_cont"><img src="new/hiking.webp" alt="Beautiful hiking trail on the Nakasendo" loading="lazy" /></div>
+        <div class="trail-image_cont"><img src="new/hiking (2).webp" alt="Guided walk on the Nakasendo trail" loading="lazy" /></div>
+        <div class="trail-image_cont"><img src="new/hiking (3).webp" alt="Scenic hiking path through Kiso mountains" loading="lazy" /></div>
+        <div class="trail-image_cont"><img src="new/hiking (4).webp" alt="Exploring ancient stone pathways" loading="lazy" /></div>
+        <div class="trail-image_cont"><img src="new/hiking (5).webp" alt="Discovering historic post towns along the trail" loading="lazy" /></div>
+        <div class="trail-image_cont"><img src="new/hiking path.webp" alt="Lush green hiking trail in nature" loading="lazy" /></div>
+      </div>
     </div>
   </div>
 
@@ -3889,22 +3873,18 @@
     });
 
     var pinTrack = document.querySelector('.exp-pin-track');
-    var pinSection = document.querySelector('.exp-pin-section');
     var pinTl = gsap.timeline({
       scrollTrigger: {
         pin: true,
         trigger: '.exp-pin-section',
         scrub: true,
         start: 'top top',
-        end: function () {
-          var dist = pinTrack.scrollWidth - (pinSection ? pinSection.clientWidth : 0);
-          return '+=' + Math.round(dist * 1.25);
-        },
+        end: function () { return '+=' + (pinTrack ? pinTrack.offsetWidth : 2000); },
         invalidateOnRefresh: true
       }
     });
-    pinTl.fromTo(pinTrack, { x: 0 }, {
-      x: function () { return -(pinTrack.scrollWidth - (pinSection ? pinSection.clientWidth : 0)); },
+    pinTl.fromTo(pinTrack, { x: function () { return window.innerWidth * 0.9; } }, {
+      x: function () { return -(pinTrack.offsetWidth - window.innerWidth * 0.1); },
       ease: 'none'
     }, 0);
   })();
@@ -3943,39 +3923,30 @@
     /* kbStart(); // Disabled on load to reduce motion */
   })();
 
-  /* ── STARS SECTION: SCROLL-DRIVEN NIGHT PHOTO CROSSFADE (GSAP pin + scrub) ── */
+  /* ── STARS SECTION: NIGHT PHOTO CROSSFADE (5 photos) ── */
   (function () {
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
     const wrap = document.querySelector('#stars [style*="position: absolute; inset:0;"]');
     if (!wrap) return;
     const panels = [...wrap.querySelectorAll('.star-panel')];
     if (panels.length < 2) return;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return; /* static first photo */
+    let cur = 0, timer;
 
-    const seg = 1.1;                       /* scroll-time per photo */
-    const total = panels.length * seg;
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#stars',
-        pin: true,
-        start: 'top top',
-        end: '+=' + Math.round(total * 100) + '%',
-        scrub: 1,
-        invalidateOnRefresh: true
-      }
-    });
+    function show(n) {
+      panels.forEach((p, i) => {
+        p.style.opacity = i === n ? '1' : '0';
+        p.style.zIndex = i === n ? '10' : String(9 - i);
+      });
+      cur = n;
+    }
 
-    tl.set(panels[0], { opacity: 1, zIndex: 10 }, 0);
-    panels.forEach(function (p, i) {
-      if (i === 0) return;
-      const at = i * seg - seg * 0.3;
-      tl.to(panels[i - 1], { opacity: 0, duration: seg * 0.8, ease: 'power1.inOut' }, at)
-        .set(p, { zIndex: 10 + i }, at)
-        .fromTo(p, { opacity: 0 }, { opacity: 1, duration: seg * 0.8, ease: 'power1.inOut' }, at);
-    });
-    /* Hold the final photo until the pin releases */
-    tl.to(panels[panels.length - 1], { opacity: 1, duration: 0.01 }, total - 0.01);
+    function next() { show((cur + 1) % panels.length); }
+    function start() { stop(); if (!reduce) timer = setInterval(next, 5000); }
+    function stop() { clearInterval(timer); }
+
+    const box = wrap.closest('[style*="height: 80vh"]');
+    if (box) { box.addEventListener('mouseenter', stop); box.addEventListener('mouseleave', start); }
+    start();
   })();
 
   /* ── LODGE SLIDERS ── */
