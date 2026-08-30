@@ -488,13 +488,13 @@
     
     /* Enhanced Trail Feature Card - transparent so the mist background glows through */
     .trail-feature-card{
-      background:var(--ink);color:var(--white);border-radius:18px;overflow:hidden;
+      background:var(--ink);color:var(--white);border-radius:18px;
       display:grid;grid-template-columns:1fr 1.25fr;margin-bottom:3.5rem;
       box-shadow:0 18px 55px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);
       position:relative;z-index:1;
     }
     /* GSAP scroll-parallax image grid (Guided Adventure) */
-    .trail-img-scrolly{position:relative;overflow:hidden;background:#14100e;min-height:440px}
+    .trail-img-scrolly{position:relative;overflow:hidden;background:#14100e;border-radius:0 18px 18px 0}
     .trail-scrolly-badge{
       position:absolute;top:1.2rem;left:1.2rem;z-index:20;
       background:rgba(21,18,16,.8);backdrop-filter:blur(6px);
@@ -503,28 +503,27 @@
     }
     .trail-scrolly-grid{
       display:grid;grid-template-columns:repeat(12,1fr);
-      grid-column-gap:1rem;grid-row-gap:20vh;width:100%;margin:0 auto;padding:80px 0 60px;
+      gap:1.2rem;width:100%;margin:0 auto;padding:3.4rem 1.2rem 1.2rem;
     }
-    .trail-image_cont{
-      position:relative;overflow:hidden;height:46vh;max-height:280px;border-radius:12px;
-    }
+    .trail-image_cont{position:relative;overflow:hidden;height:44vh;border-radius:12px}
     .trail-image_cont img{
       position:absolute;width:100%;height:170%;object-fit:cover;bottom:0;left:0;
       will-change:transform;
     }
-    .trail-image_cont:nth-child(1){grid-column:1/-1;grid-row:1;height:52vh}
-    .trail-image_cont:nth-child(2){grid-column:2/span 8;grid-row:2;height:34vh}
-    .trail-image_cont:nth-child(3){grid-column:4/span 8;grid-row:3;height:34vh}
+    .trail-image_cont:nth-child(1){grid-column:1/-1;height:54vh}
+    .trail-image_cont:nth-child(2){grid-column:1/-1;height:42vh}
+    .trail-image_cont:nth-child(3){grid-column:1/-1;height:42vh}
     .trail-image_cont:nth-child(3) img{object-position:right}
-    .trail-image_cont:nth-child(4){grid-column:1/-1;grid-row:4;height:34vh}
-    .trail-image_cont:nth-child(5){grid-column:4/span 8;grid-row:5;height:40vh}
-    .trail-image_cont:nth-child(6){grid-column:2/span 8;grid-row:6;height:40vh}
+    .trail-image_cont:nth-child(4){grid-column:1/-1;height:50vh}
+    .trail-image_cont:nth-child(5){grid-column:1/-1;height:44vh}
+    .trail-image_cont:nth-child(6){grid-column:1/-1;height:44vh}
     @media screen and (min-width:1000px){
-      .trail-image_cont{max-height:unset}
-      .trail-image_cont:nth-child(2){grid-column:2/span 4}
-      .trail-image_cont:nth-child(3){grid-column:8/span 4}
-      .trail-image_cont:nth-child(5){grid-column:8/span 4}
-      .trail-image_cont:nth-child(6){grid-column:2/span 4}
+      .trail-image_cont:nth-child(1){grid-column:1/-1;height:58vh}
+      .trail-image_cont:nth-child(2){grid-column:2/span 4;height:42vh}
+      .trail-image_cont:nth-child(3){grid-column:8/span 4;height:42vh}
+      .trail-image_cont:nth-child(4){grid-column:1/-1;height:54vh}
+      .trail-image_cont:nth-child(5){grid-column:8/span 4;height:46vh}
+      .trail-image_cont:nth-child(6){grid-column:2/span 4;height:46vh}
     }
 
     /* ── GSAP SCROLL SHOWCASE (logo spread + grid + parallax + pin) ── */
@@ -561,19 +560,19 @@
       height:80vh;overflow:hidden;display:grid;grid-template-rows:1fr;border-radius:18px;
     }
     .exp-pin-track{
-      width:250%;display:grid;grid-column-gap:1rem;grid-template-columns:repeat(5,1fr);
+      width:250%;display:grid;grid-column-gap:1rem;grid-template-columns:repeat(4,1fr);
       will-change:transform;padding:0 4%;
     }
-    .exp-pin-box{height:100%;width:100%;border-radius:14px;overflow:hidden}
+    .exp-pin-box{position:relative;height:100%;width:100%;border-radius:14px;overflow:hidden;display:block}
     .exp-pin-box img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
     @media(max-width:850px){
       .exp-grid-layout{grid-template-columns:1fr}
       .exp-column-content{grid-template-rows:repeat(3,30vh)}
-      .exp-pin-track{width:500%}
+      .exp-pin-track{width:400%}
       .exp-logo-section{height:60vh}
     }
 
-    .trail-content{padding:2rem 2.2rem;display:flex;flex-direction:column;justify-content:center}
+    .trail-content{padding:2rem 2.2rem;display:flex;flex-direction:column;justify-content:center;position:sticky;top:5.5rem;align-self:start;height:fit-content}
     .trail-content .section-title{color:var(--white);font-size:clamp(1.2rem,2vw,1.55rem);margin-bottom:.45rem}
     .trail-quote{
       font-size:.78rem;line-height:1.7;color:rgba(255,255,255,.9);
@@ -596,58 +595,72 @@
     #instagram{padding:6.5rem 6%;background:#1a1721;position:relative;overflow:hidden}
     .ig-scrolly-wrap{position:relative;max-width:1200px;margin:0 auto;min-height:150vh}
     .ig-scrolly-text{
-      position:absolute;top:40vh;left:0;width:100%;text-align:center;
+      position:absolute;top:24vh;left:0;width:100%;text-align:center;
       font-family:'Cormorant Garamond',serif;font-weight:900;
-      font-size:clamp(2.6rem,9vw,7.5rem);letter-spacing:.02em;color:#fff;
+      font-size:clamp(2.2rem,7vw,5.8rem);letter-spacing:.02em;color:#fff;
       -webkit-text-stroke-width:1.5px;-webkit-text-stroke-color:#fff;
       z-index:2;pointer-events:none;user-select:none;transform:translateY(-50%);
     }
     .ig-scrolly-outline{color:transparent;z-index:3}
     .ig-scrolly-filter{mix-blend-mode:screen;color:#804691;z-index:3}
     .ig-scrolly-icon{
-      position:absolute;top:34vh;left:50%;transform:translateX(-50%);z-index:4;
-      width:clamp(2.2rem,5vw,4rem);height:clamp(2.2rem,5vw,4rem);fill:var(--gold-lt);
+      position:absolute;top:8vh;left:50%;transform:translateX(-50%);z-index:4;
+      width:clamp(2.4rem,5vw,4.2rem);height:clamp(2.4rem,5vw,4.2rem);fill:var(--gold-lt);
       filter:drop-shadow(0 0 18px rgba(232,202,146,.6));
     }
     .ig-scrolly-imgs{
-      padding-top:52vh;position:relative;width:100%;max-width:1200px;margin:0 auto;
-      min-height:160vh;height:100%;display:grid;
-      grid-template-columns:repeat(20,2%);grid-template-rows:repeat(30,3%);
-      justify-content:center;justify-items:center;align-items:center;z-index:1;
+      margin-top:42vh;position:relative;width:100%;max-width:1200px;margin-left:auto;margin-right:auto;
+      display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;z-index:1;padding-bottom:2rem;
     }
     .ig-scrolly-imgs .ig-photo{
-      position:relative;width:100%;height:100%;margin:0;padding:0;display:block;
-      border-radius:12px;cursor:pointer;overflow:visible;
+      position:relative;display:block;border-radius:14px;cursor:pointer;z-index:1;
     }
-    .ig-scrolly-imgs .ig-photo img{
-      position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:12px;
-      box-shadow:0 14px 34px rgba(0,0,0,.5);will-change:transform;
-      transition:transform .65s cubic-bezier(.16,1,.3,1),box-shadow .65s ease,filter .65s ease;
+    .ig-frame{
+      position:absolute;inset:0;display:block;overflow:hidden;border-radius:14px;
+      box-shadow:0 14px 34px rgba(0,0,0,.5);
     }
-    /* Neon border */
+    .ig-frame img{
+      position:absolute;left:0;top:0;width:100%;height:145%;object-fit:cover;
+      will-change:transform;transition:transform .6s cubic-bezier(.16,1,.3,1);
+    }
+    /* Neon border on the photo wrapper */
     .ig-scrolly-imgs .ig-photo::before{
-      content:'';position:absolute;inset:-6px;border-radius:16px;padding:3px;z-index:-1;
+      content:'';position:absolute;inset:-6px;border-radius:18px;padding:3px;z-index:-1;
       background:linear-gradient(135deg,#ff3bf4,#4bd6ff,#8a5bff,#ff3bf4);
       -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
       -webkit-mask-composite:xor;mask-composite:exclude;
-      opacity:.85;
-      filter:drop-shadow(0 0 12px rgba(255,59,244,.55)) drop-shadow(0 0 22px rgba(75,214,255,.45));
-      transition:opacity .5s ease,transform .65s cubic-bezier(.16,1,.3,1);
+      opacity:.8;
+      filter:drop-shadow(0 0 10px rgba(255,59,244,.5)) drop-shadow(0 0 18px rgba(75,214,255,.4));
+      transition:opacity .5s ease,filter .5s ease;
     }
-    .ig-scrolly-imgs .ig-photo:hover::before{opacity:1;transform:scale(1.06)}
-    .ig-scrolly-imgs .ig-photo:hover img{
-      transform:scale(1.1);z-index:30;
-      box-shadow:0 22px 60px rgba(0,0,0,.75),0 0 30px rgba(255,59,244,.4),0 0 50px rgba(75,214,255,.35);
+    .ig-scrolly-imgs .ig-photo:hover::before{
+      opacity:1;
+      filter:drop-shadow(0 0 16px rgba(255,59,244,.75)) drop-shadow(0 0 30px rgba(75,214,255,.65));
     }
-    /* Bigger image placement */
-    .ig-scrolly-imgs .ig-photo:nth-child(1){grid-area:1/1/7/10}
-    .ig-scrolly-imgs .ig-photo:nth-child(2){grid-area:3/11/9/21}
-    .ig-scrolly-imgs .ig-photo:nth-child(3){grid-area:9/4/14/16}
-    .ig-scrolly-imgs .ig-photo:nth-child(4){grid-area:14/1/19/10}
-    .ig-scrolly-imgs .ig-photo:nth-child(5){grid-area:16/11/21/21}
-    .ig-scrolly-imgs .ig-photo:nth-child(6){grid-area:20/2/26/11}
-    .ig-scrolly-imgs .ig-photo:nth-child(7){grid-area:22/10/26/21}
-    .ig-scrolly-imgs .ig-photo:nth-child(8){grid-area:26/4/30/16}
+    .ig-scrolly-imgs .ig-photo:hover .ig-frame img{transform:scale(1.09)}
+    /* Big, non-overlapping placement */
+    .ig-scrolly-imgs .ig-photo:nth-child(1){grid-column:1/-1;height:60vh}
+    .ig-scrolly-imgs .ig-photo:nth-child(2){grid-column:2/span 5;height:44vh}
+    .ig-scrolly-imgs .ig-photo:nth-child(3){grid-column:8/span 4;height:44vh}
+    .ig-scrolly-imgs .ig-photo:nth-child(4){grid-column:1/span 6;height:46vh}
+    .ig-scrolly-imgs .ig-photo:nth-child(5){grid-column:8/span 4;height:46vh}
+    .ig-scrolly-imgs .ig-photo:nth-child(6){grid-column:2/span 5;height:48vh}
+    .ig-scrolly-imgs .ig-photo:nth-child(7){grid-column:8/span 4;height:48vh}
+    .ig-scrolly-imgs .ig-photo:nth-child(8){grid-column:2/span 9;height:54vh}
+    @media(max-width:760px){
+      .ig-scrolly-imgs{gap:1.2rem}
+      .ig-scrolly-imgs .ig-photo{grid-column:1/-1 !important}
+      .ig-scrolly-imgs .ig-photo:nth-child(1){height:52vh}
+      .ig-scrolly-imgs .ig-photo:nth-child(2){height:42vh}
+      .ig-scrolly-imgs .ig-photo:nth-child(3){height:42vh}
+      .ig-scrolly-imgs .ig-photo:nth-child(4){height:44vh}
+      .ig-scrolly-imgs .ig-photo:nth-child(5){height:44vh}
+      .ig-scrolly-imgs .ig-photo:nth-child(6){height:46vh}
+      .ig-scrolly-imgs .ig-photo:nth-child(7){height:46vh}
+      .ig-scrolly-imgs .ig-photo:nth-child(8){height:50vh}
+      .ig-scrolly-text{top:19vh}
+      .ig-scrolly-icon{top:6vh}
+    }
     .ig-follow{text-align:center;margin-top:2.4rem;position:relative;z-index:5}
     .ig-follow p{font-size:.88rem;color:rgba(255,255,255,.6);margin-bottom:1.2rem}
 
@@ -1113,7 +1126,8 @@
       .team-grid{grid-template-columns:repeat(2,1fr)}
       .exp-grid{grid-template-columns:1fr 1fr}
       .trail-feature-card{grid-template-columns:1fr}
-      .trail-content{padding:2.8rem 2.5rem}
+      .trail-content{padding:2.8rem 2.5rem;position:static}
+      .trail-img-scrolly{border-radius:0 0 18px 18px}
       .stars-layout{grid-template-columns:1fr}
       .footer-grid{grid-template-columns:1fr 1fr}
     }
@@ -1156,7 +1170,7 @@
       .link-list{display:none}
       .lodge-gallery-box{height:260px}
       .cool-team-img-wrap{height:280px}
-      .trail-img-slider{min-height:280px}
+      .trail-image_cont{height:38vh}
       .trail-content{padding:2rem 1.4rem}
       .calendar-wrapper{padding:1.5rem 1rem;}
       .calendar-tabs{flex-direction:column;}
@@ -3007,7 +3021,6 @@
 
     <div class="exp-pin-section" id="expPin">
       <div class="exp-pin-track">
-        <div class="exp-pin-box"><img src="new/tea.webp" alt="Magome sencha" loading="lazy"></div>
         <div class="exp-pin-box"><img src="new/hiking (4).webp" alt="Ancient stone pathway" loading="lazy"></div>
         <div class="exp-pin-box"><img src="new/tea and magome.webp" alt="Tea and Magome street" loading="lazy"></div>
         <div class="exp-pin-box"><img src="new/hiking (5).webp" alt="Historic post town" loading="lazy"></div>
@@ -3075,14 +3088,14 @@
         <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.9 5.9 0 0 0-2.13 1.39A5.9 5.9 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.39 2.13a5.9 5.9 0 0 0 2.13 1.39c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.39 5.9 5.9 0 0 0 1.39-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.39-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0Zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.15A4 4 0 1 1 16 12a4 4 0 0 1-4 3.99Zm6.41-11.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44Z"/></svg>
       </div>
       <div class="ig-scrolly-imgs" id="igScrollyImgs">
-        <a class="ig-photo" data-speed="0.8" href="#" aria-label="View larger"><img src="new/hiking (3).webp" alt="Kiso trail views" loading="lazy"></a>
-        <a class="ig-photo" data-speed="0.9" href="#" aria-label="View larger"><img src="new/tea (3).webp" alt="Magome tea moment" loading="lazy"></a>
-        <a class="ig-photo" data-speed="1" href="#" aria-label="View larger"><img src="night star/starpic2.webp" alt="Stargazing night" loading="lazy"></a>
-        <a class="ig-photo" data-speed="1.1" href="#" aria-label="View larger"><img src="new/food for customer.webp" alt="Guest dinner" loading="lazy"></a>
-        <a class="ig-photo" data-speed="0.9" href="#" aria-label="View larger"><img src="yanagiya-1.webp" alt="Machiya lodge" loading="lazy"></a>
-        <a class="ig-photo" data-speed="1.2" href="#" aria-label="View larger"><img src="new/yanagiya in automn.webp" alt="Autumn in Magome" loading="lazy"></a>
-        <a class="ig-photo" data-speed="0.8" href="#" aria-label="View larger"><img src="new/tea tree samll.webp" alt="Tea garden" loading="lazy"></a>
-        <a class="ig-photo" data-speed="1" href="#" aria-label="View larger"><img src="night star/nightstar2.webp" alt="Night sky" loading="lazy"></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/hiking (3).webp" alt="Kiso trail views" loading="lazy"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/tea (3).webp" alt="Magome tea moment" loading="lazy"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="night star/starpic2.webp" alt="Stargazing night" loading="lazy"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/food for customer.webp" alt="Guest dinner" loading="lazy"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="yanagiya-1.webp" alt="Machiya lodge" loading="lazy"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/yanagiya in automn.webp" alt="Autumn in Magome" loading="lazy"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/tea tree samll.webp" alt="Tea garden" loading="lazy"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="night star/nightstar2.webp" alt="Night sky" loading="lazy"></span></a>
       </div>
     </div>
 <div class="ig-follow reveal">
@@ -3549,20 +3562,21 @@
       finished = true;
       document.body.style.overflow = '';
 
-      /* Smooth multi-stage exit: fade center out first, then open the shoji panels */
       const center = pre.querySelector('.pl-center');
-      const panels = pre.querySelectorAll('.pl-panel');
-      if (window.gsap && center) {
-        gsap.to(center, {
-          opacity: 0, scale: 1.06, y: -20, duration: .6, ease: 'power2.in',
-          onComplete: () => {
-            pre.classList.add('open');
-          }
-        });
+      const panelL = pre.querySelector('.pl-panel.left');
+      const panelR = pre.querySelector('.pl-panel.right');
+
+      if (window.gsap && center && panelL && panelR) {
+        /* Disable CSS transitions so GSAP animates every frame cleanly (no fighting = smooth) */
+        [center, panelL, panelR].forEach(el => { el.style.transition = 'none'; });
+        const tl = gsap.timeline({ onComplete: () => pre.remove() });
+        tl.to(center, { opacity: 0, scale: 1.05, y: -16, duration: .55, ease: 'power2.in' })
+          .to(panelL, { xPercent: -101, duration: 1.15, ease: 'power4.inOut' }, '-=.2')
+          .to(panelR, { xPercent: 101, duration: 1.15, ease: 'power4.inOut' }, '-=1.05');
       } else {
         pre.classList.add('open');
+        setTimeout(() => pre.remove(), 1250);
       }
-      setTimeout(() => pre.remove(), 1250);
     };
 
     const set = (p) => {
@@ -3834,8 +3848,8 @@
     if (letters.length) {
       var dist = gsap.utils.distribute({ base: -260, amount: 520 });
       gsap.to(letters, {
-        x: dist, opacity: 0,
-        scrollTrigger: { trigger: '.exp-logo-section', scrub: 1, start: 'bottom 95%', end: 'bottom center' }
+        x: dist, opacity: 0, duration: 2.4, delay: 2, ease: 'power2.inOut',
+        scrollTrigger: { trigger: '.exp-logo-section', start: 'center 50%', toggleActions: 'play none none none' }
       });
     }
 
@@ -4088,7 +4102,7 @@
     }
   })();
 
-  /* ── INSTAGRAM: SCROLLY IMAGES (parallax speeds + skew + lightbox) ── */
+  /* ── INSTAGRAM: SCROLLY IMAGES (parallax + entrance + lightbox + skew) ── */
   (function () {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
     var wrap = document.getElementById('igScrollyImgs');
@@ -4097,20 +4111,31 @@
     var imgs = photos.map(function (p) { return p.querySelector('img'); }).filter(Boolean);
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    /* Parallax inside each frame (img is 145% tall) */
     imgs.forEach(function (img) {
-      var speed = parseFloat(img.parentNode.getAttribute('data-speed')) || 1;
-      gsap.fromTo(img, { y: -90 * speed }, {
-        y: 90 * speed,
+      gsap.fromTo(img, { yPercent: -15 }, {
+        yPercent: 15,
         ease: 'none',
-        scrollTrigger: { trigger: '.ig-scrolly-wrap', scrub: 1, start: 'top bottom', end: 'bottom top' }
+        scrollTrigger: {
+          trigger: img.closest('.ig-photo') || wrap,
+          scrub: 1,
+          start: 'top bottom',
+          end: 'bottom top'
+        }
       });
     });
 
-    /* GSAP hover pop: lift + slight scale for a lively feel */
     if (!reduce) {
+      /* Entrance: photos rise in one by one */
+      gsap.from(photos, {
+        y: 70, opacity: 0, stagger: 0.1, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: wrap, start: 'top 85%' }
+      });
+
+      /* GSAP hover pop */
       photos.forEach(function (p) {
         p.addEventListener('mouseenter', function () {
-          gsap.to(p, { scale: 1.04, duration: .4, ease: 'power2.out' });
+          gsap.to(p, { scale: 1.03, duration: .4, ease: 'power2.out' });
         });
         p.addEventListener('mouseleave', function () {
           gsap.to(p, { scale: 1, duration: .4, ease: 'power2.out' });
@@ -4154,7 +4179,7 @@
 
     if (reduce) return;
     var skewSetter = gsap.quickTo(imgs, 'skewY');
-    var clamp = gsap.utils.clamp(-18, 18);
+    var clamp = gsap.utils.clamp(-14, 14);
     var lastY = window.scrollY || 0;
     var vel = 0;
     window.addEventListener('scroll', function () {
@@ -4163,7 +4188,7 @@
       lastY = sy;
     }, { passive: true });
     gsap.ticker.add(function () {
-      if (Math.abs(vel) > 0.5) skewSetter(clamp(vel / -40));
+      if (Math.abs(vel) > 0.5) skewSetter(clamp(vel / -45));
       else skewSetter(0);
     });
   })();
