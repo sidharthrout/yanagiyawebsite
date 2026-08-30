@@ -75,7 +75,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -481,30 +480,15 @@
 
     /* ── NAKASENDO TRAIL & GUIDED ADVENTURES ── */
     #experiences{padding:6.5rem 6%;background:var(--card);position:relative;overflow:hidden}
-    /* Full-section mountain-mist WebGL background */
-    #experiences .trail-gl{
-      position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;
-    }
-    .trail-bg-label{
-      position:absolute;top:1.6rem;left:6%;z-index:2;pointer-events:none;
-      font-family:'Noto Serif JP',serif;font-size:.7rem;letter-spacing:.4em;
-      color:rgba(255,255,255,.9);text-shadow:0 1px 12px rgba(0,0,0,.5);
-      background:rgba(21,18,16,.32);backdrop-filter:blur(6px);
-      padding:.45rem 1rem;border-radius:30px;border:1px solid rgba(255,255,255,.2);
-    }
     .exp-header{text-align:center;margin-bottom:3.8rem;position:relative;z-index:1}
-    .exp-header .section-label,.exp-header .section-title,.exp-header .section-sub{
-      text-shadow:0 2px 16px rgba(0,0,0,.55);
-    }
-    .exp-header .section-title{color:var(--white)}
-    .exp-header .section-sub{color:rgba(255,255,255,.9)}
+    .exp-header .section-title{color:var(--ink)}
+    .exp-header .section-sub{color:var(--muted)}
     
     /* Enhanced Trail Feature Card - transparent so the mist background glows through */
     .trail-feature-card{
-      background:rgba(21,18,16,.28);color:var(--white);border-radius:18px;overflow:hidden;
+      background:var(--ink);color:var(--white);border-radius:18px;overflow:hidden;
       display:grid;grid-template-columns:1fr 1.25fr;margin-bottom:3.5rem;
-      box-shadow:0 18px 55px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.14);
-      backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+      box-shadow:0 18px 55px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);
       position:relative;z-index:1;
     }
     .trail-img-slider{position:relative;overflow:hidden;min-height:440px;background:#14100e}
@@ -551,6 +535,52 @@
     .trail-img-slider:hover .trail-dot.active::after{animation-play-state:paused}
     @keyframes dotFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
+    /* ── GSAP SCROLL SHOWCASE (logo spread + grid + parallax + pin) ── */
+    .exp-showcase{position:relative;z-index:1;margin-bottom:3.5rem}
+    .exp-logo-section{
+      height:78vh;min-height:420px;display:flex;align-items:center;justify-content:center;
+      background:var(--ink);border-radius:18px;overflow:hidden;margin-bottom:3.5rem;
+    }
+    .exp-logo-line{
+      display:flex;justify-content:center;flex-wrap:wrap;padding:0 4%;
+      font-family:'Cormorant Garamond',serif;font-weight:300;
+      font-size:clamp(2rem,6vw,4.6rem);color:var(--gold-lt);letter-spacing:.08em;text-align:center;
+    }
+    .exp-logo-line .el-letter{display:inline-block;will-change:transform,opacity}
+    .exp-logo-line .el-kanji{
+      display:inline-block;font-family:'Noto Serif JP',serif;font-size:.5em;color:rgba(255,255,255,.55);
+      margin-left:1rem;letter-spacing:.35em;
+    }
+    .exp-grid-section{overflow:visible;z-index:2;margin-bottom:3.5rem}
+    .exp-grid-layout{
+      display:grid;grid-template-columns:1fr 1fr 1fr;grid-gap:1rem;
+      transform-origin:center top;
+    }
+    .exp-column{height:100%}
+    .exp-column-content{display:grid;grid-template-rows:42vh 42vh 42vh;grid-gap:1rem;height:100%}
+    .exp-grid-img{width:100%;position:relative;border-radius:12px;overflow:hidden}
+    .exp-grid-img img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+    .exp-parallax-section{
+      height:72vh;overflow:hidden;border-radius:18px;position:relative;margin-bottom:3.5rem;
+      transform-origin:center top;
+    }
+    .exp-parallax-img{height:200%;width:100%;object-fit:cover;will-change:transform}
+    .exp-pin-section{
+      height:80vh;overflow:hidden;display:grid;grid-template-rows:1fr;border-radius:18px;
+    }
+    .exp-pin-track{
+      width:300%;display:grid;grid-column-gap:1rem;grid-template-columns:repeat(6,1fr);
+      will-change:transform;padding:0 4%;
+    }
+    .exp-pin-box{height:100%;width:100%;border-radius:14px;overflow:hidden}
+    .exp-pin-box img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+    @media(max-width:850px){
+      .exp-grid-layout{grid-template-columns:1fr}
+      .exp-column-content{grid-template-rows:repeat(3,30vh)}
+      .exp-pin-track{width:600%}
+      .exp-logo-section{height:60vh}
+    }
+
     .trail-content{padding:2rem 2.2rem;display:flex;flex-direction:column;justify-content:center}
     .trail-content .section-title{color:var(--white);font-size:clamp(1.2rem,2vw,1.55rem);margin-bottom:.45rem}
     .trail-quote{
@@ -571,27 +601,42 @@
     .trail-content .btn{font-size:.78rem;padding:.6rem 1.1rem}
 
     /* ── INSTAGRAM GALLERY ── */
-    #instagram{padding:6.5rem 6%;background:#faf8f4;position:relative}
-    .ig-spiral-stage{
-      position:relative;width:100%;height:min(88vh,880px);min-height:480px;
-      border-radius:20px;overflow:hidden;background:#0b0d12;
-      box-shadow:0 18px 55px rgba(21,18,16,.25);
+    #instagram{padding:6.5rem 6%;background:#1a1721;position:relative;overflow:hidden}
+    .ig-scrolly-wrap{position:relative;max-width:1200px;margin:0 auto;min-height:150vh}
+    .ig-scrolly-text{
+      position:absolute;top:40vh;left:0;width:100%;text-align:center;
+      font-family:'Cormorant Garamond',serif;font-weight:900;
+      font-size:clamp(2.6rem,9vw,7.5rem);letter-spacing:.02em;color:#fff;
+      -webkit-text-stroke-width:1.5px;-webkit-text-stroke-color:#fff;
+      z-index:2;pointer-events:none;user-select:none;transform:translateY(-50%);
     }
-    .ig-spiral-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-    .ig-spiral-label{
-      position:absolute;top:1.2rem;right:1.2rem;z-index:5;
-      font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;letter-spacing:.08em;
-      color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.6);
-      background:rgba(21,18,16,.4);backdrop-filter:blur(6px);
-      padding:.45rem 1rem;border-radius:30px;border:1px solid rgba(255,255,255,.2);
+    .ig-scrolly-outline{color:transparent;z-index:3}
+    .ig-scrolly-filter{mix-blend-mode:screen;color:#804691;z-index:3}
+    .ig-scrolly-icon{
+      position:absolute;top:34vh;left:50%;transform:translateX(-50%);z-index:4;
+      width:clamp(2.2rem,5vw,4rem);height:clamp(2.2rem,5vw,4rem);fill:var(--gold-lt);
+      filter:drop-shadow(0 0 18px rgba(232,202,146,.6));
     }
-    .ig-spiral-hint{
-      position:absolute;bottom:1.2rem;left:50%;transform:translateX(-50%);z-index:5;
-      color:rgba(255,255,255,.75);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
-      text-shadow:0 1px 8px rgba(0,0,0,.6);white-space:nowrap;
+    .ig-scrolly-imgs{
+      padding-top:56vh;position:relative;width:100%;max-width:1200px;margin:0 auto;
+      min-height:150vh;height:100%;display:grid;
+      grid-template-columns:repeat(20,2%);grid-template-rows:repeat(30,3%);
+      justify-content:center;justify-items:center;align-items:center;z-index:1;
     }
-    .ig-follow{text-align:center;margin-top:2.4rem}
-    .ig-follow p{font-size:.88rem;color:var(--muted);margin-bottom:1.2rem}
+    .ig-scrolly-imgs img{
+      width:100%;height:100%;object-fit:cover;border-radius:10px;
+      box-shadow:0 14px 34px rgba(0,0,0,.45);will-change:transform;
+    }
+    .ig-scrolly-imgs img:nth-child(1){grid-area:1/1/6/8}
+    .ig-scrolly-imgs img:nth-child(2){grid-area:3/12/8/20}
+    .ig-scrolly-imgs img:nth-child(3){grid-area:9/5/13/15}
+    .ig-scrolly-imgs img:nth-child(4){grid-area:14/1/18/8}
+    .ig-scrolly-imgs img:nth-child(5){grid-area:16/12/20/19}
+    .ig-scrolly-imgs img:nth-child(6){grid-area:20/2/25/9}
+    .ig-scrolly-imgs img:nth-child(7){grid-area:22/11/24/20}
+    .ig-scrolly-imgs img:nth-child(8){grid-area:26/5/30/15}
+    .ig-follow{text-align:center;margin-top:2.4rem;position:relative;z-index:5}
+    .ig-follow p{font-size:.88rem;color:rgba(255,255,255,.6);margin-bottom:1.2rem}
 
     .exp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
     .exp-card{
@@ -1034,7 +1079,6 @@
       .exp-grid{grid-template-columns:1fr 1fr}
       .trail-feature-card{grid-template-columns:1fr}
       .trail-content{padding:2.8rem 2.5rem}
-      .ig-spiral-stage{height:70vh;min-height:420px}
       .stars-layout{grid-template-columns:1fr}
       .footer-grid{grid-template-columns:1fr 1fr}
     }
@@ -1060,7 +1104,6 @@
       .contact-box{padding:4rem 6%}
       #stats{grid-template-columns:repeat(2,1fr)}
       .insta-grid{grid-template-columns:repeat(3,1fr)}
-      .ig-spiral-stage{height:60vh;min-height:360px}
       .footer-grid{grid-template-columns:1fr}
       .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
     }
@@ -2881,15 +2924,62 @@
 
 <!-- EXPERIENCES & NAKASENDO TRAIL SECTION -->
 <section id="experiences">
-  <!-- Full-section mountain-mist WebGL background (scroll-synced) -->
-  <canvas id="trailGl" class="trail-gl" aria-hidden="true"></canvas>
-  <span class="trail-bg-label">木曽路 &middot; Kiso Valley Mist</span>
-
   <div class="exp-header reveal">
     <span class="section-label">Authentic Local Life</span>
     <h2 class="section-title">Magome Experiences &amp; Guided Walks</h2>
     <div class="divider divider-center"></div>
     <p class="section-sub" style="margin:0 auto;text-align:center;">Discover the living culture, ancient trade routes, stargazing skies, and culinary traditions of the Kiso Valley.</p>
+  </div>
+
+  <!-- GSAP scroll showcase: logo spread + image grid + parallax + pin -->
+  <div class="exp-showcase">
+    <div class="exp-logo-section">
+      <div class="exp-logo-line" id="expLogoLine">
+        <span class="el-letter">N</span><span class="el-letter">A</span><span class="el-letter">K</span><span class="el-letter">A</span><span class="el-letter">S</span><span class="el-letter">E</span><span class="el-letter">N</span><span class="el-letter">D</span><span class="el-letter">O</span>
+        <span class="el-kanji">木曽路</span>
+      </div>
+    </div>
+
+    <div class="exp-grid-section" id="expGrid">
+      <div class="exp-grid-layout">
+        <div class="exp-column column-1" data-speed="1.1">
+          <div class="exp-column-content">
+            <div class="exp-grid-img"><img src="new/hiking.webp" alt="Nakasendo hiking trail" loading="lazy"></div>
+            <div class="exp-grid-img"><img src="new/tea (3).webp" alt="Magome tea" loading="lazy"></div>
+            <div class="exp-grid-img"><img src="night star/starpic2.webp" alt="Stargazing in Magome" loading="lazy"></div>
+          </div>
+        </div>
+        <div class="exp-column column-2" data-speed="1.01">
+          <div class="exp-column-content">
+            <div class="exp-grid-img"><img src="new/hiking (2).webp" alt="Forest path on the Nakasendo" loading="lazy"></div>
+            <div class="exp-grid-img"><img src="new/food for customer.webp" alt="Guest dinner" loading="lazy"></div>
+            <div class="exp-grid-img"><img src="new/yanagiya in automn.webp" alt="Yanagiya in autumn" loading="lazy"></div>
+          </div>
+        </div>
+        <div class="exp-column column-3" data-speed="1.1">
+          <div class="exp-column-content">
+            <div class="exp-grid-img"><img src="new/hiking (3).webp" alt="Scenic Kiso mountain path" loading="lazy"></div>
+            <div class="exp-grid-img"><img src="yanagiya-1.webp" alt="Yanagiya machiya lodge" loading="lazy"></div>
+            <div class="exp-grid-img"><img src="new/scenery from yanagiya iri.webp" alt="Rice terrace sunset" loading="lazy"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-parallax-section">
+      <img class="exp-parallax-img" src="new/hiking path.webp" alt="Lush green hiking trail in nature" loading="lazy">
+    </div>
+
+    <div class="exp-pin-section" id="expPin">
+      <div class="exp-pin-track">
+        <div class="exp-pin-box"><img src="new/tea.webp" alt="Magome sencha" loading="lazy"></div>
+        <div class="exp-pin-box"><img src="new/hiking (4).webp" alt="Ancient stone pathway" loading="lazy"></div>
+        <div class="exp-pin-box"><img src="new/tea and magome.webp" alt="Tea and Magome street" loading="lazy"></div>
+        <div class="exp-pin-box"><img src="new/hiking (5).webp" alt="Historic post town" loading="lazy"></div>
+        <div class="exp-pin-box"><img src="night star/night view in  yanagiya iri.webp" alt="Night view from Yanagiya Iri" loading="lazy"></div>
+        <div class="exp-pin-box"><img src="new/hiking (6).webp" alt="Relaxing hike near Magome" loading="lazy"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Featured Nakasendo Trail Card: text left, image scroll right -->
@@ -2946,11 +3036,24 @@
 
 <!-- INSTAGRAM GALLERY -->
 <section id="instagram">
-    <div class="ig-spiral-stage reveal">
-    <canvas id="igSpiral" aria-hidden="true"></canvas>
-    <span class="ig-spiral-label">Yanagiya <b>&#64;</b> yanagiya_japanesetea</span>
-    <span class="ig-spiral-hint">scroll &middot; drag &middot; infinite spiral</span>
-  </div>
+    <div class="ig-scrolly-wrap">
+      <h1 class="ig-scrolly-text ig-scrolly-fill" aria-hidden="true">Instagram</h1>
+      <h1 class="ig-scrolly-text ig-scrolly-outline" aria-hidden="true">Instagram</h1>
+      <h1 class="ig-scrolly-text ig-scrolly-filter">Instagram</h1>
+      <div class="ig-scrolly-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.9 5.9 0 0 0-2.13 1.39A5.9 5.9 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.39 2.13a5.9 5.9 0 0 0 2.13 1.39c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.39 5.9 5.9 0 0 0 1.39-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.39-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0Zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.15A4 4 0 1 1 16 12a4 4 0 0 1-4 3.99Zm6.41-11.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44Z"/></svg>
+      </div>
+      <div class="ig-scrolly-imgs" id="igScrollyImgs">
+        <img data-speed="0.8" src="new/hiking (3).webp" alt="Kiso trail views">
+        <img data-speed="0.9" src="new/tea (3).webp" alt="Magome tea moment">
+        <img data-speed="1" src="night star/starpic2.webp" alt="Stargazing night">
+        <img data-speed="1.1" src="new/food for customer.webp" alt="Guest dinner">
+        <img data-speed="0.9" src="yanagiya-1.webp" alt="Machiya lodge">
+        <img data-speed="1.2" src="new/yanagiya in automn.webp" alt="Autumn in Magome">
+        <img data-speed="0.8" src="new/tea tree samll.webp" alt="Tea garden">
+        <img data-speed="1" src="night star/nightstar2.webp" alt="Night sky">
+      </div>
+    </div>
 <div class="ig-follow reveal">
     <p>Follow the journey from Magome — new moments shared daily.</p>
     <a href="https://www.instagram.com/yanagiya_japanesetea/" target="_blank" rel="noopener" class="btn btn-insta">
@@ -3722,274 +3825,55 @@
     start();
   })();
 
-  /* ── TRAIL WEBGL: MOUNTAIN MIST DAY/NIGHT (scroll-synced) ── */
+  /* ── GSAP SCROLL SHOWCASE (logo spread + grid + parallax + pin) ── */
   (function () {
-    var canvas = document.getElementById('trailGl');
-    if (!canvas) return;
-    var gl = null;
-    try {
-      gl = canvas.getContext('webgl', { alpha: true, antialias: false, depth: false, stencil: false, preserveDrawingBuffer: false, powerPreference: 'high-performance' }) ||
-           canvas.getContext('experimental-webgl');
-    } catch (e) { gl = null; }
-    if (!gl) { canvas.style.display = 'none'; return; }
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
 
-    var vs = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.0,1.0);}';
-
-    var fs = [
-      'precision highp float;',
-      'uniform vec2 uR;uniform float uT,uS;',
-      '#define PI 3.14159265359',
-      'float sat(float x){return clamp(x,0.0,1.0);}',
-      'float sm(float x){x=sat(x);return x*x*x*(x*(x*6.0-15.0)+10.0);}',
-      'vec3 scol(vec3 a,vec3 b,vec3 c,vec3 d,vec3 e){',
-      '  int si=int(uS*4.0);float bl=fract(uS*4.0);',
-      '  vec3 x=a,y=b;',
-      '  if(si==1){x=b;y=c;}',
-      '  else if(si==2){x=c;y=d;}',
-      '  else if(si==3){x=d;y=e;}',
-      '  return mix(x,y,bl);',
-      '}',
-      'float sval(float a,float b,float c,float d,float e){',
-      '  int si=int(uS*4.0);float bl=fract(uS*4.0);',
-      '  float x=a,y=b;',
-      '  if(si==1){x=b;y=c;}',
-      '  else if(si==2){x=c;y=d;}',
-      '  else if(si==3){x=d;y=e;}',
-      '  return mix(x,y,bl);',
-      '}',
-      'mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}',
-      'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}',
-      'float noise(vec2 p){',
-      '  vec2 i=floor(p);vec2 f=fract(p);f=f*f*(3.0-2.0*f);',
-      '  float a=hash(i);float b=hash(i+vec2(1.,0.));float c=hash(i+vec2(0.,1.));float d=hash(i+vec2(1.,1.));',
-      '  return mix(mix(a,b,f.x),mix(c,d,f.x),f.y);',
-      '}',
-      'float mistH(vec2 p,float t,float amp,float storm){',
-      '  float h=0.0;',
-      '  vec2 s1=normalize(vec2(1.0,0.22));',
-      '  vec2 s2=normalize(vec2(-0.5,0.85));',
-      '  vec2 s3=normalize(vec2(0.78,-0.2));',
-      '  s2=rot(storm*0.16)*s2;s3=rot(-storm*0.12)*s3;',
-      '  h+=amp*0.62*sin(dot(p,s1)*0.40+t*0.30);',
-      '  h+=amp*0.24*sin(dot(p,s1)*0.9-t*0.55);',
-      '  h+=amp*0.15*sin(dot(p,s2)*1.2-t*0.72);',
-      '  h+=amp*0.10*sin(dot(p,s3)*1.8+t*0.95);',
-      '  h+=amp*(0.10+storm*0.05)*sin(p.x*1.4-t*0.66+p.y*0.6);',
-      '  h+=amp*(0.05+storm*0.04)*sin(p.x*2.7+t*0.9-p.y*0.5);',
-      '  float m=(noise(p*9.0+vec2(t*0.15,t*0.05))-0.5);',
-      '  h+=m*amp*(0.012+storm*0.006);',
-      '  return h;',
-      '}',
-      'vec3 mistNorm(vec2 p,float t,float amp,float storm){',
-      '  float e=0.02;',
-      '  float hL=mistH(p-vec2(e,0.),t,amp,storm);',
-      '  float hR=mistH(p+vec2(e,0.),t,amp,storm);',
-      '  float hD=mistH(p-vec2(0.,e),t,amp,storm);',
-      '  float hU=mistH(p+vec2(0.,e),t,amp,storm);',
-      '  return normalize(vec3(-(hR-hL)/(2.*e),1.,-(hU-hD)/(2.*e)));',
-      '}',
-      'float starField(vec2 uv){',
-      '  vec2 gv=floor(uv);vec2 lv=fract(uv)-0.5;',
-      '  float h=hash(gv);',
-      '  float size=mix(0.012,0.0025,h);',
-      '  float d=length(lv+vec2(hash(gv+3.1)-0.5,hash(gv+7.3)-0.5)*0.25);',
-      '  float star=smoothstep(size,0.0,d);',
-      '  star*=smoothstep(0.82,1.0,h);',
-      '  return star;',
-      '}',
-      'void main(){',
-      '  vec2 uv=(gl_FragCoord.xy-uR*0.5)/uR.y;',
-      '  float s=sm(uS);',
-      '  float camY=mix(1.12,1.01,s)+sin(s*PI*1.3)*0.03;',
-      '  float pitch=mix(0.11,0.085,s);',
-      '  vec3 ro=vec3(0.0,camY,0.0);',
-      '  vec3 rd=normalize(vec3(uv.x,uv.y-pitch,-1.4));',
-      '  float storm=smoothstep(0.82,1.0,s);',
-      '  float night=smoothstep(0.58,0.86,s);',
-      '  vec3 skyTop=scol(vec3(0.58,0.66,0.62),vec3(0.44,0.62,0.66),vec3(0.85,0.55,0.30),vec3(0.04,0.06,0.12),vec3(0.18,0.22,0.26));',
-      '  vec3 skyHori=scol(vec3(0.88,0.90,0.86),vec3(0.76,0.86,0.82),vec3(0.97,0.72,0.42),vec3(0.06,0.09,0.16),vec3(0.42,0.46,0.48));',
-      '  vec3 sunCol=scol(vec3(1.0,0.92,0.72),vec3(1.0,0.97,0.86),vec3(1.0,0.62,0.22),vec3(0.7,0.75,0.94),vec3(0.3,0.32,0.36));',
-      '  vec3 valleyDeep=scol(vec3(0.30,0.38,0.32),vec3(0.24,0.42,0.40),vec3(0.42,0.28,0.16),vec3(0.03,0.05,0.09),vec3(0.14,0.17,0.19));',
-      '  vec3 valleyShlo=scol(vec3(0.58,0.64,0.56),vec3(0.52,0.70,0.66),vec3(0.72,0.55,0.34),vec3(0.06,0.09,0.15),vec3(0.30,0.34,0.36));',
-      '  vec3 fogCol=scol(vec3(0.88,0.90,0.87),vec3(0.80,0.88,0.84),vec3(0.95,0.78,0.55),vec3(0.05,0.07,0.12),vec3(0.45,0.48,0.50));',
-      '  float sunP=clamp(s/0.6,0.0,1.0);',
-      '  float sunA=sunP*PI;',
-      '  vec3 sunDir=normalize(vec3(cos(sunA)*-0.75,sin(sunA)*0.38-0.06,-1.0));',
-      '  vec3 moonDir=normalize(vec3(-0.14,0.42,-1.0));',
-      '  float amp=sval(0.09,0.075,0.11,0.06,0.32)+storm*0.02;',
-      '  float fogDen=sval(0.026,0.014,0.028,0.040,0.05);',
-      '  float moonAmt=sval(0.0,0.0,0.05,0.92,0.07);',
-      '  float sunAbove=step(0.0,sunDir.y);',
-      '  float sunGlow=smoothstep(-0.10,0.06,sunDir.y);',
-      '  vec3 col;',
-      '  if(rd.y<0.0){',
-      '    float tFlat=ro.y/(-rd.y);',
-      '    float stepSize=tFlat/22.0;',
-      '    float t=stepSize;',
-      '    for(int i=0;i<22;i++){',
-      '      vec2 wpTest=ro.xz+rd.xz*t;',
-      '      if(ro.y+rd.y*t<mistH(wpTest,uT,amp,storm))break;',
-      '      t+=stepSize;',
-      '    }',
-      '    float ta=t-stepSize;float tb=t;',
-      '    for(int i=0;i<5;i++){',
-      '      float tm=(ta+tb)*0.5;',
-      '      vec2 wpm=ro.xz+rd.xz*tm;',
-      '      if(ro.y+rd.y*tm<mistH(wpm,uT,amp,storm))tb=tm;else ta=tm;',
-      '    }',
-      '    t=(ta+tb)*0.5;',
-      '    vec2 wp=ro.xz+rd.xz*t;',
-      '    vec3 n=mistNorm(wp,uT,amp,storm);',
-      '    vec3 vDir=-rd;',
-      '    float fres=pow(1.0-clamp(dot(n,vDir),0.0,1.0),4.0);',
-      '    vec3 refl=reflect(rd,n);',
-      '    float rh=clamp(refl.y,0.0,1.0);',
-      '    vec3 reflSky=mix(skyHori,skyTop,pow(rh,0.42));',
-      '    float rSun=max(dot(refl,sunDir),0.0);',
-      '    reflSky+=sunCol*pow(rSun,120.0)*2.0*sunGlow;',
-      '    reflSky+=sunCol*pow(rSun,18.0)*0.07*sunGlow;',
-      '    if(moonAmt>0.04){float rMoon=max(dot(refl,moonDir),0.0);reflSky+=vec3(0.72,0.80,0.95)*pow(rMoon,120.0)*0.78*moonAmt;}',
-      '    float depth=exp(-t*0.4);',
-      '    vec3 valleyC=mix(valleyDeep,valleyShlo,depth*0.5);',
-      '    col=mix(valleyC,reflSky,0.12+fres*0.3);',
-      '    float spec=pow(max(dot(reflect(-sunDir,n),vDir),0.0),200.0);',
-      '    col+=sunCol*spec*1.0*sunAbove;',
-      '    float sunLine=pow(max(dot(reflect(rd,n),sunDir),0.0),8.0);',
-      '    col+=sunCol*sunLine*0.45*smoothstep(0.0,0.35,-rd.y)*sunGlow;',
-      '    if(moonAmt>0.04){float mSpec=pow(max(dot(reflect(-moonDir,n),vDir),0.0),520.0);col+=vec3(0.72,0.80,0.95)*mSpec*0.09*moonAmt;}',
-      '    float hC=mistH(wp,uT,amp,storm);',
-      '    float hL=mistH(wp-vec2(0.025,0.),uT,amp,storm);',
-      '    float hR=mistH(wp+vec2(0.025,0.),uT,amp,storm);',
-      '    float hD=mistH(wp-vec2(0.,0.025),uT,amp,storm);',
-      '    float hU=mistH(wp+vec2(0.,0.025),uT,amp,storm);',
-      '    float curv=hR+hL+hU+hD-4.0*hC;',
-      '    float foam=clamp(curv*(20.0+storm*8.0),0.0,1.0);',
-      '    col+=fogCol*foam*(0.06+storm*0.10);',
-      '    float fog=1.0-exp(-t*fogDen*1.6);',
-      '    col=mix(col,fogCol,fog);',
-      '  }else{',
-      '    float h=clamp(rd.y,0.0,1.0);',
-      '    col=mix(skyHori,skyTop,pow(h,0.38));',
-      '    float cloudBand=noise(rd.x*5.5+vec2(rd.y*3.0,uT*0.012));',
-      '    float cloudBand2=noise(rd.x*8.0-vec2(rd.y*4.0,uT*0.008));',
-      '    float clouds=smoothstep(0.60,0.85,cloudBand*0.65+cloudBand2*0.35);',
-      '    clouds*=smoothstep(-0.02,0.24,rd.y);',
-      '    clouds*=0.08+storm*0.2;',
-      '    vec3 cloudCol=mix(vec3(1.0,0.96,0.86),vec3(0.45,0.5,0.55),storm);',
-      '    col=mix(col,mix(col*0.97,cloudCol,0.35),clouds);',
-      '    float sd=max(dot(rd,sunDir),0.0);',
-      '    col+=sunCol*pow(sd,380.0)*6.0*sunGlow;',
-      '    col+=sunCol*pow(sd,22.0)*0.18*sunGlow;',
-      '    float sunDisk=smoothstep(0.99925,0.99995,dot(rd,sunDir));',
-      '    col+=sunCol*sunDisk*2.4*sunGlow;',
-      '    float horizonBand=exp(-abs(rd.y)*24.0);',
-      '    col+=sunCol*horizonBand*0.10*sunGlow;',
-      '    if(moonAmt>0.04){',
-      '      float md=max(dot(rd,moonDir),0.0);',
-      '      col+=vec3(0.88,0.92,1.0)*pow(md,820.0)*7.0*moonAmt;',
-      '      col+=vec3(0.88,0.92,1.0)*pow(md,6.0)*0.04*moonAmt;',
-      '    }',
-      '    if(night>0.02){',
-      '      vec2 starUv=rd.xy/max(0.12,rd.z+1.6);',
-      '      starUv*=140.0;',
-      '      float stars=starField(starUv)+starField(starUv*0.55+11.7)*0.65;',
-      '      stars*=smoothstep(0.02,0.26,rd.y);',
-      '      stars*=(1.0-storm*0.85);',
-      '      col+=vec3(0.82,0.9,1.0)*stars*night*0.8;',
-      '    }',
-      '    float horizonMist=exp(-abs(rd.y)*mix(38.0,22.0,storm));',
-      '    col+=fogCol*horizonMist*(0.10+storm*0.10);',
-      '  }',
-      '  float grain=hash(gl_FragCoord.xy*0.5+floor(uT*12.0))-0.5;',
-      '  col+=grain*0.005;',
-      '  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);',
-      '}'
-    ].join('\n');
-
-    function mk(type, src) {
-      var sh = gl.createShader(type);
-      gl.shaderSource(sh, src);
-      gl.compileShader(sh);
-      if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) { console.error(gl.getShaderInfoLog(sh)); gl.deleteShader(sh); return null; }
-      return sh;
+    var letters = document.querySelectorAll('#expLogoLine .el-letter');
+    if (letters.length) {
+      var dist = gsap.utils.distribute({ base: -260, amount: 520 });
+      gsap.to(letters, {
+        x: dist, opacity: 0,
+        scrollTrigger: { trigger: '.exp-logo-section', scrub: 1, start: 'bottom 95%', end: 'bottom center' }
+      });
     }
-    var vert = mk(gl.VERTEX_SHADER, vs);
-    var frag = mk(gl.FRAGMENT_SHADER, fs);
-    if (!vert || !frag) { canvas.style.display = 'none'; return; }
-    var prog = gl.createProgram();
-    gl.attachShader(prog, vert);
-    gl.attachShader(prog, frag);
-    gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.error(gl.getProgramInfoLog(prog)); canvas.style.display = 'none'; return; }
-    gl.useProgram(prog);
 
-    var buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
-    var ap = gl.getAttribLocation(prog, 'a');
-    gl.enableVertexAttribArray(ap);
-    gl.vertexAttribPointer(ap, 2, gl.FLOAT, false, 0, 0);
+    var gridTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.exp-grid-section',
+        scrub: 1,
+        start: 'top center',
+        end: 'bottom+=10% bottom'
+      },
+      defaults: { ease: 'power1.inOut' }
+    });
+    gridTl.add('start')
+      .from('.exp-grid-layout', { ease: 'power1', scale: 3 }, 'start')
+      .from('.exp-column.column-1 .exp-grid-img', { duration: 0.6, xPercent: function (i) { return -((i + 1) * 40 + i * 100); }, yPercent: function (i) { return (i + 1) * 40 + i * 100; } }, 'start')
+      .from('.exp-column.column-3 .exp-grid-img', { duration: 0.6, xPercent: function (i) { return (i + 1) * 40 + i * 100; }, yPercent: function (i) { return (i + 1) * 40 + i * 100; } }, 'start');
 
-    var uR = gl.getUniformLocation(prog, 'uR');
-    var uTi = gl.getUniformLocation(prog, 'uT');
-    var uSc = gl.getUniformLocation(prog, 'uS');
+    gsap.from('.exp-parallax-section', {
+      scale: 1 / 3,
+      scrollTrigger: { trigger: '.exp-parallax-section', scrub: 1 }
+    });
 
-    var stage = canvas.parentElement;
-    var stageTop = 0, stageH = 1;
-    var targetS = 0, smoothS = 0;
-
-    function measure() {
-      var r = stage.getBoundingClientRect();
-      stageTop = r.top + window.scrollY;
-      stageH = r.height || 1;
-      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      var w = Math.max(1, Math.round(stage.clientWidth * dpr));
-      var h = Math.max(1, Math.round(stage.clientHeight * dpr));
-      if (canvas.width !== w || canvas.height !== h) {
-        canvas.width = w; canvas.height = h;
-        gl.viewport(0, 0, w, h);
-        gl.uniform2f(uR, w, h);
+    var pinTrack = document.querySelector('.exp-pin-track');
+    var pinTl = gsap.timeline({
+      scrollTrigger: {
+        pin: true,
+        trigger: '.exp-pin-section',
+        scrub: true,
+        start: 'top top',
+        end: function () { return '+=' + (pinTrack ? pinTrack.offsetWidth : 2000); },
+        invalidateOnRefresh: true
       }
-    }
-    function updateScroll() {
-      var vh = window.innerHeight;
-      /* 0 = stage enters viewport bottom, 1 = stage leaves viewport top */
-      var p = (window.scrollY + vh - stageTop) / (vh + stageH);
-      targetS = Math.min(1, Math.max(0, p));
-    }
-    measure();
-    updateScroll();
-    window.addEventListener('resize', function () { measure(); });
-    window.addEventListener('scroll', updateScroll, { passive: true });
-
-    var t0 = performance.now();
-    var running = true;
-    var visible = false;
-    if (typeof IntersectionObserver !== 'undefined') {
-      var io = new IntersectionObserver(function (entries) {
-        visible = entries[0].isIntersecting;
-      }, { threshold: 0 });
-      io.observe(stage);
-    } else { visible = true; }
-
-    function frame(now) {
-      if (running) requestAnimationFrame(frame);
-      if (!visible && !reduce) return;
-      smoothS += (targetS - smoothS) * 0.08;
-      if (reduce) smoothS = targetS;
-      gl.uniform1f(uTi, (now - t0) / 1000);
-      gl.uniform1f(uSc, smoothS);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-    }
-    if (reduce) {
-      updateScroll();
-      frame(performance.now());
-      running = false;
-    } else {
-      running = true;
-      requestAnimationFrame(frame);
-    }
+    });
+    pinTl.fromTo(pinTrack, { x: function () { return window.innerWidth * 0.9; } }, {
+      x: function () { return -(pinTrack.offsetWidth - window.innerWidth * 0.1); },
+      ease: 'none'
+    }, 0);
   })();
 
   /* ── MAGOME-JUKU KEN BURNS SLIDER ── */
@@ -4205,264 +4089,38 @@
     }
   })();
 
-  /* ── INSTAGRAM: INFINITE SPIRAL LOOP (Three.js, slow + scroll + drag) ── */
+  /* ── INSTAGRAM: SCROLLY IMAGES (parallax speeds + skew) ── */
   (function () {
-    var canvas = document.getElementById('igSpiral');
-    if (!canvas || typeof THREE === 'undefined') return;
-    var stage = canvas.parentElement;
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    var wrap = document.getElementById('igScrollyImgs');
+    if (!wrap) return;
+    var imgs = Array.prototype.slice.call(wrap.querySelectorAll('img'));
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    var imageUrls = [
-      'new/hiking (3).webp', 'new/tea (3).webp', 'night star/starpic2.webp',
-      'new/food for customer.webp', 'yanagiya-1.webp', 'new/yanagiya in automn.webp',
-      'new/tea tree samll.webp', 'night star/nightstar2.webp', 'new/hiking.webp',
-      'new/tea (2).webp', 'imghero.webp', 'new/tea.webp'
-    ];
-    var numberOfImages = imageUrls.length;
+    imgs.forEach(function (img) {
+      var speed = parseFloat(img.getAttribute('data-speed')) || 1;
+      gsap.fromTo(img, { y: -90 * speed }, {
+        y: 90 * speed,
+        ease: 'none',
+        scrollTrigger: { trigger: '.ig-scrolly-wrap', scrub: 1, start: 'top bottom', end: 'bottom top' }
+      });
+    });
 
-    var scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0b0d12);
-    var camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
-    camera.position.set(0, 3.5, 9);
-
-    var renderer;
-    try {
-      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false });
-    } catch (e) { return; }
-
-    var ambient = new THREE.AmbientLight(0xffffff, 0.6);
-    scene.add(ambient);
-    var mainLight = new THREE.DirectionalLight(0xffffff, 0.9);
-    mainLight.position.set(5, 8, 5);
-    scene.add(mainLight);
-
-    var tiltGroup = new THREE.Group();
-    var baseRotation = { x: -0.18, z: 0.12 };
-    tiltGroup.rotation.x = baseRotation.x;
-    tiltGroup.rotation.z = baseRotation.z;
-    scene.add(tiltGroup);
-
-    var shaderMaterial = null;
-    var spiralMesh = null;
-    var imageRatios = [];
-    var originalPositions = [];
-
-    var config = {
-      imageHeight: 7,
-      curvature: -0.030,
-      gapSize: 0,
-      spiralRadius: 3.5,
-      spiralTurns: 2.8 + (numberOfImages - 21) * 0.1,
-      spiralHeight: 12 + (numberOfImages - 21) * 0.25,
-      centerX: -2,
-      centerY: 4.38,
-      centerZ: 0
-    };
-
-    var scrollOffset = 0;      /* texture offset */
-    var drift = 0.0004;        /* slow base drift per frame */
+    if (reduce) return;
+    var skewSetter = gsap.quickTo(imgs, 'skewY');
+    var clamp = gsap.utils.clamp(-18, 18);
+    var lastY = window.scrollY || 0;
     var vel = 0;
-    var lastScrollY = window.scrollY || 0;
-    var isDragging = false;
-    var prevMouse = { x: 0, y: 0 };
-    var dragRotation = { x: 0, z: 0 };
-
-    function rebuildGeometry() {
-      if (!spiralMesh) return;
-      var totalSlots = imageRatios.length;
-      var widths = imageRatios.map(function (r) { return r * config.imageHeight; });
-      var totalWidth = widths.reduce(function (a, b) { return a + b; }, 0);
-      var segmentsW = 200 + totalSlots * 20;
-      var segmentsH = 24;
-      var geometry = new THREE.PlaneGeometry(totalWidth, config.imageHeight, segmentsW, segmentsH);
-      var positions = geometry.attributes.position;
-      var uvs = geometry.attributes.uv;
-
-      var origX = [], origY = [];
-      for (var i = 0; i < positions.count; i++) { origX.push(positions.getX(i)); origY.push(positions.getY(i)); }
-
-      var cumulative = [0];
-      for (var j = 0; j < totalSlots; j++) cumulative.push(cumulative[j] + widths[j] / totalWidth);
-      var imageRatio = 1 - config.gapSize;
-
-      for (i = 0; i < uvs.count; i++) {
-        var u = Math.max(0, Math.min(0.999999, uvs.getX(i)));
-        var found = false;
-        for (var k = 0; k < totalSlots; k++) {
-          if (u >= cumulative[k] && u < cumulative[k + 1]) {
-            var localU = (u - cumulative[k]) / (cumulative[k + 1] - cumulative[k]);
-            if (localU > imageRatio) { uvs.setX(i, cumulative[k + 1] - 0.001); }
-            else {
-              var scaledU = Math.max(0.001, Math.min(1 - 0.001, localU / imageRatio));
-              uvs.setX(i, cumulative[k] + scaledU * (cumulative[k + 1] - cumulative[k]));
-            }
-            found = true; break;
-          }
-        }
-        if (!found) uvs.setX(i, cumulative[totalSlots] - 0.001);
-      }
-
-      for (i = 0; i < positions.count; i++) {
-        var x = positions.getX(i);
-        var y = positions.getY(i);
-        var nx = x / (totalWidth / 2);
-        var curve = config.curvature * 0.4 * (nx * nx - 1);
-        positions.setXYZ(i, x, y, -curve);
-      }
-
-      for (i = 0; i < positions.count; i++) {
-        var ox = origX[i];
-        var oy = origY[i];
-        var t = Math.max(0, Math.min(1, (ox + totalWidth / 2) / totalWidth));
-        var angle = t * Math.PI * 2 * config.spiralTurns;
-        var radius = config.spiralRadius * (1 - t * 0.12);
-        var px = Math.sin(angle) * radius;
-        var pz = Math.cos(angle) * radius;
-        var py = (t - 0.5) * config.spiralHeight + oy * 0.35;
-        if (!originalPositions[i]) {
-          originalPositions[i] = {
-            x: px, y: py, z: pz,
-            offsetX: (Math.random() - 0.5) * 0.001,
-            offsetY: (Math.random() - 0.5) * 0.001,
-            offsetZ: (Math.random() - 0.5) * 0.001
-          };
-        }
-        positions.setXYZ(i, px + originalPositions[i].offsetX, py + originalPositions[i].offsetY, pz + originalPositions[i].offsetZ);
-      }
-      geometry.computeVertexNormals();
-      var oldGeo = spiralMesh.geometry;
-      spiralMesh.geometry = geometry;
-      if (oldGeo) oldGeo.dispose();
-      if (shaderMaterial) shaderMaterial.uniforms.gap.value = config.gapSize;
-    }
-
-    function createMasterTexture() {
-      return new Promise(function (resolve) {
-        var tc = document.createElement('canvas');
-        var ctx = tc.getContext('2d');
-        var baseHeight = 500;
-        var loaded = 0;
-        var images = [];
-        var ok = true;
-        imageUrls.forEach(function (url, idx) {
-          var img = new Image();
-          img.crossOrigin = 'anonymous';
-          img.onload = function () {
-            var ratio = img.naturalWidth / img.naturalHeight || 1;
-            imageRatios[idx] = ratio;
-            images[idx] = { img: img, width: baseHeight * ratio, height: baseHeight };
-            loaded++;
-            if (loaded === numberOfImages) finish();
-          };
-          img.onerror = function () {
-            imageRatios[idx] = 0.8;
-            loaded++;
-            if (loaded === numberOfImages) finish();
-          };
-          img.src = url;
-        });
-        function finish() {
-          if (!ok) return; ok = false;
-          var totalWidth = images.reduce(function (s, d) { return s + (d ? d.width : baseHeight * 0.8); }, 0) || baseHeight * numberOfImages;
-          tc.width = totalWidth; tc.height = baseHeight;
-          ctx.fillStyle = '#0b0d12'; ctx.fillRect(0, 0, tc.width, tc.height);
-          var offsetX = 0;
-          images.forEach(function (data) {
-            if (data && data.img) ctx.drawImage(data.img, offsetX, 0, data.width, data.height);
-            offsetX += data ? data.width : baseHeight * 0.8;
-          });
-          var tex = new THREE.CanvasTexture(tc);
-          tex.wrapS = THREE.RepeatWrapping;
-          tex.wrapT = THREE.ClampToEdgeWrapping;
-          tex.minFilter = THREE.LinearFilter;
-          tex.magFilter = THREE.LinearFilter;
-          tex.generateMipmaps = false;
-          resolve(tex);
-        }
-        /* fallback if images never load */
-        setTimeout(function () { if (loaded < numberOfImages) finish(); }, 6000);
-      });
-    }
-
-    createMasterTexture().then(function (texture) {
-      shaderMaterial = new THREE.ShaderMaterial({
-        uniforms: {
-          map: { value: texture },
-          gap: { value: config.gapSize },
-          offset: { value: 0.0 }
-        },
-        vertexShader: 'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
-        fragmentShader: 'uniform sampler2D map;uniform float gap;uniform float offset;varying vec2 vUv;void main(){float u=vUv.x+offset;if(u>=1.0)u-=1.0;if(u<0.0)u+=1.0;gl_FragColor=texture2D(map,vec2(u,vUv.y));}',
-        transparent: true,
-        side: THREE.DoubleSide
-      });
-      spiralMesh = new THREE.Mesh(new THREE.BufferGeometry(), shaderMaterial);
-      spiralMesh.position.set(config.centerX, config.centerY, config.centerZ);
-      spiralMesh.rotation.x = 0.35;
-      tiltGroup.add(spiralMesh);
-      rebuildGeometry();
-    });
-
-    function resize() {
-      var w = stage.clientWidth || 1;
-      var h = stage.clientHeight || 1;
-      renderer.setSize(w, h, false);
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    /* Slow base drift + scroll velocity */
     window.addEventListener('scroll', function () {
-      var dy = (window.scrollY || 0) - lastScrollY;
-      lastScrollY = window.scrollY || 0;
-      vel += dy * 0.0012;
+      var sy = window.scrollY || 0;
+      vel = sy - lastY;
+      lastY = sy;
     }, { passive: true });
-
-    /* Drag to tilt */
-    stage.addEventListener('mousedown', function (e) {
-      isDragging = true; prevMouse = { x: e.clientX, y: e.clientY };
-      stage.style.cursor = 'grabbing'; e.preventDefault();
+    gsap.ticker.add(function () {
+      if (Math.abs(vel) > 0.5) skewSetter(clamp(vel / -40));
+      else skewSetter(0);
     });
-    window.addEventListener('mousemove', function (e) {
-      if (!isDragging) return;
-      var dx = e.clientX - prevMouse.x, dy = e.clientY - prevMouse.y;
-      dragRotation.z += dx * 0.002;
-      dragRotation.x -= dy * 0.002;
-      dragRotation.x = Math.max(-0.35, Math.min(0.35, dragRotation.x));
-      dragRotation.z = Math.max(-0.35, Math.min(0.35, dragRotation.z));
-      tiltGroup.rotation.x = baseRotation.x + dragRotation.x;
-      tiltGroup.rotation.z = baseRotation.z + dragRotation.z;
-      prevMouse = { x: e.clientX, y: e.clientY };
-    });
-    window.addEventListener('mouseup', function () { isDragging = false; stage.style.cursor = 'grab'; });
-    stage.style.cursor = 'grab';
-
-    /* Only animate while the stage is on screen */
-    var visible = true;
-    if (typeof IntersectionObserver !== 'undefined') {
-      new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; }, { threshold: 0 }).observe(stage);
-    }
-
-    function frame() {
-      requestAnimationFrame(frame);
-      if (!visible || reduce) return;
-      vel *= 0.95;
-      scrollOffset += drift + vel;
-      while (scrollOffset >= 1) scrollOffset -= 1;
-      while (scrollOffset < 0) scrollOffset += 1;
-      if (shaderMaterial) shaderMaterial.uniforms.offset.value = scrollOffset;
-      if (renderer) renderer.render(scene, camera);
-    }
-    if (reduce) {
-      if (shaderMaterial) shaderMaterial.uniforms.offset.value = 0;
-      if (renderer) renderer.render(scene, camera);
-    } else {
-      requestAnimationFrame(frame);
-    }
   })();
-
   /* ── MEMORIES MARQUEE: SLOW DRIFT + SCROLL + DRAG ── */
   (function () {
     var track = document.getElementById('memoriesTrack');
