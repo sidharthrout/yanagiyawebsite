@@ -550,17 +550,23 @@
     .trail-photo-track{
       display:flex;gap:1rem;width:max-content;
       animation:trailScroll 35s linear infinite;
+      will-change:transform;
     }
     .trail-photo-track:hover{animation-play-state:paused}
     .trail-photo-item{
       flex-shrink:0;width:320px;height:220px;border-radius:12px;overflow:hidden;
       box-shadow:0 8px 28px rgba(0,0,0,.4);
+      will-change:transform;
     }
-    .trail-photo-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
-    .trail-photo-item:hover img{transform:scale(1.06)}
+    .trail-photo-item img{
+      width:100%;height:100%;object-fit:cover;
+      transition:transform .5s ease;
+      will-change:transform;
+    }
+    .trail-photo-item:hover img{transform:scale(1.06) translateZ(0)}
     @keyframes trailScroll{
-      0%{transform:translateX(0)}
-      100%{transform:translateX(-50%)}
+      0%{transform:translate3d(0,0,0)}
+      100%{transform:translate3d(-50%,0,0)}
     }
     @media(max-width:850px){
       .trail-cinematic-content{padding:4rem 6% 2.5rem}
@@ -1559,7 +1565,8 @@
       color:var(--gold-lt);margin-bottom:.9rem;text-transform:none;
       text-shadow:0 1px 12px rgba(0,0,0,.25);
     }
-    #foodTrack{cursor:grab;user-select:none;-webkit-user-select:none}
+    .infinity-track{will-change:transform;}
+    #foodTrack{cursor:grab;user-select:none;-webkit-user-select:none;will-change:transform;}
     #foodTrack.dragging{cursor:grabbing}
     #foodTrack .food-img-box:hover img{
       box-shadow:0 0 0 2px rgba(232,202,146,.55),0 0 44px rgba(232,202,146,.5);
@@ -2007,7 +2014,7 @@
 <!-- OUR STORY / ABOUT -->
 <section id="about">
   <div class="about-img-wrap reveal">
-    <img src="stay2.webp" alt="Traditional living room at Yanagiya with warm wooden beams" width="1448" height="1086" loading="lazy" />
+    <img src="stay2.webp" alt="Traditional living room at Yanagiya with warm wooden beams" width="1448" height="1086" loading="lazy" decoding="async" />
   </div>
   <div class="about-content reveal">
     <span class="section-label">Our Heritage</span>
@@ -2050,11 +2057,11 @@
     <article class="lodge-card reveal" style="transition-delay:.05s;">
       <div class="lodge-gallery-box" id="gallery1">
         <div class="lodge-badge">Yanagiya · 柳屋</div>
-        <div class="lodge-slide active"><img src="heroyanagiya.webp" alt="Yanagiya exterior daytime on the post road" width="1672" height="941" loading="lazy" /></div>
-        <div class="lodge-slide"><img src="yanagiya/yanagiya1.webp" alt="Yanagiya tatami room with futon bedding" loading="lazy" /></div>
-        <div class="lodge-slide"><img src="yanagiya/yanagiya7.webp" alt="Yanagiya nighttime entrance with illuminated sign" loading="lazy" /></div>
-        <div class="lodge-slide"><img src="604104124.webp" alt="Yanagiya daytime cafe shop front" loading="lazy" /></div>
-        <div class="lodge-slide"><img src="yanagiya/yanagiya2.webp" alt="Yanagiya modern bathroom &amp; washroom" loading="lazy" /></div>
+        <div class="lodge-slide active"><img src="heroyanagiya.webp" alt="Yanagiya exterior daytime on the post road" width="1672" height="941" loading="lazy" decoding="async" /></div>
+        <div class="lodge-slide"><img src="yanagiya/yanagiya1.webp" alt="Yanagiya tatami room with futon bedding" loading="lazy" decoding="async" /></div>
+        <div class="lodge-slide"><img src="yanagiya/yanagiya7.webp" alt="Yanagiya nighttime entrance with illuminated sign" loading="lazy" decoding="async" /></div>
+        <div class="lodge-slide"><img src="604104124.webp" alt="Yanagiya daytime cafe shop front" loading="lazy" decoding="async" /></div>
+        <div class="lodge-slide"><img src="yanagiya/yanagiya2.webp" alt="Yanagiya modern bathroom &amp; washroom" loading="lazy" decoding="async" /></div>
         <div class="lodge-dots" id="dots1"></div>
         <a href="yanagiya.html" class="lodge-cta">View Yanagiya &#8594;</a>
         <div class="lodge-nav-controls">
@@ -2088,13 +2095,13 @@
     <article class="lodge-card reveal" style="transition-delay:.18s;">
       <div class="lodge-gallery-box" id="gallery2">
         <div class="lodge-badge">Yanagiya Iri · 柳屋 伝</div>
-        <div class="lodge-slide active"><img src="imghero.webp" alt="Yanagiya Iri lodge amidst rice fields and forests" width="1920" height="814" loading="lazy" /></div>
-        <div class="lodge-slide"><img src="new/scenery from yanagiya iri.webp" alt="Stunning sunset over rice field paddies at Yanagiya Iri" loading="lazy" /></div>
-        <div class="lodge-slide"><img src="new/LINE_ALBUM_20260828_260828_33.webp" alt="Golden sunset reflected in rice terraces near Yanagiya Iri" loading="lazy" /></div>
-        <div class="lodge-slide"><img src="iri-1.webp" alt="Yanagiya Iri peaceful mountain surroundings" loading="lazy" /></div>
-        <div class="lodge-slide"><img src="stay1.webp" alt="Yanagiya Iri front entrance" loading="lazy" /></div>
-        <div class="lodge-slide"><img src="stay3.webp" alt="Yanagiya Iri peaceful bedroom" loading="lazy" /></div>
-        <div class="lodge-slide"><img src="iri.webp" alt="Yanagiya Iri scenic views" loading="lazy" /></div>
+        <div class="lodge-slide active"><img src="imghero.webp" alt="Yanagiya Iri lodge amidst rice fields and forests" width="1920" height="814" loading="lazy" decoding="async" /></div>
+        <div class="lodge-slide"><img src="new/scenery from yanagiya iri.webp" alt="Stunning sunset over rice field paddies at Yanagiya Iri" loading="lazy" decoding="async" /></div>
+        <div class="lodge-slide"><img src="new/LINE_ALBUM_20260828_260828_33.webp" alt="Golden sunset reflected in rice terraces near Yanagiya Iri" loading="lazy" decoding="async" /></div>
+        <div class="lodge-slide"><img src="iri-1.webp" alt="Yanagiya Iri peaceful mountain surroundings" loading="lazy" decoding="async" /></div>
+        <div class="lodge-slide"><img src="stay1.webp" alt="Yanagiya Iri front entrance" loading="lazy" decoding="async" /></div>
+        <div class="lodge-slide"><img src="stay3.webp" alt="Yanagiya Iri peaceful bedroom" loading="lazy" decoding="async" /></div>
+        <div class="lodge-slide"><img src="iri.webp" alt="Yanagiya Iri scenic views" loading="lazy" decoding="async" /></div>
         <div class="lodge-dots" id="dots2"></div>
         <a href="yanagiya-iri.html" class="lodge-cta">View Yanagiya Iri &#8594;</a>
         <div class="lodge-nav-controls">
@@ -2142,11 +2149,11 @@
 
   <div class="cal-tabs" role="tablist">
     <button class="cal-tab active" role="tab" aria-selected="true" onclick="switchCalendar('yanagiya', this)">
-      <span class="cal-thumb"><img src="heroyanagiya.webp" alt="" loading="lazy" /></span>
+      <span class="cal-thumb"><img src="heroyanagiya.webp" alt="" loading="lazy" decoding="async" /></span>
       <span class="cal-tab-txt"><b>Yanagiya</b><small>柳屋 · Main Machiya</small></span>
     </button>
     <button class="cal-tab" role="tab" aria-selected="false" onclick="switchCalendar('iri', this)">
-      <span class="cal-thumb"><img src="imghero.webp" alt="" loading="lazy" /></span>
+      <span class="cal-thumb"><img src="imghero.webp" alt="" loading="lazy" decoding="async" /></span>
       <span class="cal-tab-txt"><b>Yanagiya Iri</b><small>柳屋 伝 · Hillside Lodge</small></span>
     </button>
   </div>
@@ -2194,45 +2201,45 @@
   </div>
   <div class="marquee-edge" style="width: 100%; overflow: hidden;">
     <div class="infinity-track memories-track" id="memoriesTrack" style="display:flex; gap:4.5rem; width:max-content;">
-            <div class="food-img-box"><img src="with custoemr/customer_01.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_01.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_02.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_02.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_03.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_03.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_04.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_04.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_05.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_05.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_06.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_06.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_07.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_07.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_08.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_08.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_09.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_09.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_10.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_10.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_01.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_01.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_02.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_02.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_03.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_03.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_04.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_04.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_05.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_05.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_06.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_06.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_07.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_07.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_08.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_08.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_09.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_09.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="with custoemr/customer_10.webp" alt="Guest memory" loading="lazy"></div>
+            <div class="food-img-box"><img src="with custoemr/customer_10.webp" alt="Guest memory" loading="lazy" decoding="async"></div>
 
     </div>
   </div>
@@ -2251,77 +2258,77 @@
   </div>
   <div class="marquee-edge" style="width: 100%; overflow: hidden;">
     <div class="infinity-track" id="foodTrack" style="display:flex; gap:3.5rem; width:max-content;">
-            <div class="food-img-box"><img src="customer food/food_02.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_02.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_03.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_03.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_04.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_04.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_05.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_05.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_06.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_06.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_07.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_07.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_08.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_08.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_09.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_09.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_10.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_10.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_11.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_11.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_12.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_12.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_13.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_13.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_14.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_14.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_15.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_15.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_16.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_16.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_17.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_17.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_18.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_18.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_19.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_19.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_02.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_02.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_03.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_03.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_04.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_04.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_05.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_05.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_06.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_06.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_07.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_07.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_08.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_08.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_09.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_09.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_10.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_10.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_11.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_11.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_12.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_12.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_13.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_13.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_14.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_14.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_15.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_15.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_16.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_16.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_17.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_17.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_18.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_18.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
-            <div class="food-img-box"><img src="customer food/food_19.webp" alt="Local cuisine" loading="lazy"></div>
+            <div class="food-img-box"><img src="customer food/food_19.webp" alt="Local cuisine" loading="lazy" decoding="async"></div>
 
     </div>
   </div>
@@ -3017,23 +3024,23 @@
       <div class="exp-grid-layout">
         <div class="exp-column column-1" data-speed="1.1">
           <div class="exp-column-content">
-            <div class="exp-grid-img"><img src="new/hiking.webp" alt="Nakasendo hiking trail" loading="lazy"></div>
-            <div class="exp-grid-img"><img src="new/tea (3).webp" alt="Magome tea" loading="lazy"></div>
-            <div class="exp-grid-img"><img src="night star/starpic2.webp" alt="Stargazing in Magome" loading="lazy"></div>
+            <div class="exp-grid-img"><img src="new/hiking.webp" alt="Nakasendo hiking trail" loading="lazy" decoding="async"></div>
+            <div class="exp-grid-img"><img src="new/tea (3).webp" alt="Magome tea" loading="lazy" decoding="async"></div>
+            <div class="exp-grid-img"><img src="night star/starpic2.webp" alt="Stargazing in Magome" loading="lazy" decoding="async"></div>
           </div>
         </div>
         <div class="exp-column column-2" data-speed="1.01">
           <div class="exp-column-content">
-            <div class="exp-grid-img"><img src="new/hiking (2).webp" alt="Forest path on the Nakasendo" loading="lazy"></div>
-            <div class="exp-grid-img"><img src="new/food for customer.webp" alt="Guest dinner" loading="lazy"></div>
-            <div class="exp-grid-img"><img src="new/yanagiya in automn.webp" alt="Yanagiya in autumn" loading="lazy"></div>
+            <div class="exp-grid-img"><img src="new/hiking (2).webp" alt="Forest path on the Nakasendo" loading="lazy" decoding="async"></div>
+            <div class="exp-grid-img"><img src="new/food for customer.webp" alt="Guest dinner" loading="lazy" decoding="async"></div>
+            <div class="exp-grid-img"><img src="new/yanagiya in automn.webp" alt="Yanagiya in autumn" loading="lazy" decoding="async"></div>
           </div>
         </div>
         <div class="exp-column column-3" data-speed="1.1">
           <div class="exp-column-content">
-            <div class="exp-grid-img"><img src="new/hiking (3).webp" alt="Scenic Kiso mountain path" loading="lazy"></div>
-            <div class="exp-grid-img"><img src="yanagiya-1.webp" alt="Yanagiya machiya lodge" loading="lazy"></div>
-            <div class="exp-grid-img"><img src="new/scenery from yanagiya iri.webp" alt="Rice terrace sunset" loading="lazy"></div>
+            <div class="exp-grid-img"><img src="new/hiking (3).webp" alt="Scenic Kiso mountain path" loading="lazy" decoding="async"></div>
+            <div class="exp-grid-img"><img src="yanagiya-1.webp" alt="Yanagiya machiya lodge" loading="lazy" decoding="async"></div>
+            <div class="exp-grid-img"><img src="new/scenery from yanagiya iri.webp" alt="Rice terrace sunset" loading="lazy" decoding="async"></div>
           </div>
     </div>
 
@@ -3042,7 +3049,7 @@
   <!-- Cinematic Trail Section: Guided Adventure -->
   <div class="trail-cinematic reveal">
     <div class="trail-cinematic-bg">
-      <img src="new/hiking (3).webp" alt="Ancient Nakasendo trail through Kiso mountain forests" loading="lazy" />
+      <img src="new/hiking (3).webp" alt="Ancient Nakasendo trail through Kiso mountain forests" loading="lazy" decoding="async" />
     </div>
     <div class="trail-cinematic-overlay"></div>
 
@@ -3081,19 +3088,19 @@
     <!-- Auto-scrolling photo strip -->
     <div class="trail-photo-strip">
       <div class="trail-photo-track">
-        <div class="trail-photo-item"><img src="new/hiking.webp" alt="Nakasendo trail" loading="lazy" /></div>
-        <div class="trail-photo-item"><img src="new/hiking (2).webp" alt="Guided forest walk" loading="lazy" /></div>
-        <div class="trail-photo-item"><img src="new/hiking (3).webp" alt="Scenic Kiso mountain path" loading="lazy" /></div>
-        <div class="trail-photo-item"><img src="new/hiking (4).webp" alt="Ancient stone pathway" loading="lazy" /></div>
-        <div class="trail-photo-item"><img src="new/hiking (5).webp" alt="Historic post town trail" loading="lazy" /></div>
-        <div class="trail-photo-item"><img src="new/hikingpath.webp" alt="Forest hiking path" loading="lazy" /></div>
+        <div class="trail-photo-item"><img src="new/hiking.webp" alt="Nakasendo trail" loading="lazy" decoding="async" /></div>
+        <div class="trail-photo-item"><img src="new/hiking (2).webp" alt="Guided forest walk" loading="lazy" decoding="async" /></div>
+        <div class="trail-photo-item"><img src="new/hiking (3).webp" alt="Scenic Kiso mountain path" loading="lazy" decoding="async" /></div>
+        <div class="trail-photo-item"><img src="new/hiking (4).webp" alt="Ancient stone pathway" loading="lazy" decoding="async" /></div>
+        <div class="trail-photo-item"><img src="new/hiking (5).webp" alt="Historic post town trail" loading="lazy" decoding="async" /></div>
+        <div class="trail-photo-item"><img src="new/hikingpath.webp" alt="Forest hiking path" loading="lazy" decoding="async" /></div>
         <!-- Duplicated for seamless infinite scroll -->
-        <div class="trail-photo-item"><img src="new/hiking.webp" alt="Nakasendo trail" loading="lazy" /></div>
-        <div class="trail-photo-item"><img src="new/hiking (2).webp" alt="Guided forest walk" loading="lazy" /></div>
-        <div class="trail-photo-item"><img src="new/hiking (3).webp" alt="Scenic Kiso mountain path" loading="lazy" /></div>
-        <div class="trail-photo-item"><img src="new/hiking (4).webp" alt="Ancient stone pathway" loading="lazy" /></div>
-        <div class="trail-photo-item"><img src="new/hiking (5).webp" alt="Historic post town trail" loading="lazy" /></div>
-        <div class="trail-photo-item"><img src="new/hikingpath.webp" alt="Forest hiking path" loading="lazy" /></div>
+        <div class="trail-photo-item"><img src="new/hiking.webp" alt="Nakasendo trail" loading="lazy" decoding="async" /></div>
+        <div class="trail-photo-item"><img src="new/hiking (2).webp" alt="Guided forest walk" loading="lazy" decoding="async" /></div>
+        <div class="trail-photo-item"><img src="new/hiking (3).webp" alt="Scenic Kiso mountain path" loading="lazy" decoding="async" /></div>
+        <div class="trail-photo-item"><img src="new/hiking (4).webp" alt="Ancient stone pathway" loading="lazy" decoding="async" /></div>
+        <div class="trail-photo-item"><img src="new/hiking (5).webp" alt="Historic post town trail" loading="lazy" decoding="async" /></div>
+        <div class="trail-photo-item"><img src="new/hikingpath.webp" alt="Forest hiking path" loading="lazy" decoding="async" /></div>
       </div>
     </div>
   </div>
@@ -3111,14 +3118,14 @@
         <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.9 5.9 0 0 0-2.13 1.39A5.9 5.9 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.39 2.13a5.9 5.9 0 0 0 2.13 1.39c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.39 5.9 5.9 0 0 0 1.39-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.39-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0Zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84Zm0 10.15A4 4 0 1 1 16 12a4 4 0 0 1-4 3.99Zm6.41-11.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44Z"/></svg>
       </div>
       <div class="ig-scrolly-imgs" id="igScrollyImgs">
-        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/hiking (3).webp" alt="Kiso trail views" loading="lazy"></span></a>
-        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/tea (3).webp" alt="Magome tea moment" loading="lazy"></span></a>
-        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="night star/starpic2.webp" alt="Stargazing night" loading="lazy"></span></a>
-        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/food for customer.webp" alt="Guest dinner" loading="lazy"></span></a>
-        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="yanagiya-1.webp" alt="Machiya lodge" loading="lazy"></span></a>
-        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/yanagiya in automn.webp" alt="Autumn in Magome" loading="lazy"></span></a>
-        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/tea tree samll.webp" alt="Tea garden" loading="lazy"></span></a>
-        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="night star/nightstar2.webp" alt="Night sky" loading="lazy"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/hiking (3).webp" alt="Kiso trail views" loading="lazy" decoding="async"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/tea (3).webp" alt="Magome tea moment" loading="lazy" decoding="async"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="night star/starpic2.webp" alt="Stargazing night" loading="lazy" decoding="async"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/food for customer.webp" alt="Guest dinner" loading="lazy" decoding="async"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="yanagiya-1.webp" alt="Machiya lodge" loading="lazy" decoding="async"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/yanagiya in automn.webp" alt="Autumn in Magome" loading="lazy" decoding="async"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="new/tea tree samll.webp" alt="Tea garden" loading="lazy" decoding="async"></span></a>
+        <a class="ig-photo" href="#" aria-label="View larger"><span class="ig-frame"><img src="night star/nightstar2.webp" alt="Night sky" loading="lazy" decoding="async"></span></a>
       </div>
     </div>
 <div class="ig-follow reveal">
@@ -3216,16 +3223,16 @@
         <span>Magome Cha Gallery · 馬籠の日本茶</span>
       </div>
       <div class="boxes" id="teaBoxes">
-        <div class="box" style="--src:url('new/tea.webp')"><span class="box-title">煎茶 · Sencha</span><img src="new/tea.webp" alt="Magome sencha green tea" loading="lazy" /></div>
-        <div class="box" style="--src:url('new/tea set.webp')"><span class="box-title">茶器 · Tea Set</span><img src="new/tea set.webp" alt="Magome cha tea set" loading="lazy" /></div>
-        <div class="box" style="--src:url('new/tea (2).webp')"><span class="box-title">茶畑 · Tea Leaves</span><img src="new/tea (2).webp" alt="Fresh Magome tea leaves" loading="lazy" /></div>
-        <div class="box" style="--src:url('new/tea (3).webp')"><span class="box-title">煎茶 · Pouring</span><img src="new/tea (3).webp" alt="Pouring Magome cha" loading="lazy" /></div>
-        <div class="box" style="--src:url('new/tea and magome.webp')"><span class="box-title">馬籠と茶 · Magome &amp; Tea</span><img src="new/tea and magome.webp" alt="Magome street with tea" loading="lazy" /></div>
-        <div class="box" style="--src:url('new/tea (4).webp')"><span class="box-title">茶の湯 · Brewing</span><img src="new/tea (4).webp" alt="Brewing Magome cha" loading="lazy" /></div>
-        <div class="box" style="--src:url('new/tea (5).webp')"><span class="box-title">抹茶 · Matcha</span><img src="new/tea (5).webp" alt="Magome matcha" loading="lazy" /></div>
-        <div class="box" style="--src:url('new/tea1.webp')"><span class="box-title">一番茶 · First Flush</span><img src="new/tea1.webp" alt="First flush tea leaves" loading="lazy" /></div>
-        <div class="box" style="--src:url('new/tea set (2).webp')"><span class="box-title">茶会 · Tea Ceremony</span><img src="new/tea set (2).webp" alt="Magome cha ceremony set" loading="lazy" /></div>
-        <div class="box" style="--src:url('tea cup/all type of cup.webp')"><span class="box-title">茶碗 · Tea Cups</span><img src="tea cup/all type of cup.webp" alt="Traditional Japanese tea cups" loading="lazy" /></div>
+        <div class="box" style="--src:url('new/tea.webp')"><span class="box-title">煎茶 · Sencha</span><img src="new/tea.webp" alt="Magome sencha green tea" loading="lazy" decoding="async" /></div>
+        <div class="box" style="--src:url('new/tea set.webp')"><span class="box-title">茶器 · Tea Set</span><img src="new/tea set.webp" alt="Magome cha tea set" loading="lazy" decoding="async" /></div>
+        <div class="box" style="--src:url('new/tea (2).webp')"><span class="box-title">茶畑 · Tea Leaves</span><img src="new/tea (2).webp" alt="Fresh Magome tea leaves" loading="lazy" decoding="async" /></div>
+        <div class="box" style="--src:url('new/tea (3).webp')"><span class="box-title">煎茶 · Pouring</span><img src="new/tea (3).webp" alt="Pouring Magome cha" loading="lazy" decoding="async" /></div>
+        <div class="box" style="--src:url('new/tea and magome.webp')"><span class="box-title">馬籠と茶 · Magome &amp; Tea</span><img src="new/tea and magome.webp" alt="Magome street with tea" loading="lazy" decoding="async" /></div>
+        <div class="box" style="--src:url('new/tea (4).webp')"><span class="box-title">茶の湯 · Brewing</span><img src="new/tea (4).webp" alt="Brewing Magome cha" loading="lazy" decoding="async" /></div>
+        <div class="box" style="--src:url('new/tea (5).webp')"><span class="box-title">抹茶 · Matcha</span><img src="new/tea (5).webp" alt="Magome matcha" loading="lazy" decoding="async" /></div>
+        <div class="box" style="--src:url('new/tea1.webp')"><span class="box-title">一番茶 · First Flush</span><img src="new/tea1.webp" alt="First flush tea leaves" loading="lazy" decoding="async" /></div>
+        <div class="box" style="--src:url('new/tea set (2).webp')"><span class="box-title">茶会 · Tea Ceremony</span><img src="new/tea set (2).webp" alt="Magome cha ceremony set" loading="lazy" decoding="async" /></div>
+        <div class="box" style="--src:url('tea cup/all type of cup.webp')"><span class="box-title">茶碗 · Tea Cups</span><img src="tea cup/all type of cup.webp" alt="Traditional Japanese tea cups" loading="lazy" decoding="async" /></div>
       </div>
       <div class="controls">
         <button class="next" aria-label="Previous tea photo">
@@ -3275,7 +3282,7 @@
     <!-- Kenta Oba (with kenta san.webp) -->
     <article class="cool-team-card reveal">
       <div class="cool-team-img-wrap">
-        <img src="kenta-san.webp" alt="Kenta Oba - Founder &amp; Host" loading="lazy" />
+        <img src="kenta-san.webp" alt="Kenta Oba - Founder &amp; Host" loading="lazy" decoding="async" />
         <div class="cool-team-gradient"></div>
         <span class="cool-role-pill">Founder &amp; Host</span>
         <span class="cool-lang-pill">Japanese / English</span>
@@ -3297,7 +3304,7 @@
     <!-- Riho -->
     <article class="cool-team-card reveal">
       <div class="cool-team-img-wrap">
-        <img src="tea cup/teamimg1.webp" alt="Riho - Tea &amp; Local Guide" loading="lazy" />
+        <img src="tea cup/teamimg1.webp" alt="Riho - Tea &amp; Local Guide" loading="lazy" decoding="async" />
         <div class="cool-team-gradient"></div>
         <span class="cool-role-pill">Tea &amp; Local Guide</span>
         <span class="cool-lang-pill">Japanese / English</span>
@@ -3318,7 +3325,7 @@
     <!-- Yuji -->
     <article class="cool-team-card reveal">
       <div class="cool-team-img-wrap">
-        <img src="tea cup/teamimg2.webp" alt="Yuji - Host, Food &amp; Wine" loading="lazy" />
+        <img src="tea cup/teamimg2.webp" alt="Yuji - Host, Food &amp; Wine" loading="lazy" decoding="async" />
         <div class="cool-team-gradient"></div>
         <span class="cool-role-pill">Food, Wine &amp; Host</span>
         <span class="cool-lang-pill">Japanese / English / French</span>
@@ -3339,7 +3346,7 @@
     <!-- Eli -->
     <article class="cool-team-card reveal">
       <div class="cool-team-img-wrap">
-        <img src="starpic2.webp" alt="Eli - Stargazing &amp; Local Guide" loading="lazy" />
+        <img src="starpic2.webp" alt="Eli - Stargazing &amp; Local Guide" loading="lazy" decoding="async" />
         <div class="cool-team-gradient"></div>
         <span class="cool-role-pill">Stargazing Guide</span>
         <span class="cool-lang-pill">Japanese / English</span>
@@ -3396,7 +3403,7 @@
 <!-- GOOGLE MAP -->
 <section id="map-section" style="padding:0;">
   <div class="map-container">
-    <iframe class="map-iframe" title="Map to Yanagiya Guest House, Magome-juku" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+    <iframe class="map-iframe" title="Map to Yanagiya Guest House, Magome-juku" loading="lazy" decoding="async" referrerpolicy="no-referrer-when-downgrade"
       src="https://maps.google.com/maps?q=%E9%A6%AC%E7%B1%A0%204292%2C%20%E4%B8%AD%E6%B4%A5%E5%B7%9D%E5%B8%82%2C%20%E5%B2%90%E9%98%9C%E7%9C%8C%20508-0502%2C%20%E6%97%A5%E6%9C%AC&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
     <div class="map-overlay-text">
       <h3>&#127968; Yanagiya Guest House</h3>
@@ -3409,7 +3416,7 @@
 <!-- CONTACT & BOOKING -->
 <section id="contact">
   <div class="contact-hero-img reveal">
-    <img src="stay2.webp" alt="Yanagiya interior atmosphere" width="1448" height="1086" loading="lazy" />
+    <img src="stay2.webp" alt="Yanagiya interior atmosphere" width="1448" height="1086" loading="lazy" decoding="async" />
   </div>
   
   <div class="contact-box">
@@ -4604,7 +4611,7 @@
       arr.forEach(src => {
         const div = document.createElement('div');
         div.className = 'ds-gallery-slide';
-        div.innerHTML = '<img src="' + src + '" loading="lazy">';
+        div.innerHTML = '<img src="' + src + '" loading="lazy" decoding="async">';
         track.appendChild(div);
       });
       currentIdx = 0;
