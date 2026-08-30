@@ -73,6 +73,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <!-- Smooth Scroll Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -466,32 +468,33 @@
 
     /* ── NAKASENDO TRAIL & GUIDED ADVENTURES ── */
     #experiences{padding:6.5rem 6%;background:var(--card);position:relative;overflow:hidden}
-    .exp-header{text-align:center;margin-bottom:3.8rem}
-    
-    /* Mountain-mist WebGL stage behind the trail card */
-    .trail-gl-stage{
-      position:relative;height:clamp(300px,54vh,500px);border-radius:16px;
-      overflow:hidden;margin-bottom:3rem;
-      background:linear-gradient(180deg,#dbe7df 0%,#a8bfae 55%,#7d9c8c 100%);
-      box-shadow:0 14px 44px rgba(21,18,16,.14);
+    /* Full-section mountain-mist WebGL background */
+    #experiences .trail-gl{
+      position:absolute;inset:0;width:100%;height:100%;display:block;z-index:0;
     }
-    .trail-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
-    .trail-gl-label{
-      position:absolute;left:1.4rem;bottom:1.2rem;z-index:3;
-      font-family:'Noto Serif JP',serif;font-size:.72rem;letter-spacing:.35em;
-      color:rgba(255,255,255,.85);text-shadow:0 1px 10px rgba(0,0,0,.45);
-      background:rgba(21,18,16,.35);backdrop-filter:blur(6px);
-      padding:.4rem .9rem;border-radius:30px;border:1px solid rgba(255,255,255,.18);
+    .trail-bg-label{
+      position:absolute;top:1.6rem;left:6%;z-index:2;pointer-events:none;
+      font-family:'Noto Serif JP',serif;font-size:.7rem;letter-spacing:.4em;
+      color:rgba(255,255,255,.9);text-shadow:0 1px 12px rgba(0,0,0,.5);
+      background:rgba(21,18,16,.32);backdrop-filter:blur(6px);
+      padding:.45rem 1rem;border-radius:30px;border:1px solid rgba(255,255,255,.2);
     }
-    .exp-header,.trail-feature-card{position:relative;z-index:1}
+    .exp-header{text-align:center;margin-bottom:3.8rem;position:relative;z-index:1}
+    .exp-header .section-label,.exp-header .section-title,.exp-header .section-sub{
+      text-shadow:0 2px 16px rgba(0,0,0,.55);
+    }
+    .exp-header .section-title{color:var(--white)}
+    .exp-header .section-sub{color:rgba(255,255,255,.9)}
     
     /* Enhanced Trail Feature Card */
     .trail-feature-card{
-      background:var(--ink);color:var(--white);border-radius:8px;overflow:hidden;
-      display:grid;grid-template-columns:1.2fr 1fr;margin-bottom:3.5rem;
-      box-shadow:0 12px 40px rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.08);
+      background:rgba(21,18,16,.72);color:var(--white);border-radius:18px;overflow:hidden;
+      display:grid;grid-template-columns:1fr 1.25fr;margin-bottom:3.5rem;
+      box-shadow:0 18px 55px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+      position:relative;z-index:1;
     }
-    .trail-img-slider{position:relative;overflow:hidden;min-height:420px;background:#14100e}
+    .trail-img-slider{position:relative;overflow:hidden;min-height:440px;background:#14100e}
     /* Fan / rotate carousel slides */
     .trail-slide{
       position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
@@ -535,20 +538,22 @@
     .trail-img-slider:hover .trail-dot.active::after{animation-play-state:paused}
     @keyframes dotFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 
-    .trail-content{padding:3.5rem 4rem;display:flex;flex-direction:column;justify-content:center}
-    .trail-content .section-title{color:var(--white);font-size:clamp(1.9rem,3.2vw,2.8rem);margin-bottom:.6rem}
+    .trail-content{padding:2.6rem 2.8rem;display:flex;flex-direction:column;justify-content:center}
+    .trail-content .section-title{color:var(--white);font-size:clamp(1.45rem,2.4vw,2rem);margin-bottom:.5rem}
     .trail-quote{
-      font-size:1rem;line-height:1.85;color:rgba(255,255,255,.9);
-      border-left:2px solid var(--gold);padding-left:1.2rem;margin:1.2rem 0 1.6rem;
+      font-size:.86rem;line-height:1.75;color:rgba(255,255,255,.88);
+      border-left:2px solid var(--gold);padding-left:1rem;margin:1rem 0 1.3rem;
     }
     
     /* Warm Human-Touch DM Callout Box */
     .trail-dm-callout{
       background:rgba(255,255,255,.06);border:1px dashed rgba(232,202,146,.4);
-      padding:1.4rem;border-radius:6px;margin-bottom:1.8rem;
+      padding:1.1rem;border-radius:6px;margin-bottom:1.4rem;
     }
-    .trail-dm-callout p{font-size:.86rem;line-height:1.7;color:rgba(255,255,255,.85)}
+    .trail-dm-callout p{font-size:.8rem;line-height:1.65;color:rgba(255,255,255,.85)}
     .trail-dm-callout strong{color:var(--gold-lt);font-weight:600}
+    .exp-stats{margin:0 0 1.2rem}
+    .exp-stat b{font-size:1.05rem}
 
     /* ── INSTAGRAM GALLERY ── */
     #instagram{padding:6.5rem 6%;background:#faf8f4}
@@ -783,155 +788,102 @@
     .tea-bullet{width:7px;height:7px;border-radius:50%;background:var(--matcha-lt);flex-shrink:0}
     .tea-item-name{font-size:.88rem;color:rgba(255,255,255,.88)}
     .tea-item-sub{font-size:.72rem;color:rgba(255,255,255,.45);margin-left:auto}
-    /* ── MAGOME CHA: 3D CUBE GRID GALLERY ── */
-    .tea-cube-gallery{
-      --cube-size:clamp(46px,7.4vw,110px);
-      position:relative;display:grid;place-content:center;
-      min-height:600px;overflow:hidden;
+    /* ── MAGOME CHA: GSAP 3D ALBUM CAROUSEL ── */
+    .tea-album{
+      --min-size:150px;
+      position:relative;min-height:620px;overflow:hidden;
       background:
-        radial-gradient(120% 90% at 50% 0%,rgba(94,131,84,.14),transparent 60%),
+        radial-gradient(120% 90% at 50% 0%,rgba(94,131,84,.16),transparent 60%),
         #14100e;
     }
-    .tea-cube-gallery::before{
-      content:'';position:absolute;inset:-30%;z-index:0;pointer-events:none;
-      background:radial-gradient(circle at 50% 50%,rgba(232,202,146,.13),transparent 55%);
-      animation:cubeGlow 9s ease-in-out infinite alternate;
-    }
-    @keyframes cubeGlow{
-      from{transform:translate(-6%,-4%) scale(1)}
-      to{transform:translate(6%,4%) scale(1.12)}
-    }
-    .tea-cube-head{
-      position:absolute;top:1.4rem;left:1.4rem;z-index:6;
+    .tea-album-head{
+      position:absolute;top:1.4rem;left:1.4rem;z-index:40;
       display:flex;align-items:center;gap:.7rem;
       background:rgba(21,18,16,.6);backdrop-filter:blur(8px);
       color:rgba(255,255,255,.85);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
-      padding:.45rem .95rem;border-radius:2px;border:1px solid rgba(232,202,146,.3);
+      padding:.45rem .95rem;border-radius:30px;border:1px solid rgba(232,202,146,.3);
     }
-    .tea-cube-kanji{
+    .tea-album-kanji{
       font-family:'Noto Serif JP',serif;font-size:1rem;color:var(--gold-lt);letter-spacing:.1em;
     }
-    @media(max-width:900px){.tea-cube-gallery{--cube-size:70px}}
-    @media(max-width:600px){.tea-cube-gallery{--cube-size:54px}}
-    @media(max-width:420px){.tea-cube-gallery{--cube-size:46px}}
-
-    @property --cube-cols{syntax:'<number>';inherits:true;initial-value:1}
-    @property --cube-rows{syntax:'<number>';inherits:true;initial-value:1}
-    @property --cube-x{syntax:'<number>';inherits:true;initial-value:0}
-    @property --cube-y{syntax:'<number>';inherits:true;initial-value:0}
-    @property --cube-i{syntax:'<number>';inherits:true;initial-value:0}
-    @property --cube-l{syntax:'<number>';inherits:true;initial-value:1}
-    @property --cube-rx{syntax:'<angle>';inherits:true;initial-value:0deg}
-    @property --cube-ry{syntax:'<angle>';inherits:true;initial-value:0deg}
-    @property --cube-tz{syntax:'<length>';inherits:true;initial-value:0px}
-    @property --cube-intro-ry{syntax:'<angle>';inherits:true;initial-value:0deg}
-    @property --cube-intro-tz{syntax:'<length>';inherits:true;initial-value:0px}
-    @property --cube-nav-index{syntax:'<number>';inherits:true;initial-value:0}
-
-    .tea-cube-gallery__nav{
-      --btn:1.5rem;--dot:calc(var(--btn)*.5);--gap:.5rem;
-      position:absolute;left:50%;bottom:2rem;translate:-50% 0;
-      display:flex;gap:var(--gap);z-index:2;
-      --cube-count:30;--cube-dur:1400ms;--cube-delay:14ms;
-      --dot-total:calc(var(--cube-dur) + ((var(--cube-count) - 1) * var(--cube-delay)));
-      transition-property:--cube-nav-index;
-      transition-duration:var(--dot-total);
-      transition-timing-function:ease-in-out;
+    .tea-album .boxes{
+      height:620px;width:100%;overflow:hidden;position:relative;
+      transform-style:preserve-3d;perspective:800px;touch-action:none;
     }
-    .tea-cube-gallery__button{
-      position:relative;width:var(--btn);aspect-ratio:1;display:grid;place-items:center;
-      border:1px solid #fff;border-radius:var(--btn);
-      background-color:rgba(255,255,255,.44);backdrop-filter:blur(5px);
+    .tea-album .box{
+      transform-style:preserve-3d;position:absolute;top:50%;left:50%;
+      height:clamp(var(--min-size),24vmin,260px);width:clamp(var(--min-size),24vmin,260px);
+      min-height:var(--min-size);min-width:var(--min-size);display:none;
     }
-    .tea-cube-gallery__button:after{
-      content:'';width:var(--dot);aspect-ratio:1;border-radius:inherit;
-      background-color:rgba(0,0,0,0);scale:.25;pointer-events:none;
-      transition:background-color .25s ease-in-out,scale .25s ease-in-out;
+    .tea-album .box:after{
+      content:'';position:absolute;top:50%;left:50%;height:100%;width:100%;
+      background-image:var(--src);background-size:cover;
+      transform:translate(-50%,-50%) rotate(180deg) translate(0,-100%) translate(0,-0.5vmin);
+      opacity:.75;
     }
-    .tea-cube-gallery__button:has(input:checked):after{background-color:rgba(0,0,0,1);scale:1}
-    .tea-cube-gallery__button input{appearance:none;position:absolute;inset:0;cursor:pointer}
-    .tea-cube-gallery__button input:checked{cursor:initial}
-    .tea-cube-gallery__moving-dot{
-      position:absolute;width:var(--btn);aspect-ratio:1;border-radius:50%;
-      border:1px solid #000;outline:1px solid #000;box-shadow:0 0 4px 2px rgba(0,0,0,.25);
-      pointer-events:none;top:50%;left:0;will-change:translate;
-      translate:calc(var(--cube-nav-index) * (var(--btn) + var(--gap))) -50%;
+    .tea-album .box:before{
+      content:'';position:absolute;top:50%;left:50%;height:100%;width:100%;
+      background:linear-gradient(#14100e 50%,transparent);
+      transform:translate(-50%,-50%) rotate(180deg) translate(0,-100%) translate(0,-0.5vmin) scale(1.01);
+      z-index:2;
     }
-    .tea-cube-gallery__nav:has(.tea-cube-gallery__button:nth-child(1) input:checked){--cube-nav-index:0}
-    .tea-cube-gallery__nav:has(.tea-cube-gallery__button:nth-child(2) input:checked){--cube-nav-index:1}
-    .tea-cube-gallery__nav:has(.tea-cube-gallery__button:nth-child(3) input:checked){--cube-nav-index:2}
-    .tea-cube-gallery__nav:has(.tea-cube-gallery__button:nth-child(4) input:checked){--cube-nav-index:3}
-    .tea-cube-gallery__nav:has(.tea-cube-gallery__button:nth-child(5) input:checked){--cube-nav-index:4}
-    .tea-cube-gallery__nav:has(.tea-cube-gallery__button:nth-child(6) input:checked){--cube-nav-index:5}
-
-    .tea-cube-gallery:has(.tea-cube-gallery__button:nth-child(1) input:checked){--cube-rx:0deg;--cube-ry:0deg}
-    .tea-cube-gallery:has(.tea-cube-gallery__button:nth-child(2) input:checked){--cube-rx:0deg;--cube-ry:-90deg}
-    .tea-cube-gallery:has(.tea-cube-gallery__button:nth-child(3) input:checked){--cube-rx:0deg;--cube-ry:180deg}
-    .tea-cube-gallery:has(.tea-cube-gallery__button:nth-child(4) input:checked){--cube-rx:0deg;--cube-ry:90deg}
-    .tea-cube-gallery:has(.tea-cube-gallery__button:nth-child(5) input:checked){--cube-rx:90deg;--cube-ry:0deg}
-    .tea-cube-gallery:has(.tea-cube-gallery__button:nth-child(6) input:checked){--cube-rx:-90deg;--cube-ry:0deg}
-
-    .tea-cube-gallery__viewport{
-      perspective:900px;position:relative;z-index:1;transform-style:preserve-3d;
-      width:calc(var(--cube-cols,6) * var(--cube-size));
-      height:calc(var(--cube-rows,5) * var(--cube-size));
+    .tea-album .box img{position:absolute;height:100%;width:100%;top:0;left:0;object-fit:cover}
+    .tea-album .box-title{
+      position:absolute;top:-2.1rem;left:50%;transform:translateX(-50%);
+      z-index:6;white-space:nowrap;pointer-events:none;
+      font-family:'Cormorant Garamond',serif;font-style:italic;
+      font-size:1.05rem;letter-spacing:.12em;color:rgba(255,255,255,.75);
+      opacity:0;transition:opacity .5s ease,color .5s ease,text-shadow .5s ease;
     }
-    .tea-cube-gallery__stage{filter:drop-shadow(0 26px 40px rgba(0,0,0,.5))}
-    .tea-cube-gallery__cube{
-      --cube-dur:1400ms;--cube-delay:14ms;
-      --cube-step:var(--cube-size);
-      --cube-z-base:calc(var(--cube-size) * -.5);
-      --cube-z-factor:-7.5;
-      --cube-z-push:calc(var(--cube-z-base) * var(--cube-z-factor) * -1);
-      --cube-cx:calc((var(--cube-cols) - 1) * .5);
-      --cube-cy:calc((var(--cube-rows) - 1) * .5);
-      position:absolute;width:var(--cube-size);height:var(--cube-size);
-      transform-style:inherit;
-      transform:
-        translate(-50%,-50%)
-        translate3d(
-          calc((var(--cube-x) - var(--cube-cx)) * var(--cube-step)),
-          calc((var(--cube-y) - var(--cube-cy)) * var(--cube-step)),
-          calc(var(--cube-z-base) + var(--cube-tz) + var(--cube-intro-tz))
-        )
-        rotateY(var(--cube-intro-ry,0deg))
-        rotateX(var(--cube-rx,0deg))
-        rotateY(var(--cube-ry,0deg));
-      transition-property:--cube-rx,--cube-ry,--cube-tz;
-      transition-duration:var(--cube-dur);
-      transition-timing-function:ease-in-out;
-      transition-delay:calc(var(--cube-i) * var(--cube-delay));
-      will-change:--cube-rx,--cube-ry,--cube-tz;
-      animation-duration:var(--cube-dur);
-      animation-timing-function:ease-in-out;
-      animation-fill-mode:both;
-      animation-delay:calc(var(--cube-i) * var(--cube-delay));
+    .tea-album .box.is-front .box-title{
+      opacity:1;color:var(--gold-lt);
+      text-shadow:0 0 12px rgba(232,202,146,.95),0 0 30px rgba(232,202,146,.5);
     }
-    .tea-cube-gallery__cube > i{
-      --face-tz:calc(var(--cube-size) * .5);
-      position:absolute;inset:0;display:block;width:var(--cube-size);height:var(--cube-size);
-      background-repeat:no-repeat;
-      background-size:calc(var(--cube-cols) * var(--cube-size)) calc(var(--cube-rows) * var(--cube-size));
-      background-position:calc(var(--cube-x) * var(--cube-size) * -1) calc(var(--cube-y) * var(--cube-size) * -1);
+    .tea-album .box:nth-of-type(odd){background:#6d9a58}
+    .tea-album .box:nth-of-type(even){background:#46703c}
+    @supports(-webkit-box-reflect: below){
+      .tea-album .box{
+        -webkit-box-reflect:below 0.5vmin linear-gradient(transparent 0 50%,white 100%);
+      }
+      .tea-album .box:after,
+      .tea-album .box:before{display:none}
     }
-    .tea-cube-gallery__cube > i:nth-child(1){background-image:url('new/tea set.webp');transform:rotateX(90deg) translateZ(var(--face-tz))}
-    .tea-cube-gallery__cube > i:nth-child(2){background-image:url('new/tea.webp');transform:translateZ(var(--face-tz))}
-    .tea-cube-gallery__cube > i:nth-child(3){background-image:url('new/tea (2).webp');transform:rotateY(90deg) translateZ(var(--face-tz))}
-    .tea-cube-gallery__cube > i:nth-child(4){background-image:url('new/tea (3).webp');transform:rotateY(180deg) translateZ(var(--face-tz))}
-    .tea-cube-gallery__cube > i:nth-child(5){background-image:url('new/tea and magome.webp');transform:rotateY(-90deg) translateZ(var(--face-tz))}
-    .tea-cube-gallery__cube > i:nth-child(6){background-image:url('new/tea (4).webp');transform:rotateX(-90deg) translateZ(var(--face-tz))}
-
-    .tea-cube-gallery.is-ready .tea-cube-gallery__cube{animation-name:cube-intro}
-    .tea-cube-gallery:has(.tea-cube-gallery__nav:focus-within) .tea-cube-gallery__cube{--cube-tz:var(--cube-z-push)}
-
-    @keyframes cube-intro{
-      0%{--cube-intro-ry:-90deg;--cube-intro-tz:0px}
-      50%{--cube-intro-ry:-45deg;--cube-intro-tz:var(--cube-z-push)}
-      100%{--cube-intro-ry:0deg;--cube-intro-tz:0px}
+    .tea-album .controls{
+      position:absolute;top:calc(50% + clamp(var(--min-size),24vmin,260px));left:50%;
+      transform:translate(-50%,-50%);display:flex;justify-content:space-between;
+      min-width:var(--min-size);height:44px;width:24vmin;z-index:300;
     }
-    .tea-cube-gallery.no-has .tea-cube-gallery__nav{display:none}
-    @media (prefers-reduced-motion: reduce){
-      .tea-cube-gallery__cube{animation:none !important;transition-duration:.01s !important}
+    .tea-album .controls button{
+      height:46px;width:46px;border-radius:50%;position:absolute;top:0;outline:transparent;
+      cursor:pointer;background:none;appearance:none;border:0;transition:transform .1s;
+      transform:translate(0,var(--y,0));
+    }
+    .tea-album .controls button:before{
+      border:2px solid hsl(0,0%,90%);background:linear-gradient(hsla(0,0%,80%,.65),hsl(0,0%,0%)) hsl(0,0%,0%);
+      content:'';box-sizing:border-box;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+      height:80%;width:80%;border-radius:50%;
+    }
+    .tea-album .controls button:active:before{
+      background:linear-gradient(hsl(0,0%,0%),hsla(0,0%,80%,.65)) hsl(0,0%,0%);
+    }
+    .tea-album .controls button:nth-of-type(1){right:100%}
+    .tea-album .controls button:nth-of-type(2){left:100%}
+    .tea-album .controls button span{
+      position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+      clip:rect(0,0,0,0);white-space:nowrap;border-width:0;
+    }
+    .tea-album .controls button:hover{--y:-5%}
+    .tea-album .controls button svg{
+      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(0deg) translate(2%,0);
+      height:30%;fill:hsl(0,0%,90%);
+    }
+    .tea-album .controls button:nth-of-type(1) svg{transform:translate(-50%,-50%) rotate(180deg) translate(2%,0)}
+    .tea-album .drag-proxy{visibility:hidden;position:absolute}
+    @media(max-width:900px){.tea-album{--min-size:120px}.tea-album .boxes{height:520px}}
+    @media(prefers-reduced-motion:reduce){
+      .tea-album .box{display:none}
+      .tea-album .box:first-of-type{display:block;transform:translate(-50%,-50%)}
+      .tea-album .controls{display:none}
     }
 
     /* ── HERO TAGLINE ── */
@@ -1084,7 +1036,7 @@
       .about-content{padding:4rem 6%}
       .lodges-grid{grid-template-columns:1fr}
       .tea-layout{grid-template-columns:1fr}
-      .tea-cube-gallery{min-height:auto;padding:4.5rem 1.5rem 6.5rem}
+      .tea-album{min-height:auto;padding:4.5rem 1.5rem 6.5rem}
       .tea-text{padding:4rem 6%}
       .kb-slider-container{height:65vh;min-height:480px}
       .kb-floating-card{left:4%;right:4%;top:auto;bottom:1.2rem;transform:none;padding:1.6rem 1.4rem}
@@ -2526,6 +2478,10 @@
 
 <!-- EXPERIENCES & NAKASENDO TRAIL SECTION -->
 <section id="experiences">
+  <!-- Full-section mountain-mist WebGL background (scroll-synced) -->
+  <canvas id="trailGl" class="trail-gl" aria-hidden="true"></canvas>
+  <span class="trail-bg-label">木曽路 &middot; Kiso Valley Mist</span>
+
   <div class="exp-header reveal">
     <span class="section-label">Authentic Local Life</span>
     <h2 class="section-title">Magome Experiences &amp; Guided Walks</h2>
@@ -2533,32 +2489,12 @@
     <p class="section-sub" style="margin:0 auto;text-align:center;">Discover the living culture, ancient trade routes, stargazing skies, and culinary traditions of the Kiso Valley.</p>
   </div>
 
-  <!-- Mountain-mist WebGL backdrop (scroll-synced day/night over the Kiso valley) -->
-  <div class="trail-gl-stage" aria-hidden="true">
-    <canvas id="trailGl" class="trail-gl"></canvas>
-    <span class="trail-gl-label">木曽路 &middot; Kiso Valley Mist</span>
-  </div>
-
-  <!-- Featured Nakasendo Trail Card with Hiking Slider & Warm Instagram DM Booking -->
+  <!-- Featured Nakasendo Trail Card: text left, image scroll right -->
   <div class="trail-feature-card reveal">
-    <div class="trail-img-slider" id="trailSlider">
-      <div class="trail-slider-badge">&#127957; Guided Hiking Tour</div>
-      <div class="trail-counter"><b id="trailCount">1</b> / 7</div>
-      <button class="trail-arrow trail-prev" id="trailPrev" aria-label="Previous hiking photo">&#8249;</button>
-      <button class="trail-arrow trail-next" id="trailNext" aria-label="Next hiking photo">&#8250;</button>
-      <div class="trail-slide active"><img src="new/hiking.webp" alt="Beautiful hiking trail on the Nakasendo" loading="lazy" /></div>
-      <div class="trail-slide"><img src="new/hiking (2).webp" alt="Guided walk on the Nakasendo trail" loading="lazy" /></div>
-      <div class="trail-slide"><img src="new/hiking (3).webp" alt="Scenic hiking path through Kiso mountains" loading="lazy" /></div>
-      <div class="trail-slide"><img src="new/hiking (4).webp" alt="Exploring ancient stone pathways" loading="lazy" /></div>
-      <div class="trail-slide"><img src="new/hiking (5).webp" alt="Discovering historic post towns along the trail" loading="lazy" /></div>
-      <div class="trail-slide"><img src="new/hiking (6).webp" alt="A relaxing hike in the Magome area" loading="lazy" /></div>
-      <div class="trail-slide"><img src="new/hiking path.webp" alt="Lush green hiking trail in nature" loading="lazy" /></div>
-      <div class="trail-dots" id="trailDots"></div>
-    </div>
     <div class="trail-content">
       <span class="section-label" style="color:var(--gold-lt);">Guided Adventure</span>
       <h3 class="section-title">Walk the Ancient Nakasendo Trail</h3>
-      <div class="divider" style="margin:.8rem 0 1.2rem;"></div>
+      <div class="divider" style="margin:.7rem 0 1rem;"></div>
       <p class="trail-quote">
         "Follow in the footsteps of travelers who walked the Nakasendo centuries ago. Starting from historic Magome, journey along old stone paths, through forests and quiet mountain villages with a local guide who brings the stories and landscapes of the trail to life."
       </p>
@@ -2585,6 +2521,20 @@
           View Photos on IG
         </a>
       </div>
+    </div>
+    <div class="trail-img-slider" id="trailSlider">
+      <div class="trail-slider-badge">&#127957; Guided Hiking Tour</div>
+      <div class="trail-counter"><b id="trailCount">1</b> / 7</div>
+      <button class="trail-arrow trail-prev" id="trailPrev" aria-label="Previous hiking photo">&#8249;</button>
+      <button class="trail-arrow trail-next" id="trailNext" aria-label="Next hiking photo">&#8250;</button>
+      <div class="trail-slide active"><img src="new/hiking.webp" alt="Beautiful hiking trail on the Nakasendo" loading="lazy" /></div>
+      <div class="trail-slide"><img src="new/hiking (2).webp" alt="Guided walk on the Nakasendo trail" loading="lazy" /></div>
+      <div class="trail-slide"><img src="new/hiking (3).webp" alt="Scenic hiking path through Kiso mountains" loading="lazy" /></div>
+      <div class="trail-slide"><img src="new/hiking (4).webp" alt="Exploring ancient stone pathways" loading="lazy" /></div>
+      <div class="trail-slide"><img src="new/hiking (5).webp" alt="Discovering historic post towns along the trail" loading="lazy" /></div>
+      <div class="trail-slide"><img src="new/hiking (6).webp" alt="A relaxing hike in the Magome area" loading="lazy" /></div>
+      <div class="trail-slide"><img src="new/hiking path.webp" alt="Lush green hiking trail in nature" loading="lazy" /></div>
+      <div class="trail-dots" id="trailDots"></div>
     </div>
   </div>
 
@@ -2742,54 +2692,34 @@
       </div>
     </div>
     
-    <div class="tea-cube-gallery" id="teaCubeGallery">
-      <div class="tea-cube-head">
-        <span class="tea-cube-kanji">茶</span>
+    <div class="tea-album" id="teaAlbum">
+      <div class="tea-album-head">
+        <span class="tea-album-kanji">茶</span>
         <span>Magome Cha Gallery · 馬籠の日本茶</span>
       </div>
-      <nav class="tea-cube-gallery__nav" aria-label="Magome Cha gallery views">
-        <span class="tea-cube-gallery__button"><input type="radio" aria-label="View 1 · Magome tea" name="tea-face" id="tea-face-1" checked></span>
-        <span class="tea-cube-gallery__button"><input type="radio" aria-label="View 2 · Tea leaves" name="tea-face" id="tea-face-2"></span>
-        <span class="tea-cube-gallery__button"><input type="radio" aria-label="View 3 · Pouring" name="tea-face" id="tea-face-3"></span>
-        <span class="tea-cube-gallery__button"><input type="radio" aria-label="View 4 · Brewing" name="tea-face" id="tea-face-4"></span>
-        <span class="tea-cube-gallery__button"><input type="radio" aria-label="View 5 · Tea and Magome" name="tea-face" id="tea-face-5"></span>
-        <span class="tea-cube-gallery__button"><input type="radio" aria-label="View 6 · Tea set" name="tea-face" id="tea-face-6"></span>
-        <i class="tea-cube-gallery__moving-dot" aria-hidden="true"></i>
-      </nav>
-      <div class="tea-cube-gallery__stage">
-      <div class="tea-cube-gallery__viewport">
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="boxes" id="teaBoxes">
+        <div class="box" style="--src:url('new/tea.webp')"><span class="box-title">煎茶 · Sencha</span><img src="new/tea.webp" alt="Magome sencha green tea" loading="lazy" /></div>
+        <div class="box" style="--src:url('new/tea set.webp')"><span class="box-title">茶器 · Tea Set</span><img src="new/tea set.webp" alt="Magome cha tea set" loading="lazy" /></div>
+        <div class="box" style="--src:url('new/tea (2).webp')"><span class="box-title">茶畑 · Tea Leaves</span><img src="new/tea (2).webp" alt="Fresh Magome tea leaves" loading="lazy" /></div>
+        <div class="box" style="--src:url('new/tea (3).webp')"><span class="box-title">煎茶 · Pouring</span><img src="new/tea (3).webp" alt="Pouring Magome cha" loading="lazy" /></div>
+        <div class="box" style="--src:url('new/tea and magome.webp')"><span class="box-title">馬籠と茶 · Magome &amp; Tea</span><img src="new/tea and magome.webp" alt="Magome street with tea" loading="lazy" /></div>
+        <div class="box" style="--src:url('new/tea (4).webp')"><span class="box-title">茶の湯 · Brewing</span><img src="new/tea (4).webp" alt="Brewing Magome cha" loading="lazy" /></div>
+        <div class="box" style="--src:url('new/tea (5).webp')"><span class="box-title">抹茶 · Matcha</span><img src="new/tea (5).webp" alt="Magome matcha" loading="lazy" /></div>
+        <div class="box" style="--src:url('new/tea1.webp')"><span class="box-title">一番茶 · First Flush</span><img src="new/tea1.webp" alt="First flush tea leaves" loading="lazy" /></div>
+        <div class="box" style="--src:url('new/tea set (2).webp')"><span class="box-title">茶会 · Tea Ceremony</span><img src="new/tea set (2).webp" alt="Magome cha ceremony set" loading="lazy" /></div>
+        <div class="box" style="--src:url('tea cup/all type of cup.webp')"><span class="box-title">茶碗 · Tea Cups</span><img src="tea cup/all type of cup.webp" alt="Traditional Japanese tea cups" loading="lazy" /></div>
       </div>
+      <div class="controls">
+        <button class="next" aria-label="Previous tea photo">
+          <span>Previous album</span>
+          <svg viewBox="0 0 448 512" width="100" title="Previous Album"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"/></svg>
+        </button>
+        <button class="prev" aria-label="Next tea photo">
+          <span>Next album</span>
+          <svg viewBox="0 0 448 512" width="100" title="Next Album"><path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"/></svg>
+        </button>
       </div>
+      <div class="drag-proxy"></div>
     </div>
   </div>
 </section>
@@ -3114,7 +3044,7 @@
     const barEl = document.getElementById('plBar');
     const progEl = pre.querySelector('.pl-prog');
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const RUN = 800, MIN_TOTAL = 1000;
+    const RUN = 1500, MIN_TOTAL = 2400;
     const start = performance.now();
     let finished = false;
 
@@ -3162,7 +3092,7 @@
       window.addEventListener('load', () => {
         setTimeout(finish, Math.max(0, MIN_TOTAL - (performance.now() - start)));
       }, { once: true });
-      setTimeout(finish, 2200);
+      setTimeout(finish, 3600);
     }
   })();
 
@@ -3757,37 +3687,138 @@
   setupLodgeGallery('gallery1', 'dots1');
   setupLodgeGallery('gallery2', 'dots2');
 
-  /* ── MAGOME CHA: 3D CUBE GRID GALLERY ── */
+  /* ── MAGOME CHA: GSAP 3D ALBUM CAROUSEL (scroll + drag + buttons) ── */
   (function () {
-    var gallery = document.querySelector('.tea-cube-gallery');
-    if (!gallery) return;
-    var cubes = gallery.querySelectorAll('.tea-cube-gallery__cube');
-    var n = cubes.length;
-    if (n === 0) return;
-    var cols = Math.ceil(Math.sqrt(n));
-    var rows = Math.ceil(n / cols);
-    gallery.style.setProperty('--cube-cols', cols);
-    gallery.style.setProperty('--cube-rows', rows);
-    var nav = gallery.querySelector('.tea-cube-gallery__nav');
-    if (nav) nav.style.setProperty('--cube-count', n);
-    for (var i = 0; i < n; i++) {
-      cubes[i].style.setProperty('--cube-i', i);
-      cubes[i].style.setProperty('--cube-x', i % cols);
-      cubes[i].style.setProperty('--cube-y', Math.floor(i / cols));
-      cubes[i].style.setProperty('--cube-l', n);
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    var album = document.getElementById('teaAlbum');
+    if (!album) return;
+    var boxesEl = album.querySelector('.boxes');
+    var boxes = album.querySelectorAll('.box');
+    if (!boxes.length) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    gsap.set(boxes, { yPercent: -50 });
+    gsap.set(boxes, { display: 'block' });
+
+    var STAGGER = 0.12, DURATION = 1, OFFSET = 0;
+    var BOXES = gsap.utils.toArray(boxes);
+
+    var LOOP = gsap.timeline({ paused: true, repeat: -1, ease: 'none' });
+    var SHIFTS = BOXES.concat(BOXES, BOXES);
+
+    SHIFTS.forEach(function (BOX, index) {
+      var BOX_TL = gsap.timeline()
+        .set(BOX, { xPercent: 250, rotateY: -50, opacity: 0, scale: 0.5 })
+        .to(BOX, { opacity: 1, scale: 1, duration: 0.1 }, 0)
+        .to(BOX, { opacity: 0, scale: 0.5, duration: 0.1 }, 0.9)
+        .fromTo(BOX, { xPercent: 250 }, { xPercent: -350, duration: 1, immediateRender: false, ease: 'power1.inOut' }, 0)
+        .fromTo(BOX, { rotateY: -50 }, { rotateY: 50, immediateRender: false, duration: 1, ease: 'power4.inOut' }, 0)
+        .to(BOX, { z: 100, scale: 1.25, duration: 0.1, repeat: 1, yoyo: true }, 0.4)
+        .fromTo(BOX, { zIndex: 1 }, { zIndex: BOXES.length, repeat: 1, yoyo: true, ease: 'none', duration: 0.5, immediateRender: false }, 0);
+      LOOP.add(BOX_TL, index * STAGGER);
+    });
+
+    var CYCLE_DURATION = STAGGER * BOXES.length;
+    var START_TIME = CYCLE_DURATION + DURATION * 0.5 + OFFSET;
+
+    var LOOP_HEAD = gsap.fromTo(LOOP, { totalTime: START_TIME }, {
+      totalTime: '+=' + CYCLE_DURATION, duration: 1, ease: 'none', repeat: -1, paused: true
+    });
+
+    var PLAYHEAD = { position: 0 };
+    var POSITION_WRAP = gsap.utils.wrap(0, LOOP_HEAD.duration());
+
+    var SCRUB = gsap.to(PLAYHEAD, {
+      position: 0,
+      onUpdate: function () {
+        LOOP_HEAD.totalTime(POSITION_WRAP(PLAYHEAD.position));
+        /* glow the caption of whichever box is at the front */
+        var current = Math.round(POSITION_WRAP(PLAYHEAD.position) / LOOP_HEAD.duration() * BOXES.length) % BOXES.length;
+        BOXES.forEach(function (b, i) { b.classList.toggle('is-front', i === current); });
+      },
+      paused: true, duration: 0.25, ease: 'power3'
+    });
+
+    var iteration = 0;
+    var TRIGGER = ScrollTrigger.create({
+      trigger: album,
+      start: 'top bottom',
+      end: '+=2400',
+      pin: boxesEl,
+      onUpdate: function (self) {
+        var SCROLL = self.scroll();
+        if (SCROLL > self.end - 1) { WRAP(1, 1); }
+        else if (SCROLL < 1 && self.direction < 0) { WRAP(-1, self.end - 1); }
+        else {
+          var NEW_POS = (iteration + self.progress) * LOOP_HEAD.duration();
+          SCRUB.vars.position = NEW_POS;
+          SCRUB.invalidate().restart();
+        }
+      }
+    });
+
+    function WRAP(iterationDelta, scrollTo) {
+      iteration += iterationDelta;
+      TRIGGER.scroll(scrollTo);
+      TRIGGER.update();
     }
-    /* Size cubes to actually fill the gallery column (no clipping), capped for looks */
-    function fitCubes() {
-      var w = gallery.clientWidth || 0;
-      var size = Math.max(44, Math.min(120, Math.floor((w - 16) / cols)));
-      gallery.style.setProperty('--cube-size', size + 'px');
+
+    var SNAP = gsap.utils.snap(1 / BOXES.length);
+    function progressToScroll(progress) {
+      return gsap.utils.clamp(1, TRIGGER.end - 1, gsap.utils.wrap(0, 1, progress) * TRIGGER.end);
     }
-    fitCubes();
-    window.addEventListener('resize', fitCubes);
-    if (window.CSS && CSS.supports && !CSS.supports('selector(:has(*))')) {
-      gallery.classList.add('no-has');
+    function scrollToPosition(position) {
+      var SNAP_POS = SNAP(position);
+      var PROGRESS = (SNAP_POS - LOOP_HEAD.duration() * iteration) / LOOP_HEAD.duration();
+      var SCROLL = progressToScroll(PROGRESS);
+      if (PROGRESS >= 1 || PROGRESS < 0) return WRAP(Math.floor(PROGRESS), SCROLL);
+      TRIGGER.scroll(SCROLL);
     }
-    requestAnimationFrame(function () { gallery.classList.add('is-ready'); });
+    if (typeof ScrollTrigger.addEventListener === 'function') {
+      ScrollTrigger.addEventListener('scrollEnd', function () { scrollToPosition(SCRUB.vars.position); });
+    }
+
+    function NEXT() { scrollToPosition(SCRUB.vars.position - 1 / BOXES.length); }
+    function PREV() { scrollToPosition(SCRUB.vars.position + 1 / BOXES.length); }
+
+    document.addEventListener('keydown', function (event) {
+      if (event.code === 'ArrowLeft' || event.code === 'KeyA') NEXT();
+      if (event.code === 'ArrowRight' || event.code === 'KeyD') PREV();
+    });
+
+    boxesEl.addEventListener('click', function (e) {
+      var BOX = e.target.closest('.box');
+      if (!BOX) return;
+      var TARGET = BOXES.indexOf(BOX);
+      var CURRENT = gsap.utils.wrap(0, BOXES.length, Math.floor(BOXES.length * SCRUB.vars.position));
+      var BUMP = TARGET - CURRENT;
+      if (TARGET > CURRENT && TARGET - CURRENT > BOXES.length * 0.5) BUMP = (BOXES.length - BUMP) * -1;
+      if (CURRENT > TARGET && CURRENT - TARGET > BOXES.length * 0.5) BUMP = BOXES.length + BUMP;
+      scrollToPosition(SCRUB.vars.position + BUMP * (1 / BOXES.length));
+    });
+
+    album.querySelector('.next').addEventListener('click', NEXT);
+    album.querySelector('.prev').addEventListener('click', PREV);
+
+    if (typeof Draggable !== 'undefined') {
+      Draggable.create(album.querySelector('.drag-proxy'), {
+        type: 'x',
+        trigger: '.tea-album .box',
+        onPress: function () { this.startOffset = SCRUB.vars.position; },
+        onDrag: function () {
+          SCRUB.vars.position = this.startOffset + (this.startX - this.x) * 0.001;
+          SCRUB.invalidate().restart();
+        },
+        onDragEnd: function () { scrollToPosition(SCRUB.vars.position); }
+      });
+    }
+
+    if (reduce) {
+      ScrollTrigger.getAll().forEach(function (st) { st.kill(); });
+      gsap.set(boxes, { clearProps: 'all' });
+      boxes[0].style.display = 'block';
+      boxes[0].classList.add('is-front');
+    }
   })();
 
   /* ── MEMORIES MARQUEE: SLOW DRIFT + SCROLL + DRAG ── */
@@ -3795,7 +3826,7 @@
     var track = document.getElementById('memoriesTrack');
     if (!track) return;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var x = 0, vel = 0, base = 0.12; /* very slow base drift px/frame */
+    var x = 0, vel = 0, base = 0.05; /* very slow base drift px/frame */
     var half = 0;
     function measure() { half = track.scrollWidth / 2; }
     measure();
@@ -3806,7 +3837,7 @@
     window.addEventListener('scroll', function () {
       var dy = (window.scrollY || 0) - lastY;
       lastY = window.scrollY || 0;
-      vel += dy * 0.12;
+      vel += dy * 0.06;
     }, { passive: true });
     /* Drag with the hand tool to steer direction */
     var dragging = false, startX = 0, startPos = 0;
@@ -3839,12 +3870,12 @@
     requestAnimationFrame(frame);
   })();
 
-  /* ── FOOD MARQUEE: SLOW DRIFT + SCROLL + DRAG (same as memories) ── */
+  /* ── FOOD MARQUEE: OPPOSITE DIRECTION (right drift) ── */
   (function () {
     var track = document.getElementById('foodTrack');
     if (!track) return;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var x = 0, vel = 0, base = 0.12; /* slow base drift px/frame */
+    var x = 0, vel = 0, base = 0.05; /* slow base drift px/frame (reverse) */
     var half = 0;
     function measure() { half = track.scrollWidth / 2; }
     measure();
@@ -3854,7 +3885,7 @@
     window.addEventListener('scroll', function () {
       var dy = (window.scrollY || 0) - lastY;
       lastY = window.scrollY || 0;
-      vel += dy * 0.12;
+      vel += dy * 0.06;
     }, { passive: true });
     var dragging = false, startX = 0, startPos = 0;
     track.addEventListener('pointerdown', function (e) {
@@ -3873,7 +3904,7 @@
       if (!reduce) {
         if (!dragging) {
           vel *= 0.96;
-          x += base + vel;
+          x -= base + vel;      /* drift right = opposite of memories */
         }
         if (half > 0) {
           if (x >= half) x -= half;
