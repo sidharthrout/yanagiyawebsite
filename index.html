@@ -50,7 +50,7 @@
       "@type": "AggregateRating",
       "ratingValue": "9.6",
       "bestRating": "10",
-      "reviewCount": "250"
+      "reviewCount": "260"
     },
     "checkinTime": "15:00",
     "checkoutTime": "10:00",
@@ -204,6 +204,18 @@
       font-family: 'Noto Serif JP', serif; font-size: .6rem; font-weight: 400;
       letter-spacing: .5em; text-indent: .5em; color: rgba(255,255,255,.28);
     }
+    .pl-type{
+      margin-top:1.2rem;min-height:1.6rem;
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Cormorant Garamond',serif;font-style:italic;
+      font-size:1.05rem;letter-spacing:.3em;text-indent:.3em;color:var(--gold-lt);
+      text-shadow:0 1px 12px rgba(0,0,0,.4);
+    }
+    .pl-caret{
+      display:inline-block;width:2px;height:1.15em;margin-left:5px;
+      background:var(--gold-lt);animation:plCaret 1s steps(1) infinite;
+    }
+    @keyframes plCaret{0%,49%{opacity:1}50%,100%{opacity:0}}
     @keyframes plEnter {
       from { opacity: 0; transform: translateY(14px) scale(.97); }
       to   { opacity: 1; transform: none; }
@@ -376,32 +388,6 @@
       transition:background-color .5s ease;
     }
     .link-list a.is-active{background-color:var(--gold)}
-    .btns{position:absolute;top:45%;width:100%;z-index:12}
-    .btns button{
-      position:absolute;display:inline-block;width:44px;height:44px;
-      text-align:center;line-height:44px;font-weight:700;font-size:9px;
-      font-family:'Inter',serif;letter-spacing:.08em;color:var(--ink);
-      border-radius:50%;background-color:rgba(255,255,255,.9);cursor:pointer;
-      border:0;transition:all .5s ease;
-    }
-    .btns button:focus{outline:0}
-    .btns button:before{
-      content:'';position:absolute;width:44px;height:44px;top:0;left:0;
-      border:2px solid var(--gold);border-radius:50%;opacity:0;transition:all .5s ease;
-    }
-    .btns button span{opacity:0;transition:opacity .2s ease;position:relative;top:-2px}
-    .btns button:hover{
-      background-color:var(--gold);color:#fff;width:64px;height:64px;transform:translateY(-10px);
-    }
-    .btns button:hover:before{opacity:1;width:104px;height:104px;top:-22px;left:-22px}
-    .btns button:hover span{opacity:1}
-    .btns .show-prev{left:15%}
-    .btns .show-next{right:15%}
-    @media(max-width:900px){
-      .btns button{width:36px;height:36px;line-height:36px}
-      .btns .show-prev{left:4%}
-      .btns .show-next{right:4%}
-    }
 
     /* ── ABOUT STORY ── */
     #about{display:grid;grid-template-columns:1fr 1fr;background:var(--ink);color:var(--white);overflow:hidden}
@@ -425,52 +411,56 @@
     .lodges-header{text-align:center;margin-bottom:4rem}
     .lodges-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;max-width:1240px;margin:0 auto}
     .lodge-card{
-      background:var(--card);box-shadow:0 4px 30px rgba(21,18,16,.06);
-      border-radius:6px;overflow:hidden;transition:all var(--ease);
+      background:var(--card);box-shadow:0 18px 50px rgba(21,18,16,.08);
+      border:1px solid rgba(21,18,16,.05);
+      border-radius:20px;overflow:hidden;transition:all var(--ease);
       display:flex;flex-direction:column;
     }
-    .lodge-card:hover{box-shadow:0 12px 50px rgba(21,18,16,.12);transform:translateY(-4px)}
-    .lodge-gallery-box{position:relative;height:350px;overflow:hidden}
+    .lodge-card:hover{box-shadow:0 28px 70px rgba(21,18,16,.16);transform:translateY(-8px)}
+    .lodge-gallery-box{position:relative;height:380px;overflow:hidden}
     .lodge-slide{position:absolute;inset:0;opacity:0;transition:opacity .7s ease}
     .lodge-slide.active{opacity:1}
     .lodge-slide img{width:100%;height:100%;object-fit:cover}
     .lodge-badge{
       position:absolute;top:1.2rem;left:1.2rem;
-      background:rgba(18,14,12,.75);backdrop-filter:blur(8px);
+      background:rgba(18,14,12,.55);backdrop-filter:blur(12px);
       color:var(--white);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
-      padding:.4rem .85rem;z-index:5;border-radius:2px;
+      padding:.5rem 1.1rem;z-index:5;border-radius:40px;border:1px solid rgba(255,255,255,.18);
     }
-    .lodge-nav-controls{position:absolute;bottom:1rem;right:1rem;display:flex;gap:.4rem;z-index:5}
+    .lodge-nav-controls{position:absolute;bottom:1.2rem;right:1.2rem;display:flex;gap:.5rem;z-index:5}
     .lodge-nav-btn{
-      width:32px;height:32px;background:rgba(18,14,12,.6);color:var(--white);
-      display:flex;align-items:center;justify-content:center;font-size:.85rem;
-      border-radius:50%;transition:background .3s;
+      width:38px;height:38px;background:rgba(18,14,12,.5);backdrop-filter:blur(8px);color:var(--white);
+      display:flex;align-items:center;justify-content:center;font-size:.95rem;
+      border-radius:50%;border:1px solid rgba(255,255,255,.2);transition:all .3s;
     }
-    .lodge-nav-btn:hover{background:var(--ink)}
-    .lodge-dots{position:absolute;bottom:1.1rem;left:1.1rem;display:flex;gap:.4rem;z-index:5}
-    .lodge-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:all .3s}
-    .lodge-dot.active{background:var(--white);transform:scale(1.3)}
+    .lodge-nav-btn:hover{background:var(--gold);color:var(--ink);transform:scale(1.08)}
+    .lodge-dots{position:absolute;bottom:1.3rem;left:1.2rem;display:flex;gap:.45rem;z-index:5}
+    .lodge-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:all .3s}
+    .lodge-dot.active{background:var(--gold-lt);transform:scale(1.35);box-shadow:0 0 10px rgba(232,202,146,.7)}
     
-    .lodge-body{padding:2.2rem 2.2rem 2.5rem;display:flex;flex-direction:column;flex:1}
-    .lodge-kanji{font-family:'Noto Serif JP',serif;font-size:1.15rem;letter-spacing:.2em;color:var(--warm);margin-bottom:.25rem}
-    .lodge-body h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;margin-bottom:.65rem}
-    .lodge-body p{font-size:.88rem;color:var(--muted);line-height:1.75;margin-bottom:1.25rem}
+    .lodge-body{padding:2.4rem 2.4rem 2.6rem;display:flex;flex-direction:column;flex:1}
+    .lodge-kanji{font-family:'Noto Serif JP',serif;font-size:1.05rem;letter-spacing:.2em;color:var(--warm);margin-bottom:.3rem}
+    .lodge-body h3{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:400;margin-bottom:.7rem;transition:color .4s ease}
+    .lodge-card:hover .lodge-body h3{color:var(--matcha)}
+    .lodge-body p{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:1.3rem}
     
-    .lodge-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.75rem}
+    .lodge-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.8rem}
     .lodge-tag{
-      font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
-      padding:.32rem .7rem;border:1px solid rgba(21,18,16,.1);
-      color:var(--muted);background:var(--paper);border-radius:2px;
+      font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;
+      padding:.38rem .85rem;border:1px solid rgba(21,18,16,.1);
+      color:var(--muted);background:var(--paper);border-radius:40px;
+      transition:all .35s ease;
     }
+    .lodge-tag:hover{border-color:var(--gold);color:var(--gold);background:var(--white);transform:translateY(-2px)}
     .lodge-actions{
       margin-top:auto;display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;
-      padding-top:1.2rem;border-top:1px solid rgba(21,18,16,.08);
+      padding-top:1.3rem;border-top:1px solid rgba(21,18,16,.08);
     }
     .rating-pill{
       display:inline-flex;align-items:center;gap:.4rem;
       background:#f0f5fc;border:1px solid #c9def5;
-      padding:.35rem .75rem;font-size:.68rem;color:#003580;border-radius:3px;
-      margin-bottom:.9rem;
+      padding:.35rem .85rem;font-size:.68rem;color:#003580;border-radius:40px;
+      margin-bottom:1rem;
     }
     .rating-pill strong{font-size:.9rem}
 
@@ -768,30 +758,163 @@
     .tea-bullet{width:7px;height:7px;border-radius:50%;background:var(--matcha-lt);flex-shrink:0}
     .tea-item-name{font-size:.88rem;color:rgba(255,255,255,.88)}
     .tea-item-sub{font-size:.72rem;color:rgba(255,255,255,.45);margin-left:auto}
-    .tea-slider-box{position:relative;min-height:560px;overflow:hidden;background:#14100e}
-    .tea-canvas{position:absolute;top:0;left:0;width:100%;height:100%}
-    #teaCanvas0{z-index:1}
-    #teaCanvas1,#teaCanvas2,#teaCanvas3{z-index:2}
-    .tea-canvas-head{
+    /* ── MAGOME CHA: 3D CUBE GRID GALLERY ── */
+    .tea-cube-gallery{
+      --cube-size:clamp(46px,7.4vw,110px);
+      position:relative;display:grid;place-content:center;
+      min-height:600px;overflow:hidden;
+      background:
+        radial-gradient(120% 90% at 50% 0%,rgba(94,131,84,.14),transparent 60%),
+        #14100e;
+    }
+    .tea-cube-gallery::before{
+      content:'';position:absolute;inset:-30%;z-index:0;pointer-events:none;
+      background:radial-gradient(circle at 50% 50%,rgba(232,202,146,.13),transparent 55%);
+      animation:cubeGlow 9s ease-in-out infinite alternate;
+    }
+    @keyframes cubeGlow{
+      from{transform:translate(-6%,-4%) scale(1)}
+      to{transform:translate(6%,4%) scale(1.12)}
+    }
+    .tea-cube-head{
       position:absolute;top:1.4rem;left:1.4rem;z-index:6;
       display:flex;align-items:center;gap:.7rem;
       background:rgba(21,18,16,.6);backdrop-filter:blur(8px);
       color:rgba(255,255,255,.85);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
       padding:.45rem .95rem;border-radius:2px;border:1px solid rgba(232,202,146,.3);
     }
-    .tea-canvas-kanji{
+    .tea-cube-kanji{
       font-family:'Noto Serif JP',serif;font-size:1rem;color:var(--gold-lt);letter-spacing:.1em;
     }
-    .tea-links{bottom:3.4rem;z-index:6}
-    .tea-links a{background-color:rgba(255,255,255,.45)}
-    .tea-links a.is-active{background-color:var(--gold)}
-    .tea-btns{top:50%}
-    .tea-btns .show-prev{left:4%}
-    .tea-btns .show-next{right:4%}
-    @media(max-width:900px){
-      .tea-btns button{width:34px;height:34px;line-height:34px}
-      .tea-btns .show-prev{left:2%}
-      .tea-btns .show-next{right:2%}
+    @media(max-width:900px){.tea-cube-gallery{--cube-size:70px}}
+    @media(max-width:600px){.tea-cube-gallery{--cube-size:54px}}
+    @media(max-width:420px){.tea-cube-gallery{--cube-size:46px}}
+
+    @property --cube-cols{syntax:'<number>';inherits:true;initial-value:1}
+    @property --cube-rows{syntax:'<number>';inherits:true;initial-value:1}
+    @property --cube-x{syntax:'<number>';inherits:true;initial-value:0}
+    @property --cube-y{syntax:'<number>';inherits:true;initial-value:0}
+    @property --cube-i{syntax:'<number>';inherits:true;initial-value:0}
+    @property --cube-l{syntax:'<number>';inherits:true;initial-value:1}
+    @property --cube-rx{syntax:'<angle>';inherits:true;initial-value:0deg}
+    @property --cube-ry{syntax:'<angle>';inherits:true;initial-value:0deg}
+    @property --cube-tz{syntax:'<length>';inherits:true;initial-value:0px}
+    @property --cube-intro-ry{syntax:'<angle>';inherits:true;initial-value:0deg}
+    @property --cube-intro-tz{syntax:'<length>';inherits:true;initial-value:0px}
+    @property --cube-nav-index{syntax:'<number>';inherits:true;initial-value:0}
+
+    .tea-cube-gallery__nav{
+      --btn:1.5rem;--dot:calc(var(--btn)*.5);--gap:.5rem;
+      position:absolute;left:50%;bottom:2rem;translate:-50% 0;
+      display:flex;gap:var(--gap);z-index:2;
+      --cube-count:30;--cube-dur:1400ms;--cube-delay:14ms;
+      --dot-total:calc(var(--cube-dur) + ((var(--cube-count) - 1) * var(--cube-delay)));
+      transition-property:--cube-nav-index;
+      transition-duration:var(--dot-total);
+      transition-timing-function:ease-in-out;
+    }
+    .tea-cube-gallery__button{
+      position:relative;width:var(--btn);aspect-ratio:1;display:grid;place-items:center;
+      border:1px solid #fff;border-radius:var(--btn);
+      background-color:rgba(255,255,255,.44);backdrop-filter:blur(5px);
+    }
+    .tea-cube-gallery__button:after{
+      content:'';width:var(--dot);aspect-ratio:1;border-radius:inherit;
+      background-color:rgba(0,0,0,0);scale:.25;pointer-events:none;
+      transition:background-color .25s ease-in-out,scale .25s ease-in-out;
+    }
+    .tea-cube-gallery__button:has(input:checked):after{background-color:rgba(0,0,0,1);scale:1}
+    .tea-cube-gallery__button input{appearance:none;position:absolute;inset:0;cursor:pointer}
+    .tea-cube-gallery__button input:checked{cursor:initial}
+    .tea-cube-gallery__moving-dot{
+      position:absolute;width:var(--btn);aspect-ratio:1;border-radius:50%;
+      border:1px solid #000;outline:1px solid #000;box-shadow:0 0 4px 2px rgba(0,0,0,.25);
+      pointer-events:none;top:50%;left:0;will-change:translate;
+      translate:calc(var(--cube-nav-index) * (var(--btn) + var(--gap))) -50%;
+    }
+    .tea-cube-gallery__nav:has(.tea-cube-gallery__button:nth-child(1) input:checked){--cube-nav-index:0}
+    .tea-cube-gallery__nav:has(.tea-cube-gallery__button:nth-child(2) input:checked){--cube-nav-index:1}
+    .tea-cube-gallery__nav:has(.tea-cube-gallery__button:nth-child(3) input:checked){--cube-nav-index:2}
+    .tea-cube-gallery__nav:has(.tea-cube-gallery__button:nth-child(4) input:checked){--cube-nav-index:3}
+    .tea-cube-gallery__nav:has(.tea-cube-gallery__button:nth-child(5) input:checked){--cube-nav-index:4}
+    .tea-cube-gallery__nav:has(.tea-cube-gallery__button:nth-child(6) input:checked){--cube-nav-index:5}
+
+    .tea-cube-gallery:has(.tea-cube-gallery__button:nth-child(1) input:checked){--cube-rx:0deg;--cube-ry:0deg}
+    .tea-cube-gallery:has(.tea-cube-gallery__button:nth-child(2) input:checked){--cube-rx:0deg;--cube-ry:-90deg}
+    .tea-cube-gallery:has(.tea-cube-gallery__button:nth-child(3) input:checked){--cube-rx:0deg;--cube-ry:180deg}
+    .tea-cube-gallery:has(.tea-cube-gallery__button:nth-child(4) input:checked){--cube-rx:0deg;--cube-ry:90deg}
+    .tea-cube-gallery:has(.tea-cube-gallery__button:nth-child(5) input:checked){--cube-rx:90deg;--cube-ry:0deg}
+    .tea-cube-gallery:has(.tea-cube-gallery__button:nth-child(6) input:checked){--cube-rx:-90deg;--cube-ry:0deg}
+
+    .tea-cube-gallery__viewport{
+      perspective:900px;position:relative;z-index:1;transform-style:preserve-3d;
+      width:calc(var(--cube-cols,6) * var(--cube-size));
+      height:calc(var(--cube-rows,5) * var(--cube-size));
+    }
+    .tea-cube-gallery__stage{filter:drop-shadow(0 26px 40px rgba(0,0,0,.5))}
+    .tea-cube-gallery__cube{
+      --cube-dur:1400ms;--cube-delay:14ms;
+      --cube-step:var(--cube-size);
+      --cube-z-base:calc(var(--cube-size) * -.5);
+      --cube-z-factor:-7.5;
+      --cube-z-push:calc(var(--cube-z-base) * var(--cube-z-factor) * -1);
+      --cube-cx:calc((var(--cube-cols) - 1) * .5);
+      --cube-cy:calc((var(--cube-rows) - 1) * .5);
+      position:absolute;width:var(--cube-size);height:var(--cube-size);
+      transform-style:inherit;
+      transform:
+        translate(-50%,-50%)
+        translate3d(
+          calc((var(--cube-x) - var(--cube-cx)) * var(--cube-step)),
+          calc((var(--cube-y) - var(--cube-cy)) * var(--cube-step)),
+          calc(var(--cube-z-base) + var(--cube-tz) + var(--cube-intro-tz))
+        )
+        rotateY(var(--cube-intro-ry,0deg))
+        rotateX(var(--cube-rx,0deg))
+        rotateY(var(--cube-ry,0deg));
+      transition-property:--cube-rx,--cube-ry,--cube-tz;
+      transition-duration:var(--cube-dur);
+      transition-timing-function:ease-in-out;
+      transition-delay:calc(var(--cube-i) * var(--cube-delay));
+      will-change:--cube-rx,--cube-ry,--cube-tz;
+      animation-duration:var(--cube-dur);
+      animation-timing-function:ease-in-out;
+      animation-fill-mode:both;
+      animation-delay:calc(var(--cube-i) * var(--cube-delay));
+    }
+    .tea-cube-gallery__cube > i{
+      --face-tz:calc(var(--cube-size) * .5);
+      position:absolute;inset:0;display:block;width:var(--cube-size);height:var(--cube-size);
+      background-repeat:no-repeat;
+      background-size:calc(var(--cube-cols) * var(--cube-size)) calc(var(--cube-rows) * var(--cube-size));
+      background-position:calc(var(--cube-x) * var(--cube-size) * -1) calc(var(--cube-y) * var(--cube-size) * -1);
+    }
+    .tea-cube-gallery__cube > i:nth-child(1){background-image:url('new/tea set.webp');transform:rotateX(90deg) translateZ(var(--face-tz))}
+    .tea-cube-gallery__cube > i:nth-child(2){background-image:url('new/tea.webp');transform:translateZ(var(--face-tz))}
+    .tea-cube-gallery__cube > i:nth-child(3){background-image:url('new/tea (2).webp');transform:rotateY(90deg) translateZ(var(--face-tz))}
+    .tea-cube-gallery__cube > i:nth-child(4){background-image:url('new/tea (3).webp');transform:rotateY(180deg) translateZ(var(--face-tz))}
+    .tea-cube-gallery__cube > i:nth-child(5){background-image:url('new/tea and magome.webp');transform:rotateY(-90deg) translateZ(var(--face-tz))}
+    .tea-cube-gallery__cube > i:nth-child(6){background-image:url('new/tea (4).webp');transform:rotateX(-90deg) translateZ(var(--face-tz))}
+
+    .tea-cube-gallery.is-ready .tea-cube-gallery__cube{animation-name:cube-intro}
+    .tea-cube-gallery:has(.tea-cube-gallery__nav:focus-within) .tea-cube-gallery__cube{--cube-tz:var(--cube-z-push)}
+
+    @keyframes cube-intro{
+      0%{--cube-intro-ry:-90deg;--cube-intro-tz:0px}
+      50%{--cube-intro-ry:-45deg;--cube-intro-tz:var(--cube-z-push)}
+      100%{--cube-intro-ry:0deg;--cube-intro-tz:0px}
+    }
+    .tea-cube-gallery.no-has .tea-cube-gallery__nav{display:none}
+    @media (prefers-reduced-motion: reduce){
+      .tea-cube-gallery__cube{animation:none !important;transition-duration:.01s !important}
+    }
+
+    /* ── HERO TAGLINE ── */
+    .hero-tagline{
+      margin-top:.6rem;margin-bottom:1.4rem;
+      font-family:'Cormorant Garamond',serif;font-style:italic;
+      font-size:clamp(1.15rem,2.4vw,1.6rem);color:var(--gold-lt);
+      letter-spacing:.22em;text-transform:uppercase;text-shadow:0 2px 12px rgba(0,0,0,.5);
     }
 
     /* ── COOL MEET OUR TEAM SECTION (REDESIGNED) ── */
@@ -936,7 +1059,7 @@
       .about-content{padding:4rem 6%}
       .lodges-grid{grid-template-columns:1fr}
       .tea-layout{grid-template-columns:1fr}
-      .tea-slider-box{min-height:55vw}
+      .tea-cube-gallery{min-height:auto;padding:4.5rem 1.5rem 6.5rem}
       .tea-text{padding:4rem 6%}
       .kb-slider-container{height:65vh;min-height:480px}
       .kb-floating-card{left:4%;right:4%;top:auto;bottom:1.2rem;transform:none;padding:1.6rem 1.4rem}
@@ -964,7 +1087,6 @@
       .form-grid2{grid-template-columns:1fr}
       .hero-text-card{padding:1.6rem 1.4rem}
       .hero-content{left:4%;right:4%;bottom:6vh}
-      .btns{display:none}
       .link-list{display:none}
       .lodge-gallery-box{height:260px}
       .cool-team-img-wrap{height:280px}
@@ -1312,14 +1434,13 @@
     /* INFINITY SCROLL MARQUEE */
     @keyframes scrollInfinity { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     @keyframes scrollInfinityReverse { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
-    .infinity-track:hover { animation-play-state: paused !important; }
     .food-img-box {
       flex-shrink: 0; width: 350px; height: 350px; border-radius: 12px;
       overflow: visible; position: relative; z-index: 1;
       transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s;
     }
     .food-img-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s; }
-    .food-img-box:hover { z-index: 20; transform: scale(1.2) translateY(-10px); }
+    .food-img-box:hover { z-index: 20; transform: scale(1.35) translateY(-12px); }
     .food-img-box:hover img { box-shadow: 0 25px 60px rgba(0,0,0,0.5); }
     
     /* ══════════════════════════════════════════════════════
@@ -1333,6 +1454,12 @@
       font-size:1.05rem;letter-spacing:.42em;text-indent:.42em;
       color:var(--gold-lt);margin-bottom:.9rem;text-transform:none;
       text-shadow:0 1px 12px rgba(0,0,0,.25);
+    }
+    #foodTrack{cursor:grab;user-select:none;-webkit-user-select:none}
+    #foodTrack.dragging{cursor:grabbing}
+    #foodTrack .food-img-box:hover img{
+      box-shadow:0 0 0 2px rgba(232,202,146,.55),0 0 44px rgba(232,202,146,.5);
+      filter:brightness(1.12);
     }
     #food-marquee .section-kanji-tag{color:var(--warm);text-shadow:none}
 
@@ -1375,10 +1502,99 @@
       mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
     }
     .memories-track .food-img-box{width:320px;height:320px}
-    .memories-track .food-img-box img{border-radius:16px}
+    .memories-track .food-img-box img{border-radius:16px;transition:transform .5s ease,box-shadow .5s ease,filter .5s ease}
     .memories-track .food-img-box::after{
       content:'';position:absolute;inset:0;border-radius:16px;pointer-events:none;
       border:1px solid rgba(232,202,146,.22);
+    }
+    /* Scroll + drag driven: hand cursor */
+    .memories-track{cursor:grab;user-select:none;-webkit-user-select:none}
+    .memories-track.dragging{cursor:grabbing}
+    /* Hover glow on memory images */
+    .memories-track .food-img-box:hover img{
+      box-shadow:0 0 0 2px rgba(232,202,146,.55),0 0 44px rgba(232,202,146,.5);
+      filter:brightness(1.12);
+    }
+
+    /* ── GUEST REVIEWS: TESTIMONIAL CAROUSEL ── */
+    #guest-reviews.testimonial-area{
+      position:relative;z-index:2;padding:6rem 0;overflow:hidden;color:#fff;
+      background:
+        radial-gradient(120% 100% at 50% 0%,rgba(94,131,84,.16),transparent 55%),
+        var(--ink);
+    }
+    #guest-reviews.testimonial-area .section-kanji-tag{color:var(--gold-lt)}
+    #guest-reviews.testimonial-area .section-label{color:rgba(255,255,255,.55)}
+    #guest-reviews.testimonial-area .section-title{color:#fff}
+    #guest-reviews.testimonial-area .divider{background:var(--gold)}
+    .rv-score-row{
+      display:flex;align-items:center;justify-content:center;gap:1.8rem;flex-wrap:wrap;
+      margin:2.4rem auto 2.6rem;padding:1.6rem 2.2rem;max-width:860px;
+      background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px;
+    }
+    .rv-score-big{
+      font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;
+      color:var(--gold);line-height:1;flex-shrink:0;
+    }
+    .rv-score-big small{font-size:1.05rem;color:rgba(255,255,255,.6);font-weight:400}
+    .rv-stars{color:#e8b64c;font-size:1.02rem;letter-spacing:.18em;line-height:1.3}
+    .rv-score-line{color:#fff;font-weight:600;font-size:.95rem;letter-spacing:.06em;margin-top:.35rem}
+    .rv-chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.8rem}
+    .rv-chips span{
+      font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-lt);
+      background:rgba(232,202,146,.1);border:1px solid rgba(232,202,146,.28);
+      padding:.25rem .7rem;border-radius:20px;
+    }
+    .testimonial-carousel{position:relative;max-width:1180px;margin:0 auto;padding:0 4%}
+    .testimonial-track{display:flex;align-items:stretch;transition:transform .8s cubic-bezier(.22,.61,.36,1);will-change:transform}
+    .single-testimonial{
+      flex:0 0 calc(50% - 2rem);margin:0 1rem;
+      display:flex;flex-direction:column;align-items:center;text-align:center;
+      position:relative;z-index:2;padding:3rem 2.4rem 2.2rem;
+      border:7px solid rgba(255,255,255,.92);border-radius:45px;
+      background:rgba(255,255,255,.05);
+      transition:transform .45s ease,box-shadow .45s ease,border-color .45s ease;
+    }
+    .single-testimonial:hover{
+      transform:translateY(-6px);
+      border-color:rgba(232,202,146,.85);
+      box-shadow:0 0 0 2px rgba(232,202,146,.25),0 0 48px rgba(232,202,146,.4);
+    }
+    .single-testimonial .rv-stars{margin-bottom:1.1rem}
+    .single-testimonial p{color:#fff;font-size:.95rem;line-height:1.8;font-style:italic;flex:1}
+    .single-testimonial::before,.single-testimonial::after{
+      content:'“';position:absolute;font-family:Georgia,serif;
+      color:rgba(232,202,146,.5);font-size:4.6rem;line-height:1;pointer-events:none;
+    }
+    .single-testimonial::before{left:1.5rem;top:.7rem}
+    .single-testimonial::after{content:'”';right:1.5rem;bottom:-1.2rem;font-size:4.6rem}
+    .client-info{
+      position:relative;z-index:3;display:flex;align-items:center;justify-content:center;
+      gap:.9rem;margin-top:1.6rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.14);
+      text-align:left;width:100%;
+    }
+    .client-avatar{
+      width:52px;height:52px;border-radius:50%;flex-shrink:0;
+      background:linear-gradient(135deg,var(--matcha),var(--matcha-lt));
+      color:#fff;font-weight:700;font-size:1.2rem;
+      display:grid;place-items:center;font-family:'Cormorant Garamond',serif;
+      box-shadow:0 4px 14px rgba(0,0,0,.35);
+    }
+    .client-details h6{
+      margin:0;color:#fff;font-weight:700;font-size:1rem;letter-spacing:.03em;
+      font-family:'Cormorant Garamond',serif;
+    }
+    .client-details span{display:inline-block;color:rgba(255,255,255,.62);font-size:.68rem;letter-spacing:.08em;margin-top:.15rem}
+    .rv-dots{display:flex;justify-content:center;gap:.55rem;margin-top:2.6rem}
+    .rv-dots button{
+      width:11px;height:11px;border-radius:26px;border:0;padding:0;cursor:pointer;
+      background:rgba(255,255,255,.35);transition:width .3s ease,background .3s ease;
+    }
+    .rv-dots button.active{width:30px;background:var(--gold)}
+    .rv-more{text-align:center;margin-top:2.2rem}
+    @media(max-width:640px){
+      .single-testimonial{flex-basis:calc(100% - 2rem)}
+      .rv-score-row{padding:1.4rem 1.2rem;gap:1.1rem}
     }
 
     /* ── EXPERIENCES: HIGHLIGHT CHIPS + MINI CARDS ── */
@@ -1428,10 +1644,6 @@
       40%{opacity:.8}
       100%{opacity:0;transform:translate(-50%,-18px) scale(1.2)}
     }
-    .tea-slider-box::after{
-      content:'';position:absolute;inset:0;z-index:4;pointer-events:none;
-      background:linear-gradient(to top,rgba(21,18,16,.5),transparent 25%);
-    }
     .tea-item{padding-left:1.1rem;border-radius:6px}
     .tea-item .tea-bullet{transition:transform .3s ease}
     .tea-item:hover .tea-bullet{transform:scale(1.45);box-shadow:0 0 12px var(--matcha-lt)}
@@ -1454,7 +1666,7 @@
       background:linear-gradient(90deg,rgba(194,157,91,.18),rgba(62,90,54,.12));
       border-bottom:1px solid rgba(194,157,91,.28);
       padding:.7rem 1.4rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
-      color:var(--gold-lt);font-weight:600;
+      color:var(--ink);font-weight:600;
     }
     .cal-dot{width:8px;height:8px;border-radius:50%;background:#7ed49a;box-shadow:0 0 10px rgba(126,212,154,.8);flex-shrink:0}
     .cal-tabs{
@@ -1520,6 +1732,7 @@
     <div class="pl-label">Loading &middot; 馬籠宿</div>
     <div class="pl-bar"><i id="plBar"></i></div>
     <div class="pl-brand">Yanagiya <span class="jp">柳屋 &middot; Magome-juku</span></div>
+    <div class="pl-type"><span id="plType"></span><span class="pl-caret"></span></div>
   </div>
   <div class="pl-vertical">おもてなしの宿<small>Nakasendo · Magome</small></div>
 </div>
@@ -1581,8 +1794,9 @@
         <span class="rating-val" style="color:#fff;">9.6</span>
         <span class="rating-desc" style="color:rgba(255,255,255,0.8);">Exceptional · Booking.com</span>
       </div>
-      <p class="hero-kanji-sub" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">&#20013;&#23665;&#36947; &middot; &#23487;&#22580;&#30010;</p>
-      <h1 style="font-size: clamp(3rem, 6vw, 5.5rem); text-shadow: 0 4px 20px rgba(0,0,0,0.5); letter-spacing: -0.02em;">Where Ancient Paths Meet Modern Peace</h1>
+      <p class="hero-kanji-sub" style="text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Magome &middot; &#39340;&#31801;&#23487;</p>
+      <h1 style="font-size: clamp(3rem, 6vw, 5.5rem); text-shadow: 0 4px 20px rgba(0,0,0,0.5); letter-spacing: -0.02em; font-family:'Cormorant Garamond',serif; font-weight:600;">Where Ancient Paths Meet Modern Peace</h1>
+      <p class="hero-tagline">Lodge &middot; Travel &middot; Tea &middot; Culture</p>
       <p style="font-size: 1.1rem; max-width: 600px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Two authentic private machiya lodges nestled along the historic Nakasendo highway in Magome-juku. Wake to misty mountains, locally harvested Magome Cha, and starry night skies.</p>
       
       <div class="hero-actions" style="margin-top: 2rem; display:flex; gap:.9rem; flex-wrap:wrap;">
@@ -1600,10 +1814,6 @@
       <li><a href="#" data-order="2" data-imagesrc="heroimag.jpg" aria-label="Slide 3"></a></li>
     </ul>
   </nav>
-  <nav class="btns" aria-label="Hero navigation">
-    <button class="show-prev" aria-label="Previous image"><span>PREV</span></button>
-    <button class="show-next" aria-label="Next image"><span>NEXT</span></button>
-  </nav>
 </section>
 
 <!-- GLOBAL STATS BANNER -->
@@ -1617,7 +1827,7 @@
     <div class="stat-label">Booking.com Review Score</div>
   </div>
   <div class="stat-block reveal" style="transition-delay: 0.2s;">
-    <div class="stat-num">250+</div>
+    <div class="stat-num">260+</div>
     <div class="stat-label">Verified Guest Reviews</div>
   </div>
   <div class="stat-block reveal" style="transition-delay: 0.3s;">
@@ -1687,7 +1897,7 @@
         </div>
       </div>
       <div class="lodge-body">
-        <span class="rating-pill"><strong>9.6</strong> Exceptional · 250+ Reviews on Booking.com</span>
+        <span class="rating-pill"><strong>9.6</strong> Exceptional · 260+ Reviews on Booking.com</span>
         <p class="lodge-kanji">柳屋</p>
         <h3>Yanagiya (Main Machiya)</h3>
         <p>The original merchant machiya townhouse sitting right on the historic post road. Features soaring cedar ceilings, handmade tatami suites, a modern full kitchen, and panoramic windows facing emerald rice terraces. Sleeps up to 8 guests in private comfort.</p>
@@ -1802,7 +2012,7 @@
     </p>
   </div>
   <div class="marquee-edge" style="width: 100%; overflow: hidden;">
-    <div class="infinity-track memories-track" style="display:flex; gap:3rem; width:max-content; animation: scrollInfinity 40s linear infinite;">
+    <div class="infinity-track memories-track" id="memoriesTrack" style="display:flex; gap:4.5rem; width:max-content;">
             <div class="food-img-box"><img src="with custoemr/customer_01.webp" alt="Guest memory" loading="lazy"></div>
 
             <div class="food-img-box"><img src="with custoemr/customer_02.webp" alt="Guest memory" loading="lazy"></div>
@@ -1846,7 +2056,6 @@
     </div>
   </div>
 </section>
-
 
 <!-- LOCAL FOOD MARQUEE -->
 <section id="food-marquee" style="padding: 6rem 0; background: var(--paper); overflow: hidden; position: relative;">
@@ -1860,7 +2069,7 @@
     </p>
   </div>
   <div class="marquee-edge" style="width: 100%; overflow: hidden;">
-    <div class="infinity-track" style="display:flex; gap:3rem; width:max-content; animation: scrollInfinityReverse 50s linear infinite;">
+    <div class="infinity-track" id="foodTrack" style="display:flex; gap:3.5rem; width:max-content;">
             <div class="food-img-box"><img src="customer food/food_02.webp" alt="Local cuisine" loading="lazy"></div>
 
             <div class="food-img-box"><img src="customer food/food_03.webp" alt="Local cuisine" loading="lazy"></div>
@@ -1936,6 +2145,106 @@
     </div>
   </div>
 </section>
+
+<!-- GUEST REVIEWS: TESTIMONIAL CAROUSEL (BOOKING.COM) -->
+<section id="guest-reviews" class="testimonial-area">
+  <div style="text-align:center; padding:0 6% 0;">
+    <span class="section-kanji-tag">お客様の声</span>
+    <span class="section-label">Verified Guest Reviews</span>
+    <h2 class="section-title">Testimonials</h2>
+    <p style="color:rgba(255,255,255,.7); max-width:600px; margin:.6rem auto 0; font-size:1.02rem; line-height:1.7;">What Our Guests Say About Yanagiya</p>
+    <div class="divider divider-center"></div>
+  </div>
+
+  <div class="rv-score-row reveal">
+    <div class="rv-score-big">9.6<small>/10</small></div>
+    <div>
+      <div class="rv-stars" aria-label="Rated 9.6 out of 10">★★★★★</div>
+      <div class="rv-score-line">Exceptional · 260+ verified reviews</div>
+      <div class="rv-chips">
+        <span>Location 9.9</span><span>Staff 9.9</span><span>Comfort 9.8</span><span>Cleanliness 9.7</span><span>Facilities 9.6</span><span>Value 9.5</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="testimonial-carousel">
+    <div class="testimonial-track" id="rvTrack">
+      <article class="single-testimonial reveal" style="transition-delay:.05s;">
+        <div class="rv-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p>“The best part of the stay was dinner cooked by our host Yuji. He caught fish that very day and also served wild boar he hunted. Don't miss this part of your stay. FANTASTIC!”</p>
+        <div class="client-info">
+          <span class="client-avatar">C</span>
+          <div class="client-details">
+            <h6>Carolynn · United States</h6>
+            <span>✓ Verified stay · Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:.1s;">
+        <div class="rv-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p>“It is right in the center of town, close to everything. The host is very responsive and accommodating, and even offered to pick us up from the bus stop. We had the house all to ourselves and the place is huge.”</p>
+        <div class="client-info">
+          <span class="client-avatar">C</span>
+          <div class="client-details">
+            <h6>Carolyn · Philippines</h6>
+            <span>✓ Verified stay · Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:.15s;">
+        <div class="rv-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p>“The guesthouse was clean and well equipped for families who would like to cook. It is comfortable to stay and located right next to the main Magome-juku lane. The host is friendly and hospitable.”</p>
+        <div class="client-info">
+          <span class="client-avatar">S</span>
+          <div class="client-details">
+            <h6>Swee · Singapore</h6>
+            <span>✓ Verified stay · Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:.2s;">
+        <div class="rv-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p>“Host was friendly and helpful. The location was excellent and the space was great.”</p>
+        <div class="client-info">
+          <span class="client-avatar">C</span>
+          <div class="client-details">
+            <h6>Casey · United States</h6>
+            <span>✓ Verified stay · Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:.25s;">
+        <div class="rv-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p>“The host was amazing, we received the best welcome! The apartment had everything we needed for our stay — super clean, cozy, and with a beautiful view from the terrace.”</p>
+        <div class="client-info">
+          <span class="client-avatar">S</span>
+          <div class="client-details">
+            <h6>Shachar · Israel</h6>
+            <span>✓ Verified stay · Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:.3s;">
+        <div class="rv-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p>“Excellent location, beautiful and clean space, wonderful host.”</p>
+        <div class="client-info">
+          <span class="client-avatar">E</span>
+          <div class="client-details">
+            <h6>Emma · United States</h6>
+            <span>✓ Verified stay · Booking.com</span>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="rv-dots" id="rvDots"></div>
+  </div>
+
+  <div class="rv-more">
+    <a href="https://www.booking.com/hotel/jp/guesthouse-yanagiya.en-gb.html" target="_blank" rel="noopener" class="btn btn-gold">Read All Reviews on Booking.com &#8594;</a>
+  </div>
+</section>
+
+
 
 <!-- EXPERIENCES & NAKASENDO TRAIL SECTION -->
 <section id="experiences">
@@ -2149,31 +2458,54 @@
       </div>
     </div>
     
-    <div class="tea-slider-box" id="teaSlider">
-      <canvas id="teaCanvas0" class="tea-canvas" aria-hidden="true"></canvas>
-      <canvas id="teaCanvas1" class="tea-canvas" aria-hidden="true"></canvas>
-      <canvas id="teaCanvas2" class="tea-canvas" aria-hidden="true"></canvas>
-      <canvas id="teaCanvas3" class="tea-canvas" aria-hidden="true"></canvas>
-      <div class="tea-canvas-head">
-        <span class="tea-canvas-kanji">茶</span>
-        <span>Magome Cha Gallery</span>
+    <div class="tea-cube-gallery" id="teaCubeGallery">
+      <div class="tea-cube-head">
+        <span class="tea-cube-kanji">茶</span>
+        <span>Magome Cha Gallery · 馬籠の日本茶</span>
       </div>
-      <nav class="link-list tea-links" aria-label="Tea slides">
-        <ul>
-          <li><a href="#" data-order="0" data-imagesrc="new/tea.webp" class="is-active" aria-label="Tea 1"></a></li>
-          <li><a href="#" data-order="1" data-imagesrc="new/tea (2).webp" aria-label="Tea 2"></a></li>
-          <li><a href="#" data-order="2" data-imagesrc="new/tea (3).webp" aria-label="Tea 3"></a></li>
-          <li><a href="#" data-order="3" data-imagesrc="new/tea (4).webp" aria-label="Tea 4"></a></li>
-          <li><a href="#" data-order="4" data-imagesrc="new/tea (5).webp" aria-label="Tea 5"></a></li>
-          <li><a href="#" data-order="5" data-imagesrc="new/tea and magome.webp" aria-label="Tea 6"></a></li>
-          <li><a href="#" data-order="6" data-imagesrc="new/tea set.webp" aria-label="Tea 7"></a></li>
-          <li><a href="#" data-order="7" data-imagesrc="new/tea set (2).webp" aria-label="Tea 8"></a></li>
-        </ul>
+      <nav class="tea-cube-gallery__nav" aria-label="Magome Cha gallery views">
+        <span class="tea-cube-gallery__button"><input type="radio" aria-label="View 1 · Magome tea" name="tea-face" id="tea-face-1" checked></span>
+        <span class="tea-cube-gallery__button"><input type="radio" aria-label="View 2 · Tea leaves" name="tea-face" id="tea-face-2"></span>
+        <span class="tea-cube-gallery__button"><input type="radio" aria-label="View 3 · Pouring" name="tea-face" id="tea-face-3"></span>
+        <span class="tea-cube-gallery__button"><input type="radio" aria-label="View 4 · Brewing" name="tea-face" id="tea-face-4"></span>
+        <span class="tea-cube-gallery__button"><input type="radio" aria-label="View 5 · Tea and Magome" name="tea-face" id="tea-face-5"></span>
+        <span class="tea-cube-gallery__button"><input type="radio" aria-label="View 6 · Tea set" name="tea-face" id="tea-face-6"></span>
+        <i class="tea-cube-gallery__moving-dot" aria-hidden="true"></i>
       </nav>
-      <nav class="btns tea-btns" aria-label="Tea navigation">
-        <button class="show-prev" aria-label="Previous image"><span>PREV</span></button>
-        <button class="show-next" aria-label="Next image"><span>NEXT</span></button>
-      </nav>
+      <div class="tea-cube-gallery__stage">
+      <div class="tea-cube-gallery__viewport">
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tea-cube-gallery__cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      </div>
     </div>
   </div>
 </section>
@@ -2485,7 +2817,7 @@
 
   <div class="footer-bottom">
     <span>&#169; 2026 Yanagiya Guest House · Magome-juku, Nakatsugawa, Gifu, Japan</span>
-    <span>Rated 9.6 / 10 Exceptional on Booking.com (250+ reviews)</span>
+    <span>Rated 9.6 / 10 Exceptional on Booking.com (260+ reviews)</span>
   </div>
 </footer>
 
@@ -2501,6 +2833,20 @@
     const RUN = 800, MIN_TOTAL = 1000;
     const start = performance.now();
     let finished = false;
+
+    /* Typewriter in preloader (slow, elegant) */
+    const typeEl = document.getElementById('plType');
+    if (typeEl) {
+      const phrase = 'Lodge · Travel · Tea · Culture';
+      if (reduce) { typeEl.textContent = phrase; }
+      else {
+        let i = 0;
+        (function tickType() {
+          typeEl.textContent = phrase.slice(0, i);
+          if (i < phrase.length) { i++; setTimeout(tickType, 42); }
+        })();
+      }
+    }
 
     const finish = () => {
       if (finished) return;
@@ -2573,9 +2919,7 @@
         ctx1 = canvas1.getContext('2d'),
         ctx2 = canvas2.getContext('2d'),
         ctx3 = canvas3.getContext('2d'),
-        linklist = document.querySelector('.link-list'),
-        btns = document.querySelector('.btns'),
-        nextBtn = btns.querySelector('.show-next');
+        linklist = document.querySelector('.link-list');
 
     var IS_ACTIVE = 'is-active';
     var isAnimating = false, currentImage = 0, prevImage = 0, currentLink;
@@ -2600,38 +2944,11 @@
       ctx0.drawImage(imgNext, 0, 0, imgW, imgH);
       ctx0.globalAlpha = partMove.val;
       ctx0.drawImage(imgPrev, 0, 0, imgW, imgH);
+      ctx0.globalAlpha = 1;
 
-      var obj, ctx, xPrev, xNext;
-      for (var i = 0; i < partList.length; i++) {
-        obj = partList[i];
-        ctx = obj.context;
-        xPrev = -obj.xpos * (1 - partMove.val);
-        xNext = obj.xpos * partMove.val;
-
-        ctx.clearRect(0, 0, VW, VH);
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(VW / 2, VH / 2, obj.radius, 0, 2 * Math.PI, false);
-        ctx.fill();
-
-        ctx.globalAlpha = 1;
-        ctx.globalCompositeOperation = 'source-in';
-        ctx.drawImage(imgNext, xNext, 0, imgW, imgH);
-
-        ctx.globalAlpha = partMove.val;
-        ctx.globalCompositeOperation = 'source-atop';
-        ctx.drawImage(imgPrev, xPrev, 0, imgW, imgH);
-
-        ctx.globalCompositeOperation = 'source-over';
-        ctx.globalAlpha = 1;
-
-        if (i === 0) {
-          ctx.lineWidth = 1;
-          ctx.strokeStyle = 'rgba(255,255,255,.7)';
-          ctx.stroke();
-        }
-        ctx.restore();
-      }
+      ctx1.clearRect(0, 0, VW, VH);
+      ctx2.clearRect(0, 0, VW, VH);
+      ctx3.clearRect(0, 0, VW, VH);
     }
 
     function changeImage() {
@@ -2724,13 +3041,6 @@
       e.preventDefault();
       var trgt = e.target;
       if (trgt.nodeName === 'A') goTo(parseInt(trgt.getAttribute('data-order'), 10));
-    });
-    btns.addEventListener('click', function (e) {
-      e.preventDefault();
-      var trgt = e.target;
-      if (trgt.nodeName !== 'BUTTON') return;
-      if (trgt.classList.contains('show-next')) goTo(currentImage + 1);
-      else goTo(currentImage - 1);
     });
     window.addEventListener('resize', debounce(function () {
       calculateScreen();
@@ -2854,175 +3164,192 @@
   setupLodgeGallery('gallery1', 'dots1');
   setupLodgeGallery('gallery2', 'dots2');
 
-  /* ── TEA CANVAS CIRCULAR-MASK PARALLAX SLIDESHOW (GSAP) ── */
+  /* ── MAGOME CHA: 3D CUBE GRID GALLERY ── */
   (function () {
-    var canvas0 = document.getElementById('teaCanvas0'),
-        canvas1 = document.getElementById('teaCanvas1'),
-        canvas2 = document.getElementById('teaCanvas2'),
-        canvas3 = document.getElementById('teaCanvas3');
-    if (!canvas0 || !canvas1 || !canvas2 || !canvas3 || typeof gsap === 'undefined') return;
+    var gallery = document.querySelector('.tea-cube-gallery');
+    if (!gallery) return;
+    var cubes = gallery.querySelectorAll('.tea-cube-gallery__cube');
+    var n = cubes.length;
+    if (n === 0) return;
+    var cols = Math.ceil(Math.sqrt(n));
+    var rows = Math.ceil(n / cols);
+    gallery.style.setProperty('--cube-cols', cols);
+    gallery.style.setProperty('--cube-rows', rows);
+    var nav = gallery.querySelector('.tea-cube-gallery__nav');
+    if (nav) nav.style.setProperty('--cube-count', n);
+    for (var i = 0; i < n; i++) {
+      cubes[i].style.setProperty('--cube-i', i);
+      cubes[i].style.setProperty('--cube-x', i % cols);
+      cubes[i].style.setProperty('--cube-y', Math.floor(i / cols));
+      cubes[i].style.setProperty('--cube-l', n);
+    }
+    /* Size cubes to actually fill the gallery column (no clipping), capped for looks */
+    function fitCubes() {
+      var w = gallery.clientWidth || 0;
+      var size = Math.max(44, Math.min(120, Math.floor((w - 16) / cols)));
+      gallery.style.setProperty('--cube-size', size + 'px');
+    }
+    fitCubes();
+    window.addEventListener('resize', fitCubes);
+    if (window.CSS && CSS.supports && !CSS.supports('selector(:has(*))')) {
+      gallery.classList.add('no-has');
+    }
+    requestAnimationFrame(function () { gallery.classList.add('is-ready'); });
+  })();
 
-    var ctx0 = canvas0.getContext('2d'),
-        ctx1 = canvas1.getContext('2d'),
-        ctx2 = canvas2.getContext('2d'),
-        ctx3 = canvas3.getContext('2d'),
-        linklist = document.querySelector('.tea-links'),
-        btns = document.querySelector('.tea-btns');
-
-    var IS_ACTIVE = 'is-active';
-    var isAnimating = false, currentImage = 0, prevImage = 0, currentLink;
-    var partMove = { val: 1 };
-    var slideshowInterval;
-    var imagesList = [], linkList = [];
-    var imgW, imgH;
+  /* ── MEMORIES MARQUEE: SLOW DRIFT + SCROLL + DRAG ── */
+  (function () {
+    var track = document.getElementById('memoriesTrack');
+    if (!track) return;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var x = 0, vel = 0, base = 0.12; /* very slow base drift px/frame */
+    var half = 0;
+    function measure() { half = track.scrollWidth / 2; }
+    measure();
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure);
+    /* Page scroll velocity gives a gentle boost: fast scroll = a little faster */
+    var lastY = window.scrollY || 0;
+    window.addEventListener('scroll', function () {
+      var dy = (window.scrollY || 0) - lastY;
+      lastY = window.scrollY || 0;
+      vel += dy * 0.12;
+    }, { passive: true });
+    /* Drag with the hand tool to steer direction */
+    var dragging = false, startX = 0, startPos = 0;
+    track.addEventListener('pointerdown', function (e) {
+      dragging = true; startX = e.clientX; startPos = x;
+      track.classList.add('dragging');
+      if (track.setPointerCapture) track.setPointerCapture(e.pointerId);
+    });
+    track.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      x = startPos + (e.clientX - startX);
+    });
+    function endDrag() { dragging = false; track.classList.remove('dragging'); }
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+    function frame() {
+      if (!reduce) {
+        if (!dragging) {
+          vel *= 0.96;          /* friction */
+          x += base + vel;      /* slow base + gentle scroll push */
+        }
+        if (half > 0) {
+          if (x >= half) x -= half;
+          if (x < 0) x += half;
+        }
+        track.style.transform = 'translate3d(' + (-x) + 'px,0,0)';
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
 
-    var partList = [
-      { context: ctx1, xpos: 100, radius: 0 },
-      { context: ctx2, xpos: -70, radius: 0 },
-      { context: ctx3, xpos: 50, radius: 0 }
-    ];
+  /* ── FOOD MARQUEE: SLOW DRIFT + SCROLL + DRAG (same as memories) ── */
+  (function () {
+    var track = document.getElementById('foodTrack');
+    if (!track) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var x = 0, vel = 0, base = 0.12; /* slow base drift px/frame */
+    var half = 0;
+    function measure() { half = track.scrollWidth / 2; }
+    measure();
+    window.addEventListener('resize', measure);
+    window.addEventListener('load', measure);
+    var lastY = window.scrollY || 0;
+    window.addEventListener('scroll', function () {
+      var dy = (window.scrollY || 0) - lastY;
+      lastY = window.scrollY || 0;
+      vel += dy * 0.12;
+    }, { passive: true });
+    var dragging = false, startX = 0, startPos = 0;
+    track.addEventListener('pointerdown', function (e) {
+      dragging = true; startX = e.clientX; startPos = x;
+      track.classList.add('dragging');
+      if (track.setPointerCapture) track.setPointerCapture(e.pointerId);
+    });
+    track.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      x = startPos + (e.clientX - startX);
+    });
+    function endDrag() { dragging = false; track.classList.remove('dragging'); }
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+    function frame() {
+      if (!reduce) {
+        if (!dragging) {
+          vel *= 0.96;
+          x += base + vel;
+        }
+        if (half > 0) {
+          if (x >= half) x -= half;
+          if (x < 0) x += half;
+        }
+        track.style.transform = 'translate3d(' + (-x) + 'px,0,0)';
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
 
-    function drawImages() {
-      var imgPrev = imagesList[prevImage];
-      var imgNext = imagesList[currentImage];
-      var VW = canvas0.width, VH = canvas0.height;
-
-      ctx0.globalAlpha = 1;
-      ctx0.drawImage(imgNext, 0, 0, imgW, imgH);
-      ctx0.globalAlpha = partMove.val;
-      ctx0.drawImage(imgPrev, 0, 0, imgW, imgH);
-
-      var obj, ctx, xPrev, xNext;
-      for (var i = 0; i < partList.length; i++) {
-        obj = partList[i];
-        ctx = obj.context;
-        xPrev = -obj.xpos * (1 - partMove.val);
-        xNext = obj.xpos * partMove.val;
-
-        ctx.clearRect(0, 0, VW, VH);
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(VW / 2, VH / 2, obj.radius, 0, 2 * Math.PI, false);
-        ctx.fill();
-
-        ctx.globalAlpha = 1;
-        ctx.globalCompositeOperation = 'source-in';
-        ctx.drawImage(imgNext, xNext, 0, imgW, imgH);
-
-        ctx.globalAlpha = partMove.val;
-        ctx.globalCompositeOperation = 'source-atop';
-        ctx.drawImage(imgPrev, xPrev, 0, imgW, imgH);
-
-        ctx.globalCompositeOperation = 'source-over';
-        ctx.globalAlpha = 1;
-        ctx.restore();
+  /* ── GUEST REVIEWS: TESTIMONIAL CAROUSEL ── */
+  (function () {
+    var track = document.getElementById('rvTrack');
+    if (!track) return;
+    var slides = Array.prototype.slice.call(track.children);
+    var dotsWrap = document.getElementById('rvDots');
+    var area = document.getElementById('guest-reviews');
+    var n = slides.length;
+    if (n === 0) return;
+    var perView = 2, pages = 1, page = 0, timerId = null, startX = null;
+    function layout() {
+      perView = window.innerWidth >= 640 ? 2 : 1;
+      slides.forEach(function (s) {
+        s.style.flexBasis = 'calc(' + (100 / perView) + '% - 2rem)';
+      });
+      pages = Math.ceil(n / perView);
+      if (page > pages - 1) page = pages - 1;
+      renderDots();
+      apply();
+    }
+    function renderDots() {
+      if (!dotsWrap) return;
+      dotsWrap.innerHTML = '';
+      for (var i = 0; i < pages; i++) {
+        (function (idx) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('aria-label', 'Go to review slide ' + (idx + 1));
+          if (idx === page) b.classList.add('active');
+          b.addEventListener('click', function () { page = idx; apply(); restart(); });
+          dotsWrap.appendChild(b);
+        })(i);
       }
     }
-
-    function changeImage() {
-      if (isAnimating) return;
-      isAnimating = true;
-      gsap.to(partMove, {
-        val: 0, duration: 1.1, ease: 'power1.inOut',
-        onUpdate: drawImages,
-        onComplete: function () {
-          partMove.val = 1;
-          isAnimating = false;
-        }
-      });
+    function apply() {
+      track.style.transform = 'translateX(-' + (page * 100 / perView) + '%)';
+      if (dotsWrap) {
+        var bs = dotsWrap.children;
+        for (var i = 0; i < bs.length; i++) bs[i].classList.toggle('active', i === page);
+      }
     }
-
-    function selectLink() {
-      if (currentLink !== undefined) currentLink.classList.remove(IS_ACTIVE);
-      currentLink = linkList[currentImage];
-      currentLink.classList.add(IS_ACTIVE);
-    }
-
-    function goTo(n) {
-      if (isAnimating || n === currentImage) return;
-      prevImage = currentImage;
-      currentImage = (n + imagesList.length) % imagesList.length;
-      changeImage();
-      selectLink();
-      clearInterval(slideshowInterval);
-      if (!reduce) slideshowInterval = setInterval(slideshowChange, 5000);
-    }
-
-    function slideshowChange() {
-      prevImage = currentImage;
-      currentImage = (currentImage + 1 >= imagesList.length) ? 0 : currentImage + 1;
-      changeImage();
-      selectLink();
-    }
-
-    function calculateScreen() {
-      var box = document.getElementById('teaSlider');
-      var VW = box.clientWidth, VH = box.clientHeight;
-      canvas0.width = canvas1.width = canvas2.width = canvas3.width = VW;
-      canvas0.height = canvas1.height = canvas2.height = canvas3.height = VH;
-      partList[0].radius = VW * 0.42;
-      partList[1].radius = VW * 0.26;
-      partList[2].radius = VW * 0.08;
-    }
-
-    function resizeBg() {
-      var image1 = imagesList[0];
-      if (!image1) return;
-      var IAR = image1.width / image1.height;
-      var AR = canvas0.width / canvas0.height;
-      if (IAR < AR) { imgW = canvas0.width; imgH = canvas0.width / IAR; }
-      else { imgW = canvas0.height * IAR; imgH = canvas0.height; }
-    }
-
-    function debounce(func, wait) {
-      var timeout;
-      return function () {
-        var context = this, args = arguments;
-        clearTimeout(timeout);
-        timeout = setTimeout(function () { func.apply(context, args); }, wait);
-      };
-    }
-
-    function init() {
-      calculateScreen();
-      resizeBg();
-      selectLink();
-      drawImages();
-      if (reduce) return;
-      slideshowInterval = setInterval(slideshowChange, 5000);
-    }
-
-    var links = linklist.querySelectorAll('a');
-    for (var i = 0; i < links.length; i++) {
-      (function (idx, link) {
-        linkList.push(link);
-        var img = new Image();
-        img.onload = function () {
-          imagesList[idx] = img;
-          if (imagesList.length === links.length && imagesList.every(function (x) { return x; })) init();
-        };
-        img.src = link.getAttribute('data-imagesrc');
-      })(i, links[i]);
-    }
-
-    linklist.addEventListener('click', function (e) {
-      e.preventDefault();
-      var trgt = e.target;
-      if (trgt.nodeName === 'A') goTo(parseInt(trgt.getAttribute('data-order'), 10));
+    function next() { page = (page + 1) % pages; apply(); }
+    function restart() { stop(); if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) timerId = setInterval(next, 6000); }
+    function stop() { if (timerId) { clearInterval(timerId); timerId = null; } }
+    if (area) { area.addEventListener('mouseenter', stop); area.addEventListener('mouseleave', restart); }
+    track.addEventListener('pointerdown', function (e) { startX = e.clientX; });
+    track.addEventListener('pointerup', function (e) {
+      if (startX === null) return;
+      var dx = e.clientX - startX; startX = null;
+      if (Math.abs(dx) > 40) {
+        if (dx < 0) { next(); restart(); }
+        else { page = (page - 1 + pages) % pages; apply(); restart(); }
+      }
     });
-    btns.addEventListener('click', function (e) {
-      e.preventDefault();
-      var trgt = e.target;
-      if (trgt.nodeName !== 'BUTTON') return;
-      if (trgt.classList.contains('show-next')) goTo(currentImage + 1);
-      else goTo(currentImage - 1);
-    });
-    window.addEventListener('resize', debounce(function () {
-      calculateScreen();
-      resizeBg();
-      drawImages();
-    }, 200));
+    window.addEventListener('resize', layout);
+    layout();
+    restart();
   })();
 
   /* ── DYNAMIC SPLIT TAB SWITCHING ── */
