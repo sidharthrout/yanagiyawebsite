@@ -465,8 +465,25 @@
     .rating-pill strong{font-size:.9rem}
 
     /* ── NAKASENDO TRAIL & GUIDED ADVENTURES ── */
-    #experiences{padding:6.5rem 6%;background:var(--card)}
+    #experiences{padding:6.5rem 6%;background:var(--card);position:relative;overflow:hidden}
     .exp-header{text-align:center;margin-bottom:3.8rem}
+    
+    /* Mountain-mist WebGL stage behind the trail card */
+    .trail-gl-stage{
+      position:relative;height:clamp(300px,54vh,500px);border-radius:16px;
+      overflow:hidden;margin-bottom:3rem;
+      background:linear-gradient(180deg,#dbe7df 0%,#a8bfae 55%,#7d9c8c 100%);
+      box-shadow:0 14px 44px rgba(21,18,16,.14);
+    }
+    .trail-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+    .trail-gl-label{
+      position:absolute;left:1.4rem;bottom:1.2rem;z-index:3;
+      font-family:'Noto Serif JP',serif;font-size:.72rem;letter-spacing:.35em;
+      color:rgba(255,255,255,.85);text-shadow:0 1px 10px rgba(0,0,0,.45);
+      background:rgba(21,18,16,.35);backdrop-filter:blur(6px);
+      padding:.4rem .9rem;border-radius:30px;border:1px solid rgba(255,255,255,.18);
+    }
+    .exp-header,.trail-feature-card{position:relative;z-index:1}
     
     /* Enhanced Trail Feature Card */
     .trail-feature-card{
@@ -475,25 +492,33 @@
       box-shadow:0 12px 40px rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.08);
     }
     .trail-img-slider{position:relative;overflow:hidden;min-height:420px;background:#14100e}
-    .trail-slide{position:absolute;inset:0;opacity:0;transform:scale(1.05);transition:opacity 1s cubic-bezier(.4,0,.2,1),transform 1.2s cubic-bezier(.4,0,.2,1);pointer-events:none}
-    .trail-slide.active{opacity:1;transform:scale(1);pointer-events:auto}
-    .trail-slide img{width:100%;height:100%;object-fit:cover}
-    .trail-slide.active img{animation:trailKen 9s cubic-bezier(.2,.6,.2,1) forwards}
-    @keyframes trailKen{0%{transform:scale(1.02)}100%{transform:scale(1.14)}}
+    /* Fan / rotate carousel slides */
+    .trail-slide{
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      pointer-events:none;cursor:pointer;
+      transition:transform .85s cubic-bezier(.22,.61,.36,1),opacity .85s ease,filter .85s ease;
+      will-change:transform,opacity;
+    }
+    .trail-slide.active{pointer-events:auto}
+    .trail-slide img{
+      width:86%;height:100%;object-fit:cover;border-radius:14px;
+      box-shadow:0 18px 55px rgba(0,0,0,.4);transition:box-shadow .5s ease;
+    }
+    .trail-slide.active img{box-shadow:0 26px 70px rgba(0,0,0,.55)}
     .trail-slider-badge{
-      position:absolute;top:1.2rem;left:1.2rem;z-index:6;
+      position:absolute;top:1.2rem;left:1.2rem;z-index:20;
       background:rgba(21,18,16,.8);backdrop-filter:blur(6px);
       color:var(--gold-lt);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;
-      padding:.35rem .8rem;border-radius:2px;
+      padding:.35rem .8rem;border-radius:30px;border:1px solid rgba(232,202,146,.25);
     }
     .trail-counter{
-      position:absolute;top:1.2rem;right:1.2rem;z-index:6;
+      position:absolute;top:1.2rem;right:1.2rem;z-index:20;
       font-family:'Cormorant Garamond',serif;font-size:.9rem;letter-spacing:.18em;color:#fff;
-      background:rgba(21,18,16,.5);backdrop-filter:blur(6px);padding:.3rem .75rem;border-radius:2px;
+      background:rgba(21,18,16,.5);backdrop-filter:blur(6px);padding:.3rem .75rem;border-radius:30px;
     }
     .trail-counter b{color:var(--gold-lt);font-weight:400}
     .trail-arrow{
-      position:absolute;top:50%;transform:translateY(-50%);z-index:6;
+      position:absolute;top:50%;transform:translateY(-50%);z-index:20;
       width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
       background:rgba(21,18,16,.4);backdrop-filter:blur(6px);border:1px solid rgba(232,202,146,.28);
       color:var(--gold-lt);font-size:1.05rem;line-height:1;transition:all .3s ease;
@@ -501,7 +526,7 @@
     .trail-arrow:hover{background:rgba(21,18,16,.78);transform:translateY(-50%) scale(1.06)}
     .trail-arrow.trail-prev{left:1rem}
     .trail-arrow.trail-next{right:1rem}
-    .trail-dots{position:absolute;bottom:1.2rem;left:1.2rem;display:flex;gap:.45rem;z-index:6}
+    .trail-dots{position:absolute;bottom:1.2rem;left:1.2rem;display:flex;gap:.45rem;z-index:20}
     .trail-dot{width:22px;height:4px;border-radius:2px;background:rgba(255,255,255,.35);cursor:pointer;position:relative;overflow:hidden}
     .trail-dot.active::after{
       content:'';position:absolute;inset:0;background:var(--gold);
@@ -2169,73 +2194,326 @@
 
   <div class="testimonial-carousel">
     <div class="testimonial-track" id="rvTrack">
-      <article class="single-testimonial reveal" style="transition-delay:.05s;">
-        <div class="rv-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <article class="single-testimonial reveal" style="transition-delay:0.05s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“Incredible location and a wonderful host that went above and beyond for us!”</p>
+        <div class="client-info">
+          <span class="client-avatar">N</span>
+          <div class="client-details">
+            <h6>Guest &middot; Netherlands</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.10s;">
+        <div class="rv-stars" aria-label="9 out of 10">★★★★☆</div>
+        <p>“This was an amazing place to stay in a very pretty village. The unit was quite large and when we arrived the host made us feel very at home. He helped us secure a reservation at a nearby restaurant for dinner and it turned out fabulous. The lodging was exactly as described — very clean, spacious, and with very fast Wi-Fi. If anyone wants to stay overnight in Magome, I would highly recommend it.”</p>
+        <div class="client-info">
+          <span class="client-avatar">T</span>
+          <div class="client-details">
+            <h6>Timothy &middot; United States</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.15s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“The guest house is very nice, the room is big, cozy and good, and the staff are super nice and friendly. The dinner in the place is also good and tasty with special ingredients. Overall highly recommended — thanks to the host it was a nice time there. Love from Israel.”</p>
+        <div class="client-info">
+          <span class="client-avatar">I</span>
+          <div class="client-details">
+            <h6>Iliya &middot; Israel</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.20s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“The accommodation was spacious, extremely clean and set in a stunning location, making for a truly relaxing stay. Our host was incredibly friendly, and the home-cooked wild game meal was both delicious and generous — one of the best experiences of our holiday. Highly recommend!”</p>
+        <div class="client-info">
+          <span class="client-avatar">W</span>
+          <div class="client-details">
+            <h6>Whitney &middot; Australia</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.25s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“The location of the accommodation is excellent — right in the middle section of Magome-juku. The scenery is beautiful and it is particularly quiet at night. The dinner reserved was a pleasant surprise: wild boar and deer he caught in the forest. The food was incredibly fresh and delicious, and my little daughter couldn't stop praising it. We really enjoyed our stay, fully recommended!”</p>
+        <div class="client-info">
+          <span class="client-avatar">N</span>
+          <div class="client-details">
+            <h6>Na &middot; China</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.30s;">
+        <div class="rv-stars" aria-label="9 out of 10">★★★★☆</div>
+        <p>“Location was perfect, right in the heart of Magome. The accommodation was very clean and comfortable with a nice kitchen and dining area and a large upstairs traditional bedroom. Our host was very helpful and cooked us a delicious meal.”</p>
+        <div class="client-info">
+          <span class="client-avatar">N</span>
+          <div class="client-details">
+            <h6>Neil &middot; Australia</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.35s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“The location was perfect for walking the Nakasendo trail. Dinner and breakfast were cooked by our host who went beyond to accommodate our dietary requirements. It was an amazing experience.”</p>
+        <div class="client-info">
+          <span class="client-avatar">J</span>
+          <div class="client-details">
+            <h6>Jo &middot; Australia</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.40s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“Guesthouse Yanagiya is an apartment rather than a room. It has been very recently refurbished and was clean and comfortable. It is right in the centre of Magome. The owner was very helpful — he contacted us to explain that there were very few restaurants in Magome and booked us a table for the night we stayed.”</p>
+        <div class="client-info">
+          <span class="client-avatar">R</span>
+          <div class="client-details">
+            <h6>Robert &middot; United Kingdom</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.45s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“Good location and clean and comfortable.”</p>
+        <div class="client-info">
+          <span class="client-avatar">J</span>
+          <div class="client-details">
+            <h6>Jane &middot; Singapore</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.50s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“Great place to stay! Would go again — so much more room than we first thought, and the owner was so nice and accommodating.”</p>
+        <div class="client-info">
+          <span class="client-avatar">J</span>
+          <div class="client-details">
+            <h6>Jane &middot; Singapore</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.55s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“Secret gem in all of Japan. Very welcoming, friendly staff. They prepared a meal of hunted boar and venison that was amazing and unlike anything we've experienced.”</p>
+        <div class="client-info">
+          <span class="client-avatar">A</span>
+          <div class="client-details">
+            <h6>Aman &middot; United States</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.60s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“Perfect get-away in an exceptional place. This little home was beautiful, and the host was excellent. Clean, homely — everything you need.”</p>
+        <div class="client-info">
+          <span class="client-avatar">C</span>
+          <div class="client-details">
+            <h6>Callum &middot; United States</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.65s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“Lovely guesthouse in a picture-perfect traditional village. Very comfortable futon beds — we slept very well! Location was perfect, right in the middle of the beautiful Magome village.”</p>
+        <div class="client-info">
+          <span class="client-avatar">A</span>
+          <div class="client-details">
+            <h6>Alexander &middot; United Kingdom</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.70s;">
+        <div class="rv-stars" aria-label="9 out of 10">★★★★☆</div>
+        <p>“Spacious lodging with really helpful staff in a great location. Nice kitchen and dining area.”</p>
+        <div class="client-info">
+          <span class="client-avatar">E</span>
+          <div class="client-details">
+            <h6>Elaine &middot; United Kingdom</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.75s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“Very spacious and right in the middle of the old town. The staff was friendly and drove us to the station the next morning for a very fair price. We hope to visit again someday.”</p>
+        <div class="client-info">
+          <span class="client-avatar">R</span>
+          <div class="client-details">
+            <h6>Robert &middot; Netherlands</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.80s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“We had an amazing stay and would recommend this to anyone traveling through Magome. It was extremely cozy and spacious, with an amazing view of the mountains from the back balcony. Quiet and restful. The hosts were extremely kind and helped us reserve a dinner before we arrived.”</p>
+        <div class="client-info">
+          <span class="client-avatar">M</span>
+          <div class="client-details">
+            <h6>Margot &middot; United States</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.85s;">
+        <div class="rv-stars" aria-label="9 out of 10">★★★★☆</div>
+        <p>“Location fantastic. The owners organised a fabulous evening meal for us before arriving. Great service, well supplied.”</p>
+        <div class="client-info">
+          <span class="client-avatar">K</span>
+          <div class="client-details">
+            <h6>Kathryn &middot; New Zealand</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.90s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“This was everything we needed — perfect for a Magome / Tsumago trail stay. Wonderful location and lovely, lovely host. The host made great recommendations for dinner and booked for us. Felt homely straight away.”</p>
+        <div class="client-info">
+          <span class="client-avatar">T</span>
+          <div class="client-details">
+            <h6>Tonia &middot; Australia</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:0.95s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“Amazing place in the central part of town. Lovely host, great amenities, such a great location. Full kitchen if you need it, washer and dryer if needed, lots of space and a separate sleeping area. Really comfy beds.”</p>
+        <div class="client-info">
+          <span class="client-avatar">H</span>
+          <div class="client-details">
+            <h6>Hayley &middot; Australia</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:1.00s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
         <p>“The best part of the stay was dinner cooked by our host Yuji. He caught fish that very day and also served wild boar he hunted. Don't miss this part of your stay. FANTASTIC!”</p>
         <div class="client-info">
           <span class="client-avatar">C</span>
           <div class="client-details">
-            <h6>Carolynn · United States</h6>
-            <span>✓ Verified stay · Booking.com</span>
+            <h6>Carolynn &middot; United States</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
           </div>
         </div>
       </article>
-      <article class="single-testimonial reveal" style="transition-delay:.1s;">
-        <div class="rv-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <article class="single-testimonial reveal" style="transition-delay:1.05s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
         <p>“It is right in the center of town, close to everything. The host is very responsive and accommodating, and even offered to pick us up from the bus stop. We had the house all to ourselves and the place is huge.”</p>
         <div class="client-info">
           <span class="client-avatar">C</span>
           <div class="client-details">
-            <h6>Carolyn · Philippines</h6>
-            <span>✓ Verified stay · Booking.com</span>
+            <h6>Carolyn &middot; Philippines</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
           </div>
         </div>
       </article>
-      <article class="single-testimonial reveal" style="transition-delay:.15s;">
-        <div class="rv-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <article class="single-testimonial reveal" style="transition-delay:1.10s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
         <p>“The guesthouse was clean and well equipped for families who would like to cook. It is comfortable to stay and located right next to the main Magome-juku lane. The host is friendly and hospitable.”</p>
         <div class="client-info">
           <span class="client-avatar">S</span>
           <div class="client-details">
-            <h6>Swee · Singapore</h6>
-            <span>✓ Verified stay · Booking.com</span>
+            <h6>Swee &middot; Singapore</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
           </div>
         </div>
       </article>
-      <article class="single-testimonial reveal" style="transition-delay:.2s;">
-        <div class="rv-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <article class="single-testimonial reveal" style="transition-delay:1.15s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
         <p>“Host was friendly and helpful. The location was excellent and the space was great.”</p>
         <div class="client-info">
           <span class="client-avatar">C</span>
           <div class="client-details">
-            <h6>Casey · United States</h6>
-            <span>✓ Verified stay · Booking.com</span>
+            <h6>Casey &middot; United States</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
           </div>
         </div>
       </article>
-      <article class="single-testimonial reveal" style="transition-delay:.25s;">
-        <div class="rv-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <article class="single-testimonial reveal" style="transition-delay:1.20s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
         <p>“The host was amazing, we received the best welcome! The apartment had everything we needed for our stay — super clean, cozy, and with a beautiful view from the terrace.”</p>
         <div class="client-info">
           <span class="client-avatar">S</span>
           <div class="client-details">
-            <h6>Shachar · Israel</h6>
-            <span>✓ Verified stay · Booking.com</span>
+            <h6>Shachar &middot; Israel</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
           </div>
         </div>
       </article>
-      <article class="single-testimonial reveal" style="transition-delay:.3s;">
-        <div class="rv-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <article class="single-testimonial reveal" style="transition-delay:1.25s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
         <p>“Excellent location, beautiful and clean space, wonderful host.”</p>
         <div class="client-info">
           <span class="client-avatar">E</span>
           <div class="client-details">
-            <h6>Emma · United States</h6>
-            <span>✓ Verified stay · Booking.com</span>
+            <h6>Emma &middot; United States</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
           </div>
         </div>
       </article>
-    </div>
+      <article class="single-testimonial reveal" style="transition-delay:1.30s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“Very comfortable accommodation in an old building in the centre of Magome Juku. Parking is available at the rear of the dwelling, accessible via a nearby lane from the main street.”</p>
+        <div class="client-info">
+          <span class="client-avatar">R</span>
+          <div class="client-details">
+            <h6>Rae &middot; Australia</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:1.35s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“Location was perfect in the middle of Magome. Kenta was very gracious and kind.”</p>
+        <div class="client-info">
+          <span class="client-avatar">M</span>
+          <div class="client-details">
+            <h6>Malia &middot; United States</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:1.40s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“We loved our 2 nights at Guesthouse Yanagiya! The hosts were so friendly and helpful and very easy to get ahold of. The place is a whole apartment with kitchen and washer included and was very clean and comfortable with thoughtful touches.”</p>
+        <div class="client-info">
+          <span class="client-avatar">P</span>
+          <div class="client-details">
+            <h6>Postlewaite &middot; United States</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+      <article class="single-testimonial reveal" style="transition-delay:1.45s;">
+        <div class="rv-stars" aria-label="10 out of 10">★★★★★</div>
+        <p>“The location in Magome was perfect for us. It takes a few minutes to walk up the steep hill from the bus stop and it is centrally located. The hosts were welcoming, the room was very comfortable, and the beds were very comfortable.”</p>
+        <div class="client-info">
+          <span class="client-avatar">P</span>
+          <div class="client-details">
+            <h6>Paul &middot; United States</h6>
+            <span>&#10003; Verified stay &middot; Booking.com</span>
+          </div>
+        </div>
+      </article>
+
     <div class="rv-dots" id="rvDots"></div>
   </div>
 
@@ -2253,6 +2531,12 @@
     <h2 class="section-title">Magome Experiences &amp; Guided Walks</h2>
     <div class="divider divider-center"></div>
     <p class="section-sub" style="margin:0 auto;text-align:center;">Discover the living culture, ancient trade routes, stargazing skies, and culinary traditions of the Kiso Valley.</p>
+  </div>
+
+  <!-- Mountain-mist WebGL backdrop (scroll-synced day/night over the Kiso valley) -->
+  <div class="trail-gl-stage" aria-hidden="true">
+    <canvas id="trailGl" class="trail-gl"></canvas>
+    <span class="trail-gl-label">木曽路 &middot; Kiso Valley Mist</span>
   </div>
 
   <!-- Featured Nakasendo Trail Card with Hiking Slider & Warm Instagram DM Booking -->
@@ -3049,7 +3333,7 @@
     }, 200));
   })();
 
-  /* ── TRAIL SLIDER ── */
+  /* ── TRAIL FAN CAROUSEL (rotate/scale, scroll + drag + manual) ── */
   (function () {
     const slider = document.getElementById('trailSlider');
     if (!slider) return;
@@ -3061,18 +3345,40 @@
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let cur = 0, timer;
     const DELAY = 5000;
+    let scrollAcc = 0, lastY = window.scrollY || 0;
+
+    function layout() {
+      slides.forEach((s, i) => {
+        const off = ((i - cur + slides.length) % slides.length + slides.length) % slides.length;
+        let d = off;
+        if (d > slides.length / 2) d = d - slides.length;
+        const isActive = i === cur;
+        const rot = d * -22;                      /* fan rotation */
+        const scale = isActive ? 1 : Math.max(0.55, 1 - Math.abs(d) * 0.18);
+        const ty = d * -9;                        /* vertical stagger */
+        const op = isActive ? 1 : Math.max(0, 1 - Math.abs(d) * 0.38);
+        s.classList.toggle('active', isActive);
+        s.style.zIndex = isActive ? 12 : Math.max(1, 11 - Math.abs(d));
+        s.style.transform = 'translate(' + (d * 34) + '%,' + (ty) + '%) rotate(' + rot + 'deg) scale(' + scale + ')';
+        s.style.opacity = op;
+        s.style.filter = isActive ? 'none' : 'brightness(.75) saturate(.85)';
+      });
+      if (dotsWrap) {
+        [...dotsWrap.children].forEach((dot, i) => dot.classList.toggle('active', i === cur));
+      }
+      if (countEl) countEl.textContent = cur + 1;
+    }
 
     function goTo(n) {
-      slides[cur].classList.remove('active');
-      dotsWrap.children[cur].classList.remove('active');
       cur = (n + slides.length) % slides.length;
-      slides[cur].classList.add('active');
-      dotsWrap.children[cur].classList.add('active');
-      if (countEl) countEl.textContent = cur + 1;
+      layout();
     }
     function start() { stop(); if (slides.length < 2 || reduce) return; timer = setInterval(() => goTo(cur + 1), DELAY); }
     function stop() { clearInterval(timer); }
 
+    slides.forEach((s, i) => {
+      s.addEventListener('click', () => { goTo(i); start(); });
+    });
     slides.forEach((_, i) => {
       const dot = document.createElement('button');
       dot.className = 'trail-dot' + (i === 0 ? ' active' : '');
@@ -3085,6 +3391,22 @@
     slider.addEventListener('mouseenter', stop);
     slider.addEventListener('mouseleave', start);
 
+    /* Scroll velocity nudges the fan: fast scroll = quick rotate */
+    window.addEventListener('scroll', () => {
+      const dy = (window.scrollY || 0) - lastY;
+      lastY = window.scrollY || 0;
+      scrollAcc += dy;
+    }, { passive: true });
+    setInterval(() => {
+      if (Math.abs(scrollAcc) > 140) {
+        goTo(cur + (scrollAcc > 0 ? 1 : -1));
+        start();
+        scrollAcc = 0;
+      } else {
+        scrollAcc = 0;
+      }
+    }, 260);
+
     let touchX = null;
     slider.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; stop(); }, { passive: true });
     slider.addEventListener('touchend', (e) => {
@@ -3094,7 +3416,278 @@
       touchX = null; start();
     }, { passive: true });
 
+    layout();
     start();
+  })();
+
+  /* ── TRAIL WEBGL: MOUNTAIN MIST DAY/NIGHT (scroll-synced) ── */
+  (function () {
+    var canvas = document.getElementById('trailGl');
+    if (!canvas) return;
+    var gl = null;
+    try {
+      gl = canvas.getContext('webgl', { alpha: true, antialias: false, depth: false, stencil: false, preserveDrawingBuffer: false, powerPreference: 'high-performance' }) ||
+           canvas.getContext('experimental-webgl');
+    } catch (e) { gl = null; }
+    if (!gl) { canvas.style.display = 'none'; return; }
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var vs = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.0,1.0);}';
+
+    var fs = [
+      'precision highp float;',
+      'uniform vec2 uR;uniform float uT,uS;',
+      '#define PI 3.14159265359',
+      'float sat(float x){return clamp(x,0.0,1.0);}',
+      'float sm(float x){x=sat(x);return x*x*x*(x*(x*6.0-15.0)+10.0);}',
+      'vec3 scol(vec3 a,vec3 b,vec3 c,vec3 d,vec3 e){',
+      '  int si=int(uS*4.0);float bl=fract(uS*4.0);',
+      '  vec3 x=a,y=b;',
+      '  if(si==1){x=b;y=c;}',
+      '  else if(si==2){x=c;y=d;}',
+      '  else if(si==3){x=d;y=e;}',
+      '  return mix(x,y,bl);',
+      '}',
+      'float sval(float a,float b,float c,float d,float e){',
+      '  int si=int(uS*4.0);float bl=fract(uS*4.0);',
+      '  float x=a,y=b;',
+      '  if(si==1){x=b;y=c;}',
+      '  else if(si==2){x=c;y=d;}',
+      '  else if(si==3){x=d;y=e;}',
+      '  return mix(x,y,bl);',
+      '}',
+      'mat2 rot(float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c);}',
+      'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}',
+      'float noise(vec2 p){',
+      '  vec2 i=floor(p);vec2 f=fract(p);f=f*f*(3.0-2.0*f);',
+      '  float a=hash(i);float b=hash(i+vec2(1.,0.));float c=hash(i+vec2(0.,1.));float d=hash(i+vec2(1.,1.));',
+      '  return mix(mix(a,b,f.x),mix(c,d,f.x),f.y);',
+      '}',
+      'float mistH(vec2 p,float t,float amp,float storm){',
+      '  float h=0.0;',
+      '  vec2 s1=normalize(vec2(1.0,0.22));',
+      '  vec2 s2=normalize(vec2(-0.5,0.85));',
+      '  vec2 s3=normalize(vec2(0.78,-0.2));',
+      '  s2=rot(storm*0.16)*s2;s3=rot(-storm*0.12)*s3;',
+      '  h+=amp*0.62*sin(dot(p,s1)*0.40+t*0.30);',
+      '  h+=amp*0.24*sin(dot(p,s1)*0.9-t*0.55);',
+      '  h+=amp*0.15*sin(dot(p,s2)*1.2-t*0.72);',
+      '  h+=amp*0.10*sin(dot(p,s3)*1.8+t*0.95);',
+      '  h+=amp*(0.10+storm*0.05)*sin(p.x*1.4-t*0.66+p.y*0.6);',
+      '  h+=amp*(0.05+storm*0.04)*sin(p.x*2.7+t*0.9-p.y*0.5);',
+      '  float m=(noise(p*9.0+vec2(t*0.15,t*0.05))-0.5);',
+      '  h+=m*amp*(0.012+storm*0.006);',
+      '  return h;',
+      '}',
+      'vec3 mistNorm(vec2 p,float t,float amp,float storm){',
+      '  float e=0.02;',
+      '  float hL=mistH(p-vec2(e,0.),t,amp,storm);',
+      '  float hR=mistH(p+vec2(e,0.),t,amp,storm);',
+      '  float hD=mistH(p-vec2(0.,e),t,amp,storm);',
+      '  float hU=mistH(p+vec2(0.,e),t,amp,storm);',
+      '  return normalize(vec3(-(hR-hL)/(2.*e),1.,-(hU-hD)/(2.*e)));',
+      '}',
+      'float starField(vec2 uv){',
+      '  vec2 gv=floor(uv);vec2 lv=fract(uv)-0.5;',
+      '  float h=hash(gv);',
+      '  float size=mix(0.012,0.0025,h);',
+      '  float d=length(lv+vec2(hash(gv+3.1)-0.5,hash(gv+7.3)-0.5)*0.25);',
+      '  float star=smoothstep(size,0.0,d);',
+      '  star*=smoothstep(0.82,1.0,h);',
+      '  return star;',
+      '}',
+      'void main(){',
+      '  vec2 uv=(gl_FragCoord.xy-uR*0.5)/uR.y;',
+      '  float s=sm(uS);',
+      '  float camY=mix(1.12,1.01,s)+sin(s*PI*1.3)*0.03;',
+      '  float pitch=mix(0.11,0.085,s);',
+      '  vec3 ro=vec3(0.0,camY,0.0);',
+      '  vec3 rd=normalize(vec3(uv.x,uv.y-pitch,-1.4));',
+      '  float storm=smoothstep(0.82,1.0,s);',
+      '  float night=smoothstep(0.58,0.86,s);',
+      '  vec3 skyTop=scol(vec3(0.58,0.66,0.62),vec3(0.44,0.62,0.66),vec3(0.85,0.55,0.30),vec3(0.04,0.06,0.12),vec3(0.18,0.22,0.26));',
+      '  vec3 skyHori=scol(vec3(0.88,0.90,0.86),vec3(0.76,0.86,0.82),vec3(0.97,0.72,0.42),vec3(0.06,0.09,0.16),vec3(0.42,0.46,0.48));',
+      '  vec3 sunCol=scol(vec3(1.0,0.92,0.72),vec3(1.0,0.97,0.86),vec3(1.0,0.62,0.22),vec3(0.7,0.75,0.94),vec3(0.3,0.32,0.36));',
+      '  vec3 valleyDeep=scol(vec3(0.30,0.38,0.32),vec3(0.24,0.42,0.40),vec3(0.42,0.28,0.16),vec3(0.03,0.05,0.09),vec3(0.14,0.17,0.19));',
+      '  vec3 valleyShlo=scol(vec3(0.58,0.64,0.56),vec3(0.52,0.70,0.66),vec3(0.72,0.55,0.34),vec3(0.06,0.09,0.15),vec3(0.30,0.34,0.36));',
+      '  vec3 fogCol=scol(vec3(0.88,0.90,0.87),vec3(0.80,0.88,0.84),vec3(0.95,0.78,0.55),vec3(0.05,0.07,0.12),vec3(0.45,0.48,0.50));',
+      '  float sunP=clamp(s/0.6,0.0,1.0);',
+      '  float sunA=sunP*PI;',
+      '  vec3 sunDir=normalize(vec3(cos(sunA)*-0.75,sin(sunA)*0.38-0.06,-1.0));',
+      '  vec3 moonDir=normalize(vec3(-0.14,0.42,-1.0));',
+      '  float amp=sval(0.09,0.075,0.11,0.06,0.32)+storm*0.02;',
+      '  float fogDen=sval(0.026,0.014,0.028,0.040,0.05);',
+      '  float moonAmt=sval(0.0,0.0,0.05,0.92,0.07);',
+      '  float sunAbove=step(0.0,sunDir.y);',
+      '  float sunGlow=smoothstep(-0.10,0.06,sunDir.y);',
+      '  vec3 col;',
+      '  if(rd.y<0.0){',
+      '    float tFlat=ro.y/(-rd.y);',
+      '    float stepSize=tFlat/22.0;',
+      '    float t=stepSize;',
+      '    for(int i=0;i<22;i++){',
+      '      vec2 wpTest=ro.xz+rd.xz*t;',
+      '      if(ro.y+rd.y*t<mistH(wpTest,uT,amp,storm))break;',
+      '      t+=stepSize;',
+      '    }',
+      '    float ta=t-stepSize;float tb=t;',
+      '    for(int i=0;i<5;i++){',
+      '      float tm=(ta+tb)*0.5;',
+      '      vec2 wpm=ro.xz+rd.xz*tm;',
+      '      if(ro.y+rd.y*tm<mistH(wpm,uT,amp,storm))tb=tm;else ta=tm;',
+      '    }',
+      '    t=(ta+tb)*0.5;',
+      '    vec2 wp=ro.xz+rd.xz*t;',
+      '    vec3 n=mistNorm(wp,uT,amp,storm);',
+      '    vec3 vDir=-rd;',
+      '    float fres=pow(1.0-clamp(dot(n,vDir),0.0,1.0),4.0);',
+      '    vec3 refl=reflect(rd,n);',
+      '    float rh=clamp(refl.y,0.0,1.0);',
+      '    vec3 reflSky=mix(skyHori,skyTop,pow(rh,0.42));',
+      '    float rSun=max(dot(refl,sunDir),0.0);',
+      '    reflSky+=sunCol*pow(rSun,120.0)*2.0*sunGlow;',
+      '    reflSky+=sunCol*pow(rSun,18.0)*0.07*sunGlow;',
+      '    if(moonAmt>0.04){float rMoon=max(dot(refl,moonDir),0.0);reflSky+=vec3(0.72,0.80,0.95)*pow(rMoon,120.0)*0.78*moonAmt;}',
+      '    float depth=exp(-t*0.4);',
+      '    vec3 valleyC=mix(valleyDeep,valleyShlo,depth*0.5);',
+      '    col=mix(valleyC,reflSky,0.12+fres*0.3);',
+      '    float spec=pow(max(dot(reflect(-sunDir,n),vDir),0.0),200.0);',
+      '    col+=sunCol*spec*1.0*sunAbove;',
+      '    float sunLine=pow(max(dot(reflect(rd,n),sunDir),0.0),8.0);',
+      '    col+=sunCol*sunLine*0.45*smoothstep(0.0,0.35,-rd.y)*sunGlow;',
+      '    if(moonAmt>0.04){float mSpec=pow(max(dot(reflect(-moonDir,n),vDir),0.0),520.0);col+=vec3(0.72,0.80,0.95)*mSpec*0.09*moonAmt;}',
+      '    float hC=mistH(wp,uT,amp,storm);',
+      '    float hL=mistH(wp-vec2(0.025,0.),uT,amp,storm);',
+      '    float hR=mistH(wp+vec2(0.025,0.),uT,amp,storm);',
+      '    float hD=mistH(wp-vec2(0.,0.025),uT,amp,storm);',
+      '    float hU=mistH(wp+vec2(0.,0.025),uT,amp,storm);',
+      '    float curv=hR+hL+hU+hD-4.0*hC;',
+      '    float foam=clamp(curv*(20.0+storm*8.0),0.0,1.0);',
+      '    col+=fogCol*foam*(0.06+storm*0.10);',
+      '    float fog=1.0-exp(-t*fogDen*1.6);',
+      '    col=mix(col,fogCol,fog);',
+      '  }else{',
+      '    float h=clamp(rd.y,0.0,1.0);',
+      '    col=mix(skyHori,skyTop,pow(h,0.38));',
+      '    float cloudBand=noise(rd.x*5.5+vec2(rd.y*3.0,uT*0.012));',
+      '    float cloudBand2=noise(rd.x*8.0-vec2(rd.y*4.0,uT*0.008));',
+      '    float clouds=smoothstep(0.60,0.85,cloudBand*0.65+cloudBand2*0.35);',
+      '    clouds*=smoothstep(-0.02,0.24,rd.y);',
+      '    clouds*=0.08+storm*0.2;',
+      '    vec3 cloudCol=mix(vec3(1.0,0.96,0.86),vec3(0.45,0.5,0.55),storm);',
+      '    col=mix(col,mix(col*0.97,cloudCol,0.35),clouds);',
+      '    float sd=max(dot(rd,sunDir),0.0);',
+      '    col+=sunCol*pow(sd,380.0)*6.0*sunGlow;',
+      '    col+=sunCol*pow(sd,22.0)*0.18*sunGlow;',
+      '    float sunDisk=smoothstep(0.99925,0.99995,dot(rd,sunDir));',
+      '    col+=sunCol*sunDisk*2.4*sunGlow;',
+      '    float horizonBand=exp(-abs(rd.y)*24.0);',
+      '    col+=sunCol*horizonBand*0.10*sunGlow;',
+      '    if(moonAmt>0.04){',
+      '      float md=max(dot(rd,moonDir),0.0);',
+      '      col+=vec3(0.88,0.92,1.0)*pow(md,820.0)*7.0*moonAmt;',
+      '      col+=vec3(0.88,0.92,1.0)*pow(md,6.0)*0.04*moonAmt;',
+      '    }',
+      '    if(night>0.02){',
+      '      vec2 starUv=rd.xy/max(0.12,rd.z+1.6);',
+      '      starUv*=140.0;',
+      '      float stars=starField(starUv)+starField(starUv*0.55+11.7)*0.65;',
+      '      stars*=smoothstep(0.02,0.26,rd.y);',
+      '      stars*=(1.0-storm*0.85);',
+      '      col+=vec3(0.82,0.9,1.0)*stars*night*0.8;',
+      '    }',
+      '    float horizonMist=exp(-abs(rd.y)*mix(38.0,22.0,storm));',
+      '    col+=fogCol*horizonMist*(0.10+storm*0.10);',
+      '  }',
+      '  float grain=hash(gl_FragCoord.xy*0.5+floor(uT*12.0))-0.5;',
+      '  col+=grain*0.005;',
+      '  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);',
+      '}'
+    ].join('\n');
+
+    function mk(type, src) {
+      var sh = gl.createShader(type);
+      gl.shaderSource(sh, src);
+      gl.compileShader(sh);
+      if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) { console.error(gl.getShaderInfoLog(sh)); gl.deleteShader(sh); return null; }
+      return sh;
+    }
+    var vert = mk(gl.VERTEX_SHADER, vs);
+    var frag = mk(gl.FRAGMENT_SHADER, fs);
+    if (!vert || !frag) { canvas.style.display = 'none'; return; }
+    var prog = gl.createProgram();
+    gl.attachShader(prog, vert);
+    gl.attachShader(prog, frag);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.error(gl.getProgramInfoLog(prog)); canvas.style.display = 'none'; return; }
+    gl.useProgram(prog);
+
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    var ap = gl.getAttribLocation(prog, 'a');
+    gl.enableVertexAttribArray(ap);
+    gl.vertexAttribPointer(ap, 2, gl.FLOAT, false, 0, 0);
+
+    var uR = gl.getUniformLocation(prog, 'uR');
+    var uTi = gl.getUniformLocation(prog, 'uT');
+    var uSc = gl.getUniformLocation(prog, 'uS');
+
+    var stage = canvas.parentElement;
+    var stageTop = 0, stageH = 1;
+    var targetS = 0, smoothS = 0;
+
+    function measure() {
+      var r = stage.getBoundingClientRect();
+      stageTop = r.top + window.scrollY;
+      stageH = r.height || 1;
+      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      var w = Math.max(1, Math.round(stage.clientWidth * dpr));
+      var h = Math.max(1, Math.round(stage.clientHeight * dpr));
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w; canvas.height = h;
+        gl.viewport(0, 0, w, h);
+        gl.uniform2f(uR, w, h);
+      }
+    }
+    function updateScroll() {
+      var vh = window.innerHeight;
+      /* 0 = stage enters viewport bottom, 1 = stage leaves viewport top */
+      var p = (window.scrollY + vh - stageTop) / (vh + stageH);
+      targetS = Math.min(1, Math.max(0, p));
+    }
+    measure();
+    updateScroll();
+    window.addEventListener('resize', function () { measure(); });
+    window.addEventListener('scroll', updateScroll, { passive: true });
+
+    var t0 = performance.now();
+    var running = true;
+    var visible = false;
+    if (typeof IntersectionObserver !== 'undefined') {
+      var io = new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+      }, { threshold: 0 });
+      io.observe(stage);
+    } else { visible = true; }
+
+    function frame(now) {
+      if (running) requestAnimationFrame(frame);
+      if (!visible && !reduce) return;
+      smoothS += (targetS - smoothS) * 0.08;
+      if (reduce) smoothS = targetS;
+      gl.uniform1f(uTi, (now - t0) / 1000);
+      gl.uniform1f(uSc, smoothS);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+    if (reduce) {
+      updateScroll();
+      frame(performance.now());
+      running = false;
+    } else {
+      running = true;
+      requestAnimationFrame(frame);
+    }
   })();
 
   /* ── MAGOME-JUKU KEN BURNS SLIDER ── */
